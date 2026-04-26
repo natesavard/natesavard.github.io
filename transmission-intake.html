@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="color-scheme" content="dark" />
+  <title>Transmission Intake // Nate's World</title>
+  <link rel="stylesheet" href="site-flow.css" />
+  <style>
+    :root {
+      --bg: #040507;
+      --panel: rgba(9, 12, 20, 0.86);
+      --line: rgba(255, 216, 107, 0.16);
+      --gold: #ffd86b;
+      --blue: #8ed6ff;
+      --text: #f5efdf;
+      --muted: #b7bfd0;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background:
+        radial-gradient(circle at 18% 18%, rgba(255,216,107,0.08), transparent 22%),
+        radial-gradient(circle at 82% 18%, rgba(142,214,255,0.08), transparent 22%),
+        linear-gradient(180deg, rgba(5,7,12,1), rgba(1,2,5,1));
+      color: var(--text);
+      font-family: Arial, Helvetica, sans-serif;
+    }
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background: repeating-linear-gradient(to bottom, rgba(255,255,255,0.018) 0px, rgba(255,255,255,0.018) 1px, transparent 2px, transparent 4px);
+      opacity: 0.18;
+      mix-blend-mode: screen;
+    }
+    .page {
+      width: min(1120px, calc(100% - 36px));
+      margin: 0 auto;
+      padding: 86px 0 92px;
+    }
+    .hero, .panel {
+      border: 1px solid var(--line);
+      border-radius: 28px;
+      background:
+        radial-gradient(circle at top left, rgba(255,216,107,0.07), transparent 28%),
+        radial-gradient(circle at top right, rgba(142,214,255,0.07), transparent 22%),
+        linear-gradient(180deg, var(--panel), rgba(4,6,10,0.92));
+      box-shadow: 0 20px 70px rgba(0,0,0,0.42);
+    }
+    .hero {
+      padding: 34px 30px 28px;
+      margin-bottom: 24px;
+      position: relative;
+      overflow: hidden;
+    }
+    .eyebrow, .section-kicker, .ritual-label, .lore-glyph {
+      font-family: "Courier New", monospace;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+    }
+    .eyebrow {
+      color: var(--gold);
+      font-size: 12px;
+      margin-bottom: 12px;
+    }
+    h1 {
+      margin: 0 0 12px;
+      font-size: clamp(2.4rem, 7vw, 5.1rem);
+      line-height: 0.94;
+      text-transform: uppercase;
+    }
+    .hero-copy {
+      max-width: 860px;
+      color: #e6dfd1;
+      font-size: 1.05rem;
+      line-height: 1.75;
+      margin: 0 0 18px;
+    }
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .hero-actions a, .submit-btn {
+      display: inline-block;
+      border-radius: 999px;
+      border: 1px solid rgba(255,216,107,0.24);
+      background: rgba(255,216,107,0.08);
+      color: #f8efdc;
+      text-decoration: none;
+      padding: 12px 18px;
+      transition: 0.2s ease;
+    }
+    .hero-actions a:hover, .submit-btn:hover, .lore-glyph:hover, .ritual-link:hover {
+      transform: translateY(-1px);
+      background: rgba(255,216,107,0.16);
+      border-color: rgba(255,216,107,0.36);
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 24px;
+    }
+    .panel {
+      padding: 26px 22px;
+    }
+    .section-kicker {
+      color: var(--blue);
+      font-size: 11px;
+      margin-bottom: 12px;
+    }
+    .ritual-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+    .ritual-field {
+      display: grid;
+      gap: 8px;
+    }
+    .ritual-field.wide {
+      grid-column: 1 / -1;
+    }
+    .ritual-label {
+      color: #d7d8dc;
+      font-size: 10px;
+    }
+    input, textarea, select {
+      width: 100%;
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,0.08);
+      background: rgba(255,255,255,0.03);
+      color: var(--text);
+      padding: 14px 16px;
+      font: inherit;
+      outline: none;
+    }
+    textarea { min-height: 170px; resize: vertical; }
+    .ritual-actions {
+      margin-top: 18px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      align-items: center;
+    }
+    .submit-btn {
+      appearance: none;
+      font: inherit;
+      cursor: pointer;
+    }
+    .ritual-link {
+      color: #ffe9b3;
+      text-decoration: none;
+      border-bottom: 1px solid rgba(255,216,107,0.26);
+      padding-bottom: 2px;
+    }
+    .ritual-note {
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.7;
+      margin: 0 0 16px;
+    }
+    .ritual-steps {
+      display: grid;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+    .ritual-step {
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 18px;
+      padding: 14px;
+      background: rgba(255,255,255,0.03);
+    }
+    .ritual-step strong {
+      display: block;
+      color: #fff0cb;
+      margin-bottom: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-size: 12px;
+    }
+    .glyph-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 16px;
+    }
+    .lore-glyph {
+      appearance: none;
+      border: 1px solid rgba(255,216,107,0.18);
+      background: rgba(255,216,107,0.08);
+      color: var(--gold);
+      border-radius: 999px;
+      padding: 10px 14px;
+      cursor: pointer;
+    }
+    .lore-glyph-note {
+      margin-top: 12px;
+      display: none;
+      border: 1px solid rgba(142,214,255,0.16);
+      border-radius: 18px;
+      padding: 14px;
+      background: rgba(142,214,255,0.05);
+      color: #dbe6f0;
+      line-height: 1.7;
+    }
+    .lore-glyph-note.is-open { display: block; }
+    @media (max-width: 920px) {
+      .grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 640px) {
+      .page { width: min(100% - 16px, 100%); padding-top: 74px; }
+      .hero, .panel { border-radius: 22px; }
+      .ritual-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <section class="hero">
+      <div class="eyebrow">[ transmission intake // commission ritual online ]</div>
+      <h1>Custom Piece<br>Intake</h1>
+      <p class="hero-copy">This is the private route for serious custom work. Send the metal, stone, symbolism, mood, life chapter, and budget so the piece can be shaped with clarity. This should feel less like shopping and more like opening a channel.</p>
+      <div class="hero-actions">
+        <a href="nlxblackbox.html">enter the sage</a>
+        <a href="transmissions.html">open transmissions</a>
+        <a href="legend-file.html">read legend file</a>
+      </div>
+    </section>
+
+    <section class="grid">
+      <article class="panel">
+        <div class="section-kicker">collector ritual //</div>
+        <form id="ritualForm">
+          <div class="ritual-grid">
+            <div class="ritual-field"><label class="ritual-label" for="name">name / alias</label><input id="name" name="name" type="text" placeholder="name / alias" /></div>
+            <div class="ritual-field"><label class="ritual-label" for="email">email</label><input id="email" name="email" type="email" placeholder="email" /></div>
+            <div class="ritual-field"><label class="ritual-label" for="metal">metal</label><input id="metal" name="metal" type="text" placeholder="14k / 18k / 23k / silver 925" /></div>
+            <div class="ritual-field"><label class="ritual-label" for="stone">stone</label><input id="stone" name="stone" type="text" placeholder="sapphire / opal / ruby / emerald" /></div>
+            <div class="ritual-field"><label class="ritual-label" for="symbolism">symbolism</label><input id="symbolism" name="symbolism" type="text" placeholder="protection / legacy / rebirth / signal" /></div>
+            <div class="ritual-field"><label class="ritual-label" for="mood">mood</label><input id="mood" name="mood" type="text" placeholder="royal / underground / clean / dangerous" /></div>
+            <div class="ritual-field"><label class="ritual-label" for="lifeChapter">life chapter</label><input id="lifeChapter" name="lifeChapter" type="text" placeholder="what era are you in right now?" /></div>
+            <div class="ritual-field"><label class="ritual-label" for="budget">budget</label><input id="budget" name="budget" type="text" placeholder="budget range" /></div>
+            <div class="ritual-field wide"><label class="ritual-label" for="direction">direction</label><textarea id="direction" name="direction" placeholder="tell me what moves you, what you want the piece to say, and what energy it needs to carry"></textarea></div>
+          </div>
+          <div class="ritual-actions">
+            <button class="submit-btn" type="submit">open direct commission email</button>
+            <a class="ritual-link" href="mailto:natesavard@outlook.com?subject=Custom%20Commission%20Inquiry">email Nate raw</a>
+          </div>
+        </form>
+      </article>
+
+      <aside class="panel">
+        <div class="section-kicker">forged route //</div>
+        <p class="ritual-note">This intake is for collectors, artists, operators, and people who want a piece to mark a real life chapter. The strongest pieces usually start with one clear mood and one truthful symbol.</p>
+        <div class="ritual-steps">
+          <div class="ritual-step"><strong>1 // signal</strong>Send the emotional direction, life chapter, and symbolism before worrying about perfection.</div>
+          <div class="ritual-step"><strong>2 // material</strong>We shape the piece through 14k, 18k, 23k, or silver 925 and pair the right stone to the energy it needs to hold.</div>
+          <div class="ritual-step"><strong>3 // placement</strong>The final object should feel like an artifact, not just an accessory.</div>
+        </div>
+        <div class="glyph-row">
+          <button class="lore-glyph" type="button" data-lore-glyph="intakeNoteOne">metal logic</button>
+          <button class="lore-glyph" type="button" data-lore-glyph="intakeNoteTwo">stone code</button>
+          <button class="lore-glyph" type="button" data-lore-glyph="intakeNoteThree">legacy line</button>
+        </div>
+        <div class="lore-glyph-note" id="intakeNoteOne">Metal changes the authority of a piece. Here the language is clean: 14k, 18k, 23k, or silver 925. Each one carries a different weight, temperature, and level of force.</div>
+        <div class="lore-glyph-note" id="intakeNoteTwo">Stone choice is not decoration here. Sapphire and opal are the heart of the signal, with ruby and emerald available when the piece wants a different kind of force. The right stone should feel like it already belonged to the story before the piece was even made.</div>
+        <div class="lore-glyph-note" id="intakeNoteThree">The best commissions are not trend-driven. They become life markers that hold a chapter, a vow, or a private victory.</div>
+      </aside>
+    </section>
+  </main>
+  <script>
+    document.getElementById('ritualForm').addEventListener('submit', function (event) {
+      event.preventDefault();
+      const formData = new FormData(event.currentTarget);
+      const name = (formData.get('name') || '').toString().trim() || 'private collector';
+      const lines = [
+        'Custom Commission Intake',
+        '',
+        'Name / alias: ' + name,
+        'Email: ' + ((formData.get('email') || '').toString().trim() || 'not included'),
+        'Metal: ' + ((formData.get('metal') || '').toString().trim() || 'open'),
+        'Stone: ' + ((formData.get('stone') || '').toString().trim() || 'open'),
+        'Symbolism: ' + ((formData.get('symbolism') || '').toString().trim() || 'open'),
+        'Mood: ' + ((formData.get('mood') || '').toString().trim() || 'open'),
+        'Life chapter: ' + ((formData.get('lifeChapter') || '').toString().trim() || 'open'),
+        'Budget: ' + ((formData.get('budget') || '').toString().trim() || 'open'),
+        '',
+        'Direction:',
+        ((formData.get('direction') || '').toString().trim() || 'No extra direction yet.')
+      ];
+      const subject = encodeURIComponent('Transmission Intake // ' + name);
+      const body = encodeURIComponent(lines.join('\n'));
+      window.location.href = 'mailto:natesavard@outlook.com?subject=' + subject + '&body=' + body;
+    });
+  </script>
+  <script src="site-flow.js"></script>
+</body>
+</html>

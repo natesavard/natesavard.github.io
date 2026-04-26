@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="color-scheme" content="dark" />
+  <title>Horus Defense</title>
+  <style>
+    :root { --bg:#040507; --panel:rgba(7,11,16,.88); --gold:#ffd86b; --blue:#8ed6ff; --text:#f5efdf; --muted:#c6cfdd; --green:#70ffbe; }
+    * { box-sizing:border-box; }
+    html,body { margin:0; padding:0; min-height:100%; background:var(--bg); color:var(--text); font-family:Arial,Helvetica,sans-serif; }
+    body { background:radial-gradient(circle at 18% 14%, rgba(112,255,190,.08), transparent 18%), radial-gradient(circle at 82% 18%, rgba(142,214,255,.08), transparent 20%), linear-gradient(180deg, rgba(4,5,7,.98), rgba(2,2,4,1)); }
+    .page { width:min(1140px, calc(100% - 36px)); margin:0 auto; padding:76px 0 92px; }
+    .hero,.shell { border:1px solid rgba(112,255,190,.18); border-radius:24px; background:linear-gradient(180deg, var(--panel), rgba(5,8,12,.94)); box-shadow:0 20px 64px rgba(0,0,0,.42), inset 0 0 20px rgba(255,255,255,.02); }
+    .hero { padding:28px 26px 24px; margin-bottom:24px; }
+    .kicker,.stats,.hint { font-family:"Courier New", monospace; letter-spacing:.18em; text-transform:uppercase; font-size:11px; }
+    .kicker { color:var(--green); margin-bottom:10px; }
+    h1 { margin:0 0 10px 0; font-size:clamp(34px, 7vw, 70px); line-height:.94; }
+    .copy { margin:0; color:var(--muted); line-height:1.78; font-size:14px; max-width:760px; }
+    .hero-links { display:flex; flex-wrap:wrap; gap:12px; margin-top:18px; }
+    .hero-links a,button { display:inline-block; padding:11px 16px; border:1px solid rgba(112,255,190,.18); color:var(--green); background:rgba(112,255,190,.08); text-decoration:none; font-size:11px; letter-spacing:.18em; text-transform:uppercase; transition:all .22s ease; cursor:pointer; }
+    .hero-links a:hover,button:hover { transform:translateY(-1px); background:rgba(112,255,190,.14); }
+    .shell { padding:20px; }
+    .topline { display:flex; flex-wrap:wrap; justify-content:space-between; gap:12px; margin-bottom:16px; }
+    .stats { color:var(--green); }
+    .hint { color:rgba(255,255,255,.5); }
+    canvas { display:block; width:100%; max-width:960px; aspect-ratio:16 / 9; margin:0 auto; border:1px solid rgba(255,255,255,.08); border-radius:18px; background:linear-gradient(180deg, rgba(3,4,8,.98), rgba(10,12,16,.96)); box-shadow:inset 0 0 18px rgba(255,255,255,.02); }
+    .controls { margin-top:16px; display:flex; justify-content:center; }
+  </style>
+  <link rel="stylesheet" href="site-flow.css" />
+</head>
+<body>
+  <main class="page">
+    <section class="hero">
+      <div class="kicker">[ arcade node 003 // horus defense ]</div>
+      <h1>Horus Defense</h1>
+      <p class="copy">Move the shield left and right with arrow keys or A/D. Deflect incoming threats away from the core and keep the guardian field intact.</p>
+      <div class="hero-links"><a href="arcade.html">return to arcade</a><a href="signal-pong.html">back to pong</a></div>
+    </section>
+    <section class="shell">
+      <div class="topline"><div class="stats" id="defenseStats">blocks // 0 | integrity // 5 | best // 0</div><div class="hint">arrow keys or a / d // defend the core</div></div>
+      <canvas id="defenseCanvas" width="960" height="540"></canvas>
+      <div class="controls"><button id="defenseReset" type="button">reset defense</button></div>
+    </section>
+  </main>
+  <script>
+    (() => {
+      const canvas = document.getElementById('defenseCanvas'); const ctx = canvas.getContext('2d'); const stats = document.getElementById('defenseStats'); const reset = document.getElementById('defenseReset'); const keys = {}; let best = Number(localStorage.getItem('horus_defense_best') || 0); let core, shield, threats, stars, blocks, integrity, tick;
+      function init() { core = { x: canvas.width / 2, y: canvas.height / 2, r: 28 }; shield = { angle: 0, dist: 86, width: Math.PI / 4 }; threats = []; stars = Array.from({ length: 70 }, () => ({ x: Math.random() * canvas.width, y: Math.random() * canvas.height, s: Math.random() * 2 + 1 })); blocks = 0; integrity = 5; tick = 0; }
+      function spawnThreat() { const side = Math.floor(Math.random() * 4); let x = 0, y = 0; if (side === 0) { x = Math.random() * canvas.width; y = -20; } if (side === 1) { x = canvas.width + 20; y = Math.random() * canvas.height; } if (side === 2) { x = Math.random() * canvas.width; y = canvas.height + 20; } if (side === 3) { x = -20; y = Math.random() * canvas.height; } const angle = Math.atan2(core.y - y, core.x - x); threats.push({ x, y, vx: Math.cos(angle) * (1.8 + Math.random() * 1.2), vy: Math.sin(angle) * (1.8 + Math.random() * 1.2), r: 10 + Math.random() * 6 }); }
+      function update() {
+        if (keys['arrowleft'] || keys['a']) shield.angle -= 0.08; if (keys['arrowright'] || keys['d']) shield.angle += 0.08;
+        stars.forEach((star) => { star.y += star.s * 0.2; if (star.y > canvas.height) star.y = -4; });
+        tick += 1; if (tick > 24) { spawnThreat(); tick = 0; }
+        threats.forEach((threat) => { threat.x += threat.vx; threat.y += threat.vy; const dx = threat.x - core.x; const dy = threat.y - core.y; const dist = Math.sqrt(dx * dx + dy * dy); const angle = Math.atan2(dy, dx); let diff = Math.atan2(Math.sin(angle - shield.angle), Math.cos(angle - shield.angle)); if (dist < shield.dist + 12 && dist > shield.dist - 12 && Math.abs(diff) < shield.width / 2) { threat.hit = true; blocks += 1; best = Math.max(best, blocks); localStorage.setItem('horus_defense_best', String(best)); } else if (dist < core.r + threat.r) { threat.hit = true; integrity -= 1; } });
+        threats = threats.filter((threat) => !threat.hit); if (integrity <= 0) init(); stats.textContent = `blocks // ${blocks} | integrity // ${integrity} | best // ${best}`;
+      }
+      function drawShield() { ctx.save(); ctx.translate(core.x, core.y); ctx.strokeStyle = '#70ffbe'; ctx.lineWidth = 10; ctx.shadowColor = 'rgba(112,255,190,0.5)'; ctx.shadowBlur = 20; ctx.beginPath(); ctx.arc(0, 0, shield.dist, shield.angle - shield.width / 2, shield.angle + shield.width / 2); ctx.stroke(); ctx.restore(); }
+      function draw() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height); ctx.fillStyle = '#05070a'; ctx.fillRect(0, 0, canvas.width, canvas.height);
+        stars.forEach((star) => { ctx.fillStyle = `rgba(255,255,255,${0.18 + star.s * 0.18})`; ctx.fillRect(star.x, star.y, star.s, star.s); });
+        ctx.beginPath(); ctx.arc(core.x, core.y, core.r, 0, Math.PI * 2); ctx.fillStyle = '#8ed6ff'; ctx.shadowColor = 'rgba(142,214,255,0.4)'; ctx.shadowBlur = 26; ctx.fill(); ctx.shadowBlur = 0; drawShield();
+        threats.forEach((threat) => { ctx.beginPath(); ctx.arc(threat.x, threat.y, threat.r, 0, Math.PI * 2); ctx.fillStyle = '#ffd86b'; ctx.fill(); });
+      }
+      function loop() { update(); draw(); requestAnimationFrame(loop); }
+      window.addEventListener('keydown', (e) => { keys[e.key.toLowerCase()] = true; }); window.addEventListener('keyup', (e) => { keys[e.key.toLowerCase()] = false; }); reset.addEventListener('click', init); init(); loop();
+    })();
+  </script>
+  <script src="site-flow.js"></script>
+</body>
+</html>

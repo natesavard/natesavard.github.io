@@ -1,0 +1,28 @@
+<svg width="900" height="250" viewBox="0 0 900 250" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="hxGreen" x1="160" y1="22" x2="760" y2="210" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#D8FFF0"/>
+      <stop offset="0.34" stop-color="#7EFFC8"/>
+      <stop offset="0.7" stop-color="#1BD79B"/>
+      <stop offset="1" stop-color="#0B8C68"/>
+    </linearGradient>
+    <linearGradient id="hxSoft" x1="240" y1="52" x2="664" y2="192" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#C9FFF2"/>
+      <stop offset="1" stop-color="#89FFE5" stop-opacity="0.16"/>
+    </linearGradient>
+    <filter id="hxGlow" x="20" y="0" width="860" height="250" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feGaussianBlur stdDeviation="10" result="blur"/>
+      <feColorMatrix in="blur" type="matrix" values="0 0 0 0 0.05  0 1 0 0 0.55  0 0 0 0 0.32  0 0 0 1 0" result="glow"/>
+      <feBlend in="SourceGraphic" in2="glow" mode="screen"/>
+    </filter>
+  </defs>
+  <g filter="url(#hxGlow)">
+    <text x="450" y="40" text-anchor="middle" fill="#9EF6DA" font-family="Courier New, monospace" font-size="18" letter-spacing="10">GUARDIAN GATE</text>
+    <text x="450" y="136" text-anchor="middle" fill="url(#hxGreen)" font-family="Georgia, 'Times New Roman', serif" font-size="82" font-weight="700" letter-spacing="7">NATE'S WORLD</text>
+    <path d="M186 172H714" stroke="url(#hxGreen)" stroke-width="3" stroke-linecap="round"/>
+    <path d="M254 188H646" stroke="url(#hxSoft)" stroke-width="2" stroke-linecap="round" opacity="0.92"/>
+    <text x="450" y="228" text-anchor="middle" fill="#CFFFF0" font-family="Courier New, monospace" font-size="22" letter-spacing="8">PROTECTION ACTIVE</text>
+    <path d="M138 42L144 56L158 62L144 68L138 82L132 68L118 62L132 56L138 42Z" fill="#AAFFDA"/>
+    <path d="M762 30L769 46L785 52L769 58L762 74L755 58L739 52L755 46L762 30Z" fill="#93FFE0"/>
+  </g>
+</svg>

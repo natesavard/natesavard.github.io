@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="color-scheme" content="dark" />
+  <title>Field Notes // Nate's World</title>
+  <link rel="stylesheet" href="site-flow.css" />
+  <style>
+    :root { --bg:#040507; --panel:rgba(8,11,16,0.84); --gold:#ffd86b; --blue:#8ed6ff; --text:#f5efdf; --muted:#b7bfd0; }
+    * { box-sizing:border-box; }
+    body { margin:0; min-height:100vh; background:radial-gradient(circle at 14% 18%, rgba(255,216,107,0.08), transparent 18%), radial-gradient(circle at 82% 16%, rgba(142,214,255,0.08), transparent 20%), linear-gradient(180deg, rgba(5,6,10,0.98), rgba(2,2,3,1)); color:var(--text); font-family:Arial, Helvetica, sans-serif; }
+    body::before { content:""; position:fixed; inset:0; pointer-events:none; background:repeating-linear-gradient(to bottom, rgba(255,255,255,0.018) 0px, rgba(255,255,255,0.018) 1px, transparent 2px, transparent 4px); opacity:0.16; mix-blend-mode:screen; }
+    .page { width:min(1120px, calc(100% - 36px)); margin:0 auto; padding:84px 0 92px; }
+    .hero, .note-card, .glyph-card { border:1px solid rgba(255,216,107,0.16); border-radius:26px; background:radial-gradient(circle at top left, rgba(255,216,107,0.08), transparent 24%), linear-gradient(180deg, var(--panel), rgba(4,5,9,0.92)); box-shadow:0 20px 64px rgba(0,0,0,0.42); }
+    .hero { padding:34px 30px 28px; margin-bottom:24px; }
+    .eyebrow, .city-tag, .lore-glyph { font-family:"Courier New", monospace; letter-spacing:0.18em; text-transform:uppercase; }
+    .eyebrow { color:var(--gold); font-size:12px; margin-bottom:10px; }
+    h1 { margin:0 0 12px; font-size:clamp(2.4rem, 7vw, 5rem); line-height:0.96; text-transform:uppercase; }
+    .hero-copy { max-width:820px; margin:0; color:#ddd7c9; line-height:1.8; }
+    .notes-grid { display:grid; grid-template-columns:repeat(2, minmax(0, 1fr)); gap:22px; }
+    .note-card { padding:22px 20px; }
+    .city-tag { color:var(--blue); font-size:10px; margin-bottom:10px; }
+    .note-card h2 { margin:0 0 10px; font-size:1.5rem; color:#fff1cf; }
+    .note-card p { margin:0; color:#e3dbce; line-height:1.78; }
+    .glyph-zone { margin-top:24px; }
+    .glyph-row { display:flex; flex-wrap:wrap; gap:10px; margin-bottom:12px; }
+    .lore-glyph { appearance:none; border:1px solid rgba(255,216,107,0.22); background:rgba(255,216,107,0.08); color:var(--gold); border-radius:999px; padding:10px 14px; cursor:pointer; }
+    .glyph-card { display:none; padding:18px; color:#dbe5ee; line-height:1.75; }
+    .glyph-card.is-open { display:block; }
+    .secret-reveal {
+      display:none;
+      margin-top:14px;
+      border:1px solid rgba(255,216,107,0.18);
+      border-radius:22px;
+      padding:18px;
+      background:rgba(255,216,107,0.06);
+      color:#f2e7d4;
+      line-height:1.75;
+    }
+    .secret-reveal.is-open { display:block; }
+    .secret-reveal a {
+      color:#fff1ba;
+      text-decoration:none;
+      border-bottom:1px solid rgba(255,216,107,0.32);
+      padding-bottom:2px;
+    }
+    .hero-actions { margin-top:18px; display:flex; flex-wrap:wrap; gap:12px; }
+    .hero-actions a { display:inline-block; border-radius:999px; border:1px solid rgba(255,216,107,0.24); background:rgba(255,216,107,0.08); color:#f8efdc; text-decoration:none; padding:12px 18px; transition:0.2s ease; }
+    .hero-actions a:hover, .lore-glyph:hover { transform:translateY(-1px); background:rgba(255,216,107,0.16); border-color:rgba(255,216,107,0.36); }
+    @media (max-width: 900px) { .notes-grid { grid-template-columns:1fr; } }
+    @media (max-width: 640px) { .page { width:min(100% - 16px, 100%); padding-top:72px; } .hero, .note-card, .glyph-card { border-radius:22px; } }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <section class="hero">
+      <div class="eyebrow">[ field notes // world archive online ]</div>
+      <h1>Field Notes</h1>
+      <p class="hero-copy">Jungle rain, winter steel, coastlines, ports, nightlife, stones, engines, and rooms full of consequence. These are the scenes that stayed under the skin and kept turning into myth long after the night was over.</p>
+      <div class="hero-actions">
+        <a href="timeline.html">open timeline</a>
+        <a href="legend-file.html">read legend file</a>
+        <a href="transmission-intake.html">commission intake</a>
+      </div>
+    </section>
+
+    <section class="notes-grid">
+      <article class="note-card">
+        <div class="city-tag">costa rica //</div>
+        <h2>Jungle Estate</h2>
+        <p>The land was humid, restless, alive. Tarantulas in the pool. Rain heavy enough to erase a whole day. A coffee-farm dream that felt half empire and half fever vision. Even the avocado tree became a monument, proof that some parts of a life keep growing after you move on.</p>
+      </article>
+      <article class="note-card">
+        <div class="city-tag">new york //</div>
+        <h2>Winter Steel</h2>
+        <p>New York taught scale under pressure. Freight language, teams, rentals, timing, hard rooms, and winter streets that made everything feel sharper. The city had steel in it. It punished weakness and rewarded nerve.</p>
+      </article>
+      <article class="note-card">
+        <div class="city-tag">asia //</div>
+        <h2>Ports and Signal</h2>
+        <p>Asia sharpened the travel mind: markets, movement, sourcing, ports, fabrics, jewelry language, and the feeling that the world was wider than most men ever let themselves believe. Trade was never just business. It was atmosphere, style, and access.</p>
+      </article>
+      <article class="note-card">
+        <div class="city-tag">nightlife //</div>
+        <h2>Rooms With Voltage</h2>
+        <p>Beach bars, salons, music rooms, private meetings, after-hours strategy, and nights where brand, beauty, money, and danger all sat at the same table. Those rooms taught me how image and power move together.</p>
+      </article>
+      <article class="note-card">
+        <div class="city-tag">jaco //</div>
+        <h2>Town Under Our Weather</h2>
+        <p>There are times in life when a whole town starts feeling like it bends a little around your presence. Jaco had that energy. Our coffee moved through conversations, our names moved through rooms, and the whole place felt close enough to touch. It was not about ownership on paper. It was about atmosphere, momentum, and the feeling that the local weather had started taking our shape.</p>
+      </article>
+      <article class="note-card">
+        <div class="city-tag">salons //</div>
+        <h2>Beauty With Command</h2>
+        <p>Owning high-end salons taught me that luxury is never accidental. Lighting, timing, language, scent, texture, confidence, and taste all have to align. A salon can look like beauty on the surface, but underneath it is logistics, standards, emotional temperature, and the subtle art of making people feel elevated the second they walk in.</p>
+      </article>
+      <article class="note-card">
+        <div class="city-tag">beach bar //</div>
+        <h2>Coastline Authority</h2>
+        <p>Beach bars are not just drinks and music. The good ones become little kingdoms. The right bar pulls in travelers, money, characters, flirtation, danger, business, and memory. When the room is right, people feel it immediately. That era taught me how to build a scene people do not forget, and how nightlife itself can become a signature.</p>
+      </article>
+      <article class="note-card">
+        <div class="city-tag">music //</div>
+        <h2>Stage Power</h2>
+        <p>Music was never a side quest. It is one of the purest forms of signal in this world. A real performer knows how to move energy through a room, how to hold attention, how to build pressure, and how to leave a mark that lingers after the sound stops. That same instinct now lives inside the jewelry, the pages, the branding, and the myth itself.</p>
+      </article>
+      <article class="note-card">
+        <div class="city-tag">collector //</div>
+        <h2>Stone Memory</h2>
+        <p>Some stones hit like objects. Others hit like prophecy. Sapphire and opal always carried that deeper voltage for me: intelligence, beauty, depth, and a feeling like light is being trapped and translated at the same time. The collector side of this world is not about inventory. It is about knowing when something is ordinary and when something is carrying memory.</p>
+      </article>
+      <article class="note-card">
+        <div class="city-tag">open water //</div>
+        <h2>Sailor Mind</h2>
+        <p>The sailor chapter matters because the sea strips away fraud. On open water there is no performance left, only weather, instinct, timing, and command. That kind of environment sharpens a man. It teaches patience and alertness at once. A lot of the calm in this world was earned there, with horizon in every direction and no one to impress but the elements.</p>
+      </article>
+    </section>
+
+    <section class="glyph-zone">
+      <div class="glyph-row" data-secret-unlock="fieldSecretNode">
+        <button class="lore-glyph" type="button" data-lore-glyph="fieldNoteOne">night sea</button>
+        <button class="lore-glyph" type="button" data-lore-glyph="fieldNoteTwo">stone market</button>
+        <button class="lore-glyph" type="button" data-lore-glyph="fieldNoteThree">private room</button>
+      </div>
+      <div class="glyph-card" id="fieldNoteOne">Sailing and sea movement belong to the mythology too. Open water changes the mind. It strips the noise out of you and leaves only instinct, weather, distance, and command.</div>
+      <div class="glyph-card" id="fieldNoteTwo">Stones are not just materials in this world. They are memory storage. Pressure made visible. The right stone feels like it already lived a thousand years before it ever touched a ring or talisman.</div>
+      <div class="glyph-card" id="fieldNoteThree">Private rooms matter because that is where tone gets decided. Deals, loyalty, direction, image, future moves. A lot of history is shaped in quiet rooms with the right people and the wrong amount of sleep.</div>
+      <div class="secret-reveal" id="fieldSecretNode">
+        Sea. Stone. Room. The pattern locks and the gate opens. Horus waits ahead for anyone still moving deeper.
+        <br><br>
+        <a href="horus.html">pass through horus</a>
+      </div>
+    </section>
+  </main>
+  <script src="site-flow.js"></script>
+</body>
+</html>

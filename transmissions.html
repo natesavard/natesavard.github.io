@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="color-scheme" content="dark" />
+  <title>Nate's World // Transmission Updates</title>
+  <style>
+    :root {
+      --bg: #040507;
+      --panel: rgba(8, 11, 16, 0.82);
+      --panel-2: rgba(12, 16, 24, 0.78);
+      --gold: #ffd86b;
+      --blue: #8ed6ff;
+      --text: #f5efdf;
+      --muted: #b7bfd0;
+    }
+
+    * { box-sizing: border-box; }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      min-height: 100%;
+      background: #040507;
+      color: var(--text);
+      font-family: Arial, Helvetica, sans-serif;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background:
+        radial-gradient(circle at 14% 18%, rgba(255,216,107,0.08), transparent 18%),
+        radial-gradient(circle at 82% 14%, rgba(142,214,255,0.08), transparent 20%),
+        linear-gradient(180deg, rgba(4,5,7,0.98), rgba(2,2,3,1));
+      overflow-x: hidden;
+      transition: opacity 0.32s ease, transform 0.32s ease;
+    }
+
+    body.node-leaving {
+      opacity: 0.3;
+      transform: scale(0.992);
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background:
+        repeating-linear-gradient(
+          to bottom,
+          rgba(255,255,255,0.018) 0px,
+          rgba(255,255,255,0.018) 1px,
+          transparent 2px,
+          transparent 4px
+        );
+      opacity: 0.18;
+      mix-blend-mode: screen;
+    }
+
+    .page {
+      width: min(1180px, calc(100% - 36px));
+      margin: 0 auto;
+      padding: 78px 0 90px;
+    }
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+      padding: 34px 30px 30px;
+      border: 1px solid rgba(255,216,107,0.16);
+      border-radius: 24px;
+      background:
+        radial-gradient(circle at 15% 18%, rgba(255,216,107,0.10), transparent 20%),
+        radial-gradient(circle at 82% 16%, rgba(142,214,255,0.10), transparent 18%),
+        linear-gradient(180deg, var(--panel), rgba(5,7,12,0.92));
+      box-shadow:
+        0 22px 70px rgba(0,0,0,0.44),
+        inset 0 0 24px rgba(255,255,255,0.02);
+    }
+
+    .transmission-brand {
+      position: fixed;
+      top: auto;
+      bottom: 444px;
+      left: 91px;
+      width: min(170px, 18vw);
+      aspect-ratio: 1.35 / 1;
+      display: grid;
+      place-items: center;
+      z-index: 9995;
+      transform-style: preserve-3d;
+      transition: transform 0.18s ease, filter 0.18s ease;
+    }
+
+    .transmission-brand::before,
+    .transmission-brand::after {
+      content: "";
+      position: absolute;
+      inset: 10%;
+      border-radius: 50%;
+      pointer-events: none;
+    }
+
+    .transmission-brand::before {
+      background:
+        radial-gradient(circle at center, rgba(255,216,107,0.14), transparent 40%);
+      filter: blur(14px);
+      animation: brandPulse 4.8s ease-in-out infinite;
+    }
+
+    .transmission-brand::after {
+      inset: -2%;
+      border: 1px solid rgba(142,214,255,0.18);
+      opacity: 0.68;
+      animation: brandOrbit 12s linear infinite reverse;
+    }
+
+    .transmission-brand img {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      height: auto;
+      filter:
+        drop-shadow(0 0 10px rgba(255,216,107,0.26))
+        drop-shadow(0 0 26px rgba(142,214,255,0.16));
+      animation:
+        brandFloat 6s ease-in-out infinite,
+        brandFlash 7.2s ease-in-out infinite;
+      transition: transform 0.18s ease, filter 0.18s ease;
+    }
+
+    .transmission-brand .brand-sweep {
+      position: absolute;
+      inset: -10%;
+      z-index: 3;
+      pointer-events: none;
+      background:
+        linear-gradient(
+          112deg,
+          rgba(255,255,255,0) 36%,
+          rgba(255,245,220,0.05) 44%,
+          rgba(142,214,255,0.22) 50%,
+          rgba(255,245,220,0.05) 56%,
+          rgba(255,255,255,0) 64%
+        );
+      transform: translateX(-145%) rotate(8deg);
+      filter: blur(8px);
+      opacity: 0.7;
+      animation: brandSweep 8.8s ease-in-out infinite;
+    }
+
+    .transmission-brand:hover,
+    .transmission-brand.is-reactive {
+      transform: translateY(-4px) scale(1.02);
+      filter: saturate(1.05);
+    }
+
+    .transmission-brand:hover img,
+    .transmission-brand.is-reactive img {
+      transform: scale(1.04) rotate(-1deg);
+      filter:
+        drop-shadow(0 0 14px rgba(255,216,107,0.34))
+        drop-shadow(0 0 34px rgba(142,214,255,0.22));
+    }
+
+    .hero-copy-wrap {
+      position: relative;
+      z-index: 1;
+      padding-top: 0;
+    }
+
+    .transmission-wordmark {
+      width: min(430px, 76vw);
+      max-width: 100%;
+      display: block;
+      margin: 0 0 14px;
+      filter:
+        drop-shadow(0 0 12px rgba(255,216,107,0.22))
+        drop-shadow(0 0 24px rgba(142,214,255,0.14));
+    }
+
+    .hero-kicker,
+    .entry-label,
+    .entry-meta,
+    .collector-note,
+    .list-note {
+      font-family: "Courier New", monospace;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+    }
+
+    .hero-kicker {
+      color: var(--blue);
+      font-size: 11px;
+      margin-bottom: 14px;
+    }
+
+    h1 {
+      margin: 0 0 14px 0;
+      font-size: clamp(38px, 7vw, 78px);
+      line-height: 0.92;
+      letter-spacing: -0.04em;
+    }
+
+    .hero-copy {
+      max-width: 760px;
+      color: #dfd8c9;
+      font-size: 14px;
+      line-height: 1.82;
+      margin: 0;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 22px;
+    }
+
+    .hero-actions a,
+    .collector-actions a,
+    .list-actions button,
+    .list-actions a {
+      display: inline-block;
+      padding: 12px 18px;
+      border: 1px solid rgba(255,216,107,0.18);
+      color: var(--gold);
+      background: rgba(255,216,107,0.08);
+      text-decoration: none;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      font-size: 11px;
+      transition: all 0.22s ease;
+    }
+
+    .hero-actions a:hover,
+    .collector-actions a:hover,
+    .list-actions button:hover,
+    .list-actions a:hover {
+      transform: translateY(-1px);
+      background: rgba(255,216,107,0.14);
+      box-shadow: 0 0 20px rgba(255,216,107,0.12);
+    }
+
+    .node-bridge {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .node-bridge::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(110deg, transparent 0%, rgba(255,245,220,0.00) 40%, rgba(142,214,255,0.20) 50%, rgba(255,245,220,0.00) 60%, transparent 100%);
+      transform: translateX(-145%);
+      transition: transform 0.48s ease;
+    }
+
+    .node-bridge:hover::after {
+      transform: translateX(145%);
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1.3fr 0.9fr;
+      gap: 22px;
+      margin-top: 28px;
+    }
+
+    .panel {
+      padding: 24px;
+      border: 1px solid rgba(255,216,107,0.14);
+      border-radius: 20px;
+      background:
+        linear-gradient(180deg, var(--panel-2), rgba(3,4,8,0.92));
+      box-shadow:
+        0 14px 40px rgba(0,0,0,0.34),
+        inset 0 0 18px rgba(255,255,255,0.02);
+    }
+
+    .section-title {
+      margin: 0 0 18px 0;
+      font-size: 13px;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+
+    .feed {
+      display: grid;
+      gap: 16px;
+    }
+
+    .entry {
+      position: relative;
+      overflow: hidden;
+      padding: 18px 18px 16px;
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 16px;
+      background:
+        radial-gradient(circle at 10% 14%, rgba(142,214,255,0.07), transparent 22%),
+        rgba(255,255,255,0.02);
+    }
+
+    .entry::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background:
+        linear-gradient(110deg, transparent 0%, rgba(255,255,255,0.00) 44%, rgba(255,216,107,0.10) 50%, rgba(255,255,255,0.00) 56%, transparent 100%);
+      transform: translateX(-135%);
+      animation: sweep 8.6s ease-in-out infinite;
+    }
+
+    .entry-label {
+      color: var(--blue);
+      font-size: 10px;
+      margin-bottom: 10px;
+    }
+
+    .entry-title {
+      margin: 0 0 10px 0;
+      font-size: 20px;
+      color: #fff2ca;
+    }
+
+    .entry-copy {
+      margin: 0 0 12px 0;
+      color: #d6d0c2;
+      line-height: 1.82;
+      font-size: 14px;
+    }
+
+    .entry-meta {
+      color: #b7bfd0;
+      font-size: 10px;
+    }
+
+    .collector-note {
+      color: var(--blue);
+      font-size: 10px;
+      margin-bottom: 10px;
+    }
+
+    .collector-copy {
+      margin: 0 0 16px 0;
+      color: #dfd8c9;
+      line-height: 1.82;
+      font-size: 14px;
+    }
+
+    .collector-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .list-form {
+      display: grid;
+      gap: 12px;
+      margin-top: 16px;
+    }
+
+    .list-form input,
+    .list-form select,
+    .list-form textarea {
+      width: 100%;
+      padding: 13px 14px;
+      border: 1px solid rgba(255,216,107,0.14);
+      border-radius: 12px;
+      background: rgba(0,0,0,0.28);
+      color: var(--text);
+      font-family: "Courier New", monospace;
+      font-size: 13px;
+    }
+
+    .list-form textarea {
+      min-height: 120px;
+      resize: vertical;
+    }
+
+    .list-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .list-note {
+      font-size: 10px;
+      color: #b7bfd0;
+    }
+
+    @keyframes sweep {
+      0% { transform: translateX(-135%); opacity: 0; }
+      20% { opacity: 0; }
+      36% { opacity: 1; }
+      52% { transform: translateX(135%); opacity: 0; }
+      100% { transform: translateX(135%); opacity: 0; }
+    }
+
+    @keyframes brandFloat {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+    }
+
+    @keyframes brandPulse {
+      0%, 100% { opacity: 0.5; transform: scale(0.94); }
+      50% { opacity: 0.95; transform: scale(1.06); }
+    }
+
+    @keyframes brandFlash {
+      0%, 100% { opacity: 0.96; }
+      48% { opacity: 0.86; }
+      50% { opacity: 1; }
+      52% { opacity: 0.9; }
+    }
+
+    @keyframes brandOrbit {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    @keyframes brandSweep {
+      0% { transform: translateX(-145%) rotate(8deg); opacity: 0; }
+      16% { opacity: 0; }
+      32% { opacity: 1; }
+      48% { transform: translateX(145%) rotate(8deg); opacity: 0; }
+      100% { transform: translateX(145%) rotate(8deg); opacity: 0; }
+    }
+
+    .node-travel {
+      position: fixed;
+      z-index: 5000;
+      pointer-events: none;
+      width: 160px;
+      opacity: 1;
+      filter:
+        drop-shadow(0 0 14px rgba(255,216,107,0.34))
+        drop-shadow(0 0 34px rgba(142,214,255,0.18));
+      transition:
+        top 0.42s cubic-bezier(.2,.8,.2,1),
+        left 0.42s cubic-bezier(.2,.8,.2,1),
+        width 0.42s cubic-bezier(.2,.8,.2,1),
+        opacity 0.32s ease,
+        transform 0.42s cubic-bezier(.2,.8,.2,1);
+    }
+
+    @media (max-width: 860px) {
+      .grid {
+        grid-template-columns: 1fr;
+      }
+
+      .page {
+        width: min(100% - 24px, 1180px);
+        padding-top: 72px;
+      }
+
+      .hero {
+        padding: 28px 18px 22px;
+      }
+
+      .transmission-brand {
+        width: 118px;
+        top: 54px;
+        bottom: auto;
+        left: 50%;
+        transform: translateX(-50%);
+      }
+
+      .hero-copy-wrap {
+        padding-top: 0;
+      }
+
+      .transmission-wordmark {
+        width: min(340px, 82vw);
+      }
+    }
+  </style>
+  <link rel="stylesheet" href="site-flow.css" />
+</head>
+<body>
+  <main class="page">
+    <section class="hero">
+      <div class="transmission-brand" id="transmissionBrand">
+        <img src="nate savard gold.png" alt="Nate Savard logo" />
+        <div class="brand-sweep"></div>
+      </div>
+      <div class="hero-copy-wrap">
+        <div class="hero-kicker">[ signal stable // private network online ]</div>
+        <img class="transmission-wordmark" src="transmissions-signal-logo.svg" alt="Transmissions signal logo" />
+        <h1>Transmission Updates</h1>
+        <p class="hero-copy">
+          This is the active signal log for the world. New collector openings, jewelry movement, commission routes, story drops, and private notices land here first.
+        </p>
+        <div class="hero-actions">
+          <a href="index.html">return home</a>
+          <a href="starboy.html">starboy</a>
+          <a href="nlxblackbox.html">enter the sage</a>
+          <a href="timeline.html" class="node-bridge">open timeline</a>
+          <a href="horus.html">horus</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="grid">
+      <div class="panel">
+        <h2 class="section-title">Latest Signal</h2>
+        <div class="feed">
+          <article class="entry">
+            <div class="entry-label">transmission 004 // collector route</div>
+            <h3 class="entry-title">Custom Commission Intake Open</h3>
+            <p class="entry-copy">
+              If you want a custom talisman, ring, pendant, cloak, or symbolic piece made directly with me, enter the intake. We will shape it through 14k, 18k, 24k, silver 925, then build it around your choice of stone. As a collector, I source and favour sapphires, opals, rubies, and emeralds. Symbolism, mood, life chapter, and budget are all things I understand and can factor in to give you the best quality for the price. We can also work in 10k gold and finish it with micro pavé diamonds, which means we can create something with real gold-and-diamond presence across a much wider range of price points.
+            </p>
+            <div class="entry-meta">status // active now</div>
+          </article>
+
+          <article class="entry">
+            <div class="entry-label">transmission 003 // private list</div>
+            <h3 class="entry-title">Collector List Now Live</h3>
+            <p class="entry-copy">
+              The private list is the cleanest route for rare updates, custom commission windows, and direct notice when new pieces or signal drops go live.
+            </p>
+            <div class="entry-meta">status // public intake to private path</div>
+          </article>
+
+          <article class="entry">
+            <div class="entry-label">transmission 002 // lore and archive</div>
+            <h3 class="entry-title">Network Expanding</h3>
+            <p class="entry-copy">
+              The site now moves more like one system: linked nodes, stronger collector pathing, lore fragments, Oracle notes, and a cleaner route between the worlds.
+            </p>
+            <div class="entry-meta">status // archive growth confirmed</div>
+          </article>
+        </div>
+      </div>
+
+      <aside class="panel">
+        <div class="collector-note">collector access // direct route</div>
+        <p class="collector-copy">
+          If you want updates before the general public, or you want to talk through a serious custom piece, this is where you register your signal.
+        </p>
+
+        <div class="collector-actions" style="margin-bottom: 18px;">
+          <a href="transmission-intake.html">open ritual intake</a>
+          <a href="field-notes.html">field notes</a>
+          <a href="legend-file.html">legend file</a>
+        </div>
+
+        <form class="list-form" id="transmissionListForm">
+          <input type="text" name="name" placeholder="name / alias" />
+          <input type="email" name="email" placeholder="email" />
+          <select name="interest">
+            <option value="collector list">collector list</option>
+            <option value="custom commission">custom commission</option>
+            <option value="new jewelry drops">new jewelry drops</option>
+            <option value="lore and transmissions">lore and transmissions</option>
+          </select>
+          <textarea name="note" placeholder="what do you want early access to, or what kind of piece are you looking for?"></textarea>
+          <div class="list-actions">
+            <button type="submit">join private list</button>
+            <a href="mailto:natesavard@outlook.com?subject=Collector%20Signal%20Request">email Nate</a>
+            <span class="list-note">opens your email with the details filled in</span>
+          </div>
+        </form>
+
+        <div class="collector-actions" style="margin-top: 18px;">
+          <a href="timeline.html" class="node-bridge">open timeline</a>
+          <a href="starboy.html">open starboy node</a>
+        </div>
+      </aside>
+    </section>
+  </main>
+
+  <script>
+    (() => {
+      const brand = document.getElementById('transmissionBrand');
+      if (!brand) return;
+
+      brand.addEventListener('mouseenter', () => {
+        brand.classList.add('is-reactive');
+      });
+
+      brand.addEventListener('mouseleave', () => {
+        brand.classList.remove('is-reactive');
+        brand.style.transform = '';
+      });
+
+      brand.addEventListener('mousemove', (event) => {
+        const bounds = brand.getBoundingClientRect();
+        const x = (event.clientX - bounds.left) / bounds.width - 0.5;
+        const y = (event.clientY - bounds.top) / bounds.height - 0.5;
+        brand.style.transform = `rotateX(${(-y * 10).toFixed(2)}deg) rotateY(${(x * 12).toFixed(2)}deg) translateY(-4px)`;
+      });
+    })();
+  </script>
+
+  <script>
+    (() => {
+      const brand = document.getElementById('transmissionBrand');
+      const links = document.querySelectorAll('.node-bridge');
+      if (!brand || !links.length) return;
+
+      links.forEach((link) => {
+        link.addEventListener('click', (event) => {
+          event.preventDefault();
+
+          const img = brand.querySelector('img');
+          if (!img) {
+            window.location.href = link.href;
+            return;
+          }
+
+          const rect = img.getBoundingClientRect();
+          const clone = img.cloneNode(true);
+          clone.className = 'node-travel';
+          clone.style.left = rect.left + 'px';
+          clone.style.top = rect.top + 'px';
+          clone.style.width = rect.width + 'px';
+          document.body.appendChild(clone);
+
+          requestAnimationFrame(() => {
+            requestAnimationFrame(() => {
+              clone.style.left = (window.innerWidth - 220) + 'px';
+              clone.style.top = (window.innerHeight * 0.16) + 'px';
+              clone.style.width = '180px';
+              clone.style.transform = 'rotate(8deg) scale(0.96)';
+              document.body.classList.add('node-leaving');
+            });
+          });
+
+          window.setTimeout(() => {
+            window.location.href = link.href;
+          }, 340);
+        });
+      });
+    })();
+  </script>
+
+  <script>
+    (function () {
+      const form = document.getElementById('transmissionListForm');
+      if (!form) return;
+
+      form.addEventListener('submit', function (event) {
+        event.preventDefault();
+        const formData = new FormData(form);
+        const name = (formData.get('name') || '').toString().trim() || 'collector signal';
+        const email = (formData.get('email') || '').toString().trim();
+        const interest = (formData.get('interest') || '').toString().trim();
+        const note = (formData.get('note') || '').toString().trim();
+
+        const body = encodeURIComponent([
+          'Collector / transmission request',
+          '',
+          'Name / alias: ' + name,
+          'Email: ' + (email || 'not included'),
+          'Interest: ' + (interest || 'collector list'),
+          '',
+          'Direction:',
+          note || 'No extra note included yet.'
+        ].join('\n'));
+
+        window.location.href = 'mailto:natesavard@outlook.com?subject=' + encodeURIComponent('Transmission Request // ' + name) + '&body=' + body;
+      });
+    })();
+  </script>
+  <script src="site-flow.js"></script>
+</body>
+</html>

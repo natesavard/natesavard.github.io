@@ -1,0 +1,30 @@
+<svg width="860" height="280" viewBox="0 0 860 280" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="sbGold" x1="140" y1="26" x2="720" y2="232" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#FFF0BF"/>
+      <stop offset="0.3" stop-color="#F7C86B"/>
+      <stop offset="0.62" stop-color="#D18D4C"/>
+      <stop offset="1" stop-color="#8D5C35"/>
+    </linearGradient>
+    <linearGradient id="sbBlue" x1="220" y1="56" x2="640" y2="206" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#C8F0FF"/>
+      <stop offset="1" stop-color="#6FB9E6" stop-opacity="0.18"/>
+    </linearGradient>
+    <filter id="sbGlow" x="28" y="0" width="804" height="280" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feGaussianBlur stdDeviation="10" result="blur"/>
+      <feColorMatrix in="blur" type="matrix" values="1 0 0 0 0.24  0 1 0 0 0.13  0 0 1 0 0.03  0 0 0 1 0" result="glow"/>
+      <feBlend in="SourceGraphic" in2="glow" mode="screen"/>
+    </filter>
+  </defs>
+  <g filter="url(#sbGlow)">
+    <text x="430" y="44" text-anchor="middle" fill="#C8B59A" font-family="Courier New, monospace" font-size="20" letter-spacing="10">NLX</text>
+    <text x="430" y="148" text-anchor="middle" fill="url(#sbGold)" font-family="Georgia, 'Times New Roman', serif" font-size="96" font-weight="700" letter-spacing="7">STARBOY</text>
+    <path d="M186 188H674" stroke="url(#sbGold)" stroke-width="3" stroke-linecap="round"/>
+    <path d="M254 206H606" stroke="url(#sbBlue)" stroke-width="2" stroke-linecap="round" opacity="0.88"/>
+    <text x="430" y="252" text-anchor="middle" fill="#E3D5C2" font-family="Courier New, monospace" font-size="24" letter-spacing="9">FULL READER</text>
+    <path d="M124 46L130 60L144 66L130 72L124 86L118 72L104 66L118 60L124 46Z" fill="#FFEAB0"/>
+    <path d="M736 34L743 50L759 56L743 62L736 78L729 62L713 56L729 50L736 34Z" fill="#F4D589"/>
+    <circle cx="430" cy="188" r="8" fill="#FFD57E"/>
+    <circle cx="430" cy="188" r="18" stroke="url(#sbBlue)" stroke-opacity="0.45"/>
+  </g>
+</svg>

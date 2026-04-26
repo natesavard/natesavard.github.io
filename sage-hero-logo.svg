@@ -1,0 +1,35 @@
+<svg width="980" height="300" viewBox="0 0 980 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="sageGoldClean" x1="160" y1="30" x2="818" y2="250" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#FFF1C6"/>
+      <stop offset="0.28" stop-color="#F7C86B"/>
+      <stop offset="0.62" stop-color="#D3914E"/>
+      <stop offset="1" stop-color="#8B5B37"/>
+    </linearGradient>
+    <linearGradient id="sageBlueClean" x1="230" y1="70" x2="746" y2="220" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#D5F6FF"/>
+      <stop offset="1" stop-color="#7BC8F0" stop-opacity="0.14"/>
+    </linearGradient>
+    <filter id="sageCleanGlow" x="20" y="0" width="940" height="300" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feGaussianBlur stdDeviation="9" result="blur"/>
+      <feColorMatrix in="blur" type="matrix" values="1 0 0 0 0.23  0 1 0 0 0.14  0 0 1 0 0.03  0 0 0 1 0" result="glow"/>
+      <feBlend in="SourceGraphic" in2="glow" mode="screen"/>
+    </filter>
+  </defs>
+
+  <g filter="url(#sageCleanGlow)">
+    <text x="490" y="42" text-anchor="middle" fill="#CDBA9D" font-family="Courier New, monospace" font-size="18" letter-spacing="12">THE GEM SAGE</text>
+
+    <text x="490" y="146" text-anchor="middle" fill="url(#sageGoldClean)" font-family="Georgia, 'Times New Roman', serif" font-size="96" font-weight="700" letter-spacing="8">NATE SAVARD</text>
+
+    <path d="M196 186H784" stroke="url(#sageGoldClean)" stroke-width="3" stroke-linecap="round"/>
+    <path d="M268 204H712" stroke="url(#sageBlueClean)" stroke-width="2" stroke-linecap="round" opacity="0.88"/>
+
+    <text x="490" y="254" text-anchor="middle" fill="#E7DACC" font-family="Courier New, monospace" font-size="24" letter-spacing="9">SYMBOL // PRESENCE</text>
+
+    <path d="M132 46L138 60L152 66L138 72L132 86L126 72L112 66L126 60L132 46Z" fill="#FFE9A8"/>
+    <path d="M848 36L854 50L868 56L854 62L848 76L842 62L828 56L842 50L848 36Z" fill="#F6D88A"/>
+    <circle cx="490" cy="186" r="8" fill="#FFD57E"/>
+    <circle cx="490" cy="186" r="19" stroke="url(#sageBlueClean)" stroke-opacity="0.4"/>
+  </g>
+</svg>

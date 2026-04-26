@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="color-scheme" content="dark" />
+  <title>Artifact Window // Nate's World</title>
+  <link rel="stylesheet" href="site-flow.css" />
+  <style>
+    :root { --bg:#050507; --panel:rgba(10,8,8,0.88); --gold:#ffd86b; --red:#ff8f8f; --text:#f5efdf; --muted:#c7bfb2; }
+    * { box-sizing:border-box; }
+    body { margin:0; min-height:100vh; background:radial-gradient(circle at 18% 18%, rgba(255,216,107,0.08), transparent 18%), radial-gradient(circle at 82% 18%, rgba(255,92,92,0.07), transparent 22%), linear-gradient(180deg, rgba(8,4,4,0.98), rgba(2,1,2,1)); color:var(--text); font-family:Arial, Helvetica, sans-serif; }
+    body::before { content:""; position:fixed; inset:0; pointer-events:none; background:repeating-linear-gradient(to bottom, rgba(255,255,255,0.014) 0px, rgba(255,255,255,0.014) 1px, transparent 2px, transparent 4px); opacity:0.15; mix-blend-mode:screen; }
+    .page { width:min(980px, calc(100% - 36px)); margin:0 auto; padding:92px 0 94px; }
+    .vault { border:1px solid rgba(255,216,107,0.18); border-radius:30px; padding:34px 30px; background:radial-gradient(circle at top right, rgba(255,216,107,0.09), transparent 24%), linear-gradient(180deg, var(--panel), rgba(7,5,8,0.94)); box-shadow:0 24px 80px rgba(0,0,0,0.46); }
+    .eyebrow { font-family:"Courier New", monospace; letter-spacing:0.18em; text-transform:uppercase; color:var(--red); font-size:12px; margin-bottom:12px; }
+    h1 { margin:0 0 14px; font-size:clamp(2.4rem, 7vw, 5rem); line-height:0.95; text-transform:uppercase; }
+    p { color:#e6ddd0; line-height:1.84; }
+    .artifact-grid { display:grid; grid-template-columns:1fr 1fr; gap:18px; margin:24px 0; }
+    .artifact-card { border:1px solid rgba(255,255,255,0.08); border-radius:22px; padding:18px; background:rgba(255,255,255,0.03); }
+    .artifact-card strong { display:block; margin-bottom:8px; color:#fff0cb; text-transform:uppercase; letter-spacing:0.1em; font-size:12px; }
+    .actions { display:flex; flex-wrap:wrap; gap:12px; margin-top:24px; }
+    .actions a { display:inline-block; border-radius:999px; border:1px solid rgba(255,216,107,0.24); background:rgba(255,216,107,0.08); color:#f8efdc; text-decoration:none; padding:12px 18px; transition:0.2s ease; }
+    .actions a:hover { transform:translateY(-1px); background:rgba(255,216,107,0.16); border-color:rgba(255,216,107,0.36); }
+    @media (max-width: 700px) { .artifact-grid { grid-template-columns:1fr; } .page { width:min(100% - 16px, 100%); padding-top:78px; } .vault { border-radius:24px; } }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <section class="vault">
+      <div class="eyebrow">[ hidden artifact node // guardian access confirmed ]</div>
+      <h1>Artifact Window</h1>
+      <p>Horus does not open for everyone. When this window appears, it means something rare has moved to the surface: a private drop, a one-off artifact, a collector-only transmission, or a piece that was never meant to sit in the public line for long.</p>
+      <div class="artifact-grid">
+        <div class="artifact-card"><strong>collector state</strong>Access recognized. The window is live, unstable, and not visible to everyone.</div>
+        <div class="artifact-card"><strong>artifact behavior</strong>Expect sudden talisman drops, hidden lore files, one-night transmissions, and pieces too rare to sit in the open market.</div>
+        <div class="artifact-card"><strong>best use</strong>Twenty-four hour releases. Secret jewelry previews. Quiet collector openings. The kind of notice that rewards the ones who are already inside the signal.</div>
+        <div class="artifact-card"><strong>signal note</strong>Rare things lose force when they stay visible too long. Enter, decide, move, and let the window close behind you.</div>
+      </div>
+      <div class="actions">
+        <a href="nlxblackbox.html">return to the sage</a>
+        <a href="transmission-intake.html">open commission ritual</a>
+        <a href="transmissions.html">back to transmissions</a>
+      </div>
+    </section>
+  </main>
+  <script src="site-flow.js"></script>
+</body>
+</html>

@@ -1,0 +1,28 @@
+<svg width="900" height="250" viewBox="0 0 900 250" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="txGold" x1="150" y1="22" x2="760" y2="210" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#FFF0BF"/>
+      <stop offset="0.3" stop-color="#F7C86B"/>
+      <stop offset="0.62" stop-color="#D18D4C"/>
+      <stop offset="1" stop-color="#8D5C35"/>
+    </linearGradient>
+    <linearGradient id="txBlue" x1="230" y1="52" x2="670" y2="192" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#C7F1FF"/>
+      <stop offset="1" stop-color="#70BDEB" stop-opacity="0.18"/>
+    </linearGradient>
+    <filter id="txGlow" x="20" y="0" width="860" height="250" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feGaussianBlur stdDeviation="10" result="blur"/>
+      <feColorMatrix in="blur" type="matrix" values="1 0 0 0 0.24  0 1 0 0 0.13  0 0 1 0 0.03  0 0 0 1 0" result="glow"/>
+      <feBlend in="SourceGraphic" in2="glow" mode="screen"/>
+    </filter>
+  </defs>
+  <g filter="url(#txGlow)">
+    <text x="450" y="40" text-anchor="middle" fill="#C8B59A" font-family="Courier New, monospace" font-size="18" letter-spacing="10">SIGNAL LOG</text>
+    <text x="450" y="136" text-anchor="middle" fill="url(#txGold)" font-family="Georgia, 'Times New Roman', serif" font-size="82" font-weight="700" letter-spacing="7">TRANSMISSIONS</text>
+    <path d="M174 172H726" stroke="url(#txGold)" stroke-width="3" stroke-linecap="round"/>
+    <path d="M248 188H652" stroke="url(#txBlue)" stroke-width="2" stroke-linecap="round" opacity="0.88"/>
+    <text x="450" y="228" text-anchor="middle" fill="#E3D5C2" font-family="Courier New, monospace" font-size="22" letter-spacing="8">PRIVATE NETWORK ONLINE</text>
+    <path d="M142 42L148 56L162 62L148 68L142 82L136 68L122 62L136 56L142 42Z" fill="#FFEAB0"/>
+    <path d="M756 30L763 46L779 52L763 58L756 74L749 58L733 52L749 46L756 30Z" fill="#F4D589"/>
+  </g>
+</svg>

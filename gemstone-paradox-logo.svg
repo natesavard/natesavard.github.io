@@ -1,0 +1,39 @@
+<svg width="1120" height="330" viewBox="0 0 1120 330" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="gpCyan" x1="180" y1="30" x2="940" y2="248" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#E7F8FF"/>
+      <stop offset="0.28" stop-color="#9FE1FF"/>
+      <stop offset="0.6" stop-color="#65AFFF"/>
+      <stop offset="1" stop-color="#8B74FF"/>
+    </linearGradient>
+    <linearGradient id="gpGold" x1="360" y1="26" x2="760" y2="244" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#FFEEC1"/>
+      <stop offset="1" stop-color="#FFC86C" stop-opacity="0.55"/>
+    </linearGradient>
+    <filter id="gpGlow" x="-18" y="-24" width="1156" height="354" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feGaussianBlur stdDeviation="10" result="blur"/>
+      <feColorMatrix in="blur" type="matrix" values="0 0 0 0 0.20  0 1 0 0 0.30  0 0 1 0 0.72  0 0 0 1 0" result="glow"/>
+      <feBlend in="SourceGraphic" in2="glow" mode="screen"/>
+    </filter>
+  </defs>
+
+  <g filter="url(#gpGlow)">
+    <text x="560" y="58" text-anchor="middle" fill="#B9D8F6" font-family="Courier New, monospace" font-size="18" letter-spacing="8">NLX STARBOY // PARADOX ACTIVE</text>
+
+    <text x="560" y="144" text-anchor="middle" fill="url(#gpCyan)" font-family="Georgia, 'Times New Roman', serif" font-size="74" font-weight="700" letter-spacing="4">GEMSTONE PARADOX</text>
+    <text x="560" y="208" text-anchor="middle" fill="url(#gpGold)" font-family="Courier New, monospace" font-size="30" letter-spacing="6">FIELD DISTORTION</text>
+
+    <path d="M270 234H850" stroke="url(#gpCyan)" stroke-width="3" stroke-linecap="round"/>
+    <path d="M336 252H784" stroke="url(#gpGold)" stroke-width="2" stroke-linecap="round" opacity="0.8"/>
+
+    <path d="M168 70L175 86L191 92L175 98L168 114L161 98L145 92L161 86L168 70Z" fill="#AEEBFF"/>
+    <path d="M952 56L960 74L978 80L960 86L952 104L944 86L926 80L944 74L952 56Z" fill="#B79AFF"/>
+
+    <circle cx="560" cy="234" r="9" fill="#8ED6FF"/>
+    <circle cx="560" cy="234" r="22" stroke="#8ED6FF" stroke-opacity="0.35"/>
+    <circle cx="560" cy="234" r="36" stroke="#9D7BFF" stroke-opacity="0.18"/>
+
+    <path d="M390 116L408 102L432 108L422 128L396 132L390 116Z" stroke="#8ED6FF" stroke-opacity="0.55"/>
+    <path d="M678 114L702 102L724 114L718 134L692 138L678 114Z" stroke="#9D7BFF" stroke-opacity="0.55"/>
+  </g>
+</svg>

@@ -1,0 +1,37 @@
+<svg width="760" height="220" viewBox="0 0 760 220" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="timeGold" x1="104" y1="26" x2="652" y2="190" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#FFF0BF"/>
+      <stop offset="0.32" stop-color="#F7C86B"/>
+      <stop offset="0.6" stop-color="#D18D4C"/>
+      <stop offset="1" stop-color="#8D5C35"/>
+    </linearGradient>
+    <linearGradient id="timeBlue" x1="210" y1="42" x2="584" y2="176" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#C0F0FF"/>
+      <stop offset="1" stop-color="#74B8E7" stop-opacity="0.15"/>
+    </linearGradient>
+    <filter id="timeGlow" x="10" y="0" width="740" height="220" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feGaussianBlur stdDeviation="9" result="blur"/>
+      <feColorMatrix in="blur" type="matrix" values="1 0 0 0 0.26  0 1 0 0 0.15  0 0 1 0 0.03  0 0 0 1 0" result="glow"/>
+      <feBlend in="SourceGraphic" in2="glow" mode="screen"/>
+    </filter>
+  </defs>
+
+  <g filter="url(#timeGlow)">
+    <text x="380" y="42" text-anchor="middle" fill="#CBB89C" font-family="Courier New, monospace" font-size="18" letter-spacing="9">ARCHIVE LINE</text>
+
+    <path d="M118 150V68H145L190 118L235 68H262V150H234V108L192 149H188L146 108V150H118Z" fill="url(#timeGold)"/>
+    <path d="M286 150V68H314V150H286Z" fill="url(#timeGold)"/>
+    <path d="M338 150V68H457V92H366V106H446V129H366V150H338Z" fill="url(#timeGold)"/>
+    <path d="M473 150L527 68H556L612 150H582L568 123H516L502 150H473ZM526 101H558L542 82L526 101Z" fill="url(#timeGold)"/>
+    <path d="M628 150V68H656V150H628Z" fill="url(#timeGold)"/>
+
+    <path d="M182 182H578" stroke="url(#timeGold)" stroke-width="3" stroke-linecap="round"/>
+    <path d="M238 196H522" stroke="url(#timeBlue)" stroke-width="2" stroke-linecap="round" opacity="0.9"/>
+
+    <path d="M104 44L109 56L121 61L109 66L104 78L99 66L87 61L99 56L104 44Z" fill="#FFE8A2"/>
+    <path d="M654 34L660 48L674 54L660 60L654 74L648 60L634 54L648 48L654 34Z" fill="#F4D589"/>
+    <circle cx="380" cy="182" r="8" fill="#FFD57E"/>
+    <circle cx="380" cy="182" r="18" stroke="url(#timeBlue)" stroke-opacity="0.45"/>
+  </g>
+</svg>
