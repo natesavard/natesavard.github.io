@@ -72,11 +72,11 @@
 
     .bg {
       background:
-        linear-gradient(180deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.72)),
-        url("envynomadix-campaign-07.png") center center / cover no-repeat;
+        linear-gradient(180deg, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.84)),
+        url("angel of life background.png") center center / cover no-repeat;
       transform: scale(1.16);
-      filter: blur(22px) saturate(0.85) contrast(1.18);
-      opacity: 0.72;
+      filter: blur(22px) saturate(0.72) brightness(0.78) contrast(1.08);
+      opacity: 0.58;
       animation: bgDrift 10s ease-in-out infinite alternate, flicker 6s linear infinite;
     }
 
@@ -84,7 +84,7 @@
     .bg::after {
       content: "";
       background:
-        url("envynomadix-campaign-07.png") center center / cover no-repeat;
+        url("angel of life background.png") center center / cover no-repeat;
       mix-blend-mode: screen;
       opacity: 0.08;
     }
@@ -133,7 +133,7 @@
 
     .vignette {
       background:
-        radial-gradient(circle at center, transparent 32%, rgba(0, 0, 0, 0.68) 100%);
+        radial-gradient(circle at center, transparent 26%, rgba(0, 0, 0, 0.82) 100%);
     }
 
     .shell {
@@ -553,13 +553,13 @@
     .lux-nav a::before {
       content: "";
       position: absolute;
-      inset: 0;
-      background: url("ENVY RIBBON.png") center center / 100% 100% no-repeat;
-      opacity: 0.96;
+      inset: -8px -10px;
+      background: url("ENVY RIBBON.png") center center / contain no-repeat;
+      opacity: 0.68;
       filter:
-        drop-shadow(0 10px 24px rgba(0, 0, 0, 0.36))
-        drop-shadow(0 0 14px rgba(221, 176, 109, 0.16));
-      transform: scale(1);
+        drop-shadow(0 0 8px rgba(255, 235, 202, 0.08))
+        drop-shadow(0 0 18px rgba(221, 176, 109, 0.1));
+      transform: scale(0.98);
       transition: transform 0.45s ease, opacity 0.45s ease, filter 0.45s ease;
       z-index: -1;
     }
@@ -572,10 +572,10 @@
 
     .lux-nav a:hover::before {
       transform: scale(1.03);
-      opacity: 1;
+      opacity: 0.92;
       filter:
-        drop-shadow(0 14px 28px rgba(0, 0, 0, 0.42))
-        drop-shadow(0 0 18px rgba(221, 176, 109, 0.24));
+        drop-shadow(0 0 10px rgba(255, 236, 205, 0.12))
+        drop-shadow(0 0 22px rgba(221, 176, 109, 0.16));
     }
 
     .lux-cart-toggle {
@@ -599,12 +599,13 @@
     .lux-cart-toggle::before {
       content: "";
       position: absolute;
-      inset: 0;
-      background: url("ENVY RIBBON.png") center center / 100% 100% no-repeat;
-      opacity: 0.96;
+      inset: -8px -10px;
+      background: url("ENVY RIBBON.png") center center / contain no-repeat;
+      opacity: 0.68;
       filter:
-        drop-shadow(0 10px 24px rgba(0, 0, 0, 0.36))
-        drop-shadow(0 0 14px rgba(221, 176, 109, 0.16));
+        drop-shadow(0 0 8px rgba(255, 235, 202, 0.08))
+        drop-shadow(0 0 18px rgba(221, 176, 109, 0.1));
+      transform: scale(0.98);
       transition: transform 0.45s ease, opacity 0.45s ease, filter 0.45s ease;
       z-index: -1;
     }
@@ -617,10 +618,10 @@
 
     .lux-cart-toggle:hover::before {
       transform: scale(1.03);
-      opacity: 1;
+      opacity: 0.92;
       filter:
-        drop-shadow(0 14px 28px rgba(0, 0, 0, 0.42))
-        drop-shadow(0 0 18px rgba(221, 176, 109, 0.24));
+        drop-shadow(0 0 10px rgba(255, 236, 205, 0.12))
+        drop-shadow(0 0 22px rgba(221, 176, 109, 0.16));
     }
 
     .lux-cart-count {
@@ -2452,7 +2453,7 @@
 
       <section class="contact-stage" id="contactPhase">
         <div class="contact-image">
-          <img src="envynomadix-campaign-07.png" alt="Envynomadix atmospheric campaign background" />
+          <img src="angel of life background.png" alt="Envynomadix atmospheric campaign background" />
         </div>
 
         <div class="contact-copy">
@@ -3220,6 +3221,10 @@
           go();
         }
       });
+
+      document.addEventListener("pointerdown", function () {
+        ensureBackgroundMusic();
+      }, { passive: true, capture: true });
 
       if ("IntersectionObserver" in window) {
         var observer = new IntersectionObserver(function (entries) {
