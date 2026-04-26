@@ -679,6 +679,7 @@
     .collection-stage,
     .archives-stage,
     .catalogue-stage,
+    .jewelry-stage,
     .contact-stage {
       width: min(1180px, calc(100vw - 36px));
       margin: 0 auto;
@@ -694,6 +695,7 @@
     .collection-stage.is-visible,
     .archives-stage.is-visible,
     .catalogue-stage.is-visible,
+    .jewelry-stage.is-visible,
     .contact-stage.is-visible {
       opacity: 1;
       transform: translateY(0);
@@ -928,9 +930,19 @@
       padding-bottom: 26px;
     }
 
+    .jewelry-stage {
+      padding-top: 12px;
+      padding-bottom: 32px;
+    }
+
     .catalogue-head {
       max-width: 720px;
       margin: 0 0 22px;
+    }
+
+    .jewelry-head {
+      max-width: 760px;
+      margin: 0 0 24px;
     }
 
     .catalogue-rail {
@@ -1036,6 +1048,115 @@
       font-size: 0.78rem;
       letter-spacing: 0.16em;
       text-transform: uppercase;
+    }
+
+    .jewelry-rail {
+      position: relative;
+      margin: 0 calc(50% - 50vw);
+      padding: 6px 0 14px;
+      overflow-x: auto;
+      overflow-y: visible;
+      cursor: grab;
+      user-select: none;
+      -webkit-user-select: none;
+      scrollbar-width: thin;
+      scrollbar-color: rgba(221, 176, 109, 0.35) rgba(0, 0, 0, 0.22);
+    }
+
+    .jewelry-rail.is-dragging {
+      cursor: grabbing;
+    }
+
+    .jewelry-track {
+      display: flex;
+      gap: 18px;
+      width: max-content;
+      padding: 0 max(18px, calc(50vw - 590px)) 6px;
+      pointer-events: none;
+    }
+
+    .jewelry-card {
+      position: relative;
+      width: min(32vw, 340px);
+      min-width: 240px;
+      min-height: 420px;
+      padding: 26px 24px 20px;
+      overflow: visible;
+      background: transparent;
+      border: 0;
+      box-shadow: none;
+      pointer-events: auto;
+      cursor: pointer;
+      transition: transform 0.45s ease, filter 0.45s ease;
+    }
+
+    .jewelry-card:hover {
+      transform: translateY(-8px) scale(1.04);
+      filter: brightness(1.05);
+    }
+
+    .jewelry-card::before {
+      content: none;
+    }
+
+    .jewelry-card-media {
+      position: relative;
+      min-height: 320px;
+      display: grid;
+      place-items: center;
+      margin-bottom: 14px;
+    }
+
+    .jewelry-card-media img {
+      width: min(100%, 380px);
+      max-height: 320px;
+      object-fit: contain;
+      display: block;
+      filter:
+        drop-shadow(0 26px 38px rgba(0, 0, 0, 0.46))
+        drop-shadow(0 0 16px rgba(255, 255, 255, 0.08));
+      transition: transform 0.45s ease, filter 0.45s ease;
+    }
+
+    .jewelry-card:hover .jewelry-card-media img {
+      transform: scale(1.08) translateY(-8px);
+      filter:
+        drop-shadow(0 30px 44px rgba(0, 0, 0, 0.5))
+        drop-shadow(0 0 22px rgba(255, 255, 255, 0.12));
+    }
+
+    .jewelry-card-copy {
+      position: relative;
+      z-index: 1;
+    }
+
+    .jewelry-card-title {
+      margin: 0 0 8px;
+      color: #f0ddbf;
+      font-family: "Courier New", monospace;
+      font-size: 0.94rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+
+    .jewelry-card-note,
+    .jewelry-card-text {
+      margin: 0;
+      font-family: "Courier New", monospace;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .jewelry-card-note {
+      color: rgba(221, 176, 109, 0.82);
+      font-size: 0.76rem;
+    }
+
+    .jewelry-card-text {
+      margin-top: 10px;
+      color: rgba(232, 216, 191, 0.78);
+      font-size: 0.72rem;
+      line-height: 1.8;
     }
 
     .archives-head,
@@ -2050,6 +2171,7 @@
 
       .collection-stage,
       .catalogue-stage,
+      .jewelry-stage,
       .contact-stage {
         grid-template-columns: 1fr;
       }
@@ -2162,6 +2284,7 @@
       .collection-stage,
       .archives-stage,
       .catalogue-stage,
+      .jewelry-stage,
       .contact-stage,
       .section-mark {
         width: min(100vw - 16px, 100%);
@@ -2206,6 +2329,16 @@
         width: 76vw;
         min-width: 220px;
         min-height: 320px;
+      }
+
+      .jewelry-card {
+        width: min(42vw, 300px);
+        min-height: 360px;
+        padding: 20px 18px 18px;
+      }
+
+      .jewelry-card-media {
+        min-height: 250px;
       }
 
       .house-viewer {
@@ -2409,7 +2542,7 @@
             </article>
 
             <article class="catalogue-card is-art">
-              <img src="envynomadix-campaign-07-cutout.png" alt="Envynomadix angel cutout artwork" />
+              <img src="ANGELL ENTER.png" alt="Envynomadix angel artwork" />
               <div class="catalogue-card-copy">
                 <h3 class="catalogue-card-title">Angel Signal</h3>
                 <p class="catalogue-card-note">cutout campaign pressure</p>
@@ -2451,6 +2584,64 @@
         </div>
       </section>
 
+      <section class="jewelry-stage" id="jewelryPhase">
+        <div class="jewelry-head">
+          <div class="stage-kicker">jewelry lane</div>
+          <h2 class="stage-title">Silver Script</h2>
+          <p class="stage-text">
+            private pieces, chain language, and placement studies moving into the envy house beside the garment line.
+          </p>
+        </div>
+
+        <div class="jewelry-rail" id="jewelryRail" aria-label="Sideways jewelry catalogue">
+          <div class="jewelry-track">
+            <article class="jewelry-card" data-house-product="N Cross Chain" data-house-price="$245.00" data-house-description="N cross chain study. silver monogram repeat with a sharper cathedral edge." data-house-image="n cross chain.png" data-house-option-label="Select finish" data-house-options="silver,gold">
+              <div class="jewelry-card-media">
+                <img src="n cross chain.png" alt="N cross chain jewelry piece" />
+              </div>
+              <div class="jewelry-card-copy">
+                <h3 class="jewelry-card-title">N Cross Chain</h3>
+                <p class="jewelry-card-note">floating 3d / monogram repeat / tap to view</p>
+                <p class="jewelry-card-text">crossed monogram chain placed first in the lane to lead the jewelry line with a sharper symbol language.</p>
+              </div>
+            </article>
+
+            <article class="jewelry-card" data-house-product="Chrome Envy" data-house-price="$230.00" data-house-description="Chrome envy sculptural script piece with a brighter mirrored finish and floating 3d energy." data-house-image="chrome envy.png" data-house-option-label="Select finish" data-house-options="silver,gold">
+              <div class="jewelry-card-media">
+                <img src="chrome envy.png" alt="Chrome Envy jewelry piece" />
+              </div>
+              <div class="jewelry-card-copy">
+                <h3 class="jewelry-card-title">Chrome Envy</h3>
+                <p class="jewelry-card-note">floating 3d / chrome script / tap to view</p>
+                <p class="jewelry-card-text">bright chrome script piece added second in line so the jewelry lane opens with two strong signature forms.</p>
+              </div>
+            </article>
+
+            <article class="jewelry-card" data-house-product="Envy Script Chain" data-house-price="$260.00" data-house-description="Dark silver script chain treatment with a heavier floating 3d attitude." data-house-image="envy-script-chain-dark.png" data-house-option-label="Select finish" data-house-options="silver,gold">
+              <div class="jewelry-card-media">
+                <img src="envy-script-chain-dark.png" alt="Envy script chain dark jewelry piece" />
+              </div>
+              <div class="jewelry-card-copy">
+                <h3 class="jewelry-card-title">Envy Script Chain</h3>
+                <p class="jewelry-card-note">floating 3d / dark silver pressure / tap to view</p>
+                <p class="jewelry-card-text">script chain treatment pushed darker and cleaner so it floats harder inside the jewelry lane.</p>
+              </div>
+            </article>
+
+            <article class="jewelry-card" data-house-product="Envy Monogram Bracelet" data-house-price="$210.00" data-house-description="Monogram bracelet built from linked envy marks and a floating silver finish." data-house-image="envy-monogram-bracelet.png" data-house-option-label="Select finish" data-house-options="silver,gold">
+              <div class="jewelry-card-media">
+                <img src="envy-monogram-bracelet.png" alt="Envy monogram bracelet jewelry piece" />
+              </div>
+              <div class="jewelry-card-copy">
+                <h3 class="jewelry-card-title">Envy Monogram Bracelet</h3>
+                <p class="jewelry-card-note">floating 3d / monogram link / tap to view</p>
+                <p class="jewelry-card-text">monogram bracelet study added into the sideways catalog so the jewelry world starts feeling like its own line.</p>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
       <section class="contact-stage" id="contactPhase">
         <div class="contact-image">
           <img src="angel of life background.png" alt="Envynomadix atmospheric campaign background" />
@@ -2479,7 +2670,7 @@
             <div class="house-product-price" id="houseProductPrice">$145.00</div>
             <div class="house-product-description" id="houseProductDescription">Collector black jersey. oversized body. halo pressure. built for the chosen few.</div>
             <div class="house-product-group">
-              <div class="house-product-label">Select size</div>
+              <div class="house-product-label" id="houseOptionLabel">Select size</div>
               <div class="house-size-grid">
                 <button class="house-size-chip" type="button" data-house-size="xs">XS</button>
                 <button class="house-size-chip" type="button" data-house-size="s">S</button>
@@ -2562,6 +2753,7 @@
       var luxReveal = document.getElementById("luxReveal");
       var collectionPhase = document.getElementById("collectionPhase");
       var catalogueRail = document.querySelector(".catalogue-rail");
+      var jewelryRail = document.getElementById("jewelryRail");
       var houseProductTriggers = Array.prototype.slice.call(document.querySelectorAll("[data-house-product]"));
       var houseViewer = document.getElementById("houseViewer");
       var houseViewerBackdrop = document.getElementById("houseViewerBackdrop");
@@ -2570,6 +2762,7 @@
       var houseProductTitle = document.getElementById("houseProductTitle");
       var houseProductPrice = document.getElementById("houseProductPrice");
       var houseProductDescription = document.getElementById("houseProductDescription");
+      var houseOptionLabel = document.getElementById("houseOptionLabel");
       var houseSizeChips = Array.prototype.slice.call(document.querySelectorAll("[data-house-size]"));
       var houseQtyMinus = document.getElementById("houseQtyMinus");
       var houseQtyPlus = document.getElementById("houseQtyPlus");
@@ -2589,9 +2782,10 @@
       var houseCartLocation = document.getElementById("houseCartLocation");
       var houseCartNotes = document.getElementById("houseCartNotes");
       var backgroundMusic = document.getElementById("backgroundMusic");
-      var stagedSections = Array.prototype.slice.call(document.querySelectorAll(".collection-stage, .archives-stage, .catalogue-stage, .contact-stage"));
+      var stagedSections = Array.prototype.slice.call(document.querySelectorAll(".collection-stage, .archives-stage, .catalogue-stage, .jewelry-stage, .contact-stage"));
       var hasEntered = false;
       var scrollFrame = 0;
+      var activeRail = null;
       var railPointerId = null;
       var railStartX = 0;
       var railStartScroll = 0;
@@ -2610,6 +2804,7 @@
       var lineIndex = 0;
       var interfaceAudio = null;
       var backgroundMusicStarted = false;
+      var defaultHouseOptions = ["xs", "s", "m", "l", "xl"];
 
       function startBackgroundMusic() {
         if (!backgroundMusic) return;
@@ -2882,6 +3077,31 @@
         });
       }
 
+      function setHouseOptions(label, options, selected) {
+        var activeOptions = options && options.length ? options : defaultHouseOptions;
+
+        if (houseOptionLabel) {
+          houseOptionLabel.textContent = label || "Select size";
+        }
+
+        houseSizeChips.forEach(function (chip, index) {
+          var optionValue = activeOptions[index];
+          if (!optionValue) {
+            chip.hidden = true;
+            chip.disabled = true;
+            chip.classList.remove("is-active");
+            return;
+          }
+
+          chip.hidden = false;
+          chip.disabled = false;
+          chip.textContent = String(optionValue).toUpperCase();
+          chip.setAttribute("data-house-size", String(optionValue).toLowerCase());
+        });
+
+        setHouseSize((selected || activeOptions[0] || "m").toLowerCase());
+      }
+
       function setHouseQuantity(value) {
         houseSelectedQuantity = Math.max(1, Math.min(12, value));
         if (houseQtyValue) {
@@ -2940,11 +3160,18 @@
       }
 
       function getHouseProductFromTrigger(trigger) {
+        var optionList = (trigger.getAttribute("data-house-options") || "")
+          .split(",")
+          .map(function (value) { return value.trim().toLowerCase(); })
+          .filter(Boolean);
+
         return {
           name: trigger.getAttribute("data-house-product") || "Signature Shirt",
           price: trigger.getAttribute("data-house-price") || "$145.00",
           description: trigger.getAttribute("data-house-description") || "Collector black jersey. oversized body. halo pressure. built for the chosen few.",
-          image: trigger.getAttribute("data-house-image") || "3d envy shirt 2026.png"
+          image: trigger.getAttribute("data-house-image") || "3d envy shirt 2026.png",
+          optionLabel: trigger.getAttribute("data-house-option-label") || "Select size",
+          options: optionList.length ? optionList : defaultHouseOptions
         };
       }
 
@@ -2955,7 +3182,7 @@
         if (houseProductTitle) houseProductTitle.textContent = product.name;
         if (houseProductPrice) houseProductPrice.textContent = product.price;
         if (houseProductDescription) houseProductDescription.textContent = product.description;
-        setHouseSize("m");
+        setHouseOptions(product.optionLabel, product.options, product.options && product.options[0] ? product.options[0] : "m");
         setHouseQuantity(1);
         houseViewer.classList.add("is-open");
         houseViewer.setAttribute("aria-hidden", "false");
@@ -3041,9 +3268,11 @@
           name: item.name,
           price: item.price,
           description: item.description,
-          image: item.image
+          image: item.image,
+          optionLabel: item.optionLabel,
+          options: item.options
         });
-        setHouseSize(item.size);
+        setHouseOptions(item.optionLabel, item.options, item.size);
         setHouseQuantity(item.quantity);
       }
 
@@ -3135,10 +3364,43 @@
       }
 
       function stopRailDrag() {
-        if (!catalogueRail) return;
+        if (!activeRail) return;
         railDragging = false;
         railPointerId = null;
-        catalogueRail.classList.remove("is-dragging");
+        activeRail.classList.remove("is-dragging");
+        activeRail = null;
+      }
+
+      function bindRailDrag(rail) {
+        if (!rail) return;
+
+        rail.addEventListener("pointerdown", function (event) {
+          if (event.pointerType === "mouse" && event.button !== 0) return;
+          railDragging = true;
+          activeRail = rail;
+          railPointerId = event.pointerId;
+          railStartX = event.clientX;
+          railStartScroll = rail.scrollLeft;
+          rail.classList.add("is-dragging");
+          if (rail.setPointerCapture) {
+            rail.setPointerCapture(event.pointerId);
+          }
+        });
+
+        rail.addEventListener("pointermove", function (event) {
+          if (!railDragging || activeRail !== rail || railPointerId !== event.pointerId) return;
+          var deltaX = event.clientX - railStartX;
+          rail.scrollLeft = railStartScroll - deltaX;
+        });
+
+        rail.addEventListener("pointerup", stopRailDrag);
+        rail.addEventListener("pointercancel", stopRailDrag);
+        rail.addEventListener("lostpointercapture", stopRailDrag);
+        rail.addEventListener("mouseleave", function () {
+          if (railDragging && activeRail === rail && railPointerId === null) {
+            rail.classList.remove("is-dragging");
+          }
+        });
       }
 
       function rotateLine() {
@@ -3166,34 +3428,8 @@
         });
       }
 
-      if (catalogueRail) {
-        catalogueRail.addEventListener("pointerdown", function (event) {
-          if (event.pointerType === "mouse" && event.button !== 0) return;
-          railDragging = true;
-          railPointerId = event.pointerId;
-          railStartX = event.clientX;
-          railStartScroll = catalogueRail.scrollLeft;
-          catalogueRail.classList.add("is-dragging");
-          if (catalogueRail.setPointerCapture) {
-            catalogueRail.setPointerCapture(event.pointerId);
-          }
-        });
-
-        catalogueRail.addEventListener("pointermove", function (event) {
-          if (!railDragging || railPointerId !== event.pointerId) return;
-          var deltaX = event.clientX - railStartX;
-          catalogueRail.scrollLeft = railStartScroll - deltaX;
-        });
-
-        catalogueRail.addEventListener("pointerup", stopRailDrag);
-        catalogueRail.addEventListener("pointercancel", stopRailDrag);
-        catalogueRail.addEventListener("lostpointercapture", stopRailDrag);
-        catalogueRail.addEventListener("mouseleave", function () {
-          if (railDragging && railPointerId === null) {
-            catalogueRail.classList.remove("is-dragging");
-          }
-        });
-      }
+      bindRailDrag(catalogueRail);
+      bindRailDrag(jewelryRail);
 
       if (enterCollectionLink && collectionPhase) {
         enterCollectionLink.addEventListener("click", function (event) {
