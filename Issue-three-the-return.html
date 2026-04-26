@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#050505">
+  <title>NLX STARBOY — Issue Three // The Return</title>
+  <link rel="icon" type="image/png" href="nate savard.png">
+  <style>
+    :root {
+      --bg: #050505;
+      --card: rgba(12, 12, 12, 0.86);
+      --line: rgba(255,255,255,0.08);
+      --gold: #d0a06d;
+      --red: #b64242;
+      --text: #f5efe8;
+      --muted: #c4b29d;
+      --max: 1040px;
+      --shadow: 0 20px 60px rgba(0,0,0,0.42);
+    }
+    * { box-sizing: border-box; }
+    html, body {
+      margin: 0;
+      padding: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: Georgia, "Times New Roman", serif;
+      scroll-behavior: smooth;
+    }
+    body {
+      min-height: 100vh;
+      background:
+        radial-gradient(circle at top, rgba(182,66,66,0.18), transparent 30%),
+        linear-gradient(rgba(0,0,0,0.58), rgba(0,0,0,0.9)),
+        url("bgnatesavard1.png") center center / cover fixed no-repeat;
+      overflow-x: hidden;
+    }
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 40;
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      background: rgba(5,5,5,0.72);
+      border-bottom: 1px solid var(--line);
+    }
+    .topbar-inner {
+      width: min(100%, 1180px);
+      margin: 0 auto;
+      padding: 14px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .brand-logo {
+      width: min(320px, 58vw);
+      max-width: 100%;
+      display: block;
+      filter: drop-shadow(0 0 12px rgba(208,160,109,0.22));
+    }
+    .nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      justify-content: flex-end;
+    }
+    .nav a {
+      color: var(--muted);
+      text-decoration: none;
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      padding: 8px 10px;
+      border-radius: 999px;
+      border: 1px solid transparent;
+    }
+    .nav a:hover {
+      color: #fff;
+      border-color: var(--line);
+      background: rgba(255,255,255,0.03);
+    }
+    .hero {
+      width: min(100%, var(--max));
+      margin: 0 auto;
+      padding: 42px 18px 24px;
+    }
+    .hero-card {
+      padding: 28px;
+      border-radius: 28px;
+      border: 1px solid var(--line);
+      background:
+        radial-gradient(circle at top, rgba(182,66,66,0.14), transparent 32%),
+        linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.01)),
+        rgba(8,8,8,0.72);
+      box-shadow: var(--shadow);
+      text-align: center;
+    }
+    .signal {
+      display: inline-block;
+      margin-bottom: 14px;
+      color: #f0c98b;
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 11px;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+    }
+    .hero-logo {
+      width: min(240px, 52vw);
+      display: block;
+      margin: 0 auto 16px;
+      filter: drop-shadow(0 0 18px rgba(255,80,80,0.24)) drop-shadow(0 0 28px rgba(208,160,109,0.18));
+    }
+    .hero h1 {
+      margin: 0 0 10px;
+      font-size: clamp(2rem, 5vw, 3.6rem);
+      line-height: 1.05;
+      color: #fff8f0;
+    }
+    .hero p {
+      margin: 0 auto;
+      max-width: 820px;
+      color: #d8cabc;
+      font-size: 1rem;
+    }
+    .hero-actions {
+      margin-top: 18px;
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .btn {
+      display: inline-block;
+      padding: 12px 16px;
+      border-radius: 999px;
+      border: 1px solid rgba(208,160,109,0.24);
+      background: rgba(208,160,109,0.08);
+      color: #f4e2c9;
+      text-decoration: none;
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+    }
+    .btn:hover { background: rgba(208,160,109,0.18); }
+    .chapter-shell {
+      width: min(100%, var(--max));
+      margin: 0 auto;
+      padding: 0 18px 48px;
+    }
+    .page {
+      margin-bottom: 18px;
+      padding: 22px;
+      border-radius: 24px;
+      border: 1px solid rgba(255,255,255,0.07);
+      background: linear-gradient(180deg, rgba(255,255,255,0.025), rgba(255,255,255,0.01)), rgba(7,7,7,0.84);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.03), 0 16px 40px rgba(0,0,0,0.24);
+    }
+    .page-tag {
+      display: inline-block;
+      margin-bottom: 14px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: rgba(208,160,109,0.12);
+      border: 1px solid rgba(208,160,109,0.22);
+      color: #f1d6b6;
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+    }
+    .page h3 {
+      margin: 0 0 14px;
+      font-size: 1.65rem;
+      line-height: 1.12;
+      color: #fffaf3;
+    }
+    .page p {
+      margin: 0 0 16px;
+      color: var(--text);
+      font-size: 1.04rem;
+      line-height: 1.72;
+    }
+    .page-art {
+      margin: 0 0 18px;
+      min-height: 220px;
+      border: 1px dashed rgba(208,160,109,0.34);
+      border-radius: 22px;
+      background:
+        linear-gradient(180deg, rgba(182,66,66,0.12), rgba(255,255,255,0.015)),
+        repeating-linear-gradient(-45deg, rgba(255,255,255,0.02) 0, rgba(255,255,255,0.02) 12px, transparent 12px, transparent 24px),
+        rgba(0,0,0,0.28);
+      display: grid;
+      place-items: center;
+      overflow: hidden;
+    }
+    .page-art.oracle {
+      background:
+        linear-gradient(180deg, rgba(208,160,109,0.12), rgba(255,255,255,0.015)),
+        repeating-linear-gradient(-45deg, rgba(255,255,255,0.02) 0, rgba(255,255,255,0.02) 12px, transparent 12px, transparent 24px),
+        rgba(0,0,0,0.28);
+    }
+    .page-art img {
+      width: min(220px, 52vw);
+      max-width: 100%;
+      display: block;
+      margin: 0 auto 14px;
+      filter: drop-shadow(0 0 14px rgba(255,70,70,0.18)) drop-shadow(0 0 26px rgba(208,160,109,0.16));
+    }
+    .page-art .art-inner {
+      padding: 26px 18px;
+      text-align: center;
+    }
+    .page-art .art-label {
+      display: inline-block;
+      margin-bottom: 10px;
+      padding: 7px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(208,160,109,0.24);
+      background: rgba(0,0,0,0.36);
+      color: #f0c98b;
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+    }
+    .page-art .art-title {
+      margin: 0 0 8px;
+      color: #fff6e8;
+      font-size: 1.05rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+    .page-art .art-copy {
+      margin: 0;
+      color: #cbbba9;
+      font-size: 0.95rem;
+    }
+    .script-block {
+      margin: 18px 0;
+      padding: 18px 16px;
+      border-left: 2px solid rgba(208,160,109,0.5);
+      background: rgba(255,255,255,0.025);
+      border-radius: 16px;
+    }
+    .script-block p:last-child { margin-bottom: 0; }
+    .label {
+      color: #f2c995;
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 0.88rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    .footer {
+      width: min(100%, var(--max));
+      margin: 0 auto;
+      padding: 0 18px 48px;
+      color: #b9a691;
+      text-align: center;
+      font-size: 0.95rem;
+    }
+    @media (max-width: 760px) {
+      .topbar-inner { justify-content: center; }
+      .nav { justify-content: center; }
+      .hero-card, .page { padding: 18px; }
+      .page h3 { font-size: 1.42rem; }
+      .page p { font-size: 1rem; }
+    }
+  </style>
+  <link rel="stylesheet" href="site-flow.css">
+</head>
+<body>
+  <div class="topbar" id="top">
+    <div class="topbar-inner">
+      <a href="starboy.html" aria-label="Back to Starboy archive"><img src="nlx-starboy-reader-logo.svg" alt="NLX Starboy" class="brand-logo"></a>
+      <nav class="nav">
+        <a href="starboy.html">Archive</a>
+        <a href="Chapter-one.html">Issue 1</a>
+        <a href="Chapter-two.html">Issue 2</a>
+        <a href="timeline.html">Timeline</a>
+      </nav>
+    </div>
+  </div>
+
+  <section class="hero">
+    <div class="hero-card">
+      <div class="signal">issue 003 // the return // timeline re-entry</div>
+      <img src="nlxstarboy.png" alt="NLX Starboy" class="hero-logo">
+      <h1>NLX STARBOY — Issue Three // The Return</h1>
+      <p>The first step back into the fracture. Gemstone re-enters the rave, touches the old pattern directly, and learns that even the smallest move bends the whole system.</p>
+      <div class="hero-actions">
+        <a class="btn" href="#chapter">read issue</a>
+        <a class="btn" href="Chapter-two.html">back to issue 2</a>
+        <a class="btn" href="starboy.html#issues">archive</a>
+      </div>
+    </div>
+  </section>
+
+  <main class="chapter-shell" id="chapter">
+    <section class="page">
+      <span class="page-tag">Issue 3</span>
+      <h3>The Shift</h3>
+      <div class="page-art oracle"><div class="art-inner"><div class="art-label">Signal Placeholder</div><img src="nlxstarboy.png" alt="NLX Starboy placeholder"><p class="art-title">Return Channel</p><p class="art-copy">Oracle light folding inward until the rave begins to bleed back through it.</p></div></div>
+      <p>Gemstone didn’t feel himself move.</p>
+      <p>There was no step. No tunnel. No clean transition.</p>
+      <p>Just a shift.</p>
+      <p>The Oracle chamber dropped away and sound came back first. Muffled. Distorted. Then sharper.</p>
+      <p>Bass. Voices. Motion. Heat.</p>
+      <p>When he opened his eyes, the rave was already there.</p>
+    </section>
+
+    <section class="page">
+      <span class="page-tag">Issue 3</span>
+      <h3>The Same Night</h3>
+      <div class="page-art"><div class="art-inner"><div class="art-label">Image Placeholder</div><img src="nlxstarboy.png" alt="NLX Starboy placeholder"><p class="art-title">Back Inside</p><p class="art-copy">Lights carving through smoke, bodies moving, and the exact night he already survived once.</p></div></div>
+      <p>It was exactly as it had been. Lights cutting through smoke. Bodies moving like the room had one nervous system.</p>
+      <p>Everything alive.</p>
+      <p>But not the same.</p>
+      <p>Because now he knew what this night became.</p>
+      <p>Because now he knew what it cost.</p>
+    </section>
+
+    <section class="page">
+      <span class="page-tag">Issue 3</span>
+      <h3>The Watcher</h3>
+      <p>Gemstone stood still in the middle of it, watching everything he had already lived once before.</p>
+      <p>Across the room, B-JAX.</p>
+      <p>Same posture. Same face. Same way of standing just outside the energy while still feeding off it.</p>
+      <p>Gemstone felt his chest tighten.</p>
+      <p>That’s the moment, he thought.</p>
+      <p>Not because it started there. Because that was the shape of it. The watching. The waiting. The access.</p>
+    </section>
+
+    <section class="page">
+      <span class="page-tag">Issue 3</span>
+      <h3>The Approach</h3>
+      <div class="script-block">
+        <p><span class="label">B-JAX:</span> Yo.</p>
+        <p><span class="label">Gemstone:</span> You ever feel like something’s off?</p>
+        <p><span class="label">B-JAX:</span> Off how?</p>
+        <p><span class="label">Gemstone:</span> You know what I mean.</p>
+        <p><span class="label">B-JAX:</span> You good, bro?</p>
+      </div>
+      <p>Gemstone stared at him, trying to see past the face and into the thing behind the timing.</p>
+      <p>For one second, something shifted behind B-JAX’s eyes.</p>
+      <p>Not panic. Not guilt. Recognition.</p>
+      <p>Then it was gone.</p>
+    </section>
+
+    <section class="page">
+      <span class="page-tag">Issue 3</span>
+      <h3>The Pullback</h3>
+      <p>Gemstone stepped back.</p>
+      <p>Too early.</p>
+      <p>He wasn’t ready yet. Not for that close of a look. Not for what the timeline did when he pushed against it.</p>
+      <p>The room didn’t change at first.</p>
+      <p>The structure underneath it did.</p>
+      <p>A conversation fired a little earlier than it should. Somebody moved out of sync. A reaction landed before the cause.</p>
+      <p>The whole scene started slipping.</p>
+    </section>
+
+    <section class="page">
+      <span class="page-tag">Issue 3</span>
+      <h3>The Cost Starts Small</h3>
+      <div class="page-art oracle"><div class="art-inner"><div class="art-label">Oracle Feed</div><img src="nlxstarboy.png" alt="NLX Starboy placeholder"><p class="art-title">Structural Distortion</p><p class="art-copy">One tiny interference, and the whole strand starts wobbling around it.</p></div></div>
+      <p>Then he felt it.</p>
+      <p>Not in the room. In the timeline.</p>
+      <p>Like the whole night had become aware of him being there twice.</p>
+      <p>The bass stretched. Faces blurred. Light dragged across the air like the scene was being pulled out of frame.</p>
+      <p>He understood it immediately.</p>
+      <p>Small changes propagate.</p>
+    </section>
+
+    <section class="page">
+      <span class="page-tag">Issue 3</span>
+      <h3>Thrown Back</h3>
+      <p>Everything pulled hard.</p>
+      <p>Not metaphorically. Not emotionally.</p>
+      <p>Hard.</p>
+      <p>Like the timeline rejected the contact and snapped him loose from it.</p>
+      <p>One second the rave was in front of him.</p>
+      <p>The next second the chamber was back.</p>
+      <p>Cold. Wide. Waiting.</p>
+    </section>
+
+    <section class="page">
+      <span class="page-tag">Issue 3</span>
+      <h3>Interference</h3>
+      <div class="script-block">
+        <p><span class="label">Gemstone:</span> That didn’t work.</p>
+        <p><span class="label">Oracle:</span> You introduced awareness.</p>
+        <p><span class="label">Gemstone:</span> I barely did anything.</p>
+        <p><span class="label">Oracle:</span> Correction is not selective.</p>
+      </div>
+      <p>The timelines around him were different now.</p>
+      <p>Not calm. Not flowing. Distorted.</p>
+      <p>One strand collapsed. Then another. A version of the city blinked out. A version of himself never formed.</p>
+      <p>Gemstone watched it and finally felt the real weight of returning.</p>
+      <p>Not just whether he could go back.</p>
+      <p>What each move would cost if he did.</p>
+    </section>
+
+    <section class="page">
+      <span class="page-tag">Issue 3</span>
+      <h3>The New Understanding</h3>
+      <p>He looked back into the chamber, into the strands, into the places where his life had been bent before it ever had the chance to fully become itself.</p>
+      <p>This wasn’t just betrayal.</p>
+      <p>This wasn’t just pain with a story attached to it.</p>
+      <p>This was a system.</p>
+      <p>And now he was inside it on purpose.</p>
+      <p>That changed everything.</p>
+      <p>Because reacting was over.</p>
+      <p>The next move would have to be chosen.</p>
+    </section>
+  </main>
+
+  <div class="footer">
+    NLX STARBOY continuation node // issue three active // return channel stable
+  </div>
+
+  <script src="site-flow.js"></script>
+</body>
+</html>

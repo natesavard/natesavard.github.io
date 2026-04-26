@@ -1,0 +1,129 @@
+<svg width="1600" height="1200" viewBox="0 0 1600 1200" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="160" y1="110" x2="1450" y2="1090" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#16110D"/>
+      <stop offset="0.42" stop-color="#090807"/>
+      <stop offset="1" stop-color="#040404"/>
+    </linearGradient>
+    <radialGradient id="warmGlow" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(540 360) rotate(90) scale(340 420)">
+      <stop offset="0" stop-color="#4D3415"/>
+      <stop offset="0.6" stop-color="#15100C" stop-opacity="0.35"/>
+      <stop offset="1" stop-color="#000000" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="gold" x1="248" y1="244" x2="1048" y2="846" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#FFF3C9"/>
+      <stop offset="0.18" stop-color="#F2CF7A"/>
+      <stop offset="0.42" stop-color="#B77931"/>
+      <stop offset="0.64" stop-color="#7B481A"/>
+      <stop offset="0.82" stop-color="#E3B55F"/>
+      <stop offset="1" stop-color="#FFF0B6"/>
+    </linearGradient>
+    <linearGradient id="goldDark" x1="356" y1="368" x2="950" y2="854" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#261505"/>
+      <stop offset="0.5" stop-color="#704317"/>
+      <stop offset="1" stop-color="#241404"/>
+    </linearGradient>
+    <radialGradient id="sapphire" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(582 394) rotate(90) scale(150 138)">
+      <stop offset="0" stop-color="#E9FFFF"/>
+      <stop offset="0.22" stop-color="#8DEBFF"/>
+      <stop offset="0.56" stop-color="#3579FF"/>
+      <stop offset="0.82" stop-color="#132964"/>
+      <stop offset="1" stop-color="#070E1C"/>
+    </radialGradient>
+    <radialGradient id="sapphireGlow" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(582 394) rotate(90) scale(220 190)">
+      <stop offset="0" stop-color="#89D8FF" stop-opacity="0.55"/>
+      <stop offset="0.55" stop-color="#3B68C0" stop-opacity="0.15"/>
+      <stop offset="1" stop-color="#000000" stop-opacity="0"/>
+    </radialGradient>
+    <marker id="arrow" markerWidth="12" markerHeight="12" refX="6" refY="6" orient="auto">
+      <path d="M1 6L11 1V11L1 6Z" fill="#E7C876"/>
+    </marker>
+  </defs>
+
+  <rect width="1600" height="1200" rx="42" fill="url(#bg)"/>
+  <rect x="32" y="32" width="1536" height="1136" rx="28" stroke="#8E6332" stroke-opacity="0.34" stroke-width="2"/>
+  <rect x="58" y="58" width="1484" height="1084" rx="22" stroke="#E7C876" stroke-opacity="0.1" stroke-width="2"/>
+
+  <text x="100" y="102" fill="#E7C876" font-family="Courier New, monospace" font-size="24" letter-spacing="6">NATE SAVARD // THE SAGE</text>
+  <text x="100" y="152" fill="#FFF4D6" font-family="Georgia, 'Times New Roman', serif" font-size="66" letter-spacing="2">Luxury Ring Presentation</text>
+  <text x="100" y="192" fill="#BDAA8B" font-family="Courier New, monospace" font-size="22" letter-spacing="4">SAPPHIRE CENTER / MICRO PAVE SHOULDERS / HEIRLOOM SIGNET</text>
+
+  <rect x="84" y="236" width="1010" height="738" rx="34" fill="#0B0A09" stroke="#7E582D" stroke-opacity="0.38" stroke-width="2"/>
+  <ellipse cx="586" cy="838" rx="314" ry="56" fill="#000000" fill-opacity="0.45"/>
+  <ellipse cx="586" cy="394" rx="250" ry="180" fill="url(#sapphireGlow)"/>
+  <ellipse cx="586" cy="394" rx="292" ry="214" fill="url(#warmGlow)"/>
+
+  <g>
+    <path d="M320 632C320 416 440 286 586 286C732 286 852 416 852 632C852 780 730 858 586 858C442 858 320 780 320 632Z" fill="url(#goldDark)"/>
+    <path d="M280 618C280 386 428 236 586 236C744 236 892 386 892 618C892 830 722 930 586 930C450 930 280 830 280 618Z" stroke="url(#gold)" stroke-width="54"/>
+    <path d="M354 618C354 430 476 310 586 310C696 310 818 430 818 618C818 744 716 820 586 820C456 820 354 744 354 618Z" fill="#080808" stroke="#D9B86A" stroke-opacity="0.28" stroke-width="8"/>
+
+    <path d="M442 316L520 256H652L730 316V412L684 474L642 506H530L488 474L442 412V316Z" fill="url(#gold)" stroke="#FFE8A7" stroke-width="10"/>
+    <path d="M470 334L534 286H638L702 334V402L664 450L624 478H548L508 450L470 402V334Z" fill="#0B0D12"/>
+    <ellipse cx="586" cy="394" rx="122" ry="112" fill="url(#sapphire)"/>
+    <path d="M586 292L620 334L586 372L552 334L586 292Z" stroke="#F2D071" stroke-width="7"/>
+    <path d="M586 334V484" stroke="#F2D071" stroke-width="7"/>
+    <path d="M516 394H656" stroke="#F2D071" stroke-width="7"/>
+
+    <g fill="#FFF8E6">
+      <circle cx="338" cy="604" r="8"/>
+      <circle cx="364" cy="650" r="8"/>
+      <circle cx="404" cy="694" r="8"/>
+      <circle cx="456" cy="728" r="8"/>
+      <circle cx="516" cy="750" r="8"/>
+      <circle cx="656" cy="750" r="8"/>
+      <circle cx="716" cy="728" r="8"/>
+      <circle cx="768" cy="694" r="8"/>
+      <circle cx="808" cy="650" r="8"/>
+      <circle cx="834" cy="604" r="8"/>
+    </g>
+  </g>
+
+  <g>
+    <text x="1200" y="282" fill="#E7C876" font-family="Courier New, monospace" font-size="22" letter-spacing="5">FRONT VIEW</text>
+    <rect x="1142" y="316" width="364" height="266" rx="28" fill="#0C0B0A" stroke="#7E582D" stroke-opacity="0.36" stroke-width="2"/>
+    <ellipse cx="1324" cy="542" rx="108" ry="20" fill="#000000" fill-opacity="0.36"/>
+    <path d="M1238 492C1238 382 1300 316 1374 316C1448 316 1510 382 1510 492C1510 564 1446 606 1374 606C1302 606 1238 564 1238 492Z" fill="url(#goldDark)"/>
+    <path d="M1218 486C1218 364 1292 286 1374 286C1456 286 1530 364 1530 486C1530 600 1440 658 1374 658C1308 658 1218 600 1218 486Z" stroke="url(#gold)" stroke-width="26"/>
+    <path d="M1298 338L1336 310H1412L1450 338V382L1426 412L1398 430H1350L1322 412L1298 382V338Z" fill="url(#gold)" stroke="#FFE8A7" stroke-width="6"/>
+    <path d="M1314 346L1348 322H1400L1434 346V378L1410 404L1386 416H1362L1338 404L1314 378V346Z" fill="#091018"/>
+    <ellipse cx="1374" cy="368" rx="58" ry="48" fill="url(#sapphire)"/>
+  </g>
+
+  <g>
+    <text x="1200" y="698" fill="#E7C876" font-family="Courier New, monospace" font-size="22" letter-spacing="5">SIDE PROFILE</text>
+    <rect x="1142" y="732" width="364" height="184" rx="28" fill="#0C0B0A" stroke="#7E582D" stroke-opacity="0.36" stroke-width="2"/>
+    <ellipse cx="1324" cy="876" rx="118" ry="18" fill="#000000" fill-opacity="0.36"/>
+    <path d="M1218 834C1232 774 1284 740 1360 740C1430 740 1476 770 1494 824L1456 840C1438 798 1408 782 1360 782C1310 782 1276 804 1258 850L1218 834Z" fill="url(#gold)"/>
+    <path d="M1260 842C1284 786 1316 756 1368 756C1420 756 1450 782 1466 824L1440 834C1424 804 1400 792 1368 792C1332 792 1306 810 1284 858L1260 842Z" fill="#0A0908"/>
+    <path d="M1308 720H1418L1450 754V804H1286V754L1308 720Z" fill="url(#gold)" stroke="#FFE8A7" stroke-width="6"/>
+    <ellipse cx="1364" cy="762" rx="38" ry="26" fill="url(#sapphire)"/>
+  </g>
+
+  <g stroke="#E7C876" stroke-width="3" opacity="0.95">
+    <path d="M452 216H720" marker-start="url(#arrow)" marker-end="url(#arrow)"/>
+    <path d="M452 216V278" stroke-dasharray="8 8"/>
+    <path d="M720 216V278" stroke-dasharray="8 8"/>
+    <text x="586" y="202" text-anchor="middle" fill="#FFF1C8" font-family="Courier New, monospace" font-size="22" letter-spacing="3">FACE WIDTH // 24MM</text>
+
+    <path d="M936 322V510" marker-start="url(#arrow)" marker-end="url(#arrow)"/>
+    <path d="M892 322H920" stroke-dasharray="8 8"/>
+    <path d="M892 510H920" stroke-dasharray="8 8"/>
+    <text x="960" y="404" fill="#FFF1C8" font-family="Courier New, monospace" font-size="22" letter-spacing="3">TOP</text>
+    <text x="960" y="434" fill="#FFF1C8" font-family="Courier New, monospace" font-size="22" letter-spacing="3">HEIGHT // 20MM</text>
+  </g>
+
+  <g>
+    <rect x="84" y="1002" width="1008" height="126" rx="26" fill="#0B0A09" stroke="#7E582D" stroke-opacity="0.38" stroke-width="2"/>
+    <text x="120" y="1054" fill="#E7C876" font-family="Courier New, monospace" font-size="22" letter-spacing="4">CLIENT SPEC</text>
+    <text x="120" y="1100" fill="#F2E1BF" font-family="Georgia, 'Times New Roman', serif" font-size="28">Estimated ring weight: 22G-28G // Center sapphire: 16MM // Example sapphire cost: around $200 each on average</text>
+  </g>
+
+  <g>
+    <rect x="1142" y="954" width="364" height="174" rx="26" fill="#0B0A09" stroke="#7E582D" stroke-opacity="0.38" stroke-width="2"/>
+    <text x="1180" y="1004" fill="#E7C876" font-family="Courier New, monospace" font-size="22" letter-spacing="4">BUILD NOTE</text>
+    <text x="1180" y="1050" fill="#E8D4AF" font-family="Georgia, 'Times New Roman', serif" font-size="26">Heavy signet body, raised shoulders,</text>
+    <text x="1180" y="1086" fill="#E8D4AF" font-family="Georgia, 'Times New Roman', serif" font-size="26">micro pave field, 16MM blue sapphire,</text>
+    <text x="1180" y="1122" fill="#E8D4AF" font-family="Georgia, 'Times New Roman', serif" font-size="26">built for heirloom presence and weight.</text>
+  </g>
+</svg>

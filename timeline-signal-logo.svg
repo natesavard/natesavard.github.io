@@ -1,0 +1,41 @@
+﻿<svg width="980" height="280" viewBox="0 0 980 280" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="goldLine" x1="120" y1="24" x2="860" y2="24" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#7D5A14"/>
+      <stop offset="0.22" stop-color="#F4C95D"/>
+      <stop offset="0.52" stop-color="#FFF1B0"/>
+      <stop offset="0.78" stop-color="#E5B84D"/>
+      <stop offset="1" stop-color="#7C5511"/>
+    </linearGradient>
+    <linearGradient id="goldText" x1="196" y1="70" x2="784" y2="220" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#FFF4C2"/>
+      <stop offset="0.18" stop-color="#F7D56F"/>
+      <stop offset="0.52" stop-color="#DDAE42"/>
+      <stop offset="0.8" stop-color="#FFF0B4"/>
+      <stop offset="1" stop-color="#A57119"/>
+    </linearGradient>
+    <linearGradient id="blueAccent" x1="287" y1="233" x2="692" y2="233" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#5D8AA4"/>
+      <stop offset="0.5" stop-color="#B9E9FF"/>
+      <stop offset="1" stop-color="#5D8AA4"/>
+    </linearGradient>
+    <filter id="outerGlow" x="0" y="0" width="980" height="280" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feGaussianBlur stdDeviation="9" result="blur"/>
+      <feColorMatrix in="blur" type="matrix" values="0 0 0 0 0.99 0 0 0 0 0.85 0 0 0 0 0.42 0 0 0 0.32 0" result="goldGlow"/>
+      <feBlend in="SourceGraphic" in2="goldGlow" mode="screen"/>
+    </filter>
+  </defs>
+
+  <g filter="url(#outerGlow)">
+    <path d="M120 26H320" stroke="url(#goldLine)" stroke-width="2.2" stroke-linecap="round"/>
+    <path d="M660 26H860" stroke="url(#goldLine)" stroke-width="2.2" stroke-linecap="round"/>
+    <path d="M120 246H320" stroke="url(#goldLine)" stroke-width="2.2" stroke-linecap="round"/>
+    <path d="M660 246H860" stroke="url(#goldLine)" stroke-width="2.2" stroke-linecap="round"/>
+
+    <text x="490" y="60" text-anchor="middle" fill="#8ED6FF" font-size="20" letter-spacing="7" font-family="Arial, Helvetica, sans-serif">ARCHIVE LINE // CHRONOLOGY ONLINE</text>
+
+    <text x="490" y="168" text-anchor="middle" fill="url(#goldText)" font-size="108" font-weight="800" letter-spacing="9" font-family="Arial, Helvetica, sans-serif">TIMELINE</text>
+
+    <text x="490" y="232" text-anchor="middle" fill="url(#blueAccent)" font-size="26" letter-spacing="6" font-family="Arial, Helvetica, sans-serif">ORIGIN SIGNAL // PRIVATE RECORD</text>
+  </g>
+</svg>

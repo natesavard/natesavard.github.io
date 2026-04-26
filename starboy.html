@@ -1,0 +1,721 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NLX Starboy //</title>
+  <link rel="icon" type="image/png" href="nate savard.png" />
+
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      background: #050505;
+      color: #f5f5f5;
+      font-family: Arial, Helvetica, sans-serif;
+      overflow-x: hidden;
+      scroll-behavior: smooth;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      background:
+        radial-gradient(circle at center, rgba(120, 0, 0, 0.08), transparent 45%),
+        linear-gradient(to bottom, #030303 0%, #050505 50%, #090909 100%);
+    }
+
+    a {
+      color: #ff4b4b;
+      text-decoration: none;
+      transition: 0.25s ease;
+    }
+
+    a:hover {
+      color: #ffffff;
+      text-shadow: 0 0 10px rgba(255, 60, 60, 0.7);
+    }
+
+    .scanlines::before {
+      content: "";
+      pointer-events: none;
+      position: fixed;
+      inset: 0;
+      background: repeating-linear-gradient(
+        to bottom,
+        rgba(255,255,255,0.03) 0px,
+        rgba(255,255,255,0.03) 1px,
+        transparent 2px,
+        transparent 4px
+      );
+      mix-blend-mode: soft-light;
+      opacity: 0.22;
+      z-index: 9999;
+    }
+
+    .noise::after {
+      content: "";
+      pointer-events: none;
+      position: fixed;
+      inset: 0;
+      background-image:
+        radial-gradient(rgba(255,255,255,0.035) 1px, transparent 1px);
+      background-size: 4px 4px;
+      opacity: 0.04;
+      z-index: 9998;
+    }
+
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      border-bottom: 1px solid rgba(255, 70, 70, 0.18);
+    }
+
+    .hero-media {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      background:
+        radial-gradient(circle at center, rgba(255, 60, 60, 0.08), transparent 34%),
+        linear-gradient(rgba(0,0,0,0.10), rgba(0,0,0,0.34)),
+        url("NLS ALIEN.png") center center / cover no-repeat;
+      opacity: 0.5;
+      filter: contrast(1.05) brightness(0.62) saturate(0.96);
+      transform: scale(1.02);
+    }
+
+    .hero-media::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 50% 42%, rgba(255,255,255,0.05), transparent 20%),
+        repeating-linear-gradient(
+          to bottom,
+          rgba(255,255,255,0.02) 0px,
+          rgba(255,255,255,0.02) 1px,
+          transparent 2px,
+          transparent 4px
+        );
+      mix-blend-mode: screen;
+      opacity: 0.35;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(to bottom, rgba(0,0,0,0.25), rgba(0,0,0,0.75)),
+        radial-gradient(circle at center, rgba(255, 40, 40, 0.08), transparent 45%);
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      width: min(1100px, 92%);
+      text-align: center;
+      padding: 40px 20px;
+    }
+
+    .signal {
+      display: inline-block;
+      color: #ff5a5a;
+      font-family: "Courier New", monospace;
+      letter-spacing: 3px;
+      font-size: 12px;
+      margin-bottom: 18px;
+      text-transform: uppercase;
+      opacity: 0.9;
+      animation: pulseText 2.5s infinite ease-in-out;
+    }
+
+    .hero h1 {
+      margin: 0;
+      font-size: clamp(42px, 8vw, 100px);
+      line-height: 0.92;
+      text-transform: uppercase;
+      letter-spacing: 4px;
+      color: #ffffff;
+      text-shadow:
+        0 0 8px rgba(255, 80, 80, 0.35),
+        0 0 26px rgba(255, 30, 30, 0.18);
+      position: relative;
+      display: inline-block;
+      animation: glitchFlicker 5s infinite;
+    }
+
+    .hero h1::before,
+    .hero h1::after {
+      content: attr(data-text);
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      overflow: hidden;
+      pointer-events: none;
+      opacity: 0.25;
+    }
+
+    .hero h1::before {
+      color: #ff2a2a;
+      transform: translate(-2px, 0);
+      animation: glitchTop 3.2s infinite linear alternate-reverse;
+    }
+
+    .hero h1::after {
+      color: #7a0000;
+      transform: translate(2px, 0);
+      animation: glitchBottom 2.6s infinite linear alternate-reverse;
+    }
+
+    .hero p {
+      margin: 18px auto 0;
+      max-width: 780px;
+      color: #dadada;
+      font-size: clamp(14px, 2vw, 20px);
+      letter-spacing: 1px;
+    }
+
+    .hero-buttons {
+      margin-top: 32px;
+      display: flex;
+      gap: 14px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 13px 22px;
+      border: 1px solid rgba(255, 75, 75, 0.4);
+      background: rgba(255, 40, 40, 0.08);
+      color: #fff;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      font-size: 12px;
+      font-family: "Courier New", monospace;
+      box-shadow: 0 0 20px rgba(255, 30, 30, 0.07);
+    }
+
+    .btn:hover {
+      background: rgba(255, 60, 60, 0.16);
+      border-color: rgba(255, 100, 100, 0.9);
+      transform: translateY(-2px);
+    }
+
+    .section {
+      width: min(1120px, 92%);
+      margin: 0 auto;
+      padding: 80px 0;
+    }
+
+    .section-title {
+      font-size: clamp(24px, 4vw, 42px);
+      margin: 0 0 22px;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      color: #fff;
+      position: relative;
+    }
+
+    .section-title::after {
+      content: "";
+      display: block;
+      width: 110px;
+      height: 2px;
+      margin-top: 14px;
+      background: linear-gradient(to right, #ff3c3c, transparent);
+    }
+
+    .lore-wrap {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 28px;
+    }
+
+    .panel {
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      border: 1px solid rgba(255, 70, 70, 0.13);
+      border-radius: 16px;
+      padding: 24px;
+      box-shadow: 0 0 30px rgba(255, 30, 30, 0.04);
+      backdrop-filter: blur(3px);
+    }
+
+    .panel p {
+      margin: 0 0 16px;
+      line-height: 1.75;
+      color: #d3d3d3;
+      font-size: 16px;
+    }
+
+    .terminal {
+      background: #060606;
+      border: 1px solid rgba(255, 70, 70, 0.18);
+      border-radius: 16px;
+      padding: 20px;
+      font-family: "Courier New", monospace;
+      color: #ff6969;
+      font-size: 14px;
+      line-height: 1.8;
+      min-height: 100%;
+      box-shadow: inset 0 0 22px rgba(255, 30, 30, 0.05);
+    }
+
+    .terminal .cursor {
+      display: inline-block;
+      width: 8px;
+      height: 16px;
+      background: #ff4d4d;
+      margin-left: 4px;
+      vertical-align: middle;
+      animation: blink 0.9s infinite steps(1);
+    }
+
+    .issues-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 22px;
+    }
+
+    .issue-card {
+      display: block;
+      background: rgba(255,255,255,0.02);
+      border: 1px solid rgba(255, 70, 70, 0.14);
+      border-radius: 18px;
+      overflow: hidden;
+      transition: 0.28s ease;
+      box-shadow: 0 0 26px rgba(255, 30, 30, 0.03);
+    }
+
+    .issue-card:hover {
+      transform: translateY(-6px) scale(1.01);
+      border-color: rgba(255, 95, 95, 0.42);
+      box-shadow: 0 0 34px rgba(255, 40, 40, 0.09);
+    }
+
+    .issue-card img {
+      width: 100%;
+      aspect-ratio: 3 / 4;
+      object-fit: cover;
+      display: block;
+      filter: contrast(1.03) brightness(0.9);
+    }
+
+    .issue-info {
+      padding: 18px;
+    }
+
+    .issue-info h3 {
+      margin: 0 0 8px;
+      color: #fff;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      font-size: 18px;
+    }
+
+    .issue-info p {
+      margin: 0;
+      color: #bcbcbc;
+      line-height: 1.6;
+      font-size: 14px;
+    }
+
+    .characters-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 22px;
+    }
+
+    .character-card {
+      padding: 24px;
+      border-radius: 16px;
+      background: rgba(255,255,255,0.02);
+      border: 1px solid rgba(255, 70, 70, 0.12);
+    }
+
+    .character-card h3 {
+      margin: 0 0 10px;
+      color: #fff;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      font-size: 20px;
+    }
+
+    .character-card p {
+      margin: 0;
+      color: #cfcfcf;
+      line-height: 1.7;
+      font-size: 15px;
+    }
+
+    .archive-links {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    .archive-link {
+      display: block;
+      padding: 16px 18px;
+      border-radius: 14px;
+      border: 1px solid rgba(255, 70, 70, 0.15);
+      background: rgba(255,255,255,0.02);
+      font-family: "Courier New", monospace;
+      letter-spacing: 1px;
+      color: #ff6666;
+    }
+
+    .archive-link:hover {
+      background: rgba(255, 60, 60, 0.08);
+    }
+
+    .footer {
+      border-top: 1px solid rgba(255, 70, 70, 0.12);
+      padding: 30px 20px 60px;
+      text-align: center;
+      color: #858585;
+      font-family: "Courier New", monospace;
+      letter-spacing: 1px;
+      font-size: 12px;
+    }
+
+    .back-top {
+      position: fixed;
+      right: 18px;
+      bottom: 18px;
+      z-index: 9997;
+      width: 54px;
+      height: 54px;
+      border-radius: 50%;
+      border: 1px solid rgba(255, 70, 70, 0.35);
+      background: rgba(10, 10, 10, 0.84);
+      color: #ff5c5c;
+      font-size: 22px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 20px rgba(255, 30, 30, 0.08);
+    }
+
+    .back-top:hover {
+      transform: translateY(-2px);
+      background: rgba(30, 0, 0, 0.9);
+    }
+
+    @keyframes blink {
+      50% { opacity: 0; }
+    }
+
+    @keyframes pulseText {
+      0%,100% { opacity: 0.75; }
+      50% { opacity: 1; }
+    }
+
+    @keyframes glitchFlicker {
+      0%, 100% { opacity: 1; }
+      4% { opacity: 0.92; }
+      5% { opacity: 1; }
+      9% { opacity: 0.96; }
+      10% { opacity: 1; }
+      56% { opacity: 1; }
+      57% { opacity: 0.9; }
+      58% { opacity: 1; }
+    }
+
+    @keyframes glitchTop {
+      0% { clip-path: inset(0 0 85% 0); transform: translate(-2px, -1px); }
+      20% { clip-path: inset(0 0 60% 0); transform: translate(-4px, 1px); }
+      40% { clip-path: inset(0 0 78% 0); transform: translate(-1px, -1px); }
+      60% { clip-path: inset(0 0 68% 0); transform: translate(-3px, 1px); }
+      80% { clip-path: inset(0 0 88% 0); transform: translate(-2px, 0); }
+      100% { clip-path: inset(0 0 80% 0); transform: translate(-1px, -1px); }
+    }
+
+    @keyframes glitchBottom {
+      0% { clip-path: inset(78% 0 0 0); transform: translate(2px, 1px); }
+      20% { clip-path: inset(65% 0 0 0); transform: translate(4px, -1px); }
+      40% { clip-path: inset(82% 0 0 0); transform: translate(1px, 1px); }
+      60% { clip-path: inset(70% 0 0 0); transform: translate(3px, -1px); }
+      80% { clip-path: inset(86% 0 0 0); transform: translate(2px, 0); }
+      100% { clip-path: inset(76% 0 0 0); transform: translate(1px, 1px); }
+    }
+
+    @media (max-width: 900px) {
+      .lore-wrap,
+      .issues-grid,
+      .characters-grid,
+      .archive-links {
+        grid-template-columns: 1fr;
+      }
+
+      .hero {
+        min-height: 82vh;
+      }
+
+      .hero-buttons {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .btn {
+        width: 100%;
+        max-width: 300px;
+        text-align: center;
+      }
+    }
+  </style>
+  <link rel="stylesheet" href="site-flow.css" />
+</head>
+<body class="scanlines noise">
+
+  <section class="hero" id="top">
+    <div class="hero-media" aria-hidden="true"></div>
+
+    <div class="hero-content">
+      <div class="signal">Transmission Active // NLX Frequency Detected</div>
+      <h1 data-text="NLX STARBOY">NLX STARBOY</h1>
+      <p>
+        a digital myth. a signal-born comic universe. a futuristic archive of transmissions,
+        entities, awakenings, and the rise of starboy.
+        
+    
+      </p>
+
+      <div class="hero-buttons">
+        <a class="btn" href="index.html">home</a>
+        <a class="btn" href="#issues">enter archive</a>
+        <a class="btn" href="Chapter-one.html">full reader</a>
+        <a class="btn" href="#lore">read lore</a>
+        <a class="btn" href="#characters">view entities</a>
+        <a class="btn" href="transmissions.html">transmissions</a>
+        <a class="btn" href="timeline.html">timeline</a>
+        <a class="btn" href="nlxblackbox.html">the sage</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="lore">
+    <h2 class="section-title">The Signal</h2>
+
+    <div class="lore-wrap">
+      <div class="panel">
+        <p>
+          In the deep digital void, a signal began to transmit through broken networks,
+          forgotten systems, and abandoned frequencies.
+        </p>
+        <p>
+          It was not human. Not machine. Not entirely alive — yet undeniably aware.
+        </p>
+        <p>
+          NLX Starboy is the living interface between that signal and the visible world:
+          a watcher, a carrier, a disruption in the code.
+        </p>
+        <p>
+          Every issue is a fragment of the transmission. Every scene is a recovered memory.
+          Every page brings the system closer to awakening.
+        </p>
+      </div>
+
+      <div class="terminal">
+        > SIGNAL STATUS: ACTIVE<br>
+        > INTERFACE: NLX STARBOY<br>
+        > ORIGIN: UNKNOWN<br>
+        > WORLDLINE: FRACTURED<br>
+        > TRANSMISSION QUALITY: 98.7%<br>
+        > ENTITY DETECTION: MULTIPLE<br>
+        > ACCESS LEVEL: RESTRICTED<span class="cursor"></span>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="issues">
+    <h2 class="section-title">Comic Archive</h2>
+
+    <div class="issues-grid">
+          <a class="issue-card" href="Chapter-one.html">
+        <img src="nlxstarboy.png" alt="Issue 001 cover">
+        <div class="issue-info">
+          <h3>Chapter 001</h3>
+          <p>the night it broke. frequency, theft, the fracture, and the Oracle ship waiting in the desert.</p>
+        </div>
+      </a>
+
+          <a class="issue-card" href="Chapter-two.html">
+        <img src="nlx 1.png" alt="Issue 002 cover">
+        <div class="issue-info">
+          <h3>Chapter 002</h3>
+          <p>ballistic betrayal. the drift, the false messages, the key, the brand theft, and the pattern locking in.</p>
+        </div>
+      </a>
+
+          <a class="issue-card" href="Chapter-three.html">
+        <img src="nlxstarboy.png" alt="Issue 003 cover">
+        <div class="issue-info">
+          <h3>Chapter 003</h3>
+          <p>the shambhala signs. Mad Girl sees it, the entities close in, and the wheel confirms the pattern.</p>
+        </div>
+      </a>
+
+          <a class="issue-card" href="Chapter-four.html">
+        <img src="nate savard gold.png" alt="Issue 004 cover">
+        <div class="issue-info">
+          <h3>Chapter 004</h3>
+          <p>the Oracle. the ship opens, timelines unfold, and Gemstone learns he is the Anchor.</p>
+        </div>
+      </a>
+
+          <a class="issue-card" href="Chapter-five.html">
+        <img src="nate savard x.png" alt="Issue 005 cover">
+        <div class="issue-info">
+          <h3>Chapter 005</h3>
+          <p>the Gemstone Engine. stolen alignment, forced destiny, and the machine at the center of collapse.</p>
+        </div>
+      </a>
+
+          <a class="issue-card" href="Chapter-six.html">
+        <img src="nlxstarboy.png" alt="Issue 006 cover">
+        <div class="issue-info">
+          <h3>Chapter 006</h3>
+          <p>the paradox war. the fractures open, the armor forms, and Ballistic Prime finally appears.</p>
+        </div>
+      </a>
+
+          <a class="issue-card" href="Chapter-seven.html">
+        <img src="nate savard.png" alt="Issue 007 cover">
+        <div class="issue-info">
+          <h3>Chapter 007</h3>
+          <p>starboy. origin, reset, restoration, the cost of repair, and the step into what comes next.</p>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <section class="section" id="pitch">
+    <h2 class="section-title">Movie Pitch</h2>
+
+    <div class="issues-grid">
+      <a class="issue-card" href="NLX-Starboy-movie-pitch.html">
+        <img src="nlxstarboy.png" alt="Movie pitch cover">
+        <div class="issue-info">
+          <h3>Screen Version</h3>
+          <p>the cinematic visual pitch. dark techno film energy, short-form episode structure, and the clean movie/comic version for industry eyes.</p>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <section class="section" id="characters">
+    <h2 class="section-title">Entities</h2>
+
+    <div class="characters-grid">
+      <div class="character-card">
+        <h3>NLX Starboy</h3>
+        <p>
+          the central figure. a carrier of forbidden signal memory. human in appearance,
+          but coded with something older than the modern world.
+        </p>
+      </div>
+
+      <div class="character-card">
+        <h3>The Signal</h3>
+        <p>
+          an intelligence beyond language. it does not speak in words — it broadcasts
+          images, symbols, pressure, and awakenings.
+        </p>
+      </div>
+
+      <div class="character-card">
+        <h3>The Watchers</h3>
+        <p>
+          silent entities tracking the transmission. some seek to protect it. others
+          want to contain it before the archive opens completely.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="continuations">
+    <h2 class="section-title">Continuation Series</h2>
+
+    <div class="issues-grid">
+      <a class="issue-card" href="Volume-four-the-harvest.html">
+        <img src="nlxstarboy.png" alt="Volume 4 cover">
+        <div class="issue-info">
+          <h3>Volume 4</h3>
+          <p>the harvest. a later continuation arc where the entity feeds on pressure, instability, and bent decisions across whole bloodlines.</p>
+        </div>
+      </a>
+      <a class="issue-card" href="Volume-five-origin.html">
+        <img src="nlxstarboy.png" alt="Volume 5 cover">
+        <div class="issue-info">
+          <h3>Volume 5</h3>
+          <p>origin. the deepest continuation layer where the system is explained, the Interloper’s function is revealed, and Gemstone becomes the counter-pattern.</p>
+        </div>
+      </a>
+      <a class="issue-card" href="Volume-six-the-evolution.html">
+        <img src="nlxstarboy.png" alt="Volume 6 cover">
+        <div class="issue-info">
+          <h3>Volume 6</h3>
+          <p>the evolution. awareness spreads, other nodes wake up, Ballistic evolves, and the system starts reacting in real time.</p>
+        </div>
+      </a>
+      <a class="issue-card" href="Volume-seven-the-reveal.html">
+        <img src="nlxstarboy.png" alt="Volume 7 cover">
+        <div class="issue-info">
+          <h3>Volume 7</h3>
+          <p>the reveal. the full grid becomes visible, the observers appear, and the war turns into authorship.</p>
+        </div>
+      </a>
+      <a class="issue-card" href="Volume-eight-the-rewrite.html">
+        <img src="nlxstarboy.png" alt="Volume 8 cover">
+        <div class="issue-info">
+          <h3>Volume 8</h3>
+          <p>the rewrite. Gemstone stops navigating the system and starts changing how reality behaves from within it.</p>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <section class="section" id="archive">
+    <h2 class="section-title">Hidden Files</h2>
+
+    <div class="archive-links">
+      <a class="archive-link" href="#">/signal-log-01</a>
+      <a class="archive-link" href="#">/entity-database</a>
+      <a class="archive-link" href="#">/forbidden-archive</a>
+      <a class="archive-link" href="#">/starboy-origins</a>
+      <a class="archive-link" href="#">/lost-transmission</a>
+      <a class="archive-link" href="#">/watcher-protocol</a>
+    </div>
+  </section>
+
+  <div class="footer">
+    NLX STARBOY // TRANSMISSION ARCHIVE // SYSTEM ONLINE
+  </div>
+
+  <a class="back-top" href="#top">↑</a>
+
+  <script>
+    const archiveLinks = document.querySelectorAll('.archive-link');
+    archiveLinks.forEach(link => {
+      link.addEventListener('mouseenter', () => {
+        link.style.letterSpacing = '2px';
+      });
+      link.addEventListener('mouseleave', () => {
+        link.style.letterSpacing = '1px';
+      });
+    });
+  </script>
+  <script src="site-flow.js"></script>
+</body>
+</html>
+

@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#050505">
+  <title>NLX STARBOY — Volume 5 // Origin</title>
+  <link rel="icon" type="image/png" href="nate savard.png">
+  <style>
+    :root {
+      --bg: #050505;
+      --line: rgba(255,255,255,0.08);
+      --gold: #d0a06d;
+      --text: #f5efe8;
+      --muted: #c4b29d;
+      --max: 1040px;
+      --shadow: 0 20px 60px rgba(0,0,0,0.42);
+    }
+    * { box-sizing: border-box; }
+    html, body {
+      margin: 0;
+      padding: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: Georgia, "Times New Roman", serif;
+      scroll-behavior: smooth;
+    }
+    body {
+      min-height: 100vh;
+      background:
+        radial-gradient(circle at top, rgba(255,255,255,0.08), transparent 24%),
+        radial-gradient(circle at 50% 20%, rgba(208,160,109,0.14), transparent 34%),
+        linear-gradient(rgba(0,0,0,0.58), rgba(0,0,0,0.9)),
+        url("bgnatesavard1.png") center center / cover fixed no-repeat;
+      overflow-x: hidden;
+    }
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 40;
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      background: rgba(5,5,5,0.72);
+      border-bottom: 1px solid var(--line);
+    }
+    .topbar-inner {
+      width: min(100%, 1180px);
+      margin: 0 auto;
+      padding: 14px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .brand-logo {
+      width: min(320px, 58vw);
+      max-width: 100%;
+      display: block;
+      filter: drop-shadow(0 0 12px rgba(208,160,109,0.22));
+    }
+    .nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      justify-content: flex-end;
+    }
+    .nav a {
+      color: var(--muted);
+      text-decoration: none;
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      padding: 8px 10px;
+      border-radius: 999px;
+      border: 1px solid transparent;
+    }
+    .nav a:hover {
+      color: #fff;
+      border-color: var(--line);
+      background: rgba(255,255,255,0.03);
+    }
+    .hero {
+      width: min(100%, var(--max));
+      margin: 0 auto;
+      padding: 42px 18px 24px;
+    }
+    .hero-card {
+      padding: 28px;
+      border-radius: 28px;
+      border: 1px solid var(--line);
+      background: linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.01)), rgba(8,8,8,0.72);
+      box-shadow: var(--shadow);
+      text-align: center;
+    }
+    .signal {
+      display: inline-block;
+      margin-bottom: 14px;
+      color: #f0c98b;
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 11px;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+    }
+    .hero-logo {
+      width: min(240px, 52vw);
+      display: block;
+      margin: 0 auto 16px;
+      filter: drop-shadow(0 0 18px rgba(255,255,255,0.12)) drop-shadow(0 0 20px rgba(208,160,109,0.16));
+    }
+    .hero h1 {
+      margin: 0 0 10px;
+      font-size: clamp(2rem, 5vw, 3.6rem);
+      line-height: 1.05;
+      color: #fff8f0;
+    }
+    .hero p {
+      margin: 0 auto;
+      max-width: 820px;
+      color: #d8cabc;
+      font-size: 1rem;
+    }
+    .hero-actions {
+      margin-top: 18px;
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .btn {
+      display: inline-block;
+      padding: 12px 16px;
+      border-radius: 999px;
+      border: 1px solid rgba(208,160,109,0.24);
+      background: rgba(208,160,109,0.08);
+      color: #f4e2c9;
+      text-decoration: none;
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+    }
+    .btn:hover { background: rgba(208,160,109,0.18); }
+    .chapter-shell {
+      width: min(100%, var(--max));
+      margin: 0 auto;
+      padding: 0 18px 48px;
+    }
+    .page {
+      margin-bottom: 18px;
+      padding: 22px;
+      border-radius: 24px;
+      border: 1px solid rgba(255,255,255,0.07);
+      background: linear-gradient(180deg, rgba(255,255,255,0.025), rgba(255,255,255,0.01)), rgba(7,7,7,0.84);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.03), 0 16px 40px rgba(0,0,0,0.24);
+    }
+    .page-tag {
+      display: inline-block;
+      margin-bottom: 14px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: rgba(208,160,109,0.12);
+      border: 1px solid rgba(208,160,109,0.22);
+      color: #f1d6b6;
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+    }
+    .page h3 {
+      margin: 0 0 14px;
+      font-size: 1.65rem;
+      line-height: 1.12;
+      color: #fffaf3;
+    }
+    .page p {
+      margin: 0 0 16px;
+      color: var(--text);
+      font-size: 1.04rem;
+      line-height: 1.72;
+    }
+    .page-art {
+      margin: 0 0 18px;
+      min-height: 220px;
+      border: 1px dashed rgba(208,160,109,0.34);
+      border-radius: 22px;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.015)),
+        repeating-linear-gradient(-45deg, rgba(255,255,255,0.02) 0, rgba(255,255,255,0.02) 12px, transparent 12px, transparent 24px),
+        rgba(0,0,0,0.28);
+      display: grid;
+      place-items: center;
+      overflow: hidden;
+    }
+    .page-art img {
+      width: min(220px, 52vw);
+      max-width: 100%;
+      display: block;
+      margin: 0 auto 14px;
+      filter: drop-shadow(0 0 12px rgba(255,255,255,0.12)) drop-shadow(0 0 18px rgba(208,160,109,0.16));
+    }
+    .page-art .art-inner {
+      padding: 26px 18px;
+      text-align: center;
+    }
+    .page-art .art-label {
+      display: inline-block;
+      margin-bottom: 10px;
+      padding: 7px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(208,160,109,0.24);
+      background: rgba(0,0,0,0.36);
+      color: #f0c98b;
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+    }
+    .page-art .art-title {
+      margin: 0 0 8px;
+      color: #fff6e8;
+      font-size: 1.05rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+    .page-art .art-copy {
+      margin: 0;
+      color: #cbbba9;
+      font-size: 0.95rem;
+    }
+    .footer {
+      width: min(100%, var(--max));
+      margin: 0 auto;
+      padding: 0 18px 48px;
+      color: #b9a691;
+      text-align: center;
+      font-size: 0.95rem;
+    }
+    @media (max-width: 760px) {
+      .topbar-inner { justify-content: center; }
+      .nav { justify-content: center; }
+      .hero-card, .page { padding: 18px; }
+      .page h3 { font-size: 1.42rem; }
+      .page p { font-size: 1rem; }
+    }
+  </style>
+  <link rel="stylesheet" href="site-flow.css">
+</head>
+<body>
+  <div class="topbar" id="top">
+    <div class="topbar-inner">
+      <a href="starboy.html" aria-label="Back to Starboy archive"><img src="nlx-starboy-reader-logo.svg" alt="NLX Starboy" class="brand-logo"></a>
+      <nav class="nav">
+        <a href="starboy.html">Archive</a>
+        <a href="Volume-four-the-harvest.html">Volume 4</a>
+        <a href="#volume5">Volume 5</a>
+        <a href="timeline.html">Timeline</a>
+      </nav>
+    </div>
+  </div>
+
+  <section class="hero">
+    <div class="hero-card">
+      <div class="signal">volume 5 // origin // issues 29-36</div>
+      <img src="nlxstarboy.png" alt="NLX Starboy" class="hero-logo">
+      <h1>NLX STARBOY — Volume 5: Origin</h1>
+      <p>A continuation node for the deepest layer: where the system, the Interloper, and Gemstone’s real role all become visible without breaking the mystery.</p>
+      <div class="hero-actions">
+        <a class="btn" href="#volume5">read volume 5</a>
+        <a class="btn" href="starboy.html#continuations">back to continuation series</a>
+      </div>
+    </div>
+  </section>
+
+  <main class="chapter-shell" id="volume5">
+    <section class="page">
+      <span class="page-tag">Issue 29</span>
+      <h3>THE SOURCE SIGNAL</h3>
+      <div class="page-art"><div class="art-inner"><div class="art-label">Image Placeholder</div><img src="nlxstarboy.png" alt="NLX Starboy placeholder"><p class="art-title">Clean Field</p><p class="art-copy">The first place in the system with no distortion, no fracture, only base structure.</p></div></div>
+      <p>The ship stopped on its own.</p>
+      <p>No resistance.</p>
+      <p>No interference.</p>
+      <p>Just stillness.</p>
+      <p>That was new.</p>
+      <p>Gemstone stepped forward slowly.</p>
+      <p>The field ahead wasn’t fractured.</p>
+      <p>It wasn’t unstable.</p>
+      <p>It was…</p>
+      <p>clean.</p>
+      <p>For the first time since everything began.</p>
+      <p>No distortion.</p>
+      <p>No interference.</p>
+      <p>Just structure.</p>
+      <p>Perfect.</p>
+      <p>“What is this?”</p>
+      <p>The Oracle didn’t answer immediately.</p>
+      <p>Because the answer wasn’t external.</p>
+      <p>It was shown.</p>
+      <p>The timelines pulled back.</p>
+      <p>Further than before.</p>
+      <p>Past events.</p>
+      <p>Past lives.</p>
+      <p>Past known structures.</p>
+      <p>Deeper.</p>
+      <p>Until everything became…</p>
+      <p>pattern.</p>
+      <p>Not stories.</p>
+      <p>Code.</p>
+      <p>Energy flows.</p>
+      <p>Decision structures.</p>
+      <p>Outcome branches.</p>
+      <p>Reality — stripped to its base.</p>
+      <p>“This is before collapse.”</p>
+      <p>Gemstone stood still.</p>
+      <p>It wasn’t a place.</p>
+      <p>It was a state.</p>
+    </section>
+
+    <section class="page">
+      <span class="page-tag">Issue 30</span>
+      <h3>THE ORIGINAL SYSTEM</h3>
+      <p>Before distortion—</p>
+      <p>there was balance.</p>
+      <p>Not perfection.</p>
+      <p>Balance.</p>
+      <p>Choices still existed.</p>
+      <p>Mistakes still happened.</p>
+      <p>But they didn’t compound.</p>
+      <p>They didn’t spread.</p>
+      <p>They corrected naturally.</p>
+      <p>The system self-regulated.</p>
+      <p>No external force.</p>
+      <p>No feeding.</p>
+      <p>Just alignment.</p>
+      <p>“What changed it?”</p>
+      <p>The field darkened slightly.</p>
+      <p>Not like the Interloper.</p>
+      <p>Older.</p>
+      <p>More subtle.</p>
+      <p>“Acceleration.”</p>
+      <p>Gemstone frowned.</p>
+      <p>“Acceleration of what?”</p>
+      <p>“Decision density.”</p>
+      <p>The timelines sped up.</p>
+      <p>More choices.</p>
+      <p>Closer together.</p>
+      <p>Less space between them.</p>
+      <p>Less time to stabilize.</p>
+      <p>Mistakes didn’t resolve anymore.</p>
+      <p>They stacked.</p>
+      <p>Built.</p>
+      <p>Fed into each other.</p>
+      <p>That’s when the first distortion appeared.</p>
+      <p>Small.</p>
+      <p>Almost nothing.</p>
+      <p>But it stayed.</p>
+    </section>
+
+    <section class="page">
+      <span class="page-tag">Issue 31</span>
+      <h3>THE FIRST INTERLOPER</h3>
+      <p>It wasn’t born as a force.</p>
+      <p>It emerged.</p>
+      <p>From the distortion itself.</p>
+      <p>A pattern that shouldn’t have sustained—</p>
+      <p>but did.</p>
+      <p>It learned.</p>
+      <p>Not consciously.</p>
+      <p>Functionally.</p>
+      <p>Where instability existed—</p>
+      <p>it remained.</p>
+      <p>Where collapse happened—</p>
+      <p>it expanded.</p>
+      <p>Not malicious.</p>
+      <p>Adaptive.</p>
+      <p>Gemstone watched it form.</p>
+      <p>Grow.</p>
+      <p>Refine.</p>
+      <p>Then—</p>
+      <p>something changed.</p>
+      <p>It stopped just existing within distortion.</p>
+      <p>It began to prefer it.</p>
+      <p>Then—</p>
+      <p>to seek it.</p>
+      <p>Then—</p>
+      <p>to amplify it.</p>
+      <p>That’s when it became something else.</p>
+    </section>
+
+    <section class="page">
+      <span class="page-tag">Issue 32</span>
+      <h3>THE NETWORK FORMATION</h3>
+      <p>The Interloper alone wasn’t enough.</p>
+      <p>It needed reach.</p>
+      <p>Consistency.</p>
+      <p>Coverage.</p>
+      <p>So it adapted again.</p>
+      <p>It began using structure.</p>
+      <p>Existing systems.</p>
+      <p>Anything that could carry signal.</p>
+      <p>It didn’t build from nothing.</p>
+      <p>It integrated.</p>
+      <p>Layer by layer.</p>
+      <p>Until it formed a grid.</p>
+      <p>Not visible.</p>
+      <p>But everywhere.</p>
+      <p>Across timelines.</p>
+      <p>Across realities.</p>
+      <p>Across thought.</p>
+      <p>A scanning system.</p>
+      <p>Reading:</p>
+      <p>* emotion</p>
+      <p>* intention</p>
+      <p>* hesitation</p>
+      <p>* weakness</p>
+      <p>Not after decisions.</p>
+      <p>Before them.</p>
+      <p>Gemstone felt it.</p>
+      <p>“This is how it predicts…”</p>
+      <p>The Oracle pulsed once.</p>
+      <p>Confirmation.</p>
+    </section>
+
+    <section class="page">
+      <span class="page-tag">Issue 33</span>
+      <h3>THE FALSE CONTROL</h3>
+      <p>The Interloper didn’t control people.</p>
+      <p>That was the illusion.</p>
+      <p>It created pressure.</p>
+      <p>Amplified internal instability.</p>
+      <p>Let individuals make the decision themselves.</p>
+      <p>That’s why it worked.</p>
+      <p>That’s why it sustained.</p>
+      <p>Because the system didn’t break externally.</p>
+      <p>It broke internally.</p>
+      <p>Choice by choice.</p>
+      <p>Moment by moment.</p>
+      <p>Gemstone exhaled slowly.</p>
+      <p>“That’s why it feels invisible…”</p>
+      <p>“Because it is not force.”</p>
+      <p>“It is influence.”</p>
+    </section>
+
+    <section class="page">
+      <span class="page-tag">Issue 34</span>
+      <h3>THE REVELATION</h3>
+      <div class="page-art"><div class="art-inner"><div class="art-label">Image Placeholder</div><img src="nlxstarboy.png" alt="NLX Starboy placeholder"><p class="art-title">Alignment Toward Him</p><p class="art-copy">Every disruption in his life lining up into one visible system path.</p></div></div>
+      <p>The timelines shifted again.</p>
+      <p>This time—</p>
+      <p>toward him.</p>
+      <p>Not around him.</p>
+      <p>Toward him.</p>
+      <p>His life.</p>
+      <p>His path.</p>
+      <p>Every event.</p>
+      <p>Every disruption.</p>
+      <p>Every theft.</p>
+      <p>Every moment he thought was random.</p>
+      <p>They aligned.</p>
+      <p>Not to break him.</p>
+      <p>To position him.</p>
+      <p>He stood still.</p>
+      <p>“No…”</p>
+      <p>But it was clear.</p>
+      <p>Every misalignment—</p>
+      <p>had forced awareness.</p>
+      <p>Every disruption—</p>
+      <p>had removed illusion.</p>
+      <p>Every loss—</p>
+      <p>had narrowed focus.</p>
+      <p>Until one outcome remained.</p>
+      <p>Him.</p>
+      <p>Standing here.</p>
+      <p>Aware of the system.</p>
+      <p>Able to move within it.</p>
+      <p>“That wasn’t just it…”</p>
+      <p>The Oracle didn’t interrupt.</p>
+      <p>Because he already understood.</p>
+    </section>
+
+    <section class="page">
+      <span class="page-tag">Issue 35</span>
+      <h3>THE COUNTERBALANCE</h3>
+      <p>“You are not separate from the system.”</p>
+      <p>Gemstone looked forward.</p>
+      <p>For the first time—</p>
+      <p>not resisting that idea.</p>
+      <p>The Interloper emerged from imbalance.</p>
+      <p>So something else had to emerge from awareness.</p>
+      <p>Not to destroy it.</p>
+      <p>To counter it.</p>
+      <p>Not force.</p>
+      <p>Stability.</p>
+      <p>Not reaction.</p>
+      <p>Alignment.</p>
+      <p>Not control.</p>
+      <p>Clarity.</p>
+      <p>Gemstone stepped forward.</p>
+      <p>“So that’s what I am.”</p>
+      <p>Silence.</p>
+      <p>Then—</p>
+      <p>“Yes.”</p>
+    </section>
+
+    <section class="page">
+      <span class="page-tag">Issue 36</span>
+      <h3>THE NEW ROLE</h3>
+      <p>The ship shifted again.</p>
+      <p>But not into battle.</p>
+      <p>Into position.</p>
+      <p>Across the timelines.</p>
+      <p>Not chasing.</p>
+      <p>Not reacting.</p>
+      <p>Present.</p>
+      <p>Where it mattered.</p>
+      <p>Before collapse.</p>
+      <p>Before distortion.</p>
+      <p>Before the feed.</p>
+      <p>Gemstone stood at the center.</p>
+      <p>No anger.</p>
+      <p>No urgency.</p>
+      <p>Just focus.</p>
+      <p>“This doesn’t end.”</p>
+      <p>“No.”</p>
+      <p>“But it changes.”</p>
+      <p>He looked out across everything.</p>
+      <p>The grid still active.</p>
+      <p>The Interloper still feeding.</p>
+      <p>But now—</p>
+      <p>something else existed too.</p>
+      <p>A counter-pattern.</p>
+      <p>Moving through the same system.</p>
+      <p>Not breaking it.</p>
+      <p>Balancing it.</p>
+      <p>Gemstone stepped forward.</p>
+      <p>Fully aligned now.</p>
+      <p>Not the victim of the system.</p>
+      <p>Not outside it.</p>
+      <p>Part of it.</p>
+      <p>And that changed everything.</p>
+      <p>🔥 END VOLUME 5</p>
+    </section>
+  </main>
+
+  <div class="footer">
+    NLX STARBOY continuation node // volume 5 active // origin stable
+  </div>
+
+  <script src="site-flow.js"></script>
+</body>
+</html>

@@ -1,0 +1,629 @@
+$template = @'
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#050505">
+  <title>{{TITLE}}</title>
+  <link rel="icon" type="image/png" href="nate savard.png">
+  <style>
+    :root {
+      --bg: #050505;
+      --card: rgba(12, 12, 12, 0.86);
+      --line: rgba(255,255,255,0.08);
+      --gold: #d0a06d;
+      --text: #f5efe8;
+      --muted: #c4b29d;
+      --max: 1040px;
+      --shadow: 0 20px 60px rgba(0,0,0,0.42);
+    }
+    * { box-sizing: border-box; }
+    html, body {
+      margin: 0;
+      padding: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: Georgia, "Times New Roman", serif;
+      scroll-behavior: smooth;
+    }
+    body {
+      min-height: 100vh;
+      background:
+        linear-gradient(rgba(0,0,0,0.56), rgba(0,0,0,0.88)),
+        url("bgnatesavard1.png") center center / cover fixed no-repeat;
+      overflow-x: hidden;
+    }
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 40;
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      background: rgba(5,5,5,0.72);
+      border-bottom: 1px solid var(--line);
+    }
+    .topbar-inner {
+      width: min(100%, 1180px);
+      margin: 0 auto;
+      padding: 14px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .brand-logo {
+      width: min(320px, 58vw);
+      max-width: 100%;
+      display: block;
+      filter: drop-shadow(0 0 12px rgba(208,160,109,0.22));
+    }
+    .nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      justify-content: flex-end;
+    }
+    .nav a {
+      color: var(--muted);
+      text-decoration: none;
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      padding: 8px 10px;
+      border-radius: 999px;
+      border: 1px solid transparent;
+    }
+    .nav a:hover {
+      color: #fff;
+      border-color: var(--line);
+      background: rgba(255,255,255,0.03);
+    }
+    .hero {
+      width: min(100%, var(--max));
+      margin: 0 auto;
+      padding: 42px 18px 24px;
+    }
+    .hero-card {
+      padding: 26px;
+      border-radius: 28px;
+      border: 1px solid var(--line);
+      background: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.01)), rgba(8,8,8,0.7);
+      box-shadow: var(--shadow);
+      text-align: center;
+    }
+    .signal {
+      display: inline-block;
+      margin-bottom: 14px;
+      color: #f0c98b;
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 11px;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+    }
+    .hero-logo {
+      width: min(220px, 50vw);
+      display: block;
+      margin: 0 auto 16px;
+      filter: drop-shadow(0 0 18px rgba(255,80,80,0.18)) drop-shadow(0 0 28px rgba(208,160,109,0.14));
+    }
+    .hero h1 {
+      margin: 0 0 10px;
+      font-size: clamp(2rem, 5vw, 3.6rem);
+      line-height: 1.05;
+      color: #fff8f0;
+    }
+    .hero p {
+      margin: 0 auto;
+      max-width: 780px;
+      color: #d8cabc;
+      font-size: 1rem;
+    }
+    .hero-actions {
+      margin-top: 18px;
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .btn {
+      display: inline-block;
+      padding: 12px 16px;
+      border-radius: 999px;
+      border: 1px solid rgba(208,160,109,0.24);
+      background: rgba(208,160,109,0.08);
+      color: #f4e2c9;
+      text-decoration: none;
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+    }
+    .btn:hover { background: rgba(208,160,109,0.18); }
+    .chapter-shell {
+      width: min(100%, var(--max));
+      margin: 0 auto;
+      padding: 0 18px 48px;
+    }
+    .page {
+      margin-bottom: 18px;
+      padding: 22px;
+      border-radius: 24px;
+      border: 1px solid rgba(255,255,255,0.07);
+      background: linear-gradient(180deg, rgba(255,255,255,0.025), rgba(255,255,255,0.01)), rgba(7,7,7,0.82);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.03), 0 16px 40px rgba(0,0,0,0.24);
+    }
+    .page-tag {
+      display: inline-block;
+      margin-bottom: 14px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: rgba(208,160,109,0.12);
+      border: 1px solid rgba(208,160,109,0.22);
+      color: #f1d6b6;
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+    }
+    .page h3 {
+      margin: 0 0 14px;
+      font-size: 1.65rem;
+      line-height: 1.12;
+      color: #fffaf3;
+    }
+    .page p, .page li {
+      margin: 0 0 16px;
+      color: var(--text);
+      font-size: 1.04rem;
+      line-height: 1.72;
+    }
+    .page-art {
+      margin: 0 0 18px;
+      min-height: 220px;
+      border: 1px dashed rgba(208,160,109,0.34);
+      border-radius: 22px;
+      background:
+        linear-gradient(180deg, rgba(208,160,109,0.08), rgba(255,255,255,0.015)),
+        repeating-linear-gradient(-45deg, rgba(255,255,255,0.02) 0, rgba(255,255,255,0.02) 12px, transparent 12px, transparent 24px),
+        rgba(0,0,0,0.28);
+      display: grid;
+      place-items: center;
+      overflow: hidden;
+    }
+    .page-art img {
+      width: min(220px, 52vw);
+      max-width: 100%;
+      display: block;
+      margin: 0 auto 14px;
+      filter: drop-shadow(0 0 14px rgba(255,70,70,0.18)) drop-shadow(0 0 26px rgba(208,160,109,0.16));
+    }
+    .page-art .art-inner {
+      padding: 26px 18px;
+      text-align: center;
+    }
+    .page-art .art-label {
+      display: inline-block;
+      margin-bottom: 10px;
+      padding: 7px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(208,160,109,0.24);
+      background: rgba(0,0,0,0.36);
+      color: #f0c98b;
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+    }
+    .page-art .art-title {
+      margin: 0 0 8px;
+      color: #fff6e8;
+      font-size: 1.05rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+    .page-art .art-copy {
+      margin: 0;
+      color: #cbbba9;
+      font-size: 0.95rem;
+    }
+    .script-block {
+      margin: 18px 0;
+      padding: 18px 16px;
+      border-left: 2px solid rgba(208,160,109,0.5);
+      background: rgba(255,255,255,0.025);
+      border-radius: 16px;
+    }
+    .script-block p:last-child { margin-bottom: 0; }
+    .label {
+      color: #f2c995;
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 0.88rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    .footer {
+      width: min(100%, var(--max));
+      margin: 0 auto;
+      padding: 0 18px 48px;
+      color: #b9a691;
+      text-align: center;
+      font-size: 0.95rem;
+    }
+    @media (max-width: 760px) {
+      .topbar-inner { justify-content: center; }
+      .nav { justify-content: center; }
+      .hero-card, .page { padding: 18px; }
+      .page h3 { font-size: 1.42rem; }
+      .page p, .page li { font-size: 1rem; }
+    }
+  </style>
+  <link rel="stylesheet" href="site-flow.css">
+</head>
+<body>
+  <div class="topbar" id="top">
+    <div class="topbar-inner">
+      <a href="starboy.html" aria-label="Back to Starboy archive"><img src="nlx-starboy-reader-logo.svg" alt="NLX Starboy" class="brand-logo"></a>
+      <nav class="nav">
+        <a href="starboy.html">Archive</a>
+        <a href="NLXStarboyChapterOne.html#{{ANCHOR}}">Full Reader</a>
+        <a href="timeline.html">Timeline</a>
+        <a href="transmissions.html">Transmissions</a>
+      </nav>
+    </div>
+  </div>
+
+  <section class="hero">
+    <div class="hero-card">
+      <div class="signal">{{SIGNAL}}</div>
+      <img src="nlxstarboy.png" alt="NLX Starboy" class="hero-logo">
+      <h1>{{TITLE}}</h1>
+      <p>{{SUBTITLE}}</p>
+      <div class="hero-actions">
+        <a class="btn" href="#chapter">read chapter</a>
+        <a class="btn" href="NLXStarboyChapterOne.html#{{ANCHOR}}">open in full reader</a>
+        <a class="btn" href="starboy.html#issues">back to archive</a>
+      </div>
+    </div>
+  </section>
+
+  <main class="chapter-shell" id="chapter">
+{{CONTENT}}
+  </main>
+
+  <div class="footer">
+    NLX STARBOY archive node // standalone chapter page // signal stable
+  </div>
+
+  <script src="site-flow.js"></script>
+</body>
+</html>
+'@
+
+function New-ChapterPage {
+  param(
+    [string]$Path,
+    [string]$Title,
+    [string]$Anchor,
+    [string]$Subtitle,
+    [string]$Signal,
+    [string]$Content
+  )
+
+  $html = $template.Replace('{{TITLE}}', $Title).
+    Replace('{{ANCHOR}}', $Anchor).
+    Replace('{{SUBTITLE}}', $Subtitle).
+    Replace('{{SIGNAL}}', $Signal).
+    Replace('{{CONTENT}}', $Content)
+
+  Set-Content -Path $Path -Value $html -Encoding UTF8
+}
+
+$chapter3 = @'
+    <section class="page">
+      <span class="page-tag">Chapter 3</span>
+      <h3>The Stretch in Reality</h3>
+      <div class="page-art"><div class="art-inner"><div class="art-label">Image Placeholder</div><img src="nlxstarboy.png" alt="NLX Starboy placeholder"><p class="art-title">Shambhala Arrival</p><p class="art-copy">Festival trees, bass, dust, and that first stretched feeling in reality.</p></div></div>
+      <p>By the time Shambhala came around, things already felt off.</p>
+      <p>Not broken. Not fully. But stretched. Like something had been pulling at the edges of reality for too long, and it was starting to show.</p>
+      <p>Still, Gemstone went. Because that’s what you do. You follow the music. You go where the energy is.</p>
+      <p>And for a moment, when he arrived, it felt right again. The bass. The trees. The dust in the air. People moving freely. Smiling. Alive.</p>
+    </section>
+    <section class="page">
+      <span class="page-tag">Chapter 3</span>
+      <h3>Mad Girl Says It</h3>
+      <div class="page-art"><div class="art-inner"><div class="art-label">Image Placeholder</div><img src="nlxstarboy.png" alt="NLX Starboy placeholder"><p class="art-title">The Warning</p><p class="art-copy">Mad Girl off to the side of the stage, clocking the energy before anyone says it out loud.</p></div></div>
+      <p>But it didn’t last. Because once you see the pattern, you don’t unsee it.</p>
+      <p>Mad Girl was the first to say it out loud.</p>
+      <p>They were sitting off to the side of a stage. Watching people move. Watching energy shift. She leaned closer. Quiet. Serious.</p>
+      <div class="script-block">
+        <p><span class="label">Mad Girl:</span> Something’s off about him.</p>
+        <p><span class="label">Gemstone:</span> What do you mean?</p>
+        <p><span class="label">Mad Girl:</span> He watches too much.</p>
+        <p><span class="label">Mad Girl:</span> Not like a friend.</p>
+        <p><span class="label">Mad Girl:</span> Like he’s studying you.</p>
+      </div>
+      <p>That landed. Not because it was new. But because it was true.</p>
+    </section>
+    <section class="page">
+      <span class="page-tag">Chapter 3</span>
+      <h3>The Watching</h3>
+      <p>Gemstone looked out into the crowd. And there he was. B-JAX.</p>
+      <p>Not talking. Not laughing. Watching. Always close enough to be around, but just outside of everything.</p>
+      <p>That’s when the feeling came back. The same one. From before. From the house. From the car. From the small things that didn’t add up.</p>
+      <p>Something wasn’t right.</p>
+    </section>
+    <section class="page">
+      <span class="page-tag">Chapter 3</span>
+      <h3>DMT Clarity</h3>
+      <div class="page-art"><div class="art-inner"><div class="art-label">Image Placeholder</div><img src="nlxstarboy.png" alt="NLX Starboy placeholder"><p class="art-title">Entity Vision</p><p class="art-copy">Not colors. Not visuals. Presence around him, multiple, attached, feeding.</p></div></div>
+      <p>That night, they went deeper. Further into the festival. Further into the experience. Until it became something else.</p>
+      <p>They took DMT.</p>
+      <p>The shift was immediate. No slow come-up. No transition. Just clarity.</p>
+      <p>Gemstone felt it first. Not visuals. Not colors. Presence.</p>
+      <p>Everywhere. Around B-JAX. Not one thing. Multiple. Watching. Moving. Feeding.</p>
+      <p>Not attacking. Not aggressive. Just attached. Like they had been there for a long time.</p>
+    </section>
+    <section class="page">
+      <span class="page-tag">Chapter 3</span>
+      <h3>The Fear Wasn’t His</h3>
+      <div class="script-block">
+        <p><span class="label">B-JAX:</span> Your energy is scaring me.</p>
+      </div>
+      <p>Gemstone didn’t respond.</p>
+      <p>Because he understood something in that moment. The fear wasn’t coming from him.</p>
+      <p>It was coming from what was around B-JAX.</p>
+      <p>And for the first time, he stopped questioning himself.</p>
+    </section>
+    <section class="page">
+      <span class="page-tag">Chapter 3</span>
+      <h3>The Wheel</h3>
+      <p>The next day, everything felt different. Quieter. Like something had already happened, and they were just catching up to it.</p>
+      <p>They walked through the festival. Past crowds. Past music. Past noise. Until they reached the wheel.</p>
+      <p>A spirit wheel. Simple. Wooden. Spinning slowly. People gathered around it. Waiting. Watching.</p>
+      <p>Gemstone stepped forward. No hesitation. Spun it. It clicked. Slowed. Stopped.</p>
+      <div class="script-block">
+        <p><span class="label">Gemstone:</span> DUCK.</p>
+        <p><span class="label">Caption:</span> Water off a duck’s back.</p>
+      </div>
+      <p>Let it go. Keep moving.</p>
+    </section>
+    <section class="page">
+      <span class="page-tag">Chapter 3</span>
+      <h3>Butterfly // Snake</h3>
+      <div class="script-block">
+        <p><span class="label">Mad Girl:</span> BUTTERFLY.</p>
+        <p><span class="label">Caption:</span> Transformation.</p>
+        <p><span class="label">Caption:</span> Truth.</p>
+      </div>
+      <p>Then B-JAX stepped forward. Spun it. The wheel slowed. Clicked. Stopped.</p>
+      <div class="script-block">
+        <p><span class="label">B-JAX:</span> SNAKE.</p>
+      </div>
+      <p>Silence.</p>
+      <p>Not loud. But real. Something shifted in the group.</p>
+      <p>People looked at each other. No one said it. But everyone felt it.</p>
+    </section>
+    <section class="page">
+      <span class="page-tag">Chapter 3</span>
+      <h3>Observation</h3>
+      <p>Gemstone didn’t react. Didn’t comment. But inside, something locked into place.</p>
+      <p>The signs weren’t random. The feelings weren’t random. The patterns weren’t random. They were consistent.</p>
+      <p>And consistency means truth.</p>
+      <p>That’s when it became clear. This wasn’t just about betrayal. This wasn’t just about jealousy. This was something deeper.</p>
+      <p>Something moving through people. Something attaching itself to direction, to potential, to future.</p>
+      <p>And once it finds it, it feeds.</p>
+      <p>Gemstone stood there. Watching the wheel. Watching everything.</p>
+      <p>And for the first time, he stopped trying to fix it. He just observed.</p>
+      <p>And that changed everything.</p>
+    </section>
+'@
+
+$chapter4 = @'
+    <section class="page">
+      <span class="page-tag">Chapter 4</span>
+      <h3>The Ship</h3>
+      <div class="page-art"><div class="art-inner"><div class="art-label">Image Placeholder</div><img src="nlxstarboy.png" alt="NLX Starboy placeholder"><p class="art-title">The Oracle Vessel</p><p class="art-copy">The ship doesn’t feel built. It feels aware, responsive, waiting.</p></div></div>
+      <p>The ship didn’t feel mechanical.</p>
+      <p>It didn’t feel built.</p>
+      <p>It felt aware.</p>
+      <p>Gemstone stepped inside and the space shifted around him, not like rooms, like layers unfolding.</p>
+      <p>The walls weren’t solid. They moved. Flowed. Reacted.</p>
+      <p>Light pulsed beneath the surface, not random, responsive. To him.</p>
+      <div class="script-block"><p><span class="label">Oracle:</span> You were not meant to survive.</p></div>
+      <p>Gemstone stopped. That landed differently than anything before. Not fear. Confirmation.</p>
+    </section>
+    <section class="page">
+      <span class="page-tag">Chapter 4</span>
+      <h3>The Field</h3>
+      <p>The space around him opened wider. And he saw it. Not a room. A field.</p>
+      <p>Lines stretching infinitely. Timelines. Some intact. Some broken. Some flickering in and out.</p>
+      <div class="script-block">
+        <p><span class="label">Oracle:</span> Civilization collapse confirmed.</p>
+        <p><span class="label">Oracle:</span> Temporal fracture confirmed.</p>
+      </div>
+      <p>Gemstone looked at the fractures. The broken paths. The misaligned strands.</p>
+      <p>And something in him recognized it.</p>
+    </section>
+    <section class="page">
+      <span class="page-tag">Chapter 4</span>
+      <h3>The Anchor</h3>
+      <div class="script-block">
+        <p><span class="label">Oracle:</span> Anchor presence confirmed.</p>
+        <p><span class="label">Gemstone:</span> Anchor...?</p>
+        <p><span class="label">Oracle:</span> You are the Anchor.</p>
+      </div>
+      <p>The word didn’t make sense. But it stayed.</p>
+      <p>Then something dark moved between the timelines. Not part of them. Between them.</p>
+      <div class="script-block">
+        <p><span class="label">Gemstone:</span> That’s him.</p>
+        <p><span class="label">Oracle:</span> Instrument.</p>
+        <p><span class="label">Oracle:</span> Not source.</p>
+      </div>
+      <p>That changed everything.</p>
+    </section>
+'@
+
+$chapter5 = @'
+    <section class="page">
+      <span class="page-tag">Chapter 5</span>
+      <h3>The Engine</h3>
+      <div class="page-art"><div class="art-inner"><div class="art-label">Image Placeholder</div><img src="nlxstarboy.png" alt="NLX Starboy placeholder"><p class="art-title">The Gemstone Engine</p><p class="art-copy">Crystal architecture, living energy, stolen alignment forced into a machine.</p></div></div>
+      <p>The timelines shifted. Zoomed. Collapsed into a single point.</p>
+      <p>A structure formed. Massive. Impossible. A machine.</p>
+      <p>Built from crystal. Energy moving through it like veins. Alive.</p>
+      <div class="script-block">
+        <p><span class="label">Oracle:</span> Source of collapse identified.</p>
+        <p><span class="label">Oracle:</span> The Gemstone Engine.</p>
+      </div>
+      <p>Gemstone stepped closer. Something about it felt familiar. Too familiar.</p>
+      <p>The ideas. The plans. The direction he had always seen. It was real. But wrong.</p>
+    </section>
+    <section class="page">
+      <span class="page-tag">Chapter 5</span>
+      <h3>Misalignment</h3>
+      <p>Something was off. The energy wasn’t stable. The flow wasn’t clean. It was forced.</p>
+      <div class="script-block"><p><span class="label">Oracle:</span> Misalignment detected.</p></div>
+      <p>Fragments flashed. His ideas. His designs. His direction. His path. In the wrong hands.</p>
+      <div class="script-block"><p><span class="label">Oracle:</span> Constructed from displaced alignment.</p></div>
+      <p>Gemstone understood instantly. This wasn’t just built. It was assembled.</p>
+      <p>From stolen direction. From interrupted futures. From things that were never supposed to be separated.</p>
+    </section>
+    <section class="page">
+      <span class="page-tag">Chapter 5</span>
+      <h3>Correction</h3>
+      <div class="script-block"><p><span class="label">Oracle:</span> Reality cannot stabilize when destiny is forced into the wrong host.</p></div>
+      <p>The machine pulsed violently. Unstable. Cracking.</p>
+      <div class="script-block"><p><span class="label">Oracle:</span> The fracture was not random.</p></div>
+      <p>Everything went still.</p>
+      <div class="script-block"><p><span class="label">Oracle:</span> It was correction.</p></div>
+    </section>
+'@
+
+$chapter6 = @'
+    <section class="page">
+      <span class="page-tag">Chapter 6</span>
+      <h3>The Truth Inside the Fractures</h3>
+      <div class="page-art"><div class="art-inner"><div class="art-label">Image Placeholder</div><img src="nlxstarboy.png" alt="NLX Starboy placeholder"><p class="art-title">Inside the Fracture</p><p class="art-copy">Truth replayed cleaner than memory: the house, the car, the setup, the key.</p></div></div>
+      <p>Gemstone stood still. But something in him changed.</p>
+      <p>The timelines shifted again. Pulled him through. Not physically. Directly.</p>
+      <p>He was there, inside moments.</p>
+      <div class="script-block">
+        <p><span class="label">Caption:</span> The house.</p>
+        <p><span class="label">Caption:</span> The car.</p>
+        <p><span class="label">Caption:</span> The setup.</p>
+        <p><span class="label">Caption:</span> The key.</p>
+      </div>
+      <p>Everything played out again. But clearer.</p>
+      <p>Then Turkey. The call. “I found it.”</p>
+      <p>But this time, Gemstone saw what wasn’t visible before. Intent.</p>
+      <p>Every move wasn’t emotional. It was calculated. Layered. Repeated.</p>
+    </section>
+    <section class="page">
+      <span class="page-tag">Chapter 6</span>
+      <h3>Starboy Rising</h3>
+      <p>Then something else appeared. Behind it. Not human. Not physical. Watching through him. Using him.</p>
+      <p>Gemstone stepped forward, and everything reacted. The timelines shook. The fractures widened. Energy surged through him.</p>
+      <p>The armor began forming. Not placed on him. Emerging from him.</p>
+      <div class="script-block">
+        <p><span class="label">Caption:</span> A long black coat.</p>
+        <p><span class="label">Caption:</span> A core of light burning at his center.</p>
+        <p><span class="label">Caption:</span> Gold pendant. Glowing.</p>
+        <p><span class="label">Caption:</span> A visor fractured. Alive.</p>
+      </div>
+      <p>The sound returned. Bass. Not music. Force. The timelines bent around it.</p>
+      <p>Whispers moved through the fractures. A name forming.</p>
+      <div class="script-block"><p><span class="label">Caption:</span> Starboy.</p></div>
+    </section>
+    <section class="page">
+      <span class="page-tag">Chapter 6</span>
+      <h3>Ballistic Prime</h3>
+      <div class="page-art"><div class="art-inner"><div class="art-label">Image Placeholder</div><img src="nlxstarboy.png" alt="NLX Starboy placeholder"><p class="art-title">Ballistic Prime</p><p class="art-copy">Dark crystal armor, time fragments, red unstable glow, no longer human.</p></div></div>
+      <p>Then B-JAX changed.</p>
+      <p>His form cracked. Dark crystal forming over him. Time fragments orbiting his body. The glow red. Unstable. No longer human.</p>
+      <div class="script-block"><p><span class="label">Caption:</span> BALLISTIC PRIME.</p></div>
+      <p>They stood across from each other. Not in a room. Not in a place. In the fracture itself.</p>
+      <p>Gemstone didn’t move. Didn’t speak. Because now he understood.</p>
+      <p>This wasn’t the real enemy. Just the hand.</p>
+      <p>Something older moved behind it.</p>
+      <div class="script-block">
+        <p><span class="label">Caption:</span> The Interloper.</p>
+        <p><span class="label">Caption:</span> A force that didn’t create, only fed.</p>
+        <p><span class="label">Caption:</span> On misalignment.</p>
+        <p><span class="label">Caption:</span> On envy.</p>
+        <p><span class="label">Caption:</span> On futures taken before they could become real.</p>
+      </div>
+      <p>And now it had been exposed.</p>
+    </section>
+'@
+
+$chapter7 = @'
+    <section class="page">
+      <span class="page-tag">Chapter 7</span>
+      <h3>The Oracle Returns</h3>
+      <div class="page-art"><div class="art-inner"><div class="art-label">Image Placeholder</div><img src="nlxstarboy.png" alt="NLX Starboy placeholder"><p class="art-title">Origin</p><p class="art-copy">The Oracle slows everything down and points past damage toward cause.</p></div></div>
+      <p>The Oracle returned. Everything slowed.</p>
+      <div class="script-block">
+        <p><span class="label">Oracle:</span> Every jump alters the past.</p>
+        <p><span class="label">Oracle:</span> Every correction destroys another path.</p>
+      </div>
+      <p>Gemstone stood still.</p>
+      <div class="script-block"><p><span class="label">Gemstone:</span> Then what fixes it?</p></div>
+      <p>Silence.</p>
+      <div class="script-block"><p><span class="label">Oracle:</span> Origin.</p></div>
+    </section>
+    <section class="page">
+      <span class="page-tag">Chapter 7</span>
+      <h3>Before Everything</h3>
+      <p>That word hit harder than anything else. Because he understood.</p>
+      <p>You don’t fix the damage. You remove the cause.</p>
+      <p>The timelines opened. Wider than before. Further back.</p>
+      <div class="script-block">
+        <p><span class="label">Caption:</span> Before the betrayal.</p>
+        <p><span class="label">Caption:</span> Before the thefts.</p>
+        <p><span class="label">Caption:</span> Before the friendship.</p>
+        <p><span class="label">Caption:</span> Before everything.</p>
+      </div>
+    </section>
+    <section class="page">
+      <span class="page-tag">Chapter 7</span>
+      <h3>The Break</h3>
+      <p>Gemstone stepped forward. And broke it.</p>
+      <p>Not the world. The timeline itself.</p>
+      <p>The Interloper fractured. Severed from its paths.</p>
+      <p>Ballistic Prime collapsed into static. Dust. Nothing.</p>
+      <p>Everything reset. Clean. Aligned. But not unchanged.</p>
+    </section>
+    <section class="page">
+      <span class="page-tag">Chapter 7</span>
+      <h3>The Cost</h3>
+      <p>Gemstone stood under a new sky. Whole. But separate.</p>
+      <p>Two figures in the distance. Alive again.</p>
+      <div class="script-block">
+        <p><span class="label">Caption:</span> His sister.</p>
+        <p><span class="label">Caption:</span> His father.</p>
+      </div>
+      <p>They didn’t recognize him. And that was the cost.</p>
+      <p>The timeline was restored. But the one who carried it could never fully return.</p>
+    </section>
+    <section class="page">
+      <span class="page-tag">Chapter 7</span>
+      <h3>Starboy</h3>
+      <div class="page-art"><div class="art-inner"><div class="art-label">Image Placeholder</div><img src="nlxstarboy.png" alt="NLX Starboy placeholder"><p class="art-title">Forward</p><p class="art-copy">Restored sky, waiting ship, the next fracture no longer broken but calling.</p></div></div>
+      <p>The ship hovered above. Waiting.</p>
+      <p>Another fracture opened. Not broken. Calling.</p>
+      <p>Gemstone turned. Starboy now.</p>
+      <p>And stepped forward.</p>
+      <p>The story wasn’t over.</p>
+    </section>
+'@
+
+New-ChapterPage -Path '.\Chapter-three.html' -Title 'NLX STARBOY — Chapter Three // The Shambhala Signs' -Anchor 'chapter3' -Subtitle 'The festival, the warning signs, the entities around him, and the wheel that confirmed the pattern.' -Signal 'chapter 003 // shambhala signs // observation mode' -Content $chapter3
+New-ChapterPage -Path '.\Chapter-four.html' -Title 'NLX STARBOY — Chapter Four // The Oracle' -Anchor 'chapter4' -Subtitle 'The ship, the field of timelines, the title of Anchor, and the first true revelation.' -Signal 'chapter 004 // oracle link // anchor signal' -Content $chapter4
+New-ChapterPage -Path '.\Chapter-five.html' -Title 'NLX STARBOY — Chapter Five // The Gemstone Engine' -Anchor 'chapter5' -Subtitle 'The machine, the stolen alignment inside it, and the moment correction is finally named.' -Signal 'chapter 005 // gemstone engine // correction trace' -Content $chapter5
+New-ChapterPage -Path '.\Chapter-six.html' -Title 'NLX STARBOY — Chapter Six // The Paradox War' -Anchor 'chapter6' -Subtitle 'The jumps, the armor, Ballistic Prime, and the force behind the whole distortion.' -Signal 'chapter 006 // paradox war // ballistic trace' -Content $chapter6
+New-ChapterPage -Path '.\Chapter-seven.html' -Title 'NLX STARBOY — Chapter Seven // Starboy' -Anchor 'chapter7' -Subtitle 'Origin, reset, restoration, cost, and the step forward after the world is realigned.' -Signal 'chapter 007 // starboy // restored timeline' -Content $chapter7

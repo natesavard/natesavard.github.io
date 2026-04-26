@@ -1,0 +1,1484 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+  />
+  <meta name="color-scheme" content="dark" />
+  <meta name="theme-color" content="#050505" />
+  <title>NLX STARBOY — Chapter One</title>
+
+  <style>
+    :root {
+      --bg: #050505;
+      --bg-soft: rgba(10, 10, 10, 0.72);
+      --bg-card: rgba(14, 14, 14, 0.78);
+      --line: rgba(255, 255, 255, 0.08);
+      --text: #f5efe8;
+      --muted: #bba894;
+      --accent: #d0a06d;
+      --accent-2: #8f6a47;
+      --max: 860px;
+      --shadow: 0 20px 60px rgba(0, 0, 0, 0.45);
+      --blur: blur(18px);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      background: var(--bg);
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: transparent;
+      color: var(--text);
+      font-family: Georgia, "Times New Roman", serif;
+      line-height: 1.75;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    /* FIXED BACKGROUND */
+    .bg-wrap {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      overflow: hidden;
+      background: #000;
+    }
+
+    .bg-image {
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(rgba(0, 0, 0, 0.52), rgba(0, 0, 0, 0.80)),
+        url("bgnatesavard1.png") center center / cover no-repeat;
+      transform: scale(1.04);
+      filter: contrast(1.05) saturate(0.92);
+    }
+
+    .bg-noise {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      pointer-events: none;
+      background:
+        radial-gradient(circle at 20% 20%, rgba(208, 160, 109, 0.08), transparent 30%),
+        radial-gradient(circle at 80% 25%, rgba(208, 160, 109, 0.06), transparent 28%),
+        radial-gradient(circle at 50% 80%, rgba(255, 255, 255, 0.03), transparent 35%);
+      mix-blend-mode: screen;
+    }
+
+    .site-shell {
+      position: relative;
+      z-index: 1;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      background: rgba(5, 5, 5, 0.65);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .topbar-inner {
+      width: min(100%, 1180px);
+      margin: 0 auto;
+      padding: 14px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+    }
+
+    .brand {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .brand-kicker {
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 11px;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .brand-title {
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 15px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text);
+    }
+
+    .nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      justify-content: flex-end;
+    }
+
+    .nav a {
+      color: var(--muted);
+      text-decoration: none;
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 12px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 8px 10px;
+      border: 1px solid transparent;
+      border-radius: 999px;
+      transition: 0.2s ease;
+    }
+
+    .nav a:hover {
+      color: var(--text);
+      border-color: var(--line);
+      background: rgba(255, 255, 255, 0.03);
+    }
+
+    .hero {
+      position: relative;
+      padding: 88px 18px 36px;
+    }
+
+    .hero-inner {
+      width: min(100%, 1180px);
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 24px;
+      align-items: end;
+    }
+
+    .hero-card {
+      background: rgba(8, 8, 8, 0.48);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid var(--line);
+      border-radius: 26px;
+      box-shadow: var(--shadow);
+      padding: 30px 24px;
+    }
+
+    .eyebrow {
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 12px;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 10px;
+    }
+
+    h1 {
+      margin: 0 0 12px;
+      font-size: clamp(2.2rem, 6vw, 5rem);
+      line-height: 0.98;
+      letter-spacing: 0.02em;
+      color: #fff8f0;
+      text-transform: uppercase;
+    }
+
+    .subtitle {
+      margin: 0;
+      font-size: clamp(1rem, 2vw, 1.2rem);
+      color: #e6d8ca;
+      max-width: 36rem;
+    }
+
+    .hero-meta {
+      display: grid;
+      gap: 12px;
+      align-content: start;
+      position: relative;
+    }
+
+    .hero-sigil-wrap {
+      position: relative;
+      min-height: 280px;
+      display: grid;
+      place-items: center;
+      overflow: visible;
+    }
+
+    .hero-sigil-wrap::before {
+      content: "";
+      position: absolute;
+      inset: 12% 10%;
+      border-radius: 50%;
+      background:
+        radial-gradient(circle at center, rgba(255, 38, 38, 0.24), transparent 46%),
+        radial-gradient(circle at center, rgba(255, 255, 255, 0.06), transparent 62%);
+      filter: blur(18px);
+      animation: sigilPulse 3.2s ease-in-out infinite;
+      pointer-events: none;
+    }
+
+    .hero-sigil-wrap::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(115deg, transparent 0 38%, rgba(255,255,255,0.16) 46%, transparent 54% 100%);
+      opacity: 0.16;
+      transform: translateX(-120%);
+      animation: sigilSweep 5.8s ease-in-out infinite;
+      pointer-events: none;
+    }
+
+    .hero-sigil {
+      position: relative;
+      z-index: 1;
+      width: min(100%, 340px);
+      filter:
+        drop-shadow(0 0 18px rgba(255, 42, 42, 0.45))
+        drop-shadow(0 0 48px rgba(255, 42, 42, 0.18));
+      animation:
+        sigilEnter 1.2s cubic-bezier(.2,.8,.2,1) both,
+        sigilFloat 4.6s ease-in-out infinite;
+      animation-delay: 0s, 1.2s;
+      transition: transform 0.28s ease, filter 0.28s ease;
+    }
+
+    .hero-sigil:hover {
+      transform: scale(1.04) rotate(-2deg);
+      filter:
+        drop-shadow(0 0 20px rgba(255, 42, 42, 0.65))
+        drop-shadow(0 0 56px rgba(255, 42, 42, 0.26));
+    }
+
+    .hero-sigil-echo {
+      position: absolute;
+      width: min(100%, 340px);
+      opacity: 0.18;
+      mix-blend-mode: screen;
+      filter: blur(6px);
+      transform: translate(10px, 8px);
+      animation:
+        sigilEchoEnter 1.35s cubic-bezier(.2,.8,.2,1) both,
+        sigilEcho 2.6s ease-in-out infinite;
+      animation-delay: 0s, 1.3s;
+      pointer-events: none;
+    }
+
+    .signal-crest-panel {
+      position: relative;
+      margin: 28px 0;
+      padding: 28px 22px;
+      border: 1px solid rgba(208, 160, 109, 0.18);
+      border-radius: 24px;
+      overflow: visible;
+      background:
+        radial-gradient(circle at center, rgba(255, 38, 38, 0.08), transparent 26%),
+        linear-gradient(180deg, rgba(8,8,8,0.58), rgba(10,8,8,0.74));
+      box-shadow: var(--shadow);
+      text-align: center;
+    }
+
+    .signal-crest-panel::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(120deg, transparent 0 36%, rgba(255,255,255,0.09) 48%, transparent 58% 100%);
+      transform: translateX(-140%);
+      animation: sigilSweep 6.8s ease-in-out infinite;
+      opacity: 0.18;
+      pointer-events: none;
+    }
+
+    .signal-crest {
+      width: min(220px, 68vw);
+      margin: 0 auto 12px;
+      display: block;
+      filter:
+        drop-shadow(0 0 16px rgba(255, 42, 42, 0.42))
+        drop-shadow(0 0 42px rgba(255, 42, 42, 0.18));
+      animation: sigilFloat 4.4s ease-in-out infinite;
+    }
+
+    .signal-crest-copy {
+      margin: 0;
+      font-size: 12px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: #e9d9c6;
+    }
+
+    .meta-box {
+      background: rgba(8, 8, 8, 0.54);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      padding: 18px 16px;
+      box-shadow: var(--shadow);
+    }
+
+    .meta-label {
+      display: block;
+      margin-bottom: 6px;
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .meta-value {
+      font-size: 1rem;
+      color: var(--text);
+    }
+
+    @keyframes sigilEnter {
+      0% {
+        opacity: 0;
+        transform: translate3d(44vw, -32px, 0) scale(0.7) rotate(-18deg);
+      }
+      60% {
+        opacity: 1;
+        transform: translate3d(-12px, 6px, 0) scale(1.04) rotate(4deg);
+      }
+      100% {
+        opacity: 1;
+        transform: translate3d(0, 0, 0) scale(1) rotate(0deg);
+      }
+    }
+
+    @keyframes sigilEchoEnter {
+      0% {
+        opacity: 0;
+        transform: translate(52px, -10px) scale(0.78);
+      }
+      100% {
+        opacity: 0.18;
+        transform: translate(10px, 8px) scale(1);
+      }
+    }
+
+    @keyframes sigilFloat {
+      0%, 100% { transform: translate3d(0, 0, 0); }
+      50% { transform: translate3d(0, -8px, 0); }
+    }
+
+    @keyframes sigilPulse {
+      0%, 100% { opacity: 0.55; transform: scale(1); }
+      50% { opacity: 0.95; transform: scale(1.06); }
+    }
+
+    @keyframes sigilSweep {
+      0%, 68% { transform: translateX(-120%); opacity: 0; }
+      76% { opacity: 0.18; }
+      100% { transform: translateX(120%); opacity: 0; }
+    }
+
+    @keyframes sigilEcho {
+      0%, 100% { opacity: 0.12; transform: translate(8px, 6px); }
+      50% { opacity: 0.24; transform: translate(14px, 8px); }
+    }
+
+    .main {
+      width: min(100%, var(--max));
+      margin: 0 auto;
+      padding: 14px 18px 80px;
+    }
+
+    .reader {
+      background: var(--bg-card);
+      border: 1px solid var(--line);
+      border-radius: 30px;
+      box-shadow: var(--shadow);
+      backdrop-filter: var(--blur);
+      -webkit-backdrop-filter: var(--blur);
+      overflow: hidden;
+    }
+
+    .reader-head {
+      padding: 26px 24px 18px;
+      border-bottom: 1px solid var(--line);
+      background:
+        linear-gradient(to bottom, rgba(255,255,255,0.03), rgba(255,255,255,0));
+    }
+
+    .reader-head h2 {
+      margin: 0 0 8px;
+      font-size: clamp(1.5rem, 4vw, 2.3rem);
+      line-height: 1.08;
+      color: #fff8f0;
+    }
+
+    .reader-head p {
+      margin: 0;
+      color: #d8cabc;
+      font-size: 1rem;
+    }
+
+    .content {
+      padding: 22px 24px 34px;
+    }
+
+    .page {
+      padding: 22px 0 10px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .page:last-child {
+      border-bottom: 0;
+      padding-bottom: 0;
+    }
+
+    .page-tag {
+      display: inline-block;
+      margin-bottom: 14px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: rgba(208, 160, 109, 0.12);
+      border: 1px solid rgba(208, 160, 109, 0.22);
+      color: #f1d6b6;
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+    }
+
+    .page h3 {
+      margin: 0 0 14px;
+      font-size: 1.7rem;
+      line-height: 1.12;
+      color: #fffaf3;
+    }
+
+    .page h4 {
+      margin: 24px 0 10px;
+      font-size: 1.05rem;
+      font-family: Arial, Helvetica, sans-serif;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: #f2dcc4;
+    }
+
+    .page p,
+    .page li {
+      margin: 0 0 16px;
+      color: var(--text);
+      font-size: 1.05rem;
+    }
+
+    .page ul {
+      padding-left: 20px;
+      margin-top: 0;
+      margin-bottom: 16px;
+    }
+
+    .page .note {
+      color: #ccb8a4;
+      font-style: italic;
+    }
+
+    .script-block {
+      margin: 18px 0;
+      padding: 18px 16px;
+      border-left: 2px solid rgba(208, 160, 109, 0.5);
+      background: rgba(255, 255, 255, 0.025);
+      border-radius: 16px;
+    }
+
+    .script-block p {
+      margin-bottom: 12px;
+    }
+
+    .script-block p:last-child {
+      margin-bottom: 0;
+    }
+
+    .label {
+      color: #f2c995;
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 0.86rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .cta-row {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 18px;
+    }
+
+    .btn {
+      appearance: none;
+      border: 1px solid rgba(208, 160, 109, 0.25);
+      background: rgba(208, 160, 109, 0.12);
+      color: #fff3e7;
+      text-decoration: none;
+      padding: 12px 16px;
+      border-radius: 999px;
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 12px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      transition: 0.2s ease;
+    }
+
+    .btn:hover {
+      background: rgba(208, 160, 109, 0.2);
+      transform: translateY(-1px);
+    }
+
+    .footer {
+      width: min(100%, var(--max));
+      margin: 0 auto;
+      padding: 0 18px 48px;
+      color: #b9a691;
+      font-size: 0.95rem;
+      text-align: center;
+    }
+
+    .footer a {
+      color: #e4c29f;
+      text-decoration: none;
+    }
+
+    .back-top {
+      position: fixed;
+      right: 16px;
+      bottom: 16px;
+      z-index: 30;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      border: 1px solid rgba(208, 160, 109, 0.28);
+      background: rgba(10, 10, 10, 0.78);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      color: #f1d8bc;
+      text-decoration: none;
+      display: grid;
+      place-items: center;
+      font-size: 20px;
+      box-shadow: var(--shadow);
+    }
+
+    .back-top:hover {
+      background: rgba(20, 20, 20, 0.92);
+    }
+
+    @media (max-width: 900px) {
+      .hero-inner {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-sigil-wrap {
+        min-height: 220px;
+      }
+
+      .hero-sigil,
+      .hero-sigil-echo {
+        width: min(82vw, 320px);
+      }
+
+      .signal-crest {
+        width: min(68vw, 220px);
+      }
+
+      .topbar-inner {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .nav {
+        justify-content: flex-start;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .hero {
+        padding-top: 72px;
+      }
+
+      .hero-card,
+      .meta-box,
+      .reader {
+        border-radius: 22px;
+      }
+
+      .reader-head,
+      .content {
+        padding-left: 18px;
+        padding-right: 18px;
+      }
+
+      .page p,
+      .page li {
+        font-size: 1rem;
+      }
+    }
+  </style>
+  <link rel="stylesheet" href="site-flow.css" />
+</head>
+<body id="top">
+
+  <div class="bg-wrap" aria-hidden="true">
+    <div class="bg-image"></div>
+    <div class="bg-noise"></div>
+  </div>
+
+  <div class="site-shell">
+    <header class="topbar">
+      <div class="topbar-inner">
+        <div class="brand">
+          <span class="brand-kicker">Techno Punk Cosmic Comic</span>
+          <span class="brand-title">NLX Starboy — Reader</span>
+        </div>
+
+        <nav class="nav">
+          <a href="#chapter">Chapter</a>
+          <a href="#page1">Page 1</a>
+          <a href="#page7">Page 7</a>
+          <a href="#page14">Page 14</a>
+        </nav>
+      </div>
+    </header>
+
+    <section class="hero">
+      <div class="hero-inner">
+        <div class="hero-card">
+          <div class="eyebrow">Issue One</div>
+          <h1>NLX<br>Starboy</h1>
+          <p class="subtitle">
+            The Gemstone Paradox — a fractured destiny, a dead world, an ancient ship,
+            and one survivor who was never meant to remain.
+          </p>
+
+          <div class="cta-row">
+            <a class="btn" href="#chapter">Start Reading</a>
+            <a class="btn" href="#page1">Jump to Script</a>
+          </div>
+        </div>
+
+        <div class="hero-meta">
+          <div class="hero-sigil-wrap" aria-hidden="true">
+            <img class="hero-sigil-echo" src="nlxstarboy.png" alt="" />
+            <img class="hero-sigil" src="nlxstarboy.png" alt="Starboy hostile crest" />
+          </div>
+
+          <div class="meta-box">
+            <span class="meta-label">Chapter</span>
+            <div class="meta-value">Issue #1 — The Fracture</div>
+          </div>
+
+          <div class="meta-box">
+            <span class="meta-label">Reader Mode</span>
+            <div class="meta-value">Built for long-form comic script reading on desktop and mobile.</div>
+          </div>
+
+          <div class="meta-box">
+            <span class="meta-label">Story Signal</span>
+            <div class="meta-value">A city at full voltage. A fractured sky. A destiny opening in real time while everyone beneath it still thinks the night belongs to them.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <main class="main" id="chapter">
+      <article class="reader">
+        <div class="reader-head">
+          <h2>Chapter One — The Night It Broke</h2>
+          <p>
+            Frequency, theft, distortion, and the fracture that opened the mission.
+          </p>
+        </div>
+
+        <div class="content">
+
+          <section class="page" id="page1">
+            <span class="page-tag">Page 1</span>
+            <h3>The Frequency</h3>
+
+            <p>Every city has a frequency.</p>
+
+            <p>You don't hear it at first. You feel it.</p>
+
+            <p>It's in the way people move, the way they talk, the way everything follows a rhythm whether they realize it or not.</p>
+
+            <p>This city pulsed.</p>
+
+            <p>Basslines. Sweat. Heat. Gold. Drugs. Dreams too big for the people carrying them.</p>
+
+            <p>It all moved together.</p>
+
+            <p>Like one organism.</p>
+          </section>
+
+          <section class="page" id="page2">
+            <span class="page-tag">Page 2</span>
+            <h3>The DJ</h3>
+
+            <p>Inside a brutal, beautiful illegal warehouse rave. Lasers cutting through fog. Bodies moving.</p>
+
+            <p>Reveal Gemstone mid-performance. Rings, chains, layered streetwear, underground royalty energy.</p>
+
+            <p>He wasn't just playing music.</p>
+
+            <p>He was controlling the room.</p>
+
+            <p>Every transition shifted people.</p>
+
+            <p>Every drop changed the energy.</p>
+
+            <p>Across the room, B-JAX watched.</p>
+
+            <p>Not dancing.</p>
+
+            <p>Not talking.</p>
+
+            <p>Just watching.</p>
+          </section>
+
+          <section class="page" id="page3">
+            <span class="page-tag">Page 3</span>
+            <h3>The Fracture</h3>
+
+            <p>Back in the city -</p>
+            <p>Something builds.</p>
+            <p>Not visible.</p>
+            <p>Not loud.</p>
+            <p>But everywhere.</p>
+            <p>Phones glitch.</p>
+            <p>Lights flicker.</p>
+            <p>Sound distorts across the city -</p>
+            <p>Every signal peaking at once.</p>
+            <p>People stop.</p>
+            <p>Look up.</p>
+            <p>The sky tears open.</p>
+            <p>Not weather.</p>
+            <p>Not war.</p>
+            <p>Reality splitting.</p>
+            <p>A fracture cuts across the skyline.</p>
+
+            <div class="script-block">
+              <p><span class="label">Caption:</span> Something was feeding on futures before they could form.</p>
+              <p><span class="label">Caption:</span> Plans taken. Paths intercepted. Lives pushed out of alignment.</p>
+              <p><span class="label">Caption:</span> The system couldn’t hold it anymore.</p>
+              <p><span class="label">Caption:</span> This wasn’t destruction.</p>
+              <p><span class="label">Caption:</span> It was correction.</p>
+            </div>
+
+            <p>A shockwave follows -</p>
+            <p>silent... but felt.</p>
+            <p>Everything stutters.</p>
+            <p>Time misfires.</p>
+          </section>
+
+          <section class="page" id="page4">
+            <span class="page-tag">Page 4</span>
+            <h3>The Freestyle</h3>
+
+            <p>Later, outside, the bass still echoed through the walls.</p>
+
+            <p>They started freestyling.</p>
+
+            <p>No mic. No setup. Just instinct.</p>
+
+            <p>Back and forth.</p>
+
+            <p>No hesitation.</p>
+
+            <p>Gemstone's flow was sharp. Controlled. Every line building into the next.</p>
+
+            <p>B-JAX kept up.</p>
+
+            <p>Close.</p>
+
+            <p>But not the same.</p>
+
+            <p>Something in it felt slightly off.</p>
+
+            <p>Then — for a split second — it slipped.</p>
+
+            <p>Not the words.</p>
+
+            <p>Something deeper.</p>
+
+            <p>Gemstone paused.</p>
+
+            <p>And in that moment — everything went quiet.</p>
+
+            <p>Not physically.</p>
+
+            <p>Internally.</p>
+
+            <p>Like something opened somewhere else.</p>
+          </section>
+
+          <section class="page" id="page5">
+            <span class="page-tag">Page 5</span>
+            <h3>The Break-In</h3>
+
+            <p>It didn't look right from the start.</p>
+
+            <p>Gemstone had left for pizza.</p>
+
+            <p>When he came back, the front door was still locked.</p>
+
+            <p>No forced entry.</p>
+
+            <p>But something felt wrong.</p>
+
+            <p>He moved through the house slowly.</p>
+
+            <p>Then he saw it.</p>
+
+            <p>The basement window.</p>
+
+            <p>Broken.</p>
+
+            <p>Glass outside.</p>
+
+            <p>Not inside.</p>
+
+            <p>He stopped.</p>
+
+            <p>That didn't make sense.</p>
+
+            <p>If someone broke in — the glass would be inside.</p>
+
+            <p>But it wasn't.</p>
+
+            <p>It was pushed out.</p>
+
+            <p>From the inside.</p>
+
+            <p>That's when it felt staged.</p>
+
+            <p>Drawers open.</p>
+
+            <p>Everything gone.</p>
+
+            <p>Clothes. Watches. Chains. Rings. The cross pendant. The amethyst.</p>
+
+            <p>Even KB's clothes.</p>
+
+            <p>Someone knew exactly what to take.</p>
+
+            <p>Whoever did it didn't come in from outside.</p>
+
+            <p>They went out that way.</p>
+
+            <p>Through the garage.</p>
+
+            <p>The same garage B-JAX parked in.</p>
+          </section>
+
+          <section class="page" id="page6">
+            <span class="page-tag">Page 6</span>
+            <h3>The Call</h3>
+
+            <p>It started the moment he left.</p>
+
+            <p>Gemstone had just landed in Shenzhen.</p>
+
+            <p>The trip mattered.</p>
+
+            <p>He hadn't even settled in when his phone rang.</p>
+
+            <p><strong>Voice:</strong> yo bro... where's your car?</p>
+
+            <p><strong>Gemstone:</strong> what do you mean?</p>
+
+            <p><strong>Voice:</strong> it's not there.</p>
+
+            <p>That didn't make sense.</p>
+
+            <p>He knew exactly where he left it.</p>
+
+            <p><strong>Gemstone:</strong> it's parked where I left it.</p>
+
+            <p><strong>Voice:</strong> no... it's not.</p>
+
+            <p>Something felt off immediately.</p>
+
+            <p>Not just the situation — the timing.</p>
+
+            <p>Like it was placed.</p>
+          </section>
+
+          <section class="page" id="page7">
+            <span class="page-tag">Page 7</span>
+            <h3>The Car</h3>
+
+            <p>He called the police.</p>
+
+            <p>Nothing.</p>
+
+            <p>Impound.</p>
+
+            <p>Nothing.</p>
+
+            <p>Days passed.</p>
+
+            <p>He returned.</p>
+
+            <p>Still nothing.</p>
+
+            <p>Then the call came.</p>
+
+            <p>They found it.</p>
+
+            <p>A Safeway parking lot.</p>
+
+            <p>Across the street.</p>
+
+            <p>No forced entry.</p>
+
+            <p>Too clean.</p>
+
+            <p>Everything inside gone.</p>
+
+            <p>Then he saw it.</p>
+
+            <p>The key.</p>
+
+            <p>Sitting in the console.</p>
+
+            <p>Exactly where he left it.</p>
+
+            <p>At home.</p>
+
+            <p>On the counter.</p>
+
+            <p>Someone didn't break in.</p>
+
+            <p>Someone didn't need to.</p>
+          </section>
+
+          <section class="page" id="page8">
+            <span class="page-tag">Page 8</span>
+            <h3>The Pattern</h3>
+
+            <p>After that, it stopped feeling random.</p>
+
+            <p>Things he said out loud showed up somewhere else.</p>
+
+            <p>Ideas not built yet — already taken.</p>
+
+            <p>Nomadix.</p>
+
+            <p>The direction felt familiar.</p>
+
+            <p>Too familiar.</p>
+          </section>
+
+          <section class="page" id="page9">
+            <span class="page-tag">Page 9</span>
+            <h3>Shambhala</h3>
+
+            <p>By the time Shambhala came around, something felt off.</p>
+
+            <p><strong>Mad Girl:</strong> something's off about him.</p>
+
+            <p><strong>Gemstone:</strong> what do you mean?</p>
+
+            <p><strong>Mad Girl:</strong> he watches too much.</p>
+
+            <p><strong>Mad Girl:</strong> like he's studying you.</p>
+
+            <p>B-JAX stood in the crowd.</p>
+
+            <p>Watching.</p>
+          </section>
+
+          <section class="page" id="page10">
+            <span class="page-tag">Page 10</span>
+            <h3>The Vision</h3>
+
+            <p>They took DMT.</p>
+
+            <p>No build.</p>
+
+            <p>Just clarity.</p>
+
+            <p>Something around B-JAX.</p>
+
+            <p>Watching.</p>
+
+            <p>Attached.</p>
+
+            <p><strong>B-JAX:</strong> your energy is scaring me.</p>
+
+            <p>But it wasn't his.</p>
+          </section>
+
+          <section class="page" id="page11">
+            <span class="page-tag">Page 11</span>
+            <h3>The Wheel</h3>
+
+            <p>They found the wheel.</p>
+
+            <p>DUCK.</p>
+
+            <p>BUTTERFLY.</p>
+
+            <p>SNAKE.</p>
+
+            <p>Something shifted.</p>
+          </section>
+
+          <section class="page" id="page12">
+            <span class="page-tag">Page 12</span>
+            <h3>The Oracle</h3>
+
+            <p>
+              Gemstone spins, searching the chamber.
+            </p>
+
+            <p><strong>Gemstone:</strong> Who said that?</p>
+
+            <p>
+              A sphere of light ignites in the center.
+            </p>
+
+            <p>
+              Not artificial.
+            </p>
+
+            <p>
+              Not human.
+            </p>
+
+            <p>
+              Something older.
+            </p>
+
+            <p>
+              Timelines begin forming around him.
+            </p>
+
+            <p>
+              Not straight lines.
+            </p>
+
+            <p>
+              Broken strands.
+            </p>
+
+            <p><strong>Oracle:</strong> The event has already occurred.</p>
+
+            <p><strong>Oracle:</strong> Civilization collapse confirmed.</p>
+
+            <p><strong>Oracle:</strong> Temporal fracture confirmed.</p>
+
+            <p><strong>Oracle:</strong> Anchor presence confirmed.</p>
+
+            <p><strong>Gemstone:</strong> I don&rsquo;t know what any of that means.</p>
+
+            <p>
+              One strand drifts closer to him.
+            </p>
+
+            <p>
+              It reacts.
+            </p>
+
+            <p>
+              Like it recognizes him.
+            </p>
+
+            <p><strong>Oracle:</strong> It means you remained.</p>
+          </section>
+
+          <section class="page" id="page13">
+            <span class="page-tag">Page 13</span>
+            <h3>The Pattern</h3>
+
+            <p>
+              The timelines begin to flicker.
+            </p>
+
+            <p>
+              Not random.
+            </p>
+
+            <p>
+              Specific.
+            </p>
+
+            <p>
+              Gemstone sees it —
+            </p>
+
+            <p>
+              his house.
+            </p>
+
+            <p>
+              The night he left for pizza.
+            </p>
+
+            <p>
+              The basement window.
+            </p>
+
+            <p>
+              Glass outside.
+            </p>
+
+            <p>
+              Not inside.
+            </p>
+
+            <p>
+              The realization.
+            </p>
+
+            <p>
+              It wasn&rsquo;t a break-in.
+            </p>
+
+            <p>
+              It was staged.
+            </p>
+
+            <p>
+              The scene shifts.
+            </p>
+
+            <p>
+              Shenzhen.
+            </p>
+
+            <p>
+              His phone ringing.
+            </p>
+
+            <p><strong>Voice:</strong> yo bro&hellip; where&rsquo;s your car?</p>
+
+            <p>
+              Another shift.
+            </p>
+
+            <p>
+              The car.
+            </p>
+
+            <p>
+              Found across the street.
+            </p>
+
+            <p>
+              No forced entry.
+            </p>
+
+            <p>
+              The key.
+            </p>
+
+            <p>
+              Sitting inside.
+            </p>
+
+            <p>
+              Exactly where it shouldn&rsquo;t be.
+            </p>
+
+            <p>
+              Another shift.
+            </p>
+
+            <p>
+              The party.
+            </p>
+
+            <p>
+              The private bathroom.
+            </p>
+
+            <p>
+              The pendant.
+            </p>
+
+            <p>
+              Gone.
+            </p>
+
+            <p>
+              Another shift.
+            </p>
+
+            <p>
+              Turkey.
+            </p>
+
+            <p><strong>BJ:</strong> I found it.</p>
+
+            <p>
+              Then nothing.
+            </p>
+
+            <p>
+              Disappeared.
+            </p>
+
+            <p>
+              Launched it himself.
+            </p>
+
+            <p>
+              Gemstone steps back.
+            </p>
+
+            <p><strong>Gemstone:</strong> No&hellip;</p>
+          </section>
+
+          <section class="page" id="page14">
+            <span class="page-tag">Page 14</span>
+            <h3>The Truth</h3>
+
+            <p>
+              The timelines darken.
+            </p>
+
+            <p>
+              Something moves between them.
+            </p>
+
+            <p>
+              Not human.
+            </p>
+
+            <p>
+              Not fully visible.
+            </p>
+
+            <p>
+              Just enough to feel it.
+            </p>
+
+            <p><strong>Oracle:</strong> A force exists between destinies.</p>
+
+            <p><strong>Oracle:</strong> It feeds on displacement.</p>
+
+            <p><strong>Oracle:</strong> On envy.</p>
+
+            <p><strong>Oracle:</strong> On theft.</p>
+
+            <p><strong>Oracle:</strong> On futures taken before they become real.</p>
+
+            <p>
+              One of the timelines pulses.
+            </p>
+
+            <p>
+              BJ.
+            </p>
+
+            <p>
+              Watching.
+            </p>
+
+            <p>
+              Learning.
+            </p>
+
+            <p>
+              Taking.
+            </p>
+
+            <p><strong>Gemstone:</strong> Ballistic&hellip;</p>
+
+            <p><strong>Oracle:</strong> Instrument.</p>
+
+            <p><strong>Oracle:</strong> Not source.</p>
+
+            <p>
+              Gemstone&rsquo;s expression changes.
+            </p>
+
+            <p>
+              Anger.
+            </p>
+
+            <p>
+              Clarity.
+            </p>
+
+            <p>
+              Understanding.
+            </p>
+          </section>
+
+          <section class="page" id="page15">
+            <span class="page-tag">Page 15</span>
+            <h3>The Choice</h3>
+
+            <p><strong>Gemstone:</strong> Then send me back.</p>
+
+            <p>
+              The chamber dims.
+            </p>
+
+            <p>
+              The timelines begin shifting violently.
+            </p>
+
+            <p><strong>Oracle:</strong> Every movement alters the past.</p>
+
+            <p><strong>Oracle:</strong> And destroys another possible future.</p>
+
+            <p>
+              A vision appears.
+            </p>
+
+            <p>
+              His sister.
+            </p>
+
+            <p>
+              Alive.
+            </p>
+
+            <p>
+              His father.
+            </p>
+
+            <p>
+              Alive.
+            </p>
+
+            <p>
+              Then gone.
+            </p>
+
+            <p><strong>Gemstone:</strong> Wait&mdash;</p>
+
+            <p>
+              Silence.
+            </p>
+          </section>
+
+          <section class="page" id="page16">
+            <span class="page-tag">Page 16</span>
+            <h3>After the Choice</h3>
+
+            <p><strong>Oracle:</strong> Choose carefully, Anchor.</p>
+
+            <p>
+              Gemstone stands still.
+            </p>
+
+            <p>
+              Everything finally clear.
+            </p>
+
+            <p>
+              Not random.
+            </p>
+
+            <p>
+              Not bad luck.
+            </p>
+
+            <p>
+              A pattern.
+            </p>
+
+            <p><strong>Oracle:</strong> To restore your life&hellip;</p>
+
+            <p><strong>Oracle:</strong> or to save the world.</p>
+          </section>
+
+          <section class="page" id="page17">
+            <span class="page-tag">Page 17</span>
+            <h3>The Oracle Ship</h3>
+
+            <p>Black.</p>
+            <p>Silence.</p>
+            <p>Gemstone wakes.</p>
+            <p>Not the city anymore.</p>
+            <p>Desert.</p>
+            <p>Endless.</p>
+            <p>He stands.</p>
+            <p>Alone.</p>
+            <p>Then -</p>
+            <p>He feels it.</p>
+            <p>He looks up.</p>
+            <p>The ship.</p>
+            <p>Massive.</p>
+            <p>Silent.</p>
+            <p>Hovering -</p>
+            <p>like it’s been there the whole time.</p>
+            <p>Not arriving.</p>
+            <p>Waiting.</p>
+            <p>Gemstone walks toward it.</p>
+            <p>No hesitation.</p>
+            <p>Like he already knows.</p>
+            <p>The surface shifts.</p>
+            <p>Symbols flicker.</p>
+            <p>Light responds -</p>
+            <p>to him.</p>
+
+            <div class="script-block">
+              <p><span class="label">Caption:</span> It didn’t find him by accident.</p>
+              <p><span class="label">Caption:</span> It had been watching.</p>
+              <p><span class="label">Caption:</span> Tracking.</p>
+              <p><span class="label">Caption:</span> Waiting for the fracture.</p>
+            </div>
+
+            <p>Gemstone steps inside.</p>
+            <p>Light engulfs him.</p>
+
+            <div class="script-block">
+              <p><span class="label">Caption:</span> The timeline had broken.</p>
+              <p><span class="label">Caption:</span> And something in him -</p>
+              <p><span class="label">Caption:</span> survived it.</p>
+              <p><span class="label">Caption:</span> The mission begins.</p>
+            </div>
+          </section>
+
+          <section class="page" id="chapter-notes">
+            <span class="page-tag">End of Chapter</span>
+            <h3>Issue One Complete</h3>
+
+            <p>
+              This completes <strong>Chapter One / Issue One — The Fracture</strong>.
+              The next chapter would begin with Gemstone’s first portal jump back into the past,
+              where the robberies, identity theft, and Ballistic betrayal start taking full shape.
+            </p>
+
+            <div class="cta-row">
+              <a class="btn" href="#page1">Back to Page 1</a>
+              <a class="btn" href="#top">Back to Top</a>
+            </div>
+          </section>
+
+        </div>
+      </article>
+    </main>
+
+    <div class="footer">
+      NLX STARBOY reader template — full Chapter One installed in cinematic reader format.
+    </div>
+
+    <a class="back-top" href="#top" aria-label="Back to top">↑</a>
+  </div>
+  <script src="site-flow.js"></script>
+</body>
+</html>
+
+
+
+
