@@ -1,0 +1,1284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="color-scheme" content="dark" />
+  <title>Envynomadix // High Fashion Archive</title>
+  <link rel="stylesheet" href="site-flow.css" />
+  <style>
+    :root {
+      --bg: #060402;
+      --bg-soft: #120b07;
+      --panel: rgba(18, 11, 7, 0.82);
+      --panel-2: rgba(27, 18, 12, 0.9);
+      --line: rgba(214, 171, 103, 0.2);
+      --line-strong: rgba(214, 171, 103, 0.42);
+      --gold: #d6ab67;
+      --gold-bright: #f2d39e;
+      --text: #f4e8d5;
+      --muted: #b89d79;
+      --shadow: 0 28px 90px rgba(0, 0, 0, 0.5);
+      --radius-xl: 34px;
+      --radius-lg: 24px;
+      --radius-md: 18px;
+      --content: min(1320px, calc(100vw - 30px));
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      background: var(--bg);
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--text);
+      font-family: Georgia, "Times New Roman", serif;
+      background:
+        radial-gradient(circle at top left, rgba(214, 171, 103, 0.1), transparent 24%),
+        radial-gradient(circle at 82% 12%, rgba(214, 171, 103, 0.08), transparent 18%),
+        linear-gradient(180deg, rgba(6, 4, 2, 0.98), rgba(10, 6, 3, 1) 26%, rgba(5, 4, 3, 1));
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background:
+        repeating-linear-gradient(
+          to bottom,
+          rgba(255, 255, 255, 0.012) 0,
+          rgba(255, 255, 255, 0.012) 1px,
+          transparent 2px,
+          transparent 5px
+        );
+      mix-blend-mode: screen;
+      opacity: 0.12;
+    }
+
+    body::after {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background:
+        radial-gradient(circle at 50% 0%, rgba(214, 171, 103, 0.06), transparent 34%),
+        radial-gradient(circle at 50% 100%, rgba(214, 171, 103, 0.08), transparent 28%);
+      opacity: 0.9;
+    }
+
+    a {
+      color: inherit;
+    }
+
+    .page {
+      width: var(--content);
+      margin: 0 auto;
+      padding: 88px 0 110px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .page::before,
+    .page::after {
+      content: "";
+      position: fixed;
+      pointer-events: none;
+      inset: auto;
+      z-index: 0;
+      background: url("envynomadix-logo-cutout.png") center center / contain no-repeat;
+      mix-blend-mode: screen;
+      opacity: 0.05;
+      filter: blur(0.4px);
+    }
+
+    .page::before {
+      width: min(52vw, 760px);
+      height: min(26vw, 380px);
+      top: 10vh;
+      right: -10vw;
+      transform: rotate(-10deg);
+    }
+
+    .page::after {
+      width: min(42vw, 620px);
+      height: min(21vw, 310px);
+      bottom: 8vh;
+      left: -8vw;
+      transform: rotate(8deg);
+    }
+
+    .eyebrow,
+    .section-kicker,
+    .mini-label,
+    .ticker-track,
+    .stat-label {
+      font-family: "Times New Roman", Georgia, serif;
+      letter-spacing: 0.34em;
+      text-transform: uppercase;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1.05fr) minmax(420px, 0.95fr);
+      gap: 24px;
+      align-items: stretch;
+      margin-bottom: 28px;
+    }
+
+    .hero-copy,
+    .hero-visual,
+    .manifesto,
+    .feature-card,
+    .drop-card,
+    .detail-card,
+    .campaign-card,
+    .quote-band,
+    .closing {
+      border: 1px solid var(--line);
+      border-radius: var(--radius-xl);
+      background:
+        linear-gradient(180deg, rgba(27, 18, 12, 0.94), rgba(10, 7, 5, 0.96)),
+        radial-gradient(circle at top left, rgba(214, 171, 103, 0.08), transparent 28%);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      position: relative;
+    }
+
+    .hero-copy::after,
+    .manifesto::after,
+    .closing::after {
+      content: "";
+      position: absolute;
+      pointer-events: none;
+      background: url("envynomadix-logo-cutout.png") center center / contain no-repeat;
+      mix-blend-mode: screen;
+      opacity: 0.06;
+      filter: blur(0.4px);
+    }
+
+    .hero-copy {
+      padding: 34px 34px 28px;
+      min-height: 720px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      isolation: isolate;
+    }
+
+    .hero-copy::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(135deg, rgba(214, 171, 103, 0.12), transparent 36%),
+        radial-gradient(circle at 20% 18%, rgba(255, 238, 204, 0.08), transparent 16%);
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    .hero-copy::after {
+      width: 360px;
+      height: 180px;
+      right: -46px;
+      bottom: 14px;
+      transform: rotate(-8deg);
+      z-index: -1;
+    }
+
+    .brand {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .brand-mark {
+      width: min(440px, 100%);
+      filter: drop-shadow(0 0 22px rgba(214, 171, 103, 0.16));
+    }
+
+    .brand-mini {
+      width: 120px;
+      opacity: 0.9;
+      filter: drop-shadow(0 0 16px rgba(214, 171, 103, 0.08));
+    }
+
+    .eyebrow {
+      font-size: 11px;
+      color: var(--gold);
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(4.1rem, 10vw, 8.8rem);
+      line-height: 0.88;
+      font-weight: 500;
+      text-transform: uppercase;
+      color: #f8ebd6;
+      text-wrap: balance;
+    }
+
+    .hero-text {
+      max-width: 620px;
+      font-size: 1.18rem;
+      line-height: 1.9;
+      color: #e7d7c0;
+      margin: 0;
+    }
+
+    .hero-text strong {
+      color: var(--gold-bright);
+      font-weight: 600;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-top: 24px;
+    }
+
+    .cta,
+    .cta-secondary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 52px;
+      padding: 14px 22px;
+      border-radius: 999px;
+      text-decoration: none;
+      transition: transform 0.25s ease, border-color 0.25s ease, background 0.25s ease, color 0.25s ease;
+    }
+
+    .cta {
+      background: linear-gradient(180deg, rgba(232, 194, 129, 0.24), rgba(144, 105, 53, 0.24));
+      border: 1px solid rgba(242, 211, 158, 0.42);
+      color: #fff4e2;
+      box-shadow: 0 14px 32px rgba(0, 0, 0, 0.3);
+    }
+
+    .cta-secondary {
+      border: 1px solid rgba(214, 171, 103, 0.28);
+      background: rgba(214, 171, 103, 0.08);
+      color: var(--text);
+    }
+
+    .cta:hover,
+    .cta-secondary:hover {
+      transform: translateY(-2px);
+      border-color: var(--line-strong);
+    }
+
+    .hero-stats {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 28px;
+    }
+
+    .stat {
+      padding: 14px 16px;
+      border-radius: 18px;
+      border: 1px solid rgba(214, 171, 103, 0.16);
+      background: rgba(255, 247, 232, 0.03);
+      backdrop-filter: blur(6px);
+    }
+
+    .stat-value {
+      display: block;
+      font-size: clamp(1.6rem, 4vw, 2.4rem);
+      color: #fff0d4;
+      margin-bottom: 4px;
+    }
+
+    .stat-label {
+      display: block;
+      font-size: 9px;
+      color: var(--muted);
+    }
+
+    .hero-visual {
+      min-height: 720px;
+      display: flex;
+      align-items: stretch;
+      justify-content: stretch;
+      background:
+        linear-gradient(180deg, rgba(0, 0, 0, 0.08), rgba(0, 0, 0, 0.22)),
+        #070504;
+    }
+
+    .hero-visual img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      filter: saturate(0.95) contrast(1.06);
+    }
+
+    .ticker {
+      margin: 0 0 28px;
+      border-top: 1px solid rgba(214, 171, 103, 0.18);
+      border-bottom: 1px solid rgba(214, 171, 103, 0.18);
+      overflow: hidden;
+      background: rgba(255, 245, 232, 0.02);
+    }
+
+    .ticker-track {
+      display: flex;
+      width: max-content;
+      gap: 36px;
+      padding: 14px 0;
+      color: rgba(242, 211, 158, 0.88);
+      font-size: 11px;
+      white-space: nowrap;
+      animation: envyticker 30s linear infinite;
+    }
+
+    @keyframes envyticker {
+      from { transform: translateX(0); }
+      to { transform: translateX(-50%); }
+    }
+
+    .section {
+      margin-bottom: 28px;
+    }
+
+    .section-head {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 18px;
+      margin-bottom: 18px;
+    }
+
+    .section-kicker {
+      font-size: 11px;
+      color: var(--gold);
+      margin-bottom: 8px;
+    }
+
+    .section-title {
+      margin: 0;
+      font-size: clamp(2rem, 5vw, 4rem);
+      line-height: 0.94;
+      text-transform: uppercase;
+      color: #faefd9;
+    }
+
+    .section-copy {
+      max-width: 640px;
+      margin: 0;
+      font-size: 1rem;
+      line-height: 1.8;
+      color: #dcc7ab;
+    }
+
+    .manifesto {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 24px;
+      padding: 28px;
+    }
+
+    .manifesto::after {
+      width: 300px;
+      height: 150px;
+      left: -38px;
+      bottom: 10px;
+      transform: rotate(7deg);
+    }
+
+    .manifesto-copy p {
+      margin: 0 0 16px;
+      font-size: 1.05rem;
+      line-height: 1.92;
+      color: #e2d0b6;
+    }
+
+    .manifesto-copy p:last-child {
+      margin-bottom: 0;
+    }
+
+    .manifesto-poster {
+      min-height: 520px;
+      border-radius: 22px;
+      overflow: hidden;
+      border: 1px solid rgba(214, 171, 103, 0.16);
+      background: #090603;
+    }
+
+    .manifesto-poster img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .feature-grid,
+    .drop-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .feature-card,
+    .drop-card {
+      border-radius: var(--radius-lg);
+    }
+
+    .feature-body::after,
+    .drop-body::after,
+    .detail-card::after {
+      content: "";
+      display: block;
+      width: 92px;
+      height: 46px;
+      margin-top: 16px;
+      background: url("envynomadix-logo-cutout.png") left center / contain no-repeat;
+      opacity: 0.16;
+      pointer-events: none;
+    }
+
+    .feature-card {
+      padding: 0;
+      min-height: 100%;
+    }
+
+    .feature-image {
+      aspect-ratio: 1 / 1;
+      overflow: hidden;
+      border-bottom: 1px solid rgba(214, 171, 103, 0.16);
+      background: #0a0604;
+    }
+
+    .feature-image img,
+    .drop-image img,
+    .campaign-card img,
+    .detail-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .feature-body,
+    .drop-body {
+      padding: 18px 18px 20px;
+    }
+
+    .mini-label {
+      display: inline-block;
+      font-size: 9px;
+      color: var(--gold);
+      margin-bottom: 10px;
+    }
+
+    .feature-body h3,
+    .drop-body h3,
+    .detail-card h3 {
+      margin: 0 0 10px;
+      font-size: 1.45rem;
+      line-height: 1.05;
+      text-transform: uppercase;
+      font-weight: 500;
+      color: #f7e9cf;
+    }
+
+    .feature-body p,
+    .drop-body p,
+    .detail-card p,
+    .closing-copy {
+      margin: 0;
+      line-height: 1.8;
+      color: #dbc6a9;
+    }
+
+    .drop-card {
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      min-height: 100%;
+    }
+
+    .drop-image {
+      aspect-ratio: 0.9 / 1;
+      background: #090603;
+    }
+
+    .drop-body {
+      display: grid;
+      gap: 12px;
+      flex: 1;
+    }
+
+    .drop-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding-top: 14px;
+      border-top: 1px solid rgba(214, 171, 103, 0.12);
+      color: var(--gold-bright);
+      font-size: 0.95rem;
+    }
+
+    .campaign-grid {
+      display: grid;
+      grid-template-columns: 1.3fr 0.7fr 0.7fr;
+      gap: 18px;
+    }
+
+    .campaign-card {
+      min-height: 360px;
+      border-radius: var(--radius-lg);
+      background: #0a0604;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .campaign-card.tall {
+      grid-row: span 2;
+      min-height: 738px;
+    }
+
+    .campaign-card.square {
+      min-height: 360px;
+    }
+
+    .campaign-card.wide {
+      min-height: 360px;
+    }
+
+    .campaign-card img {
+      filter: saturate(0.96) contrast(1.06);
+    }
+
+    .editorial-badge {
+      position: absolute;
+      right: 14px;
+      bottom: 14px;
+      z-index: 3;
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      border: 1px solid rgba(242, 211, 158, 0.34);
+      background:
+        radial-gradient(circle at 30% 30%, rgba(242, 211, 158, 0.16), rgba(18, 10, 6, 0.94) 68%);
+      box-shadow:
+        0 14px 32px rgba(0, 0, 0, 0.34),
+        inset 0 0 20px rgba(214, 171, 103, 0.08);
+      backdrop-filter: blur(8px);
+      cursor: pointer;
+      transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+      animation: editorialBadgeFloat 3.6s ease-in-out infinite;
+    }
+
+    .editorial-badge::before,
+    .editorial-badge::after {
+      position: absolute;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      color: rgba(247, 233, 207, 0.92);
+      font-family: Georgia, "Times New Roman", serif;
+      font-weight: 600;
+      font-size: 1.1rem;
+      line-height: 1;
+      text-shadow: 0 0 12px rgba(214, 171, 103, 0.18);
+      transition: transform 0.3s ease;
+      content: "";
+    }
+
+    .editorial-badge::before {
+      content: "N";
+      transform: translate(-3px, -1px);
+    }
+
+    .editorial-badge::after {
+      content: "X";
+      transform: translate(5px, 4px);
+      opacity: 0.9;
+    }
+
+    .editorial-badge:hover {
+      transform: translateY(-4px) scale(1.04);
+      border-color: rgba(242, 211, 158, 0.5);
+      box-shadow:
+        0 18px 36px rgba(0, 0, 0, 0.42),
+        inset 0 0 24px rgba(214, 171, 103, 0.12);
+    }
+
+    .editorial-badge.is-spinning {
+      animation: editorialBadgeSpin 0.9s cubic-bezier(.2,.8,.2,1);
+    }
+
+    @keyframes editorialBadgeFloat {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-6px); }
+    }
+
+    @keyframes editorialBadgeSpin {
+      0% { transform: rotate(0deg) scale(1); }
+      50% { transform: rotate(180deg) scale(1.08); }
+      100% { transform: rotate(360deg) scale(1); }
+    }
+
+    .detail-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .detail-card {
+      padding: 14px;
+      border-radius: var(--radius-lg);
+    }
+
+    .detail-image {
+      aspect-ratio: 1 / 1;
+      overflow: hidden;
+      border-radius: 16px;
+      margin-bottom: 14px;
+      background: #0a0604;
+    }
+
+    .quote-band {
+      padding: 30px 34px;
+      text-align: center;
+      margin-bottom: 28px;
+    }
+
+    .quote-band p {
+      margin: 0;
+      font-size: clamp(1.3rem, 3vw, 2.3rem);
+      line-height: 1.5;
+      color: #f7ead1;
+    }
+
+    .closing {
+      display: grid;
+      grid-template-columns: 0.95fr 1.05fr;
+      gap: 24px;
+      padding: 24px;
+      align-items: stretch;
+    }
+
+    .closing::after {
+      width: 360px;
+      height: 180px;
+      right: -56px;
+      top: 14px;
+      transform: rotate(-12deg);
+    }
+
+    .closing-visual {
+      min-height: 460px;
+      overflow: hidden;
+      border-radius: 22px;
+      border: 1px solid rgba(214, 171, 103, 0.16);
+      background: #0a0604;
+    }
+
+    .closing-visual img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .closing-copy-wrap {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 16px;
+      padding: 10px 8px 10px 0;
+    }
+
+    .closing-title {
+      margin: 0;
+      font-size: clamp(2.1rem, 5vw, 4.5rem);
+      line-height: 0.95;
+      text-transform: uppercase;
+      color: #faefd9;
+    }
+
+    .footer-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 10px;
+    }
+
+    .footer-note {
+      color: var(--muted);
+      font-size: 0.94rem;
+      line-height: 1.8;
+    }
+
+    .envy-top-link {
+      position: fixed;
+      right: 18px;
+      bottom: 18px;
+      z-index: 30;
+      width: min(20vw, 132px);
+      min-width: 88px;
+      padding: 10px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(214, 171, 103, 0.22);
+      background:
+        linear-gradient(180deg, rgba(25, 16, 10, 0.92), rgba(7, 5, 3, 0.94));
+      box-shadow:
+        0 18px 38px rgba(0, 0, 0, 0.42),
+        inset 0 0 22px rgba(214, 171, 103, 0.06);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      backdrop-filter: blur(10px);
+      text-decoration: none;
+      transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease, opacity 0.25s ease;
+      animation: envyFloat 3.8s ease-in-out infinite;
+      overflow: visible;
+    }
+
+    .envy-top-link:hover {
+      transform: translateY(-3px) scale(1.02);
+      border-color: rgba(242, 211, 158, 0.44);
+      box-shadow:
+        0 22px 44px rgba(0, 0, 0, 0.5),
+        inset 0 0 30px rgba(214, 171, 103, 0.1);
+    }
+
+    .envy-top-link img {
+      width: 100%;
+      display: block;
+      opacity: 0.95;
+      filter: drop-shadow(0 0 14px rgba(214, 171, 103, 0.12));
+    }
+
+    .envy-top-link::after {
+      content: "";
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      transform: translate(-50%, -50%) scale(0.2);
+      background: radial-gradient(circle, rgba(255, 233, 186, 0.72), rgba(214, 171, 103, 0.18), transparent 72%);
+      opacity: 0;
+      pointer-events: none;
+      filter: blur(2px);
+    }
+
+    .envy-top-link.is-bursting img {
+      animation: envyTopBurst 0.72s cubic-bezier(.18,.84,.2,1);
+    }
+
+    .envy-top-link.is-bursting::after {
+      animation: envyTopFlash 0.72s ease-out;
+    }
+
+    @keyframes envyFloat {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+    }
+
+    @keyframes envyTopBurst {
+      0% { transform: scale(1) rotate(0deg); }
+      38% { transform: scale(1.2) rotate(-12deg); }
+      70% { transform: scale(0.96) rotate(10deg); }
+      100% { transform: scale(1) rotate(0deg); }
+    }
+
+    @keyframes envyTopFlash {
+      0% {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0.2);
+      }
+      28% {
+        opacity: 0.82;
+        transform: translate(-50%, -50%) scale(5.8);
+      }
+      100% {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(8.2);
+      }
+    }
+
+    @media (max-width: 1120px) {
+      .hero,
+      .manifesto,
+      .closing,
+      .campaign-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .campaign-card.tall {
+        grid-row: auto;
+        min-height: 520px;
+      }
+
+      .feature-grid,
+      .drop-grid,
+      .detail-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .hero-copy,
+      .hero-visual {
+        min-height: auto;
+      }
+
+      .hero-visual {
+        min-height: 620px;
+      }
+    }
+
+    @media (max-width: 720px) {
+      .page {
+        width: min(100vw - 14px, 100%);
+        padding-top: 72px;
+        padding-bottom: 90px;
+      }
+
+      .hero-copy,
+      .hero-visual,
+      .manifesto,
+      .feature-card,
+      .drop-card,
+      .detail-card,
+      .campaign-card,
+      .quote-band,
+      .closing {
+        border-radius: 24px;
+      }
+
+      .hero-copy,
+      .manifesto,
+      .quote-band,
+      .closing {
+        padding-left: 18px;
+        padding-right: 18px;
+      }
+
+      .hero-copy {
+        min-height: auto;
+        padding-top: 24px;
+        padding-bottom: 22px;
+      }
+
+      .feature-grid,
+      .drop-grid,
+      .detail-grid,
+      .hero-stats {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-visual,
+      .manifesto-poster,
+      .closing-visual {
+        min-height: 420px;
+      }
+
+      .section-head {
+        display: block;
+      }
+
+      .section-copy {
+        margin-top: 10px;
+      }
+
+      .ticker-track {
+        gap: 24px;
+        font-size: 10px;
+      }
+
+      .envy-top-link {
+        right: 12px;
+        bottom: 12px;
+        width: 92px;
+        min-width: 92px;
+        padding: 9px 10px;
+      }
+    }
+  </style>
+</head>
+<body id="top">
+  <main class="page">
+    <section class="hero">
+      <div class="hero-copy">
+        <div class="brand">
+          <img src="envynomadix-logo-cutout.png" alt="Envynomadix logo" class="brand-mini" />
+          <img src="envy distressed logo.png" alt="Envy distressed logo" class="brand-mark" />
+          <div class="eyebrow">[ envynomadix // built from obsession ]</div>
+          <h1>ENVY NOMADIX<br />WORLDWIDE</h1>
+          <p class="hero-text">
+            <strong>ENVYNOMADIX</strong> is the dark fashion house orbiting Nate Savard, the elusive artist-designer behind the image system, the garments, and the atmosphere.
+            What appears here should feel rare: one-offs, collector pieces, and high-end fabric work cut with the pressure of a private luxury label.
+          </p>
+          <div class="hero-actions">
+            <a class="cta" href="https://www.instagram.com/envynomadixofficial/" target="_blank" rel="noopener noreferrer">enter instagram atelier</a>
+            <a class="cta-secondary" href="#drops">view the collection</a>
+            <a class="cta-secondary" href="index.html">return to nate's world</a>
+          </div>
+        </div>
+
+        <div class="hero-stats">
+          <div class="stat">
+            <span class="stat-value">17</span>
+            <span class="stat-label">campaign artworks staged</span>
+          </div>
+          <div class="stat">
+            <span class="stat-value">2009</span>
+            <span class="stat-label">origin year embedded</span>
+          </div>
+          <div class="stat">
+            <span class="stat-value">01</span>
+            <span class="stat-label">dark luxury universe</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-visual">
+        <img src="envynomadix-campaign-17.png" alt="Envy black distressed t-shirt with fallen angel artwork" />
+      </div>
+    </section>
+
+    <div class="ticker" aria-hidden="true">
+      <div class="ticker-track">
+        <span>ENVYNOMADIX</span>
+        <span>BUILT FROM OBSESSION</span>
+        <span>THE ORIGIN OF ENVY</span>
+        <span>EST. 2009</span>
+        <span>DARK LUXURY</span>
+        <span>RUINED GOLD</span>
+        <span>ARCHIVE PRINTS</span>
+        <span>ENVYNOMADIX</span>
+        <span>BUILT FROM OBSESSION</span>
+        <span>THE ORIGIN OF ENVY</span>
+        <span>EST. 2009</span>
+        <span>DARK LUXURY</span>
+        <span>RUINED GOLD</span>
+        <span>ARCHIVE PRINTS</span>
+      </div>
+    </div>
+
+    <section class="section">
+      <div class="section-head">
+        <div>
+          <div class="section-kicker">[ manifesto // brand frequency ]</div>
+          <h2 class="section-title">A Label With Cathedral Heat.</h2>
+        </div>
+      </div>
+
+      <div class="manifesto">
+        <div class="manifesto-copy">
+          <p>Envynomadix moves through the world like a rumor around Nate Savard. Not mass market. Not trend-chasing. More like a private atelier for the few people who know what they are looking at when fabric, image, and status lock together in the same object.</p>
+          <p>Nate Savard sits behind the house as the main artist and designer, but the energy should stay half-seen. Sought after. Hard to reach. The kind of figure people hear about through pieces, rooms, and private references before they ever understand the full story. That mystery matters. It is part of the value.</p>
+          <p>The garments should feel expensive before they are touched. Dense wool. elevated fabric weight. black mineral surfaces. custom washes. one-off treatments. collector-grade construction. The kind of shirt that reads closer to a three-thousand-dollar garment than to anything disposable, because it carries design authorship, material gravity, and a world around it.</p>
+          <p>The distressed mark stays intentional. The angel imagery stays severe. Every piece feels like it came out of a sacred archive built by Nate Savard for clients, collectors, and the few who want clothing with more myth, more edge, and more consequence than ordinary luxury ever gives them.</p>
+        </div>
+        <div class="manifesto-poster">
+          <img src="envynomadix-campaign-16.png" alt="Envynomadix angel poster artwork" />
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="drops">
+      <div class="section-head">
+        <div>
+          <div class="section-kicker">[ collection // current drop ]</div>
+          <h2 class="section-title">The First Offering.</h2>
+        </div>
+      </div>
+
+      <div class="drop-grid">
+        <article class="drop-card">
+          <div class="drop-image">
+            <img src="envynomadix-campaign-17.png" alt="Envy built from obsession t-shirt front and back" />
+          </div>
+          <div class="drop-body">
+            <span class="mini-label">signature tee</span>
+            <h3>Built From Obsession</h3>
+            <p>Heavy black wash, distressed finish, chest hit branding, and an angelic collapse scene rendered like a luxury relic print.</p>
+            <div class="drop-meta">
+              <span>black mineral wash</span>
+              <span>editorial front/back</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="drop-card">
+          <div class="drop-image">
+            <img src="envynomadix-campaign-15.png" alt="Envynomadix origin of envy shirt layout with details" />
+          </div>
+          <div class="drop-body">
+            <span class="mini-label">archive tee</span>
+            <h3>The Origin Of Envy</h3>
+            <p>A complete drop-sheet presentation with logo, texture, neck label, and back print all treated like luxury catalog documentation.</p>
+            <div class="drop-meta">
+              <span>cathedral gold</span>
+              <span>detail-led layout</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="drop-card">
+          <div class="drop-image">
+            <img src="envynomadix-campaign-08.png" alt="Envynomadix main angel campaign graphic" />
+          </div>
+          <div class="drop-body">
+            <span class="mini-label">hero graphic</span>
+            <h3>Origin Poster Glyph</h3>
+            <p>The central emblem piece. Monumental wings, ruins, halo light, and the cross-mark monogram treated like a house sigil.</p>
+            <div class="drop-meta">
+              <span>monogram icon</span>
+              <span>campaign center</span>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <div>
+          <div class="section-kicker">[ pillars // house language ]</div>
+          <h2 class="section-title">What Makes It Expensive.</h2>
+        </div>
+        <p class="section-copy">
+          The value here is not only print. It is authorship, scarcity, fabric, and the feeling that Nate Savard is designing for a rare circle instead of the public rack.
+        </p>
+      </div>
+
+      <div class="feature-grid">
+        <article class="feature-card">
+          <div class="feature-image">
+            <img src="envynomadix-campaign-10.png" alt="Envynomadix framed poster artwork" />
+          </div>
+          <div class="feature-body">
+            <span class="mini-label">myth</span>
+            <h3>Religious Drama Without Looking Cheap</h3>
+            <p>The angel figure, the beam of light, and the antique framing give Nate Savard's work a collector aura, like each piece belongs to a private fashion mythology rather than a seasonal trend cycle.</p>
+          </div>
+        </article>
+
+        <article class="feature-card">
+          <div class="feature-image">
+            <img src="envynomadix-campaign-05.png" alt="Envy shirt concept variation" />
+          </div>
+          <div class="feature-body">
+            <span class="mini-label">texture</span>
+            <h3>Mineral Black Fabric Language</h3>
+            <p>The surface treatment feels dark, weighted, and expensive. It suggests heavyweight wools, premium jersey, and luxury fabric decisions made by a designer who cares about touch as much as image.</p>
+          </div>
+        </article>
+
+        <article class="feature-card">
+          <div class="feature-image">
+            <img src="envynomadix-campaign-13.png" alt="Envynomadix expanded graphic piece" />
+          </div>
+          <div class="feature-body">
+            <span class="mini-label">identity</span>
+            <h3>The Mark Reads Like A House Symbol</h3>
+            <p>The distressed logo and cross-monogram system feel like the stamp of a real house, strong enough for neck labels, packaging, one-off garment tags, and private-client presentation.</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <div>
+          <div class="section-kicker">[ campaign wall // visual archive ]</div>
+          <h2 class="section-title">Editorial Spread.</h2>
+        </div>
+      </div>
+
+      <div class="campaign-grid">
+        <div class="campaign-card tall">
+          <img src="envynomadix-campaign-01.png" alt="Envynomadix poster artwork with fallen angel and monogram" />
+          <button class="editorial-badge" type="button" aria-label="Spin editorial badge"></button>
+        </div>
+        <div class="campaign-card square">
+          <img src="envynomadix-campaign-02.png" alt="Envynomadix square artwork variation" />
+          <button class="editorial-badge" type="button" aria-label="Spin editorial badge"></button>
+        </div>
+        <div class="campaign-card square">
+          <img src="envynomadix-campaign-03.png" alt="Envynomadix graphic square artwork variation" />
+          <button class="editorial-badge" type="button" aria-label="Spin editorial badge"></button>
+        </div>
+        <div class="campaign-card wide">
+          <img src="envynomadix-campaign-04.png" alt="Envynomadix horizontal campaign shirt image" />
+          <button class="editorial-badge" type="button" aria-label="Spin editorial badge"></button>
+        </div>
+        <div class="campaign-card wide">
+          <img src="envynomadix-campaign-06.png" alt="Envynomadix clothing campaign display" />
+          <button class="editorial-badge" type="button" aria-label="Spin editorial badge"></button>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <div>
+          <div class="section-kicker">[ close range // supporting assets ]</div>
+          <h2 class="section-title">Detail Language.</h2>
+        </div>
+      </div>
+
+      <div class="detail-grid">
+        <article class="detail-card">
+          <div class="detail-image">
+            <img src="envynomadix-campaign-07.png" alt="Envynomadix detail artwork one" />
+          </div>
+          <span class="mini-label">graphic study</span>
+          <h3>Emblem Pressure</h3>
+          <p>The monogram and angel glyph carry enough authority to work on garments, posters, labels, and packaging.</p>
+        </article>
+
+        <article class="detail-card">
+          <div class="detail-image">
+            <img src="envynomadix-campaign-09.png" alt="Envynomadix detail artwork two" />
+          </div>
+          <span class="mini-label">lookbook</span>
+          <h3>Front And Back Discipline</h3>
+          <p>The strongest pieces frame the garment correctly and make the back print feel collectible rather than decorative.</p>
+        </article>
+
+        <article class="detail-card">
+          <div class="detail-image">
+            <img src="envynomadix-campaign-11.png" alt="Envynomadix detail artwork three" />
+          </div>
+          <span class="mini-label">symbol</span>
+          <h3>Square Asset Control</h3>
+          <p>Perfect for social drops, highlighted stories, packaging cards, and future shop thumbnails with a unified voice.</p>
+        </article>
+
+        <article class="detail-card">
+          <div class="detail-image">
+            <img src="envynomadix-campaign-12.png" alt="Envynomadix detail artwork four" />
+          </div>
+          <span class="mini-label">layout</span>
+          <h3>Luxury Catalog Framing</h3>
+          <p>Spacing, serif treatment, and distressed gold cues all push the brand upward toward true editorial styling.</p>
+        </article>
+      </div>
+    </section>
+
+    <div class="quote-band">
+      <p>“They can’t stop what they envy.”</p>
+    </div>
+
+    <section class="section">
+      <div class="section-head">
+        <div>
+          <div class="section-kicker">[ archive continuation // full feed ]</div>
+          <h2 class="section-title">More From The House.</h2>
+        </div>
+      </div>
+
+      <div class="detail-grid">
+        <article class="detail-card">
+          <div class="detail-image">
+            <img src="envynomadix-campaign-14.png" alt="Envynomadix additional campaign image one" />
+          </div>
+          <span class="mini-label">continuation</span>
+          <h3>Drop Extension I</h3>
+          <p>Extra runway for campaign posts, collection variants, and product storytelling across future releases.</p>
+        </article>
+
+        <article class="detail-card">
+          <div class="detail-image">
+            <img src="envynomadix-campaign-15.png" alt="Envynomadix additional campaign image two" />
+          </div>
+          <span class="mini-label">continuation</span>
+          <h3>Drop Extension II</h3>
+          <p>A polished catalog-style layout that proves the system can scale into a full product language.</p>
+        </article>
+
+        <article class="detail-card">
+          <div class="detail-image">
+            <img src="envynomadix-campaign-16.png" alt="Envynomadix additional campaign image three" />
+          </div>
+          <span class="mini-label">continuation</span>
+          <h3>Drop Extension III</h3>
+          <p>Poster energy with enough prestige to become wall art, ad creative, and collector packaging all at once.</p>
+        </article>
+
+        <article class="detail-card">
+          <div class="detail-image">
+            <img src="envynomadix-campaign-17.png" alt="Envynomadix additional campaign image four" />
+          </div>
+          <span class="mini-label">continuation</span>
+          <h3>Drop Extension IV</h3>
+          <p>The hero shirt returns at the end to anchor the collection and leave the strongest commercial image in memory.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="closing">
+      <div class="closing-visual">
+        <img src="envynomadix-campaign-08.png" alt="Envynomadix closing artwork" />
+      </div>
+      <div class="closing-copy-wrap">
+        <div class="section-kicker">[ final access // order route ]</div>
+        <h2 class="closing-title">Enter The House.</h2>
+        <p class="closing-copy">
+          This page now reads like the digital front of a mysterious house led by Nate Savard: dark, expensive, selective, and built for future one-offs, couture-weight fabric stories, and collector-facing drops.
+        </p>
+        <p class="footer-note">
+          For one-offs, styling requests, private orders, collabs, and collector inquiries, route people straight to the live Instagram atelier.
+        </p>
+        <div class="footer-actions">
+          <a class="cta" href="https://www.instagram.com/envynomadixofficial/" target="_blank" rel="noopener noreferrer">follow @envynomadixofficial</a>
+          <a class="cta-secondary" href="#drops">return to collection</a>
+          <a class="cta-secondary" href="transmission-intake.html">private contact route</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <a href="#top" class="envy-top-link" aria-label="Back to top">
+    <img src="envynomadix-logo-cutout.png" alt="Envy back to top" />
+  </a>
+
+  <script src="site-flow.js"></script>
+  <script>
+    (function () {
+      var topLink = document.querySelector(".envy-top-link");
+      var badges = document.querySelectorAll(".editorial-badge");
+      badges.forEach(function (badge) {
+        badge.addEventListener("click", function () {
+          badge.classList.remove("is-spinning");
+          void badge.offsetWidth;
+          badge.classList.add("is-spinning");
+        });
+        badge.addEventListener("animationend", function (event) {
+          if (event.animationName === "editorialBadgeSpin") {
+            badge.classList.remove("is-spinning");
+          }
+        });
+      });
+
+      if (topLink) {
+        topLink.addEventListener("click", function () {
+          topLink.classList.remove("is-bursting");
+          void topLink.offsetWidth;
+          topLink.classList.add("is-bursting");
+          window.setTimeout(function () {
+            topLink.classList.remove("is-bursting");
+          }, 720);
+        });
+      }
+    }());
+  </script>
+</body>
+</html>

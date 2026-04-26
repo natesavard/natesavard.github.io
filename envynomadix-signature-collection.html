@@ -1,0 +1,2197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="color-scheme" content="dark" />
+  <title>Envynomadix // Signature Collection</title>
+  <style>
+    :root {
+      --bg: #040201;
+      --bg-soft: rgba(10, 6, 4, 0.66);
+      --gold: #ddb06d;
+      --gold-soft: rgba(221, 176, 109, 0.72);
+      --ivory: #f6e6ca;
+      --line: rgba(221, 176, 109, 0.18);
+      --rail-shift: 0px;
+      --hero-lift: 0px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      margin: 0;
+      min-height: 100%;
+      overflow-x: hidden;
+      background: #000;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      color: var(--ivory);
+      font-family: Georgia, "Times New Roman", serif;
+      background:
+        radial-gradient(circle at center, rgba(221, 176, 109, 0.05), transparent 34%),
+        linear-gradient(180deg, rgba(6, 3, 2, 0.98), rgba(0, 0, 0, 1));
+    }
+
+    .experience {
+      position: relative;
+      min-height: 100vh;
+      isolation: isolate;
+      background: #000;
+    }
+
+    .bg,
+    .bg::before,
+    .bg::after,
+    .static,
+    .scanlines,
+    .vignette {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+    }
+
+    .bg {
+      background:
+        linear-gradient(180deg, rgba(0, 0, 0, 0.18), rgba(0, 0, 0, 0.78)),
+        url("envynomadix-campaign-07.png") center center / cover no-repeat;
+      filter: blur(18px) saturate(0.86) contrast(1.15);
+      transform: scale(1.12);
+      opacity: 0.72;
+    }
+
+    .bg::before,
+    .bg::after {
+      content: "";
+      background: url("envynomadix-campaign-07.png") center center / cover no-repeat;
+      mix-blend-mode: screen;
+      opacity: 0.08;
+    }
+
+    .bg::before {
+      transform: translateX(-12px) scale(1.14);
+      filter: blur(16px);
+    }
+
+    .bg::after {
+      transform: translateX(12px) scale(1.14);
+      filter: blur(16px);
+    }
+
+    .static {
+      background-image:
+        radial-gradient(circle at 22% 18%, rgba(255, 255, 255, 0.07) 0 1px, transparent 1px),
+        radial-gradient(circle at 76% 40%, rgba(255, 255, 255, 0.04) 0 1px, transparent 1px),
+        radial-gradient(circle at 46% 76%, rgba(255, 255, 255, 0.05) 0 1px, transparent 1px);
+      background-size: 120px 120px, 160px 160px, 100px 100px;
+      mix-blend-mode: screen;
+      opacity: 0.1;
+      animation: noiseShift 0.24s steps(2) infinite;
+    }
+
+    .scanlines {
+      background:
+        repeating-linear-gradient(
+          to bottom,
+          rgba(255, 255, 255, 0) 0,
+          rgba(255, 255, 255, 0) 2px,
+          rgba(255, 240, 214, 0.05) 3px,
+          rgba(255, 255, 255, 0) 4px
+        );
+      mix-blend-mode: screen;
+      opacity: 0.18;
+    }
+
+    .vignette {
+      background: radial-gradient(circle at center, transparent 28%, rgba(0, 0, 0, 0.74) 100%);
+    }
+
+    .hero-pane,
+    .rail-pane {
+      position: fixed;
+      left: 0;
+      right: 0;
+      z-index: 2;
+      padding-inline: clamp(18px, 3vw, 42px);
+    }
+
+    .utility-menu {
+      position: fixed;
+      top: 22px;
+      right: clamp(18px, 3vw, 42px);
+      z-index: 7;
+      display: flex;
+      gap: 16px;
+      align-items: center;
+      color: rgba(221, 176, 109, 0.78);
+      font-family: "Courier New", monospace;
+      font-size: 10px;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+    }
+
+    .utility-menu a {
+      color: inherit;
+      text-decoration: none;
+      transition: color 0.35s ease, opacity 0.35s ease;
+    }
+
+    .utility-menu button {
+      border: 0;
+      padding: 0;
+      background: transparent;
+      color: inherit;
+      font: inherit;
+      letter-spacing: inherit;
+      text-transform: inherit;
+      cursor: pointer;
+      transition: color 0.35s ease, opacity 0.35s ease;
+    }
+
+    .utility-menu a:hover {
+      color: var(--ivory);
+    }
+
+    .utility-menu button:hover {
+      color: var(--ivory);
+    }
+
+    .hero-pane {
+      top: 0;
+      height: 52vh;
+      display: grid;
+      align-items: stretch;
+      border-bottom: 1px solid rgba(221, 176, 109, 0.14);
+      background:
+        linear-gradient(180deg, rgba(0, 0, 0, 0.18), rgba(0, 0, 0, 0.46)),
+        radial-gradient(circle at center, rgba(221, 176, 109, 0.05), transparent 46%);
+    }
+
+    .hero-brand-stack {
+      position: absolute;
+      left: 50%;
+      top: 7.5%;
+      z-index: 3;
+      display: grid;
+      justify-items: center;
+      gap: 0;
+      width: min(30vw, 330px);
+      min-width: 200px;
+      transform: translateX(-50%);
+      pointer-events: none;
+    }
+
+    .hero-grid {
+      width: min(1380px, 100%);
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: minmax(320px, 0.9fr) minmax(300px, 1.1fr);
+      gap: clamp(18px, 4vw, 56px);
+      align-items: center;
+      min-height: 100%;
+    }
+
+    .hero-visual {
+      position: relative;
+      min-height: 100%;
+      display: flex;
+      align-items: end;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .hero-visual::before {
+      content: "";
+      position: absolute;
+      inset: auto 10% 8% 10%;
+      height: 46%;
+      background: radial-gradient(circle at center, rgba(221, 176, 109, 0.12), transparent 70%);
+      filter: blur(26px);
+      opacity: 0.88;
+    }
+
+    .hero-angel {
+      position: relative;
+      width: min(44vw, 560px);
+      max-width: 100%;
+      height: auto;
+      object-fit: contain;
+      transform: translateY(calc(12px + var(--hero-lift))) scale(1.03);
+      transform-origin: center bottom;
+      filter:
+        drop-shadow(0 24px 44px rgba(0, 0, 0, 0.38))
+        drop-shadow(0 0 34px rgba(221, 176, 109, 0.1));
+      animation: angelHover 8s ease-in-out infinite alternate, heroFlicker 4.8s linear infinite;
+    }
+
+    .hero-copy {
+      display: grid;
+      justify-items: start;
+      align-content: start;
+      gap: 12px;
+      padding: clamp(12px, 2.4vw, 22px) 0 0;
+    }
+
+    .meta-row {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      color: rgba(221, 176, 109, 0.76);
+      font-family: "Courier New", monospace;
+      font-size: 11px;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      margin-top: 2px;
+    }
+
+    .brand-mark {
+      width: min(28vw, 320px);
+      min-width: 180px;
+      height: auto;
+      display: block;
+      filter:
+        drop-shadow(0 0 10px rgba(255, 227, 176, 0.2))
+        drop-shadow(0 0 18px rgba(221, 176, 109, 0.14));
+    }
+
+    .brand-ribbon {
+      position: relative;
+      width: min(38vw, 430px);
+      min-width: 260px;
+      height: 88px;
+      display: grid;
+      place-items: center;
+      margin-top: -4px;
+      color: rgba(245, 227, 197, 0.96);
+      font-family: "Courier New", monospace;
+      font-size: 11px;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      text-align: center;
+      text-shadow: 0 0 12px rgba(255, 233, 199, 0.16);
+    }
+
+    .hero-brand-stack .brand-mark {
+      width: 100%;
+      min-width: 0;
+    }
+
+    .hero-brand-stack .brand-ribbon {
+      width: min(100%, 420px);
+      min-width: 0;
+      margin-top: -10px;
+    }
+
+    .hero-brand-stack .hero-title {
+      margin: 6px 0 0;
+      text-align: center;
+      line-height: 0.9;
+      font-size: clamp(1.5rem, 2.6vw, 2.1rem);
+      letter-spacing: 0.3em;
+      text-shadow:
+        0 0 12px rgba(255, 233, 199, 0.12),
+        0 1px 0 rgba(0, 0, 0, 0.38);
+    }
+
+    .brand-ribbon::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: url("ENVY RIBBON.png") center center / contain no-repeat;
+      opacity: 0.92;
+      filter:
+        drop-shadow(0 0 8px rgba(255, 235, 202, 0.08))
+        drop-shadow(0 0 22px rgba(221, 176, 109, 0.1));
+    }
+
+    .brand-ribbon span {
+      position: relative;
+      z-index: 1;
+      max-width: 78%;
+      transition: opacity 0.28s ease, transform 0.28s ease;
+    }
+
+    .brand-ribbon span.is-fading {
+      opacity: 0;
+      transform: translateY(4px);
+    }
+
+    .hero-title {
+      margin: 6px 0 0;
+      font-family: "Courier New", monospace;
+      font-size: clamp(1.2rem, 2vw, 1.65rem);
+      letter-spacing: 0.34em;
+      text-transform: uppercase;
+      color: #f4ddbc;
+    }
+
+    .hero-copy p {
+      margin: 4px 0 0;
+      max-width: 440px;
+      color: rgba(246, 230, 202, 0.86);
+      font-family: "Courier New", monospace;
+      font-size: 0.92rem;
+      letter-spacing: 0.12em;
+      line-height: 1.9;
+      text-transform: uppercase;
+    }
+
+    .hero-links {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-top: 6px;
+    }
+
+    .hero-links a {
+      min-width: 180px;
+      padding: 14px 18px;
+      border: 1px solid rgba(221, 176, 109, 0.24);
+      color: var(--ivory);
+      text-decoration: none;
+      text-align: center;
+      text-transform: uppercase;
+      letter-spacing: 0.22em;
+      font-family: "Courier New", monospace;
+      font-size: 0.8rem;
+      background: rgba(11, 7, 5, 0.42);
+      transition: transform 0.45s ease, border-color 0.45s ease, box-shadow 0.45s ease;
+    }
+
+    .hero-links a:hover {
+      transform: translateY(-2px);
+      border-color: rgba(242, 211, 158, 0.44);
+      box-shadow: 0 18px 36px rgba(0, 0, 0, 0.24);
+    }
+
+    .rail-pane {
+      bottom: 0;
+      height: 48vh;
+      display: grid;
+      align-items: stretch;
+      background:
+        linear-gradient(180deg, rgba(0, 0, 0, 0.06), rgba(0, 0, 0, 0.6) 16%, rgba(0, 0, 0, 0.92)),
+        rgba(0, 0, 0, 0.26);
+      backdrop-filter: blur(14px);
+    }
+
+    .floating-garment {
+      position: fixed;
+      right: clamp(18px, 4vw, 58px);
+      bottom: calc(48vh - 92px);
+      z-index: 4;
+      width: min(18vw, 250px);
+      min-width: 140px;
+      pointer-events: auto;
+      cursor: pointer;
+      mix-blend-mode: screen;
+      opacity: 0.92;
+      filter:
+        drop-shadow(0 18px 36px rgba(0, 0, 0, 0.42))
+        drop-shadow(0 0 22px rgba(221, 176, 109, 0.12));
+      transform: translate3d(0, calc(var(--hero-lift) * 0.22), 0) rotate(4deg);
+      transition: transform 0.45s ease, filter 0.45s ease, opacity 0.45s ease;
+    }
+
+    .floating-garment img {
+      width: 100%;
+      height: auto;
+      display: block;
+      object-fit: contain;
+      animation: garmentFloat 9s ease-in-out infinite alternate;
+    }
+
+    .floating-garment:hover {
+      transform: translate3d(0, calc(var(--hero-lift) * 0.22 - 6px), 0) rotate(2deg);
+      filter:
+        drop-shadow(0 24px 42px rgba(0, 0, 0, 0.46))
+        drop-shadow(0 0 30px rgba(221, 176, 109, 0.16));
+    }
+
+
+    .rail-shell {
+      position: relative;
+      width: min(1480px, 100%);
+      margin: 0 auto;
+      overflow: hidden;
+      border-top: 1px solid rgba(221, 176, 109, 0.16);
+    }
+
+    .rail-head {
+      position: absolute;
+      top: 18px;
+      left: 0;
+      right: 0;
+      z-index: 3;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      pointer-events: none;
+      color: rgba(221, 176, 109, 0.74);
+      font-family: "Courier New", monospace;
+      font-size: 11px;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+    }
+
+    .rail-head strong {
+      color: var(--ivory);
+      font-weight: 400;
+    }
+
+    .rail-window {
+      position: absolute;
+      inset: 0 0 104px;
+      padding-top: 54px;
+      overflow: hidden;
+    }
+
+    .rail-track {
+      display: flex;
+      align-items: stretch;
+      gap: 18px;
+      height: 100%;
+      width: max-content;
+      transform: translate3d(var(--rail-shift), 0, 0);
+      will-change: transform;
+    }
+
+    .panel {
+      position: relative;
+      width: min(38vw, 460px);
+      min-width: 300px;
+      height: 100%;
+      border: 0;
+      background:
+        linear-gradient(180deg, rgba(18, 11, 7, 0.7), rgba(4, 2, 1, 0.92));
+      overflow: visible;
+      box-shadow: none;
+    }
+
+    .panel.garment-panel {
+      background: transparent;
+      box-shadow: none;
+      cursor: pointer;
+      transition: transform 0.45s ease, border-color 0.45s ease, filter 0.45s ease;
+    }
+
+    .panel.garment-panel:hover {
+      transform: translateY(-10px) scale(1.04);
+      filter: brightness(1.06);
+    }
+
+    .panel img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      opacity: 0.76;
+      filter: saturate(0.84) contrast(1.06);
+    }
+
+    .panel.garment-panel img {
+      width: 92%;
+      height: 92%;
+      margin: 2% auto 0;
+      object-fit: contain;
+      opacity: 0.96;
+      filter:
+        drop-shadow(0 22px 38px rgba(0, 0, 0, 0.42))
+        drop-shadow(0 0 20px rgba(221, 176, 109, 0.08));
+      transition: transform 0.45s ease, filter 0.45s ease;
+      animation: garmentFloat 9s ease-in-out infinite alternate;
+    }
+
+    .panel.garment-panel:hover img {
+      transform: scale(1.08) translateY(-8px);
+      filter:
+        drop-shadow(0 26px 42px rgba(0, 0, 0, 0.46))
+        drop-shadow(0 0 26px rgba(221, 176, 109, 0.14));
+    }
+
+    .panel.garment-panel::after {
+      display: none;
+    }
+
+    .panel.garment-panel .panel-copy {
+      background: transparent;
+    }
+
+    .panel::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(180deg, rgba(255, 238, 206, 0.02), transparent 18%, rgba(0, 0, 0, 0.82) 100%);
+      pointer-events: none;
+    }
+
+    .panel-copy {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 1;
+      padding: 18px 18px 20px;
+      display: grid;
+      gap: 8px;
+    }
+
+    .panel-kicker {
+      color: rgba(221, 176, 109, 0.78);
+      font-family: "Courier New", monospace;
+      font-size: 10px;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+    }
+
+    .panel-title {
+      color: var(--ivory);
+      font-family: "Courier New", monospace;
+      font-size: 1rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+    }
+
+    .panel-note {
+      color: rgba(246, 230, 202, 0.8);
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 0.86rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+
+    .catalogue-strip {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 114px;
+      z-index: 4;
+      display: flex;
+      justify-content: center;
+      gap: 14px;
+      padding-inline: 8px;
+    }
+
+    .catalogue-item {
+      position: relative;
+      width: min(11vw, 140px);
+      min-width: 96px;
+      height: 152px;
+      cursor: pointer;
+      text-decoration: none;
+      color: var(--ivory);
+      transition: transform 0.45s ease, filter 0.45s ease;
+    }
+
+    .catalogue-item:hover {
+      transform: translateY(-4px) scale(1.04);
+      filter: brightness(1.06);
+    }
+
+    .catalogue-flip {
+      position: relative;
+      width: 100%;
+      height: 116px;
+    }
+
+    .catalogue-image {
+      position: absolute;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      transition: opacity 0.45s ease, transform 0.45s ease;
+      pointer-events: none;
+    }
+
+    .catalogue-image img {
+      max-width: 100%;
+      max-height: 100%;
+      width: auto;
+      height: auto;
+      object-fit: contain;
+      display: block;
+      filter:
+        drop-shadow(0 14px 22px rgba(0, 0, 0, 0.34))
+        drop-shadow(0 0 12px rgba(221, 176, 109, 0.08));
+    }
+
+    .catalogue-image.alt {
+      opacity: 0;
+      transform: scale(0.96);
+    }
+
+    .catalogue-item:hover .catalogue-image.primary {
+      opacity: 0;
+      transform: scale(1.04);
+    }
+
+    .catalogue-item:hover .catalogue-image.alt {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    .catalogue-label {
+      margin-top: 10px;
+      text-align: center;
+      font-family: "Courier New", monospace;
+      font-size: 9px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(246, 230, 202, 0.88);
+    }
+
+    .footer-banner {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 3;
+      min-height: 94px;
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+      align-items: start;
+      padding: 16px 0 18px;
+      border-top: 1px solid rgba(221, 176, 109, 0.16);
+      background:
+        linear-gradient(180deg, rgba(8, 5, 3, 0.16), rgba(0, 0, 0, 0.72)),
+        rgba(0, 0, 0, 0.34);
+      backdrop-filter: blur(16px);
+    }
+
+    .footer-group {
+      display: grid;
+      gap: 8px;
+      align-content: start;
+    }
+
+    .footer-kicker {
+      color: rgba(221, 176, 109, 0.72);
+      font-family: "Courier New", monospace;
+      font-size: 9px;
+      letter-spacing: 0.26em;
+      text-transform: uppercase;
+    }
+
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .footer-links a,
+    .footer-links button {
+      border: 0;
+      padding: 0;
+      background: transparent;
+      color: rgba(246, 230, 202, 0.84);
+      text-decoration: none;
+      font-family: "Courier New", monospace;
+      font-size: 10px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: color 0.35s ease, opacity 0.35s ease;
+    }
+
+    .footer-links a:hover,
+    .footer-links button:hover {
+      color: var(--ivory);
+    }
+
+    .shirt-viewer {
+      position: fixed;
+      inset: 0;
+      z-index: 14;
+      display: grid;
+      place-items: center;
+      padding: 28px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.45s ease;
+    }
+
+    .shirt-viewer.is-open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .shirt-viewer-backdrop {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at center, rgba(221, 176, 109, 0.08), transparent 28%),
+        rgba(0, 0, 0, 0.82);
+      backdrop-filter: blur(18px);
+    }
+
+    .shirt-viewer-frame {
+      position: relative;
+      z-index: 1;
+      width: min(88vw, 1040px);
+      max-height: min(88vh, 1100px);
+      display: grid;
+      grid-template-columns: minmax(280px, 0.92fr) minmax(320px, 1.08fr);
+      gap: clamp(18px, 3vw, 34px);
+      align-items: center;
+      padding: 30px 30px 108px;
+      background:
+        radial-gradient(circle at 50% 28%, rgba(255, 237, 205, 0.08), transparent 28%),
+        linear-gradient(180deg, rgba(10, 6, 4, 0.56), rgba(2, 1, 1, 0.2));
+      border: 1px solid rgba(221, 176, 109, 0.12);
+      box-shadow: 0 28px 72px rgba(0, 0, 0, 0.42);
+      overflow: hidden;
+    }
+
+    .shirt-viewer-visual {
+      position: relative;
+      min-height: 420px;
+      display: grid;
+      place-items: center;
+    }
+
+    .shirt-viewer-visual::before {
+      content: "";
+      position: absolute;
+      inset: 16% 8% 10%;
+      background: radial-gradient(circle at center, rgba(221, 176, 109, 0.12), transparent 66%);
+      filter: blur(18px);
+    }
+
+    .shirt-viewer-frame img {
+      position: relative;
+      z-index: 1;
+      max-width: 100%;
+      max-height: calc(80vh - 180px);
+      width: auto;
+      height: auto;
+      object-fit: contain;
+      display: block;
+      filter:
+        drop-shadow(0 28px 48px rgba(0, 0, 0, 0.44))
+        drop-shadow(0 0 24px rgba(221, 176, 109, 0.08));
+    }
+
+    .product-sheet {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      gap: 16px;
+      align-content: start;
+      max-height: calc(88vh - 160px);
+      overflow-y: auto;
+      padding-right: 8px;
+    }
+
+    .product-sheet::-webkit-scrollbar,
+    .cart-drawer::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    .product-sheet::-webkit-scrollbar-thumb,
+    .cart-drawer::-webkit-scrollbar-thumb {
+      background: rgba(221, 176, 109, 0.32);
+    }
+
+    .product-kicker {
+      color: rgba(221, 176, 109, 0.74);
+      font-family: "Courier New", monospace;
+      font-size: 10px;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+    }
+
+    .product-title {
+      margin: 0;
+      color: var(--ivory);
+      font-family: "Courier New", monospace;
+      font-size: clamp(1.24rem, 2.1vw, 1.8rem);
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      line-height: 1.2;
+    }
+
+    .product-price {
+      color: var(--gold);
+      font-family: "Courier New", monospace;
+      font-size: 0.92rem;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+    }
+
+    .product-description {
+      color: rgba(246, 230, 202, 0.84);
+      font-family: "Courier New", monospace;
+      font-size: 0.84rem;
+      line-height: 1.8;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .product-group {
+      display: grid;
+      gap: 10px;
+    }
+
+    .product-label {
+      color: rgba(221, 176, 109, 0.78);
+      font-family: "Courier New", monospace;
+      font-size: 9px;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+    }
+
+    .size-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .size-chip,
+    .qty-button,
+    .product-action,
+    .cart-action,
+    .cart-toggle {
+      border: 1px solid rgba(221, 176, 109, 0.18);
+      background: rgba(8, 5, 3, 0.54);
+      color: var(--ivory);
+      font-family: "Courier New", monospace;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      cursor: pointer;
+      transition: transform 0.35s ease, border-color 0.35s ease, background 0.35s ease, color 0.35s ease, opacity 0.35s ease;
+    }
+
+    .size-chip {
+      min-width: 62px;
+      padding: 11px 12px;
+      font-size: 0.74rem;
+      text-align: center;
+    }
+
+    .size-chip.is-active,
+    .size-chip:hover,
+    .qty-button:hover,
+    .product-action:hover,
+    .cart-action:hover,
+    .cart-toggle:hover {
+      border-color: rgba(242, 211, 158, 0.42);
+      background: rgba(22, 14, 9, 0.72);
+      transform: translateY(-1px);
+    }
+
+    .quantity-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .qty-button {
+      width: 42px;
+      height: 42px;
+      padding: 0;
+      font-size: 0.88rem;
+    }
+
+    .qty-value {
+      min-width: 28px;
+      text-align: center;
+      color: rgba(246, 230, 202, 0.92);
+      font-family: "Courier New", monospace;
+      font-size: 0.92rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+    }
+
+    .product-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 6px;
+    }
+
+    .product-action,
+    .cart-action,
+    .cart-toggle {
+      padding: 14px 18px;
+      font-size: 0.76rem;
+    }
+
+    .product-action.is-primary,
+    .cart-action.is-primary,
+    .cart-toggle {
+      background: rgba(221, 176, 109, 0.12);
+    }
+
+    .product-note {
+      color: rgba(221, 176, 109, 0.68);
+      font-family: "Courier New", monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.16em;
+      line-height: 1.7;
+      text-transform: uppercase;
+    }
+
+    .cart-pill {
+      display: inline-grid;
+      place-items: center;
+      min-width: 22px;
+      height: 22px;
+      margin-left: 6px;
+      padding: 0 6px;
+      border-radius: 999px;
+      background: rgba(221, 176, 109, 0.18);
+      color: var(--ivory);
+      font-size: 9px;
+      letter-spacing: 0.16em;
+    }
+
+    .cart-shell {
+      position: fixed;
+      inset: 0;
+      z-index: 13;
+      pointer-events: none;
+    }
+
+    .cart-drawer {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: min(440px, 92vw);
+      height: 100%;
+      padding: 22px 20px 30px;
+      background:
+        linear-gradient(180deg, rgba(10, 6, 4, 0.96), rgba(0, 0, 0, 0.98)),
+        rgba(0, 0, 0, 0.94);
+      border-left: 1px solid rgba(221, 176, 109, 0.14);
+      box-shadow: -20px 0 50px rgba(0, 0, 0, 0.42);
+      transform: translateX(100%);
+      opacity: 0;
+      overflow-y: auto;
+      pointer-events: auto;
+      transition: transform 0.45s cubic-bezier(.16,.9,.2,1), opacity 0.45s ease;
+    }
+
+    .cart-shell.is-open {
+      pointer-events: auto;
+    }
+
+    .cart-shell.is-open .cart-drawer {
+      transform: translateX(0);
+      opacity: 1;
+    }
+
+    .cart-backdrop {
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.48);
+      opacity: 0;
+      transition: opacity 0.35s ease;
+    }
+
+    .cart-shell.is-open .cart-backdrop {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .cart-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: start;
+      gap: 16px;
+      margin-bottom: 22px;
+    }
+
+    .cart-title {
+      margin: 0;
+      color: var(--ivory);
+      font-family: "Courier New", monospace;
+      font-size: 1rem;
+      letter-spacing: 0.26em;
+      text-transform: uppercase;
+    }
+
+    .cart-close {
+      position: relative;
+      border: 0;
+      padding: 0;
+      background: transparent;
+      width: min(18vw, 150px);
+      min-width: 104px;
+      height: 62px;
+      cursor: pointer;
+      transition: transform 0.35s ease, filter 0.35s ease;
+    }
+
+    .cart-close::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: url("ENVY RIBBON.png") center center / contain no-repeat;
+      opacity: 0.84;
+      filter:
+        drop-shadow(0 0 10px rgba(255, 229, 189, 0.08))
+        drop-shadow(0 0 20px rgba(221, 176, 109, 0.12));
+    }
+
+    .cart-close img {
+      position: absolute;
+      left: 50%;
+      top: 7px;
+      width: min(10vw, 92px);
+      min-width: 62px;
+      transform: translateX(-50%);
+      filter:
+        drop-shadow(0 0 8px rgba(255, 233, 199, 0.16))
+        drop-shadow(0 0 18px rgba(221, 176, 109, 0.14));
+    }
+
+    .cart-close:hover {
+      transform: translateY(-2px);
+      filter: brightness(1.06);
+    }
+
+    .cart-items {
+      display: grid;
+      gap: 14px;
+    }
+
+    .cart-item {
+      display: grid;
+      grid-template-columns: 92px 1fr;
+      gap: 14px;
+      padding: 12px 0 16px;
+      border-bottom: 1px solid rgba(221, 176, 109, 0.12);
+    }
+
+    .cart-item-preview {
+      display: contents;
+      cursor: pointer;
+    }
+
+    .cart-item-image {
+      display: grid;
+      place-items: center;
+      min-height: 110px;
+      background: radial-gradient(circle at center, rgba(221, 176, 109, 0.1), transparent 68%);
+    }
+
+    .cart-item-image img {
+      max-width: 100%;
+      max-height: 108px;
+      object-fit: contain;
+      filter:
+        drop-shadow(0 18px 26px rgba(0, 0, 0, 0.4))
+        drop-shadow(0 0 14px rgba(221, 176, 109, 0.1));
+    }
+
+    .cart-item-name,
+    .cart-item-meta,
+    .cart-empty,
+    .cart-field label,
+    .cart-summary {
+      font-family: "Courier New", monospace;
+      text-transform: uppercase;
+    }
+
+    .cart-item-name {
+      color: var(--ivory);
+      font-size: 0.8rem;
+      letter-spacing: 0.16em;
+      line-height: 1.6;
+    }
+
+    .cart-item-meta {
+      margin-top: 6px;
+      color: rgba(221, 176, 109, 0.76);
+      font-size: 0.68rem;
+      letter-spacing: 0.18em;
+      line-height: 1.9;
+    }
+
+    .cart-item-preview:hover .cart-item-name,
+    .cart-item-preview:hover .cart-item-meta {
+      color: var(--ivory);
+    }
+
+    .cart-item-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-top: 10px;
+    }
+
+    .cart-item-actions button {
+      border: 0;
+      padding: 0;
+      background: transparent;
+      color: rgba(246, 230, 202, 0.78);
+      font-family: "Courier New", monospace;
+      font-size: 0.62rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      cursor: pointer;
+    }
+
+    .cart-form {
+      display: grid;
+      gap: 12px;
+      margin-top: 22px;
+      padding-top: 18px;
+      border-top: 1px solid rgba(221, 176, 109, 0.12);
+    }
+
+    .cart-field {
+      display: grid;
+      gap: 6px;
+    }
+
+    .cart-field label {
+      color: rgba(221, 176, 109, 0.7);
+      font-size: 0.62rem;
+      letter-spacing: 0.22em;
+    }
+
+    .cart-field input,
+    .cart-field textarea {
+      width: 100%;
+      border: 1px solid rgba(221, 176, 109, 0.14);
+      background: rgba(10, 6, 4, 0.7);
+      color: var(--ivory);
+      font-family: "Courier New", monospace;
+      font-size: 0.78rem;
+      letter-spacing: 0.08em;
+      padding: 12px 12px;
+      resize: vertical;
+    }
+
+    .cart-summary {
+      margin-top: 10px;
+      color: rgba(246, 230, 202, 0.82);
+      font-size: 0.68rem;
+      letter-spacing: 0.16em;
+      line-height: 1.8;
+    }
+
+    .cart-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 12px;
+    }
+
+    .cart-empty {
+      color: rgba(246, 230, 202, 0.7);
+      font-size: 0.72rem;
+      letter-spacing: 0.18em;
+      line-height: 1.9;
+      padding: 6px 0 4px;
+    }
+
+    .shirt-viewer-close {
+      position: absolute;
+      right: 18px;
+      bottom: 18px;
+      width: min(22vw, 180px);
+      min-width: 120px;
+      height: 72px;
+      border: 0;
+      padding: 0;
+      background: transparent;
+      cursor: pointer;
+      transition: transform 0.35s ease, filter 0.35s ease;
+    }
+
+    .shirt-viewer-close::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: url("ENVY RIBBON.png") center center / contain no-repeat;
+      opacity: 0.86;
+      filter:
+        drop-shadow(0 0 10px rgba(255, 229, 189, 0.08))
+        drop-shadow(0 0 20px rgba(221, 176, 109, 0.12));
+    }
+
+    .shirt-viewer-close img {
+      position: absolute;
+      left: 50%;
+      top: 8px;
+      width: min(12vw, 108px);
+      min-width: 72px;
+      transform: translateX(-50%);
+      filter:
+        drop-shadow(0 0 8px rgba(255, 233, 199, 0.16))
+        drop-shadow(0 0 18px rgba(221, 176, 109, 0.14));
+    }
+
+    .shirt-viewer-close:hover {
+      transform: translateY(-2px);
+      filter: brightness(1.06);
+    }
+
+    .scroll-space {
+      position: relative;
+      z-index: 1;
+      height: 420vh;
+    }
+
+    .scroll-space::before {
+      content: "";
+      position: sticky;
+      top: 0;
+      display: block;
+      height: 100vh;
+      pointer-events: none;
+    }
+
+    @keyframes noiseShift {
+      0% { transform: translate3d(0, 0, 0); }
+      100% { transform: translate3d(8px, -6px, 0); }
+    }
+
+    @keyframes angelHover {
+      from { transform: translateY(calc(12px + var(--hero-lift))) scale(1.03); }
+      to { transform: translateY(calc(0px + var(--hero-lift))) scale(1.06); }
+    }
+
+    @keyframes heroFlicker {
+      0%, 15%, 18%, 50%, 53%, 100% { opacity: 0.98; }
+      16%, 52% { opacity: 0.9; }
+      74% { opacity: 0.94; }
+    }
+
+    @keyframes garmentFloat {
+      from { transform: translateY(0) rotate(0deg) scale(1); }
+      to { transform: translateY(-14px) rotate(-2deg) scale(1.02); }
+    }
+
+    @media (max-width: 980px) {
+      .hero-pane {
+        height: 50vh;
+      }
+
+      .rail-pane {
+        height: 50vh;
+      }
+
+      .hero-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+      }
+
+      .hero-angel {
+        width: min(50vw, 420px);
+      }
+
+      .hero-brand-stack {
+        top: 8.5%;
+        width: min(32vw, 260px);
+      }
+
+      .hero-brand-stack .hero-title {
+        font-size: clamp(1.22rem, 2vw, 1.72rem);
+      }
+
+      .brand-mark {
+        width: min(34vw, 240px);
+      }
+
+      .brand-ribbon {
+        width: min(46vw, 340px);
+        min-width: 220px;
+      }
+
+      .panel {
+        width: min(52vw, 380px);
+      }
+
+      .floating-garment {
+        width: min(22vw, 210px);
+        bottom: calc(50vh - 70px);
+      }
+
+      .shirt-viewer-frame {
+        width: min(88vw, 720px);
+        grid-template-columns: 1fr;
+        max-height: 90vh;
+      }
+
+      .catalogue-item {
+        width: min(15vw, 128px);
+      }
+
+    }
+
+    @media (max-width: 720px) {
+      .hero-pane,
+      .rail-pane {
+        padding-inline: 12px;
+      }
+
+      .utility-menu {
+        top: 12px;
+        right: 12px;
+        gap: 10px;
+        font-size: 8px;
+        letter-spacing: 0.14em;
+      }
+
+      .hero-pane {
+        height: 48vh;
+      }
+
+      .rail-pane {
+        height: 52vh;
+      }
+
+      .hero-grid {
+        grid-template-columns: 1fr;
+        gap: 6px;
+      }
+
+      .hero-visual {
+        align-items: end;
+        min-height: 0;
+      }
+
+      .hero-brand-stack {
+        top: 6%;
+        width: min(52vw, 210px);
+      }
+
+      .hero-angel {
+        width: min(48vw, 220px);
+      }
+
+      .hero-copy {
+        justify-items: center;
+        text-align: center;
+        gap: 10px;
+        padding-top: 6px;
+      }
+
+      .meta-row {
+        display: none;
+      }
+
+      .brand-mark {
+        width: min(54vw, 210px);
+        min-width: 140px;
+      }
+
+      .brand-ribbon {
+        width: min(76vw, 320px);
+        min-width: 0;
+        height: 76px;
+        font-size: 9px;
+      }
+
+      .hero-title {
+        font-size: 0.92rem;
+        letter-spacing: 0.24em;
+      }
+
+      .hero-brand-stack .hero-title {
+        font-size: 1.02rem;
+        margin-top: 4px;
+      }
+
+      .hero-copy p {
+        max-width: 92%;
+        font-size: 0.75rem;
+        letter-spacing: 0.08em;
+        line-height: 1.7;
+      }
+
+      .hero-links {
+        width: 100%;
+        justify-content: center;
+      }
+
+      .hero-links a {
+        min-width: 46%;
+        padding: 12px 14px;
+        font-size: 0.7rem;
+      }
+
+      .rail-head {
+        top: 14px;
+        font-size: 9px;
+        letter-spacing: 0.18em;
+      }
+
+      .panel {
+        width: 78vw;
+        min-width: 240px;
+      }
+
+      .catalogue-strip {
+        bottom: 110px;
+        gap: 8px;
+      }
+
+      .catalogue-item {
+        width: 84px;
+        min-width: 0;
+        height: 126px;
+      }
+
+      .catalogue-flip {
+        height: 92px;
+      }
+
+      .catalogue-label {
+        font-size: 8px;
+        letter-spacing: 0.1em;
+      }
+
+      .footer-banner {
+        grid-template-columns: 1fr;
+        gap: 12px;
+        padding: 14px 0 16px;
+      }
+
+      .footer-links {
+        gap: 10px;
+      }
+
+      .floating-garment {
+        right: 10px;
+        bottom: calc(52vh - 46px);
+        width: min(34vw, 170px);
+        min-width: 92px;
+        opacity: 0.82;
+      }
+
+      .shirt-viewer {
+        padding: 14px;
+      }
+
+      .shirt-viewer-frame {
+        width: min(94vw, 100%);
+        grid-template-columns: 1fr;
+        gap: 14px;
+        padding: 18px 18px 92px;
+      }
+
+      .shirt-viewer-close {
+        width: 132px;
+        min-width: 0;
+        height: 62px;
+      }
+
+      .shirt-viewer-close img {
+        width: 74px;
+        min-width: 0;
+      }
+
+      .shirt-viewer-visual {
+        min-height: 240px;
+      }
+
+      .product-sheet {
+        max-height: none;
+        overflow: visible;
+        padding-right: 0;
+      }
+
+    }
+  </style>
+</head>
+<body>
+  <div class="experience">
+    <div class="bg" aria-hidden="true"></div>
+    <div class="static" aria-hidden="true"></div>
+    <div class="scanlines" aria-hidden="true"></div>
+    <div class="vignette" aria-hidden="true"></div>
+    <nav class="utility-menu" aria-label="Signature utilities">
+      <a href="#railStart">catalogue</a>
+      <a href="#footerBanner">company</a>
+      <a href="#footerBanner">social</a>
+      <button type="button" id="cartToggle">cart <span class="cart-pill" id="cartCount">0</span></button>
+    </nav>
+
+    <section class="hero-pane">
+      <div class="hero-brand-stack">
+        <img class="brand-mark" src="envynomadix-logo-cutout.png" alt="Envynomadix" />
+        <div class="brand-ribbon"><span id="signatureRibbonLine">never replicated</span></div>
+      </div>
+
+      <div class="hero-grid">
+        <div class="hero-visual">
+          <img class="hero-angel" src="ANGELL ENTER.png" alt="Envynomadix angel artwork" />
+        </div>
+
+        <div class="hero-copy">
+          <div class="meta-row">
+            <span>envynomadix</span>
+            <span>signature collection</span>
+          </div>
+          <p>
+            ✠ N̷. the composition of waters, movement, growth, embodying and disembodying, drawing the spirits from bodies and bonding the spirits within bodies
+          </p>
+          <div class="hero-links">
+            <a href="envynomadix.html">return to enter</a>
+            <a href="#railStart">drop into rail</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="rail-pane" id="railStart">
+      <div class="floating-garment" data-shirt-viewer="3d envy shirt 2026.png" data-product="Signature Shirt" data-price="$145.00" data-description="Collector black jersey. oversized body. halo pressure. built for the chosen few." aria-label="Open signature shirt">
+        <img src="3d envy shirt 2026.png" alt="" />
+      </div>
+      <div class="rail-shell">
+        <div class="rail-head">
+          <span>scroll to move</span>
+          <strong>Signature Collection</strong>
+        </div>
+        <div class="catalogue-strip" aria-label="Catalogue">
+          <article class="catalogue-item" data-shirt-viewer="3d envy shirt 2026.png" data-product="Signature Shirt" data-price="$145.00" data-description="Collector black jersey. oversized body. halo pressure. built for the chosen few.">
+            <div class="catalogue-flip">
+              <div class="catalogue-image primary"><img src="3d envy shirt 2026.png" alt="Signature shirt catalogue view" /></div>
+              <div class="catalogue-image alt"><img src="envynomadix-campaign-07-cutout.png" alt="Signature shirt alternate view" /></div>
+            </div>
+            <div class="catalogue-label">signature</div>
+          </article>
+
+          <article class="catalogue-item" data-shirt-viewer="3d envy shirt 2026.png" data-product="House Uniform" data-price="$160.00" data-description="Oversized washed tone. private uniform energy. cut to sit heavy and clean.">
+            <div class="catalogue-flip">
+              <div class="catalogue-image primary"><img src="3d envy shirt 2026.png" alt="House uniform catalogue view" /></div>
+              <div class="catalogue-image alt"><img src="envynomadix-campaign-08.png" alt="House uniform alternate view" /></div>
+            </div>
+            <div class="catalogue-label">uniform</div>
+          </article>
+
+          <article class="catalogue-item" data-shirt-viewer="3d envy shirt 2026.png" data-product="Chosen Few Tee" data-price="$175.00" data-description="Statement front. halo monogram. quiet force with a collector finish.">
+            <div class="catalogue-flip">
+              <div class="catalogue-image primary"><img src="3d envy shirt 2026.png" alt="Chosen few catalogue view" /></div>
+              <div class="catalogue-image alt"><img src="envynomadix-campaign-16.png" alt="Chosen few alternate view" /></div>
+            </div>
+            <div class="catalogue-label">chosen few</div>
+          </article>
+
+          <article class="catalogue-item" data-shirt-viewer="3d envy shirt 2026.png" data-product="Silent Edition" data-price="$190.00" data-description="Premium mainline drop. restrained front. elevated weight and finish.">
+            <div class="catalogue-flip">
+              <div class="catalogue-image primary"><img src="3d envy shirt 2026.png" alt="Silent edition catalogue view" /></div>
+              <div class="catalogue-image alt"><img src="envynomadix-campaign-03.png" alt="Silent edition alternate view" /></div>
+            </div>
+            <div class="catalogue-label">silent edition</div>
+          </article>
+        </div>
+        <div class="rail-window">
+          <div class="rail-track" id="railTrack">
+            <article class="panel garment-panel" data-shirt-viewer="3d envy shirt 2026.png" data-product="Signature Shirt" data-price="$145.00" data-description="Collector black jersey. oversized body. halo pressure. built for the chosen few.">
+              <img src="3d envy shirt 2026.png" alt="Signature shirt front render" />
+              <div class="panel-copy">
+                <div class="panel-kicker">signature / 01</div>
+                <div class="panel-title">Signature Shirt</div>
+                <div class="panel-note">Front render / collector black</div>
+              </div>
+            </article>
+
+            <article class="panel garment-panel" data-shirt-viewer="3d envy shirt 2026.png" data-product="House Uniform" data-price="$160.00" data-description="Oversized washed tone. private uniform energy. cut to sit heavy and clean.">
+              <img src="3d envy shirt 2026.png" alt="Signature shirt hero render" />
+              <div class="panel-copy">
+                <div class="panel-kicker">signature / 02</div>
+                <div class="panel-title">House Uniform</div>
+                <div class="panel-note">Oversized silhouette / washed tone</div>
+              </div>
+            </article>
+
+            <article class="panel">
+              <img src="envynomadix-campaign-08.png" alt="Ascension angel artwork" />
+              <div class="panel-copy">
+                <div class="panel-kicker">signature / 03</div>
+                <div class="panel-title">Ascension</div>
+                <div class="panel-note">The rise is taken</div>
+              </div>
+            </article>
+
+            <article class="panel garment-panel" data-shirt-viewer="3d envy shirt 2026.png" data-product="Chosen Few Tee" data-price="$175.00" data-description="Statement front. halo monogram. quiet force with a collector finish.">
+              <img src="3d envy shirt 2026.png" alt="Signature shirt detail render" />
+              <div class="panel-copy">
+                <div class="panel-kicker">signature / 04</div>
+                <div class="panel-title">Chosen Few Tee</div>
+                <div class="panel-note">Statement front / halo monogram</div>
+              </div>
+            </article>
+
+            <article class="panel">
+              <img src="envynomadix-campaign-07.png" alt="Campaign atmosphere" />
+              <div class="panel-copy">
+                <div class="panel-kicker">signature / 05</div>
+                <div class="panel-title">House Atmosphere</div>
+                <div class="panel-note">Signal bleed and cathedral heat</div>
+              </div>
+            </article>
+
+            <article class="panel garment-panel" data-shirt-viewer="3d envy shirt 2026.png" data-product="Silent Edition" data-price="$190.00" data-description="Premium mainline drop. restrained front. elevated weight and finish.">
+              <img src="3d envy shirt 2026.png" alt="Signature shirt final render" />
+              <div class="panel-copy">
+                <div class="panel-kicker">signature / 06</div>
+                <div class="panel-title">Silent Edition</div>
+                <div class="panel-note">Garment-led close / premium drop</div>
+              </div>
+            </article>
+          </div>
+        </div>
+        <footer class="footer-banner" id="footerBanner">
+          <div class="footer-group">
+            <div class="footer-kicker">company</div>
+            <div class="footer-links">
+              <a href="envynomadix.html">enter page</a>
+              <a href="#railStart">signature collection</a>
+              <button type="button" data-shirt-viewer="3d envy shirt 2026.png" data-product="Signature Shirt" data-price="$145.00" data-description="Collector black jersey. oversized body. halo pressure. built for the chosen few.">featured shirt</button>
+            </div>
+          </div>
+          <div class="footer-group">
+            <div class="footer-kicker">social</div>
+            <div class="footer-links">
+              <a href="https://instagram.com/envynomadixofficial" target="_blank" rel="noreferrer">instagram</a>
+              <a href="https://nates-world.neocities.org/envynomadix" target="_blank" rel="noreferrer">live page</a>
+              <a href="#railStart">archive</a>
+            </div>
+          </div>
+          <div class="footer-group">
+            <div class="footer-kicker">catalogue</div>
+            <div class="footer-links">
+              <button type="button" data-shirt-viewer="3d envy shirt 2026.png" data-product="Signature Shirt" data-price="$145.00" data-description="Collector black jersey. oversized body. halo pressure. built for the chosen few.">signature</button>
+              <button type="button" data-shirt-viewer="3d envy shirt 2026.png" data-product="House Uniform" data-price="$160.00" data-description="Oversized washed tone. private uniform energy. cut to sit heavy and clean.">uniform</button>
+              <button type="button" data-shirt-viewer="3d envy shirt 2026.png" data-product="Silent Edition" data-price="$190.00" data-description="Premium mainline drop. restrained front. elevated weight and finish.">silent edition</button>
+            </div>
+          </div>
+        </footer>
+      </div>
+    </section>
+
+    <div class="shirt-viewer" id="shirtViewer" aria-hidden="true">
+      <div class="shirt-viewer-backdrop" id="shirtViewerBackdrop"></div>
+      <div class="shirt-viewer-frame">
+        <div class="shirt-viewer-visual">
+          <img id="shirtViewerImage" src="" alt="Signature shirt enlarged view" />
+        </div>
+        <div class="product-sheet">
+          <div class="product-kicker">envynomadix / product sheet</div>
+          <h2 class="product-title" id="productTitle">Signature Shirt</h2>
+          <div class="product-price" id="productPrice">$145.00</div>
+          <div class="product-description" id="productDescription">Collector black jersey. oversized body. halo pressure. built for the chosen few.</div>
+          <div class="product-group">
+            <div class="product-label">Select size</div>
+            <div class="size-grid" id="sizeGrid">
+              <button class="size-chip" type="button" data-size="xs">XS</button>
+              <button class="size-chip" type="button" data-size="s">S</button>
+              <button class="size-chip is-active" type="button" data-size="m">M</button>
+              <button class="size-chip" type="button" data-size="l">L</button>
+              <button class="size-chip" type="button" data-size="xl">XL</button>
+            </div>
+          </div>
+          <div class="product-group">
+            <div class="product-label">Quantity</div>
+            <div class="quantity-row">
+              <button class="qty-button" id="qtyMinus" type="button" aria-label="Decrease quantity">-</button>
+              <div class="qty-value" id="qtyValue">1</div>
+              <button class="qty-button" id="qtyPlus" type="button" aria-label="Increase quantity">+</button>
+            </div>
+          </div>
+          <div class="product-actions">
+            <button class="product-action is-primary" id="addToCartButton" type="button">add to cart</button>
+            <button class="product-action" id="openCartFromProduct" type="button">open cart</button>
+          </div>
+          <div class="product-note">Each order request is routed privately through the house. checkout opens an email draft with your selected sizes, quantities, and contact details.</div>
+        </div>
+        <button class="shirt-viewer-close" id="shirtViewerClose" type="button" aria-label="Close shirt view">
+          <img src="envynomadix-logo-cutout.png" alt="Close with Envy" />
+        </button>
+      </div>
+    </div>
+
+    <div class="cart-shell" id="cartShell" aria-hidden="true">
+      <div class="cart-backdrop" id="cartBackdrop"></div>
+      <aside class="cart-drawer" aria-label="Shopping cart">
+        <div class="cart-header">
+          <div>
+            <div class="product-kicker">envynomadix / cart</div>
+            <h2 class="cart-title">Collector Cart</h2>
+          </div>
+          <button class="cart-close" id="cartClose" type="button" aria-label="Close cart with Envy">
+            <img src="envynomadix-logo-cutout.png" alt="Close cart with Envy" />
+          </button>
+        </div>
+        <div class="cart-items" id="cartItems">
+          <div class="cart-empty">Your cart is empty. add a garment from the signature rail.</div>
+        </div>
+        <div class="cart-form">
+          <div class="cart-field">
+            <label for="cartName">Name</label>
+            <input id="cartName" type="text" placeholder="Collector name" />
+          </div>
+          <div class="cart-field">
+            <label for="cartEmail">Email</label>
+            <input id="cartEmail" type="email" placeholder="collector@email.com" />
+          </div>
+          <div class="cart-field">
+            <label for="cartLocation">Shipping / location</label>
+            <textarea id="cartLocation" rows="3" placeholder="City, country, delivery notes"></textarea>
+          </div>
+          <div class="cart-field">
+            <label for="cartNotes">Order notes</label>
+            <textarea id="cartNotes" rows="4" placeholder="Any custom request, fabric note, or timing"></textarea>
+          </div>
+          <div class="cart-summary">Checkout opens an email to natesavard@outlook.com with your selected pieces, sizes, quantities, and collector info.</div>
+          <div class="cart-actions">
+            <button class="cart-action" id="clearCartButton" type="button">clear cart</button>
+            <button class="cart-action is-primary" id="checkoutButton" type="button">checkout via email</button>
+          </div>
+        </div>
+      </aside>
+    </div>
+
+    <div class="scroll-space" aria-hidden="true"></div>
+  </div>
+
+  <script>
+    (function () {
+      var track = document.getElementById("railTrack");
+      var ribbonLine = document.getElementById("signatureRibbonLine");
+      var shirtViewer = document.getElementById("shirtViewer");
+      var shirtViewerImage = document.getElementById("shirtViewerImage");
+      var shirtViewerClose = document.getElementById("shirtViewerClose");
+      var shirtViewerBackdrop = document.getElementById("shirtViewerBackdrop");
+      var productTitle = document.getElementById("productTitle");
+      var productPrice = document.getElementById("productPrice");
+      var productDescription = document.getElementById("productDescription");
+      var qtyMinus = document.getElementById("qtyMinus");
+      var qtyPlus = document.getElementById("qtyPlus");
+      var qtyValue = document.getElementById("qtyValue");
+      var addToCartButton = document.getElementById("addToCartButton");
+      var openCartFromProduct = document.getElementById("openCartFromProduct");
+      var cartShell = document.getElementById("cartShell");
+      var cartBackdrop = document.getElementById("cartBackdrop");
+      var cartToggle = document.getElementById("cartToggle");
+      var cartClose = document.getElementById("cartClose");
+      var cartCount = document.getElementById("cartCount");
+      var cartItems = document.getElementById("cartItems");
+      var clearCartButton = document.getElementById("clearCartButton");
+      var checkoutButton = document.getElementById("checkoutButton");
+      var cartName = document.getElementById("cartName");
+      var cartEmail = document.getElementById("cartEmail");
+      var cartLocation = document.getElementById("cartLocation");
+      var cartNotes = document.getElementById("cartNotes");
+      var shirtTriggers = Array.prototype.slice.call(document.querySelectorAll("[data-shirt-viewer]"));
+      var sizeChips = Array.prototype.slice.call(document.querySelectorAll(".size-chip"));
+      var root = document.documentElement;
+      var ticking = false;
+      var ribbonIndex = 0;
+      var storageKey = "envy-house-cart";
+      var cartInfoKey = "envy-house-cart-info";
+      var selectedSize = "m";
+      var selectedQuantity = 1;
+      var activeProduct = null;
+      var cart = [];
+      var ribbonLines = [
+        "never replicated",
+        "for the chosen few",
+        "earned in silence"
+      ];
+
+      function loadCart() {
+        try {
+          var stored = window.localStorage.getItem(storageKey);
+          cart = stored ? JSON.parse(stored) : [];
+        } catch (error) {
+          cart = [];
+        }
+      }
+
+      function saveCart() {
+        try {
+          window.localStorage.setItem(storageKey, JSON.stringify(cart));
+        } catch (error) {
+          return;
+        }
+      }
+
+      function loadCartInfo() {
+        try {
+          var stored = window.localStorage.getItem(cartInfoKey);
+          if (!stored) return;
+          var info = JSON.parse(stored);
+          if (cartName) cartName.value = info.name || "";
+          if (cartEmail) cartEmail.value = info.email || "";
+          if (cartLocation) cartLocation.value = info.location || "";
+          if (cartNotes) cartNotes.value = info.notes || "";
+        } catch (error) {
+          return;
+        }
+      }
+
+      function saveCartInfo() {
+        try {
+          window.localStorage.setItem(cartInfoKey, JSON.stringify({
+            name: cartName ? cartName.value : "",
+            email: cartEmail ? cartEmail.value : "",
+            location: cartLocation ? cartLocation.value : "",
+            notes: cartNotes ? cartNotes.value : ""
+          }));
+        } catch (error) {
+          return;
+        }
+      }
+
+      function updateRail() {
+        ticking = false;
+
+        if (!track) return;
+
+        var viewportWidth = window.innerWidth;
+        var maxShift = Math.max(0, track.scrollWidth - viewportWidth + 42);
+        var maxScroll = Math.max(1, document.body.scrollHeight - window.innerHeight);
+        var progress = Math.min(Math.max(window.scrollY / maxScroll, 0), 1);
+        var shift = -maxShift * progress;
+        var heroLift = Math.min(progress * -28, -28);
+
+        root.style.setProperty("--rail-shift", shift.toFixed(2) + "px");
+        root.style.setProperty("--hero-lift", heroLift.toFixed(2) + "px");
+      }
+
+      function requestRail() {
+        if (ticking) return;
+        ticking = true;
+        window.requestAnimationFrame(updateRail);
+      }
+
+      function rotateRibbon() {
+        if (!ribbonLine) return;
+        ribbonLine.classList.add("is-fading");
+        window.setTimeout(function () {
+          ribbonIndex = (ribbonIndex + 1) % ribbonLines.length;
+          ribbonLine.textContent = ribbonLines[ribbonIndex];
+          ribbonLine.classList.remove("is-fading");
+        }, 260);
+      }
+
+      function setActiveSize(size) {
+        selectedSize = size;
+        sizeChips.forEach(function (chip) {
+          chip.classList.toggle("is-active", chip.getAttribute("data-size") === size);
+        });
+      }
+
+      function setQuantity(value) {
+        selectedQuantity = Math.max(1, Math.min(12, value));
+        if (qtyValue) {
+          qtyValue.textContent = String(selectedQuantity);
+        }
+      }
+
+      function updateCartCount() {
+        if (!cartCount) return;
+        var total = cart.reduce(function (sum, item) {
+          return sum + item.quantity;
+        }, 0);
+        cartCount.textContent = String(total);
+      }
+
+      function renderCart() {
+        if (!cartItems) return;
+
+        if (!cart.length) {
+          cartItems.innerHTML = '<div class="cart-empty">Your cart is empty. add a garment from the signature rail.</div>';
+          updateCartCount();
+          return;
+        }
+
+        cartItems.innerHTML = cart.map(function (item) {
+          return '' +
+            '<div class="cart-item">' +
+              '<button type="button" class="cart-item-preview" data-cart-preview="' + item.id + '">' +
+                '<div class="cart-item-image"><img src="' + item.image + '" alt="' + item.name + '" /></div>' +
+                '<div>' +
+                  '<div class="cart-item-name">' + item.name + '</div>' +
+                  '<div class="cart-item-meta">size ' + item.size.toUpperCase() + ' / qty ' + item.quantity + '<br />' + item.price + '</div>' +
+                '</div>' +
+              '</button>' +
+              '<div class="cart-item-actions">' +
+                '<button type="button" data-cart-action="decrease" data-cart-id="' + item.id + '">less</button>' +
+                '<button type="button" data-cart-action="increase" data-cart-id="' + item.id + '">more</button>' +
+                '<button type="button" data-cart-action="remove" data-cart-id="' + item.id + '">remove</button>' +
+              '</div>' +
+            '</div>';
+        }).join("");
+
+        updateCartCount();
+      }
+
+      function openCart() {
+        if (!cartShell) return;
+        cartShell.classList.add("is-open");
+        cartShell.setAttribute("aria-hidden", "false");
+      }
+
+      function closeCart() {
+        if (!cartShell) return;
+        cartShell.classList.remove("is-open");
+        cartShell.setAttribute("aria-hidden", "true");
+      }
+
+      function getProductFromTrigger(trigger) {
+        return {
+          name: trigger.getAttribute("data-product") || "Signature Shirt",
+          price: trigger.getAttribute("data-price") || "$145.00",
+          description: trigger.getAttribute("data-description") || "Collector black jersey. oversized body. halo pressure. built for the chosen few.",
+          image: trigger.getAttribute("data-shirt-viewer") || "3d envy shirt 2026.png"
+        };
+      }
+
+      function openShirtViewer(product) {
+        if (!shirtViewer || !shirtViewerImage || !product || !product.image) return;
+        activeProduct = product;
+        shirtViewerImage.src = product.image;
+        if (productTitle) productTitle.textContent = product.name;
+        if (productPrice) productPrice.textContent = product.price;
+        if (productDescription) productDescription.textContent = product.description;
+        setActiveSize("m");
+        setQuantity(1);
+        shirtViewer.classList.add("is-open");
+        shirtViewer.setAttribute("aria-hidden", "false");
+      }
+
+      function closeShirtViewer() {
+        if (!shirtViewer || !shirtViewerImage) return;
+        shirtViewer.classList.remove("is-open");
+        shirtViewer.setAttribute("aria-hidden", "true");
+        window.setTimeout(function () {
+          if (!shirtViewer.classList.contains("is-open")) {
+            shirtViewerImage.src = "";
+          }
+        }, 240);
+      }
+
+      function addActiveProductToCart() {
+        if (!activeProduct) return;
+
+        var existing = cart.find(function (item) {
+          return item.name === activeProduct.name && item.size === selectedSize;
+        });
+
+        if (existing) {
+          existing.quantity += selectedQuantity;
+        } else {
+          cart.push({
+            id: activeProduct.name.toLowerCase().replace(/[^a-z0-9]+/g, "-") + "-" + selectedSize,
+            name: activeProduct.name,
+            price: activeProduct.price,
+            description: activeProduct.description,
+            image: activeProduct.image,
+            size: selectedSize,
+            quantity: selectedQuantity
+          });
+        }
+
+        saveCart();
+        renderCart();
+        closeShirtViewer();
+        openCart();
+      }
+
+      function updateCartItem(id, action) {
+        cart = cart.reduce(function (items, item) {
+          if (item.id !== id) {
+            items.push(item);
+            return items;
+          }
+
+          if (action === "remove") {
+            return items;
+          }
+
+          if (action === "increase") {
+            item.quantity += 1;
+          }
+
+          if (action === "decrease") {
+            item.quantity -= 1;
+          }
+
+          if (item.quantity > 0) {
+            items.push(item);
+          }
+
+          return items;
+        }, []);
+
+        saveCart();
+        renderCart();
+      }
+
+      function previewCartItem(id) {
+        var item = cart.find(function (entry) {
+          return entry.id === id;
+        });
+
+        if (!item) return;
+
+        closeCart();
+        openShirtViewer({
+          name: item.name,
+          price: item.price,
+          description: item.description,
+          image: item.image
+        });
+        setActiveSize(item.size);
+        setQuantity(item.quantity);
+      }
+
+      function buildCheckoutMailto() {
+        if (!cart.length) return null;
+
+        saveCartInfo();
+
+        var lines = [
+          "ENVYNOMADIX ORDER REQUEST",
+          "",
+          "Name: " + (cartName && cartName.value ? cartName.value : ""),
+          "Email: " + (cartEmail && cartEmail.value ? cartEmail.value : ""),
+          "Shipping / Location: " + (cartLocation && cartLocation.value ? cartLocation.value : ""),
+          "",
+          "Items:"
+        ];
+
+        cart.forEach(function (item, index) {
+          lines.push(
+            (index + 1) + ". " + item.name +
+            " | Size: " + item.size.toUpperCase() +
+            " | Qty: " + item.quantity +
+            " | Price: " + item.price
+          );
+        });
+
+        lines.push("");
+        lines.push("Notes: " + (cartNotes && cartNotes.value ? cartNotes.value : ""));
+
+        var subjectName = cartName && cartName.value ? cartName.value : "Collector";
+        return "mailto:natesavard@outlook.com?subject=" +
+          encodeURIComponent("ENVY Order Request - " + subjectName) +
+          "&body=" +
+          encodeURIComponent(lines.join("\n"));
+      }
+
+      window.addEventListener("scroll", requestRail, { passive: true });
+      window.addEventListener("resize", requestRail);
+      updateRail();
+      window.setInterval(rotateRibbon, 2400);
+      loadCart();
+      loadCartInfo();
+      renderCart();
+
+      shirtTriggers.forEach(function (trigger) {
+        trigger.addEventListener("click", function () {
+          openShirtViewer(getProductFromTrigger(trigger));
+        });
+      });
+
+      sizeChips.forEach(function (chip) {
+        chip.addEventListener("click", function () {
+          setActiveSize(chip.getAttribute("data-size"));
+        });
+      });
+
+      if (qtyMinus) {
+        qtyMinus.addEventListener("click", function () {
+          setQuantity(selectedQuantity - 1);
+        });
+      }
+
+      if (qtyPlus) {
+        qtyPlus.addEventListener("click", function () {
+          setQuantity(selectedQuantity + 1);
+        });
+      }
+
+      if (addToCartButton) {
+        addToCartButton.addEventListener("click", addActiveProductToCart);
+      }
+
+      if (openCartFromProduct) {
+        openCartFromProduct.addEventListener("click", function () {
+          closeShirtViewer();
+          openCart();
+        });
+      }
+
+      if (shirtViewerClose) {
+        shirtViewerClose.addEventListener("click", closeShirtViewer);
+      }
+
+      if (shirtViewerBackdrop) {
+        shirtViewerBackdrop.addEventListener("click", closeShirtViewer);
+      }
+
+      if (cartToggle) {
+        cartToggle.addEventListener("click", openCart);
+      }
+
+      if (cartClose) {
+        cartClose.addEventListener("click", closeCart);
+      }
+
+      if (cartBackdrop) {
+        cartBackdrop.addEventListener("click", closeCart);
+      }
+
+      if (cartItems) {
+        cartItems.addEventListener("click", function (event) {
+          var target = event.target;
+          if (!(target instanceof HTMLElement)) return;
+          var previewTarget = target.closest("[data-cart-preview]");
+          if (previewTarget) {
+            previewCartItem(previewTarget.getAttribute("data-cart-preview"));
+            return;
+          }
+          var action = target.getAttribute("data-cart-action");
+          var id = target.getAttribute("data-cart-id");
+          if (!action || !id) return;
+          updateCartItem(id, action);
+        });
+      }
+
+      [cartName, cartEmail, cartLocation, cartNotes].forEach(function (field) {
+        if (!field) return;
+        field.addEventListener("input", saveCartInfo);
+      });
+
+      if (clearCartButton) {
+        clearCartButton.addEventListener("click", function () {
+          cart = [];
+          saveCart();
+          renderCart();
+        });
+      }
+
+      if (checkoutButton) {
+        checkoutButton.addEventListener("click", function () {
+          var mailto = buildCheckoutMailto();
+          if (!mailto) return;
+          window.location.href = mailto;
+        });
+      }
+
+      document.addEventListener("keydown", function (event) {
+        if (event.key === "Escape") {
+          closeShirtViewer();
+          closeCart();
+        }
+      });
+    }());
+  </script>
+</body>
+</html>
