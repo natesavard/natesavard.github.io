@@ -453,6 +453,12 @@
       filter: brightness(1.06);
     }
 
+    .enter-logo:focus,
+    .enter-logo:focus-visible {
+      outline: none;
+      box-shadow: none;
+    }
+
     .hint {
       font-size: 9px;
       color: rgba(221, 176, 109, 0.74);
@@ -2258,6 +2264,10 @@
   </style>
 </head>
 <body>
+    <audio id="backgroundMusic" preload="auto" loop playsinline>
+      <source src="nate%20savard%20-%20chosen%20few%20song%203.mp3" type="audio/mpeg" />
+      <source src="https://raw.githubusercontent.com/natesavard/natesavard.github.io/main/nate%20savard%20-%20chosen%20few%20song%203.mp3" type="audio/mpeg" />
+    </audio>
     <div class="screen">
       <div class="bg"></div>
       <div class="static"></div>
@@ -2577,6 +2587,7 @@
       var houseCartEmail = document.getElementById("houseCartEmail");
       var houseCartLocation = document.getElementById("houseCartLocation");
       var houseCartNotes = document.getElementById("houseCartNotes");
+      var backgroundMusic = document.getElementById("backgroundMusic");
       var stagedSections = Array.prototype.slice.call(document.querySelectorAll(".collection-stage, .archives-stage, .catalogue-stage, .contact-stage"));
       var hasEntered = false;
       var scrollFrame = 0;
@@ -2596,6 +2607,228 @@
         "earned in silence"
       ];
       var lineIndex = 0;
+      var interfaceAudio = null;
+      var backgroundMusicStarted = false;
+
+      function startBackgroundMusic() {
+        if (!backgroundMusic) return;
+
+        backgroundMusic.volume = 0.9;
+
+        var playAttempt = backgroundMusic.play();
+        if (playAttempt && typeof playAttempt.then === "function") {
+          playAttempt.then(function () {
+            backgroundMusicStarted = true;
+          }).catch(function () {
+            backgroundMusicStarted = false;
+          });
+          return;
+        }
+
+        backgroundMusicStarted = true;
+      }
+
+      function ensureBackgroundMusic() {
+        if (backgroundMusicStarted) return;
+        startBackgroundMusic();
+      }
+
+      function createInterfaceAudio() {
+        var AudioCtx = window.AudioContext || window.webkitAudioContext;
+        if (!AudioCtx) return null;
+
+        var context = null;
+        var master = null;
+        var ready = false;
+        var lastHoverAt = 0;
+        var lastHoverTarget = null;
+
+        function ensureContext() {
+          if (context) return true;
+
+          try {
+            context = new AudioCtx();
+          } catch (error) {
+            return false;
+          }
+
+          master = context.createGain();
+          master.gain.value = 0.11;
+          master.connect(context.destination);
+          return true;
+        }
+
+        function arm() {
+          if (!ensureContext()) return;
+
+          if (context.state === "suspended") {
+            context.resume().catch(function () {
+              return;
+            });
+          }
+
+          ready = true;
+        }
+
+        function pulse(config) {
+          if (!ensureContext()) return;
+          if (context.state === "suspended") {
+            context.resume().catch(function () {
+              return;
+            });
+          }
+          ready = true;
+
+          var now = context.currentTime;
+          var osc = context.createOscillator();
+          var gain = context.createGain();
+          var filter = context.createBiquadFilter();
+
+          osc.type = config.type || "square";
+          osc.frequency.setValueAtTime(config.frequency || 240, now);
+          if (config.frequencyB) {
+            osc.frequency.exponentialRampToValueAtTime(config.frequencyB, now + (config.glide || 0.04));
+          }
+
+          filter.type = config.filterType || "bandpass";
+          filter.frequency.setValueAtTime(config.filterFrequency || 1400, now);
+          filter.Q.value = config.q || 0.9;
+
+          gain.gain.setValueAtTime(0.0001, now);
+          gain.gain.exponentialRampToValueAtTime(config.attackGain || 0.028, now + (config.attack || 0.005));
+          gain.gain.exponentialRampToValueAtTime(0.0001, now + (config.decay || 0.08));
+
+          osc.connect(filter);
+          filter.connect(gain);
+          gain.connect(master);
+
+          osc.start(now);
+          osc.stop(now + (config.decay || 0.08) + 0.03);
+        }
+
+        function hover(target) {
+          if (!ready) return;
+          if (!target) return;
+
+          var now = window.performance.now();
+          if (target === lastHoverTarget && now - lastHoverAt < 160) return;
+
+          lastHoverTarget = target;
+          lastHoverAt = now;
+
+          pulse({
+            type: "triangle",
+            frequency: 980,
+            frequencyB: 720,
+            glide: 0.045,
+            filterFrequency: 2200,
+            q: 1.3,
+            attackGain: 0.014,
+            decay: 0.055
+          });
+        }
+
+        function click(strength) {
+          pulse({
+            type: strength === "heavy" ? "sawtooth" : "square",
+            frequency: strength === "heavy" ? 160 : 210,
+            frequencyB: strength === "heavy" ? 118 : 168,
+            glide: 0.06,
+            filterFrequency: strength === "heavy" ? 980 : 1320,
+            q: 1.1,
+            attackGain: strength === "heavy" ? 0.09 : 0.058,
+            decay: strength === "heavy" ? 0.16 : 0.11
+          });
+        }
+
+        function testSequence() {
+          arm();
+          click("heavy");
+          window.setTimeout(function () {
+            pulse({
+              type: "square",
+              frequency: 420,
+              frequencyB: 280,
+              glide: 0.08,
+              filterFrequency: 1480,
+              q: 1.2,
+              attackGain: 0.075,
+              decay: 0.12
+            });
+          }, 90);
+          window.setTimeout(function () {
+            pulse({
+              type: "triangle",
+              frequency: 1180,
+              frequencyB: 760,
+              glide: 0.07,
+              filterFrequency: 2450,
+              q: 1.35,
+              attackGain: 0.032,
+              decay: 0.09
+            });
+          }, 180);
+        }
+
+        return {
+          arm: arm,
+          hover: hover,
+          click: click,
+          testSequence: testSequence
+        };
+      }
+
+      function getInteractiveAudioTarget(node) {
+        if (node && node.nodeType === 3) {
+          node = node.parentElement;
+        }
+        if (!(node instanceof Element)) return null;
+        return node.closest(
+          'a, button, [role="button"], input, textarea, select, summary, .catalogue-card, .house-size-chip, .house-qty-button, .house-product-action, .house-cart-action'
+        );
+      }
+
+      function installInteractionAudio() {
+        interfaceAudio = createInterfaceAudio();
+        if (!interfaceAudio) return;
+
+        var armAudio = function (event) {
+          interfaceAudio.arm();
+          var target = getInteractiveAudioTarget(event.target);
+          if (target) {
+            var strength = target.matches(".enter-logo, .lux-cart-toggle, .house-product-action, .house-cart-action") ? "heavy" : "light";
+            interfaceAudio.click(strength);
+          }
+        };
+
+        document.addEventListener("pointerdown", armAudio, { passive: true, capture: true });
+        document.addEventListener("keydown", function (event) {
+          interfaceAudio.arm();
+          if (event.key === "Enter" || event.key === " ") {
+            interfaceAudio.click("light");
+          }
+        }, true);
+
+        document.addEventListener("pointerover", function (event) {
+          var target = getInteractiveAudioTarget(event.target);
+          if (!target) return;
+          interfaceAudio.hover(target);
+        });
+
+        document.addEventListener("focusin", function (event) {
+          var target = getInteractiveAudioTarget(event.target);
+          if (!target) return;
+          interfaceAudio.hover(target);
+        });
+
+        document.addEventListener("click", function (event) {
+          var target = getInteractiveAudioTarget(event.target);
+          if (!target) return;
+
+          var strength = target.matches(".enter-logo, .lux-cart-toggle, .house-product-action, .house-cart-action") ? "heavy" : "light";
+          interfaceAudio.click(strength);
+        }, true);
+      }
 
       function loadHouseCart() {
         try {
@@ -2848,6 +3081,7 @@
       }
 
       function go() {
+        ensureBackgroundMusic();
         if (hasEntered) return;
         hasEntered = true;
         window.setTimeout(function () {
@@ -2917,6 +3151,7 @@
       }
 
       enterButton.addEventListener("click", function () {
+        ensureBackgroundMusic();
         if (hasEntered) {
           resetIntro();
           return;
@@ -2981,6 +3216,7 @@
         }
         if (event.key === "Enter" || event.key === " ") {
           event.preventDefault();
+          ensureBackgroundMusic();
           go();
         }
       });
@@ -3008,6 +3244,7 @@
       window.addEventListener("scroll", queueHeroDepth, { passive: true });
       window.addEventListener("resize", queueHeroDepth);
       updateHeroDepth();
+      installInteractionAudio();
       loadHouseCart();
       loadHouseInfo();
       renderHouseCart();
