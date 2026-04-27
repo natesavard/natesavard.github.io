@@ -383,8 +383,8 @@
     .floating-garment {
       position: fixed;
       right: clamp(18px, 4vw, 58px);
-      bottom: calc(48vh - 92px);
-      z-index: 4;
+      bottom: calc(48vh - 64px);
+      z-index: 3;
       width: min(18vw, 250px);
       min-width: 140px;
       pointer-events: auto;
@@ -427,7 +427,7 @@
       top: 18px;
       left: 0;
       right: 0;
-      z-index: 3;
+      z-index: 6;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -570,8 +570,8 @@
       position: absolute;
       left: 0;
       right: 0;
-      bottom: 114px;
-      z-index: 4;
+      bottom: 28px;
+      z-index: 5;
       display: flex;
       justify-content: center;
       gap: 14px;
@@ -582,7 +582,7 @@
       position: relative;
       width: min(11vw, 140px);
       min-width: 96px;
-      height: 152px;
+      height: 138px;
       cursor: pointer;
       text-decoration: none;
       color: var(--ivory);
@@ -597,7 +597,7 @@
     .catalogue-flip {
       position: relative;
       width: 100%;
-      height: 116px;
+      height: 102px;
     }
 
     .catalogue-image {
@@ -1314,7 +1314,7 @@
 
       .floating-garment {
         width: min(22vw, 210px);
-        bottom: calc(50vh - 70px);
+        bottom: calc(50vh - 48px);
       }
 
       .shirt-viewer-frame {
@@ -1325,6 +1325,7 @@
 
       .catalogue-item {
         width: min(15vw, 128px);
+        height: 122px;
       }
 
     }
@@ -1433,18 +1434,18 @@
       }
 
       .catalogue-strip {
-        bottom: 110px;
+        bottom: 18px;
         gap: 8px;
       }
 
       .catalogue-item {
         width: 84px;
         min-width: 0;
-        height: 126px;
+        height: 112px;
       }
 
       .catalogue-flip {
-        height: 92px;
+        height: 80px;
       }
 
       .catalogue-label {
@@ -1464,7 +1465,7 @@
 
       .floating-garment {
         right: 10px;
-        bottom: calc(52vh - 46px);
+        bottom: calc(52vh - 28px);
         width: min(34vw, 170px);
         min-width: 92px;
         opacity: 0.82;
