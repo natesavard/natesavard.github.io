@@ -1211,10 +1211,16 @@
     .contact-image img {
       width: 100%;
       height: 100%;
-      object-fit: cover;
+      object-fit: contain;
       display: block;
-      opacity: 0.74;
-      filter: saturate(0.78) contrast(1.04);
+      opacity: 0.92;
+      filter: saturate(0.88) contrast(1.04);
+      animation: vaultCrossSpin 18s linear infinite;
+      transform-origin: center;
+    }
+
+    .contact-image:hover img {
+      animation-play-state: paused;
     }
 
     .contact-copy {
@@ -1243,6 +1249,11 @@
 
     .contact-route a:hover {
       border-color: rgba(242, 211, 158, 0.64);
+    }
+
+    @keyframes vaultCrossSpin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(-360deg); }
     }
 
     .house-viewer {
@@ -2583,11 +2594,11 @@
 
         <div class="catalogue-rail" aria-label="Sideways catalogue">
           <div class="catalogue-track">
-            <article class="catalogue-card" data-house-product="Distressed Vicuna Hood" data-house-price="$190.00" data-house-description="Heavy distressed hood with the envy cross stamped oversized across the back in cold chrome." data-house-image="envy-cross-hood-board.png">
-              <img src="envy-cross-hood-board.png" alt="Envy cross hood board" />
+            <article class="catalogue-card" data-house-product="Fuck Up Tee" data-house-price="$190.00" data-house-description="Luxury deep v tee carrying the envy cross on back with a scarred front statement and stripped-down finish." data-house-image="envy-cross-tee-board.png">
+              <img src="envy-cross-tee-board.png" alt="Fuck up tee board" />
               <div class="catalogue-card-copy">
-                <h3 class="catalogue-card-title">Distressed Vicuna Hood</h3>
-                <p class="catalogue-card-note">washed black / oversized / crossback</p>
+                <h3 class="catalogue-card-title">Fuck Up Tee</h3>
+                <p class="catalogue-card-note">scarred front / chrome crossback</p>
               </div>
             </article>
 
@@ -2599,11 +2610,11 @@
               </div>
             </article>
 
-            <article class="catalogue-card" data-house-product="Fuck Up Tee" data-house-price="$190.00" data-house-description="Luxury deep v tee carrying the envy cross on back with a scarred front statement and stripped-down finish." data-house-image="envy-cross-tee-board.png">
-              <img src="envy-cross-tee-board.png" alt="Fuck up tee board" />
+            <article class="catalogue-card" data-house-product="Distressed Vicuna Hood" data-house-price="$190.00" data-house-description="Heavy distressed hood with the envy cross stamped oversized across the back in cold chrome." data-house-image="envy-cross-hood-board.png">
+              <img src="envy-cross-hood-board.png" alt="Envy cross hood board" />
               <div class="catalogue-card-copy">
-                <h3 class="catalogue-card-title">Fuck Up Tee</h3>
-                <p class="catalogue-card-note">scarred front / chrome crossback</p>
+                <h3 class="catalogue-card-title">Distressed Vicuna Hood</h3>
+                <p class="catalogue-card-note">washed black / oversized / crossback</p>
               </div>
             </article>
 
@@ -2697,12 +2708,12 @@
 
       <section class="contact-stage" id="contactPhase">
         <div class="contact-image">
-          <img src="angel of life background.png" alt="Envynomadix atmospheric campaign background" />
+          <img src="envy-cross.png" alt="Envy cross collection vault mark" />
         </div>
 
         <div class="contact-copy">
           <div class="stage-kicker">private route</div>
-          <h2 class="stage-title">Collector Contact</h2>
+          <h2 class="stage-title">SS26 Collection Vault</h2>
           <p class="stage-text">
             one-offs. custom placements. high-weight fabric garments. direct inquiries for the people who understand what the house is doing.
           </p>
