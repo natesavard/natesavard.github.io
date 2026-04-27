@@ -945,6 +945,23 @@
       margin: 0 0 24px;
     }
 
+    .jewelry-title-lockup {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 14px;
+    }
+
+    .jewelry-cross-mark {
+      width: clamp(72px, 9vw, 116px);
+      height: auto;
+      display: block;
+      opacity: 0.94;
+      filter:
+        drop-shadow(0 18px 28px rgba(0, 0, 0, 0.34))
+        drop-shadow(0 0 22px rgba(255, 255, 255, 0.12));
+    }
+
     .catalogue-rail {
       position: relative;
       margin: 0 calc(50% - 50vw);
@@ -1277,6 +1294,39 @@
       min-height: 420px;
       display: grid;
       place-items: center;
+    }
+
+    .house-viewer-nav {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 2;
+      width: 52px;
+      height: 52px;
+      border: 1px solid rgba(221, 176, 109, 0.26);
+      background: rgba(8, 5, 3, 0.68);
+      color: rgba(246, 230, 202, 0.94);
+      font-family: "Courier New", monospace;
+      font-size: 1.2rem;
+      line-height: 1;
+      display: grid;
+      place-items: center;
+      cursor: pointer;
+      transition: transform 0.3s ease, border-color 0.3s ease, background 0.3s ease;
+    }
+
+    .house-viewer-nav:hover {
+      transform: translateY(-50%) scale(1.04);
+      border-color: rgba(242, 211, 158, 0.52);
+      background: rgba(18, 11, 8, 0.84);
+    }
+
+    .house-viewer-nav.prev {
+      left: 10px;
+    }
+
+    .house-viewer-nav.next {
+      right: 10px;
     }
 
     .house-viewer-visual::before {
@@ -2533,27 +2583,27 @@
 
         <div class="catalogue-rail" aria-label="Sideways catalogue">
           <div class="catalogue-track">
-            <article class="catalogue-card" data-house-product="Signature Script Tee" data-house-price="$145.00" data-house-description="Deep v signature tee with front script pressure and the envy cross carried across the back." data-house-image="envy-signature-tee-board.png">
-              <img src="envy-signature-tee-board.png" alt="Envy signature script tee board" />
+            <article class="catalogue-card" data-house-product="Distressed Vicuna Hood" data-house-price="$190.00" data-house-description="Heavy distressed hood with the envy cross stamped oversized across the back in cold chrome." data-house-image="envy-cross-hood-board.png">
+              <img src="envy-cross-hood-board.png" alt="Envy cross hood board" />
               <div class="catalogue-card-copy">
-                <h3 class="catalogue-card-title">Signature Script Tee</h3>
-                <p class="catalogue-card-note">deep v / script front / crossback</p>
+                <h3 class="catalogue-card-title">Distressed Vicuna Hood</h3>
+                <p class="catalogue-card-note">washed black / oversized / crossback</p>
               </div>
             </article>
 
             <article class="catalogue-card is-art">
-              <img src="envy cross.png" alt="Envy cross brand mark" />
+              <img src="envy-cross.png" alt="Envy cross brand mark" />
               <div class="catalogue-card-copy">
                 <h3 class="catalogue-card-title">Envy Cross</h3>
                 <p class="catalogue-card-note">main house symbol / chrome signal</p>
               </div>
             </article>
 
-            <article class="catalogue-card" data-house-product="Crossback Deep V Tee" data-house-price="$175.00" data-house-description="Oversized deep v tee with a clean front and the envy cross blown large across the back." data-house-image="envy-cross-tee-lookbook.png">
-              <img src="envy-cross-tee-lookbook.png" alt="Envy cross deep v tee lookbook" />
+            <article class="catalogue-card" data-house-product="Fuck Up Tee" data-house-price="$190.00" data-house-description="Luxury deep v tee carrying the envy cross on back with a scarred front statement and stripped-down finish." data-house-image="envy-cross-tee-board.png">
+              <img src="envy-cross-tee-board.png" alt="Fuck up tee board" />
               <div class="catalogue-card-copy">
-                <h3 class="catalogue-card-title">Crossback Deep V Tee</h3>
-                <p class="catalogue-card-note">clean front / crossback / lookbook</p>
+                <h3 class="catalogue-card-title">Fuck Up Tee</h3>
+                <p class="catalogue-card-note">scarred front / chrome crossback</p>
               </div>
             </article>
 
@@ -2565,11 +2615,11 @@
               </div>
             </article>
 
-            <article class="catalogue-card" data-house-product="Distressed Vicuna Hood" data-house-price="$190.00" data-house-description="Heavy distressed hood with the envy cross stamped oversized across the back in cold chrome." data-house-image="envy-cross-hood-board.png">
-              <img src="envy-cross-hood-board.png" alt="Envy cross hood board" />
+            <article class="catalogue-card" data-house-product="Envy Shirt Legacy Tee" data-house-price="$145.00" data-house-description="Main house shirt. deep v legacy tee with crystal script in front and the envy cross carried across the back." data-house-image="envy-shirt-legacy-tee.png">
+              <img src="envy-shirt-legacy-tee.png" alt="Envy Shirt Legacy Tee product cutout" />
               <div class="catalogue-card-copy">
-                <h3 class="catalogue-card-title">Distressed Vicuna Hood</h3>
-                <p class="catalogue-card-note">washed black / oversized / crossback</p>
+                <h3 class="catalogue-card-title">Envy Shirt Legacy Tee</h3>
+                <p class="catalogue-card-note">main shirt / legacy deep v / crossback</p>
               </div>
             </article>
 
@@ -2587,7 +2637,10 @@
       <section class="jewelry-stage" id="jewelryPhase">
         <div class="jewelry-head">
           <div class="stage-kicker">jewelry lane</div>
-          <h2 class="stage-title">Silver Script</h2>
+          <div class="jewelry-title-lockup">
+            <img class="jewelry-cross-mark" src="envy-cross.png" alt="Envy cross logo" />
+            <h2 class="stage-title">Silver Script</h2>
+          </div>
           <p class="stage-text">
             private pieces, chain language, and placement studies moving into the envy house beside the garment line.
           </p>
@@ -2662,7 +2715,9 @@
         <div class="house-viewer-backdrop" id="houseViewerBackdrop"></div>
         <div class="house-viewer-frame">
           <div class="house-viewer-visual">
+            <button class="house-viewer-nav prev" id="houseViewerPrev" type="button" aria-label="Previous product">&lt;</button>
             <img class="house-viewer-image" id="houseViewerImage" src="" alt="Envynomadix product enlarged view" />
+            <button class="house-viewer-nav next" id="houseViewerNext" type="button" aria-label="Next product">&gt;</button>
           </div>
           <div class="house-product-sheet">
             <div class="house-product-kicker">envynomadix / product sheet</div>
@@ -2712,7 +2767,7 @@
             </button>
           </div>
           <div class="house-cart-items" id="houseCartItems">
-            <div class="house-cart-empty">Your cart is empty. add a garment from the house catalogue.</div>
+            <div class="house-cart-empty">Your cart is empty. add a garment from the signature rail.</div>
           </div>
           <div class="house-cart-form">
             <div class="house-cart-field">
@@ -2758,6 +2813,8 @@
       var houseViewer = document.getElementById("houseViewer");
       var houseViewerBackdrop = document.getElementById("houseViewerBackdrop");
       var houseViewerImage = document.getElementById("houseViewerImage");
+      var houseViewerPrev = document.getElementById("houseViewerPrev");
+      var houseViewerNext = document.getElementById("houseViewerNext");
       var houseViewerClose = document.getElementById("houseViewerClose");
       var houseProductTitle = document.getElementById("houseProductTitle");
       var houseProductPrice = document.getElementById("houseProductPrice");
@@ -2795,6 +2852,7 @@
       var houseSelectedSize = "m";
       var houseSelectedQuantity = 1;
       var houseActiveProduct = null;
+      var houseActiveProductIndex = -1;
       var houseCart = [];
       var lines = [
         "never replicated",
@@ -3121,7 +3179,7 @@
         if (!houseCartItems) return;
 
         if (!houseCart.length) {
-          houseCartItems.innerHTML = '<div class="house-cart-empty">Your cart is empty. add a garment from the house catalogue.</div>';
+          houseCartItems.innerHTML = '<div class="house-cart-empty">Your cart is empty. add a garment from the signature rail.</div>';
           updateHouseCartCount();
           return;
         }
@@ -3169,15 +3227,45 @@
           name: trigger.getAttribute("data-house-product") || "Signature Shirt",
           price: trigger.getAttribute("data-house-price") || "$145.00",
           description: trigger.getAttribute("data-house-description") || "Collector black jersey. oversized body. halo pressure. built for the chosen few.",
-        image: trigger.getAttribute("data-house-image") || "envy-signature-tee-board.png",
+        image: trigger.getAttribute("data-house-image") || "envy-shirt-legacy-tee.png",
           optionLabel: trigger.getAttribute("data-house-option-label") || "Select size",
           options: optionList.length ? optionList : defaultHouseOptions
         };
       }
 
+      function getHouseViewerProducts() {
+        var seen = {};
+        return houseProductTriggers.reduce(function (items, trigger) {
+          var product = getHouseProductFromTrigger(trigger);
+          if (seen[product.name]) return items;
+          seen[product.name] = true;
+          items.push(product);
+          return items;
+        }, []);
+      }
+
+      function syncHouseActiveProductIndex(product) {
+        var products = getHouseViewerProducts();
+        houseActiveProductIndex = products.findIndex(function (entry) {
+          return entry.name === product.name;
+        });
+      }
+
+      function cycleHouseViewerProduct(step) {
+        var products = getHouseViewerProducts();
+        if (!products.length) return;
+        if (houseActiveProductIndex < 0) {
+          houseActiveProductIndex = 0;
+        } else {
+          houseActiveProductIndex = (houseActiveProductIndex + step + products.length) % products.length;
+        }
+        openHouseViewer(products[houseActiveProductIndex]);
+      }
+
       function openHouseViewer(product) {
         if (!houseViewer || !houseViewerImage || !product || !product.image) return;
         houseActiveProduct = product;
+        syncHouseActiveProductIndex(product);
         houseViewerImage.src = product.image;
         if (houseProductTitle) houseProductTitle.textContent = product.name;
         if (houseProductPrice) houseProductPrice.textContent = product.price;
@@ -3447,6 +3535,18 @@
         });
       }
       document.addEventListener("keydown", function (event) {
+        if (houseViewer && houseViewer.classList.contains("is-open")) {
+          if (event.key === "ArrowLeft") {
+            event.preventDefault();
+            cycleHouseViewerProduct(-1);
+            return;
+          }
+          if (event.key === "ArrowRight") {
+            event.preventDefault();
+            cycleHouseViewerProduct(1);
+            return;
+          }
+        }
         if (event.key === "Escape") {
           closeHouseViewer();
           closeHouseCart();
@@ -3535,6 +3635,18 @@
         houseViewerBackdrop.addEventListener("click", closeHouseViewer);
       }
 
+      if (houseViewerPrev) {
+        houseViewerPrev.addEventListener("click", function () {
+          cycleHouseViewerProduct(-1);
+        });
+      }
+
+      if (houseViewerNext) {
+        houseViewerNext.addEventListener("click", function () {
+          cycleHouseViewerProduct(1);
+        });
+      }
+
       if (houseCartToggle) {
         houseCartToggle.addEventListener("click", openHouseCart);
       }
@@ -3583,6 +3695,19 @@
           window.location.href = mailto;
         });
       }
+
+      window.addEventListener("storage", function (event) {
+        if (!event || !event.key) return;
+
+        if (event.key === houseStorageKey) {
+          loadHouseCart();
+          renderHouseCart();
+        }
+
+        if (event.key === houseInfoKey) {
+          loadHouseInfo();
+        }
+      });
     }());
   </script>
 </body>
