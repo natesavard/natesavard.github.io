@@ -1,1 +1,320 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hippie Whip Prototype</title>
+  <style>
+    /* INTERACTIVE UPGRADE NOTES:
+       Upload your files into the same GitHub folder as this HTML and name them:
+       hippie-logo.png
+       bare-whip-jar.png
+    */
+    :root {
+      --cream: #fff7ec;
+      --butter: #f6dfbd;
+      --peach: #ef9f85;
+      --coral: #ef7f75;
+      --sage: #b9c9a8;
+      --ink: #1f1714;
+      --soft: rgba(255, 247, 236, .78);
+      --glass: rgba(255,255,255,.55);
+      --line: rgba(90, 55, 38, .14);
+      --shadow: 0 24px 70px rgba(70, 35, 22, .14);
+    }
+
+    * { box-sizing: border-box; }
+    html, body { margin: 0; min-height: 100%; scroll-behavior: smooth; }
+    body {
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 18% 20%, rgba(239,159,133,.24), transparent 26%),
+        radial-gradient(circle at 78% 10%, rgba(185,201,168,.22), transparent 30%),
+        linear-gradient(135deg, #fff9f0 0%, #f6e4d0 44%, #fff7ec 100%);
+      overflow-x: hidden;
+    }
+
+    .noise {
+      position: fixed; inset: 0; pointer-events: none; opacity: .11; z-index: 10;
+      background-image: radial-gradient(circle, rgba(60, 30, 15, .35) 0 1px, transparent 1px);
+      background-size: 24px 24px;
+      mix-blend-mode: multiply;
+    }
+
+    header {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 20;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 18px clamp(18px, 4vw, 64px);
+      backdrop-filter: blur(18px);
+      background: rgba(255,247,236,.62);
+      border-bottom: 1px solid var(--line);
+    }
+    .logo { display: flex; align-items: center; gap: 10px; }
+    .logo img { height: 42px; width: auto; display: block; }
+    .logo-text { font-family: Georgia, serif; font-size: clamp(1.3rem, 3vw, 2.1rem); letter-spacing: -.06em; font-weight: 700; }
+    nav { display: flex; gap: 18px; font-size: .72rem; text-transform: uppercase; letter-spacing: .15em; }
+    nav a { color: inherit; text-decoration: none; opacity: .72; }
+    .cart { border: 1px solid var(--line); padding: 10px 14px; border-radius: 999px; background: rgba(255,255,255,.5); }
+
+    .cursor-glow {
+      position: fixed;
+      width: 340px;
+      height: 340px;
+      border-radius: 999px;
+      pointer-events: none;
+      z-index: 1;
+      opacity: .55;
+      background: radial-gradient(circle, rgba(239, 159, 133, .22), rgba(246, 223, 189, .12) 34%, transparent 68%);
+      filter: blur(18px);
+      transform: translate(-50%, -50%);
+      transition: opacity .25s ease;
+    }
+
+    .hero {
+      min-height: 100vh; display: grid; grid-template-columns: 1fr 1.05fr 1fr;
+      align-items: center; gap: 22px; padding: 120px clamp(18px, 4vw, 64px) 70px; position: relative;
+    }
+    .hero-copy { max-width: 440px; z-index: 2; }
+    .eyebrow { font-size: .72rem; letter-spacing: .22em; text-transform: uppercase; color: #8e604c; margin-bottom: 18px; }
+    h1 { font-family: Georgia, serif; font-size: clamp(3rem, 7.5vw, 7.2rem); line-height: .84; letter-spacing: -.08em; margin: 0 0 22px; }
+    .hero-copy p { font-size: clamp(.96rem, 1.4vw, 1.15rem); line-height: 1.75; color: rgba(31,23,20,.72); margin: 0 0 28px; }
+    .cta-row { display: flex; gap: 12px; flex-wrap: wrap; }
+    .btn { border: 0; border-radius: 999px; padding: 14px 20px; cursor: pointer; font-weight: 700; text-decoration: none; display: inline-flex; align-items: center; justify-content: center; gap: 8px; color: var(--ink); position: relative; overflow: hidden; transition: transform .25s ease, box-shadow .25s ease; }
+    .btn:hover { transform: translateY(-2px) scale(1.02); box-shadow: 0 18px 34px rgba(70, 35, 22, .18); }
+    .btn::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, transparent, rgba(255,255,255,.34), transparent); transform: translateX(-120%); transition: transform .65s ease; }
+    .btn:hover::after { transform: translateX(120%); }
+    .btn.added { animation: cartPulse .55s ease; }
+    .cart-burst { position: fixed; z-index: 80; pointer-events: none; font-size: 18px; animation: burstUp .8s ease forwards; }
+    .btn.primary { background: var(--ink); color: var(--cream); }
+    .btn.secondary { background: rgba(255,255,255,.56); border: 1px solid var(--line); }
+
+    .product-orbit { position: relative; min-height: 620px; display: grid; place-items: center; }
+    .jar-stage { position: relative; width: min(42vw, 520px); aspect-ratio: 1 / 1.08; display: grid; place-items: center; }
+    .halo { position: absolute; inset: 11%; border: 1px solid rgba(120,80,50,.16); border-radius: 50%; animation: spin 28s linear infinite; }
+    .halo::before, .halo::after { content: ""; position: absolute; width: 8px; height: 8px; border-radius: 50%; background: var(--coral); box-shadow: 0 0 28px var(--coral); }
+    .halo::before { top: 8%; left: 18%; } .halo::after { right: 16%; bottom: 12%; background: var(--sage); box-shadow: 0 0 28px var(--sage); }
+    .jar {
+      width: min(34vw, 430px);
+      aspect-ratio: 1 / 1.05;
+      border-radius: 34px;
+      position: relative;
+      background: transparent;
+      transform-style: preserve-3d;
+      animation: floatJar 9s ease-in-out infinite alternate;
+      transition: transform .18s ease, filter .28s ease;
+      will-change: transform;
+    }
+    .jar:hover { filter: drop-shadow(0 46px 80px rgba(70,35,22,.32)); }
+    .jar img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
+      filter: drop-shadow(0 34px 70px rgba(58,34,22,.22));
+      transform: translateZ(44px);
+    }
+    .jar-shine {
+      position: absolute;
+      inset: 7% 11%;
+      border-radius: 32px;
+      pointer-events: none;
+      background: radial-gradient(circle at var(--shine-x, 50%) var(--shine-y, 34%), rgba(255,255,255,.45), transparent 34%);
+      mix-blend-mode: screen;
+      opacity: .58;
+    }
+    .jar-tag { display: none; }
+
+    .callout { position: absolute; z-index: 3; width: min(220px, 36vw); padding: 14px 16px; border: 1px solid var(--line); border-radius: 20px; background: var(--glass); backdrop-filter: blur(18px); box-shadow: var(--shadow); }
+    .callout b { display: block; font-size: .72rem; text-transform: uppercase; letter-spacing: .16em; margin-bottom: 6px; }
+    .callout span { display: block; color: rgba(31,23,20,.68); font-size: .82rem; line-height: 1.5; }
+    .c1 { top: 12%; left: 0; } .c2 { top: 26%; right: 0; } .c3 { bottom: 18%; left: 5%; } .c4 { bottom: 8%; right: 7%; }
+
+    .side-panel { display: grid; gap: 16px; z-index: 2; }
+    .mini-card { padding: 18px; border: 1px solid var(--line); border-radius: 26px; background: rgba(255,255,255,.42); backdrop-filter: blur(14px); box-shadow: var(--shadow); }
+    .mini-card h3 { margin: 0 0 8px; font-family: Georgia, serif; font-size: 1.35rem; letter-spacing: -.04em; }
+    .mini-card p { margin: 0; color: rgba(31,23,20,.68); line-height: 1.55; font-size: .9rem; }
+    .swatch { width: 100%; height: 10px; border-radius: 999px; background: linear-gradient(90deg, var(--coral), var(--peach), var(--sage), #c6a57f); margin-top: 14px; }
+
+    section { padding: 88px clamp(18px, 4vw, 64px); }
+    .section-head { max-width: 760px; margin-bottom: 28px; }
+    .section-head h2 { font-family: Georgia, serif; font-size: clamp(2.4rem, 5vw, 5rem); line-height: .9; letter-spacing: -.07em; margin: 0 0 16px; }
+    .section-head p { margin: 0; color: rgba(31,23,20,.68); line-height: 1.7; }
+
+    .product-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 18px; }
+    .product-card { position: relative; min-height: 420px; padding: 18px; border: 1px solid var(--line); border-radius: 34px; background: rgba(255,255,255,.44); box-shadow: var(--shadow); overflow: hidden; transition: transform .28s ease, box-shadow .28s ease; }
+    .product-card:hover { transform: translateY(-8px); box-shadow: 0 34px 80px rgba(70, 35, 22, .18); }
+    .product-card .mini-jar { width: 78%; aspect-ratio: 1 / 1.05; margin: 10px auto 28px; border-radius: 20px; background: linear-gradient(180deg, #16110f 0 22%, #fbf5e9 22% 73%, #2b211d 73%); box-shadow: 0 20px 42px rgba(60,30,15,.18); position: relative; }
+    .mini-jar::after { content: "hippie whip"; position: absolute; left: 0; right: 0; top: 38%; text-align: center; font-family: Georgia, serif; font-weight: 800; font-size: 1.6rem; letter-spacing: -.08em; }
+    .product-card h3 { margin: 0 0 8px; font-family: Georgia, serif; font-size: 1.8rem; letter-spacing: -.06em; }
+    .product-card p { margin: 0 0 18px; color: rgba(31,23,20,.68); line-height: 1.55; font-size: .92rem; }
+    .price { font-weight: 800; letter-spacing: .12em; font-size: .82rem; text-transform: uppercase; }
+
+    .science-band { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: center; border-block: 1px solid var(--line); background: rgba(255,255,255,.22); }
+    .formula { min-height: 360px; border-radius: 36px; background: rgba(255,255,255,.42); border: 1px solid var(--line); position: relative; overflow: hidden; box-shadow: var(--shadow); }
+    .formula::before { content: "CERAMIDES + TALLOW + BOTANICAL OILS"; position: absolute; inset: 34px; display: grid; place-items: center; border: 1px dashed rgba(80,50,30,.22); border-radius: 50%; font-size: .75rem; letter-spacing: .2em; text-align: center; color: rgba(31,23,20,.62); }
+    .formula .dot { position: absolute; width: 80px; height: 80px; border-radius: 50%; background: rgba(239,127,117,.18); border: 1px solid rgba(239,127,117,.25); }
+    .dot.d1 { left: 18%; top: 20%; } .dot.d2 { right: 18%; top: 28%; background: rgba(185,201,168,.22); } .dot.d3 { left: 42%; bottom: 16%; background: rgba(246,223,189,.45); }
+
+    footer { padding: 44px clamp(18px, 4vw, 64px); border-top: 1px solid var(--line); display: flex; justify-content: space-between; gap: 20px; color: rgba(31,23,20,.58); font-size: .78rem; letter-spacing: .12em; text-transform: uppercase; }
+
+    @keyframes floatJar { from { transform: translateY(12px) rotate(-1.2deg); } to { transform: translateY(-18px) rotate(1deg); } }
+    @keyframes cartPulse { 0% { transform: scale(1); } 45% { transform: scale(.94); } 100% { transform: scale(1.03); } }
+    @keyframes burstUp { 0% { opacity: 1; transform: translate(-50%, -50%) scale(.7); } 100% { opacity: 0; transform: translate(-50%, -120px) scale(1.35); } }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    @media (max-width: 960px) {
+      .hero { grid-template-columns: 1fr; padding-top: 110px; }
+      .product-orbit { min-height: 560px; }
+      .jar-stage { width: min(92vw, 520px); }
+      .jar { width: min(76vw, 360px); }
+      .side-panel { grid-template-columns: 1fr 1fr; }
+      .product-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .science-band { grid-template-columns: 1fr; }
+      nav { display: none; }
+    }
+    @media (max-width: 620px) {
+      .callout { position: relative; inset: auto; width: 100%; }
+      .product-orbit { display: block; min-height: auto; }
+      .jar-stage { margin: 22px auto; }
+      .side-panel, .product-grid { grid-template-columns: 1fr; }
+      footer { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+  <div class="cursor-glow" id="cursorGlow"></div>
+  <div class="noise"></div>
+  <header>
+    <div class="logo"><img src="hippie-logo.png" alt="Hippie Whip logo"><span class="logo-text">hippie whip</span></div>
+    <nav>
+      <a href="#shop">shop</a>
+      <a href="#science">what's inside</a>
+      <a href="#ritual">ritual</a>
+    </nav>
+    <a class="cart" href="#shop">cart</a>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-copy">
+        <div class="eyebrow">48 hour slow-whipped skincare</div>
+        <h1>skin that melts into glow.</h1>
+        <p>A rich, cloud-like tallow cream system made with grass-fed tallow, ceramides, and botanical oils for deep hydration, barrier support, and soft luminous skin.</p>
+        <div class="cta-row">
+          <a class="btn primary add-cart-btn" href="#shop">shop the whips</a>
+          <a class="btn secondary" href="#science">see the formula</a>
+        </div>
+      </div>
+
+      <div class="product-orbit" aria-label="Hippie Whip floating jar concept">
+        <div class="jar-stage">
+          <div class="halo"></div>
+          <div class="jar" id="heroJar"><img src="bare-whip-jar.png" alt="Hippie Whip Bare Whip jar"><span class="jar-shine"></span><span class="jar-tag">bare whip</span></div>
+          <div class="callout c1"><b>grass-fed tallow</b><span>skin-compatible lipids for a rich, cushiony finish</span></div>
+          <div class="callout c2"><b>ceramides</b><span>supports the feeling of a stronger skin barrier</span></div>
+          <div class="callout c3"><b>botanical oils</b><span>rosehip, jojoba, and olive leaf for glow</span></div>
+          <div class="callout c4"><b>slow-whipped</b><span>rested, chilled, and whipped for cloud texture</span></div>
+        </div>
+      </div>
+
+      <aside class="side-panel">
+        <div class="mini-card"><h3>made fresh</h3><p>Small-batch texture, not mass-produced cream.</p><div class="swatch"></div></div>
+        <div class="mini-card"><h3>barrier ritual</h3><p>Use as the final step to seal in hydration.</p><div class="swatch"></div></div>
+        <div class="mini-card"><h3>cloud texture</h3><p>Rich, velvety, and designed to melt on contact.</p><div class="swatch"></div></div>
+      </aside>
+    </section>
+
+    <section id="shop">
+      <div class="section-head">
+        <h2>choose your whip.</h2>
+        <p>Each product can use a real jar render later. For now, this prototype shows the layout: big floating containers, clear benefits, and easy buying flow.</p>
+      </div>
+      <div class="product-grid">
+        <article class="product-card"><div class="mini-jar"></div><h3>Face Whip</h3><p>Deep hydration + barrier repair for soft, glowing skin.</p><div class="price">C$58</div></article>
+        <article class="product-card"><div class="mini-jar"></div><h3>Body Whip</h3><p>Full-body moisture with a buttery glow finish.</p><div class="price">C$54</div></article>
+        <article class="product-card"><div class="mini-jar"></div><h3>Bare Whip</h3><p>Pure fragrance-free repair for sensitive skin.</p><div class="price">C$58</div></article>
+        <article class="product-card"><div class="mini-jar"></div><h3>Healing Whip</h3><p>Cooling hydration for legs, feet, and massage rituals.</p><div class="price">C$52</div></article>
+      </div>
+    </section>
+
+    <section id="science" class="science-band">
+      <div class="section-head">
+        <div class="eyebrow">what's inside</div>
+        <h2>simple ingredients. serious texture.</h2>
+        <p>Build this section like a soft lab diagram: ingredient bubbles around the jar, tiny callouts, and clear skin benefits without looking clinical or cold.</p>
+      </div>
+      <div class="formula"><span class="dot d1"></span><span class="dot d2"></span><span class="dot d3"></span></div>
+    </section>
+
+    <section id="ritual">
+      <div class="section-head">
+        <h2>your full ritual.</h2>
+        <p>Warm a small amount between fingertips and press into clean, slightly damp skin. Use as the final step to lock in moisture and leave a soft glow.</p>
+      </div>
+      <a class="btn primary add-cart-btn" href="#shop">build my ritual</a>
+    </section>
+  </main>
+
+  <footer>
+    <span>hippie whip © all rights reserved</span>
+    <span>slow-whipped skincare / made fresh</span>
+  </footer>
+  <script>
+    const glow = document.getElementById('cursorGlow');
+    const jar = document.getElementById('heroJar');
+
+    window.addEventListener('pointermove', (event) => {
+      document.documentElement.style.setProperty('--mouse-x', event.clientX + 'px');
+      document.documentElement.style.setProperty('--mouse-y', event.clientY + 'px');
+      glow.style.left = event.clientX + 'px';
+      glow.style.top = event.clientY + 'px';
+
+      if (!jar) return;
+      const rect = jar.getBoundingClientRect();
+      const x = event.clientX - rect.left;
+      const y = event.clientY - rect.top;
+      const px = x / rect.width;
+      const py = y / rect.height;
+
+      jar.style.setProperty('--shine-x', (px * 100) + '%');
+      jar.style.setProperty('--shine-y', (py * 100) + '%');
+
+      const rotateY = (px - .5) * 18;
+      const rotateX = -((py - .5) * 14);
+      jar.style.transform = `translateY(-8px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.04)`;
+    });
+
+    window.addEventListener('pointerleave', () => {
+      glow.style.opacity = '0';
+      if (jar) jar.style.transform = '';
+    });
+
+    window.addEventListener('pointerenter', () => {
+      glow.style.opacity = '.55';
+    });
+
+    if (jar) {
+      jar.addEventListener('pointerleave', () => {
+        jar.style.transform = '';
+      });
+    }
+
+    document.querySelectorAll('.add-cart-btn, .btn.primary').forEach((button) => {
+      button.addEventListener('click', (event) => {
+        button.classList.add('added');
+        setTimeout(() => button.classList.remove('added'), 600);
+
+        const burst = document.createElement('div');
+        burst.className = 'cart-burst';
+        burst.textContent = '✦';
+        burst.style.left = event.clientX + 'px';
+        burst.style.top = event.clientY + 'px';
+        document.body.appendChild(burst);
+        setTimeout(() => burst.remove(), 850);
+      });
+    });
+  </script>
+</body>
+</html>
