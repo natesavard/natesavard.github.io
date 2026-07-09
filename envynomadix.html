@@ -2796,6 +2796,9 @@
           <p class="stage-text">
             more to move through. garment pressure, campaign relics, and a sideways catalogue cut into the main house.
           </p>
+          <p class="stage-text">
+            This is the garment side of the Nate Savard house.
+          </p>
         </div>
 
         <div class="catalogue-rail" aria-label="Sideways catalogue">
@@ -2857,24 +2860,24 @@
         </div>
 
         <div class="merge-copy">
-          <div class="stage-kicker">the sage / envy merge</div>
-          <h2 class="stage-title">Garments Meet Talismans</h2>
+          <div class="stage-kicker">envynomadix / nate savard</div>
+          <h2 class="stage-title">One Designer. Two Worlds.</h2>
           <p class="stage-text">
-            envynomadix is now moving closer to the jewelry house. the cross, the gemstones, the rings, the pendants, and the garment language are being built as one collector world.
+            ENVYNOMADIX is the garment house. Nate Savard is the jewelry language behind it. Together they form one collector world: runway streetwear, gold chains, pendants, rings, gemstones, custom talismans, and symbolic objects designed to be worn as a full uniform.
           </p>
 
           <div class="merge-points">
             <div class="merge-point">
-              <strong>Styling direction</strong>
-              <span>the sage pieces are meant to sit with the garments, not away from them.</span>
+              <strong>Jewelry-level streetwear</strong>
+              <span>Garments are styled with the weight of fine jewelry: deep blacks, chrome marks, gold pressure, heavy crosses, pendants, rings, and chain placement.</span>
             </div>
             <div class="merge-point">
               <strong>Collector route</strong>
               <span>one client can now move between custom jewelry, signature garments, and private-order relic work.</span>
             </div>
             <div class="merge-point">
-              <strong>House language</strong>
-              <span>chrome marks, gemstone power, dark gold pressure, and nate savard authorship now lead both sides.</span>
+              <strong>Designer-led house</strong>
+              <span>Every piece moves through Nate Savard's eye - clothing, jewelry, symbols, stones, and custom relics.</span>
             </div>
           </div>
 
@@ -3001,13 +3004,13 @@
         </div>
 
         <div class="contact-copy">
-          <div class="stage-kicker">private route</div>
-          <h2 class="stage-title">SS26 Collection Vault</h2>
+          <div class="stage-kicker">private commissions / collector route</div>
+          <h2 class="stage-title">Build the Full Uniform</h2>
           <p class="stage-text">
-            one-offs. custom placements. high-weight fabric garments. direct inquiries for the people who understand what the house is doing.
+            For custom gold chains, pendants, rings, stone-set talismans, symbolic jewelry, garment placements, or full ENVYNOMADIX styling, contact the house directly. Designed by Nate Savard for collectors who want pieces with weight, presence, and myth.
           </p>
           <a class="stage-button" href="#luxReveal">return to header</a>
-          <div class="contact-route">private inquiries routed through the house archive</div>
+          <div class="contact-route">private inquiries / jewelry commissions / garment orders / collector styling</div>
         </div>
       </section>
 
@@ -4021,6 +4024,11 @@
 
       if (houseViewerImage) {
         houseViewerImage.addEventListener("click", openHouseImageZoom);
+        houseViewerImage.addEventListener("keydown", function (event) {
+          if (event.key !== "Enter" && event.key !== " ") return;
+          event.preventDefault();
+          openHouseImageZoom();
+        });
       }
 
       if (houseImageZoomImg) {

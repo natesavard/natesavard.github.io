@@ -693,6 +693,49 @@
       display: block;
     }
 
+    .zoomable-look {
+      cursor: zoom-in;
+    }
+
+    .look-zoom {
+      position: fixed;
+      inset: 0;
+      z-index: 40;
+      display: grid;
+      place-items: center;
+      padding: 28px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.35s ease;
+    }
+
+    .look-zoom.is-open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .look-zoom-backdrop {
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.92);
+      backdrop-filter: blur(14px);
+    }
+
+    .look-zoom img {
+      position: relative;
+      z-index: 1;
+      max-width: min(97vw, 1800px);
+      max-height: 94vh;
+      width: auto;
+      height: auto;
+      object-fit: contain;
+      display: block;
+      cursor: zoom-out;
+      filter:
+        drop-shadow(0 24px 42px rgba(0, 0, 0, 0.46))
+        drop-shadow(0 0 28px rgba(255, 236, 208, 0.12));
+    }
+
     .closing-copy-wrap {
       display: flex;
       flex-direction: column;
@@ -1248,6 +1291,11 @@
     </section>
   </main>
 
+  <div class="look-zoom" id="lookZoom" aria-hidden="true">
+    <div class="look-zoom-backdrop" id="lookZoomBackdrop"></div>
+    <img id="lookZoomImg" src="" alt="Expanded Envynomadix editorial view" />
+  </div>
+
   <a href="#top" class="envy-top-link" aria-label="Back to top">
     <img src="envynomadix-logo-cutout.png" alt="Envy back to top" />
   </a>
@@ -1257,6 +1305,46 @@
     (function () {
       var topLink = document.querySelector(".envy-top-link");
       var badges = document.querySelectorAll(".editorial-badge");
+      var lookZoom = document.getElementById("lookZoom");
+      var lookZoomImg = document.getElementById("lookZoomImg");
+      var lookZoomBackdrop = document.getElementById("lookZoomBackdrop");
+      var zoomableImages = Array.prototype.slice.call(document.querySelectorAll(".hero-visual img, .manifesto-poster img, .feature-image img, .drop-image img, .campaign-card img, .detail-image img, .closing-visual img"));
+
+      function openLookZoom(image) {
+        if (!lookZoom || !lookZoomImg || !image || !image.src) return;
+        lookZoomImg.src = image.src;
+        lookZoomImg.alt = image.alt || "Expanded Envynomadix editorial view";
+        lookZoom.classList.add("is-open");
+        lookZoom.setAttribute("aria-hidden", "false");
+      }
+
+      function closeLookZoom() {
+        if (!lookZoom || !lookZoomImg) return;
+        lookZoom.classList.remove("is-open");
+        lookZoom.setAttribute("aria-hidden", "true");
+        window.setTimeout(function () {
+          if (!lookZoom.classList.contains("is-open")) {
+            lookZoomImg.src = "";
+            lookZoomImg.alt = "Expanded Envynomadix editorial view";
+          }
+        }, 180);
+      }
+
+      zoomableImages.forEach(function (image) {
+        image.classList.add("zoomable-look");
+        image.setAttribute("role", "button");
+        image.setAttribute("tabindex", "0");
+        image.setAttribute("aria-label", (image.alt || "Open image") + " full size");
+        image.addEventListener("click", function () {
+          openLookZoom(image);
+        });
+        image.addEventListener("keydown", function (event) {
+          if (event.key !== "Enter" && event.key !== " ") return;
+          event.preventDefault();
+          openLookZoom(image);
+        });
+      });
+
       badges.forEach(function (badge) {
         badge.addEventListener("click", function () {
           badge.classList.remove("is-spinning");
@@ -1280,6 +1368,20 @@
           }, 720);
         });
       }
+
+      if (lookZoomImg) {
+        lookZoomImg.addEventListener("click", closeLookZoom);
+      }
+
+      if (lookZoomBackdrop) {
+        lookZoomBackdrop.addEventListener("click", closeLookZoom);
+      }
+
+      document.addEventListener("keydown", function (event) {
+        if (event.key === "Escape") {
+          closeLookZoom();
+        }
+      });
     }());
   </script>
 </body>
