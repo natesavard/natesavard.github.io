@@ -1,17 +1,18 @@
 ﻿(function () {
   const pages = [
-    { file: "index.html", key: "home", title: "Nate's World", short: "Home", section: "Core hub", summary: "Main gateway for the archive, music, visuals, and outbound nodes.", clearance: "public node", dossier: "Entry terminal for the full underground system.", hum: "soft" },
+    { file: "index.html", key: "houses", title: "The Sage x Envynomadix", short: "Houses", section: "Dual flagship entry", summary: "The two main houses front and center: jewelry, garments, relics, and collector direction.", clearance: "main entry", dossier: "Primary landing page connecting the jewelry house and the Envynomadix fashion world.", hum: "soft" },
+    { file: "nlxblackbox.html", key: "sage", title: "The Sage", short: "The Sage", section: "Talismans // Rings // Relics // Custom Signature Pieces", summary: "Jewelry pieces, relic visuals, and private collection pathway.", clearance: "private collection", dossier: "Talismans and relics private collection tied to the luxury node.", hum: "soft" },
+    { file: "envynomadix-worldwide.html", key: "envynomadix", title: "Envynomadix", short: "Envynomadix", section: "Fashion house", summary: "Dark luxury garments, campaign visuals, and the merged house archive beside The Sage.", clearance: "fashion signal", dossier: "Digital flagship for the Envynomadix clothing world and its crossover with the jewelry line.", hum: "soft" },
+    { file: "main.html", key: "home", title: "Nate's World Portal", short: "Portal", section: "Full archive hub", summary: "Expanded gateway for the wider archive, music, visuals, and outbound nodes.", clearance: "public node", dossier: "Secondary portal for the broader Nate's World network beyond the two main houses.", hum: "soft" },
+    { file: "gemstone-field-distortion-paradox.html", key: "gemstone", title: "Gemstone Paradox", short: "Gemstone", section: "Concept portal", summary: "Field distortion lore, signal breakdown, and paradox chapters.", clearance: "vip vault", dossier: "Gemstone resonance research marked as high-interest lore.", hum: "resonance" },
     { file: "transmissions.html", key: "transmissions", title: "Transmission Updates", short: "Transmissions", section: "Signal log", summary: "Active updates, collector notices, and private network movement.", clearance: "signal stable", dossier: "Rolling log of new drops, active routes, and underground status updates.", hum: "signal" },
     { file: "timeline.html", key: "timeline", title: "Timeline", short: "Timeline", section: "Archive chronology", summary: "Long-view chronology for the site, lore, jewelry, and signal evolution.", clearance: "archive line", dossier: "Chronology node mapping the build, story, and collector path over time.", hum: "soft" },
     { file: "field-notes.html", key: "field-notes", title: "Field Notes", short: "Field Notes", section: "Travel archive", summary: "Travel logs, land memories, port signals, and world-built fragments from the road.", clearance: "travel log", dossier: "Private notes from coastlines, ports, cities, estates, and moving years.", hum: "soft" },
     { file: "legend-file.html", key: "legend-file", title: "Legend File", short: "Legend", section: "Identity file", summary: "Myth-forward dossier on Nate as operator, jeweler, traveler, builder, and private strategist.", clearance: "legend file", dossier: "Identity archive for the operator behind the network.", hum: "signal" },
-    { file: "envynomadix-worldwide.html", key: "envynomadix", title: "Envynomadix", short: "Envynomadix", section: "Fashion house", summary: "Dark luxury streetwear archive with cathedral visuals, distressed garments, and campaign-grade artwork.", clearance: "fashion signal", dossier: "Digital flagship for the Envynomadix clothing world and active collection imagery.", hum: "soft" },
     { file: "starboy.html", key: "starboy", title: "NLX Starboy", short: "Starboy", section: "Story hub", summary: "Enter the comic archive, lore, and active entities inside the Starboy system.", clearance: "restricted archive", dossier: "Signal-heavy story node tied to the oracle line.", hum: "signal" },
     { file: "Chapter-one.html", key: "chapter-one", title: "Chapter One", short: "Chapter 1", section: "Comic issue", summary: "The first fracture point in the Starboy timeline.", clearance: "story file", dossier: "Initial fracture log recovered from the archive stream.", hum: "signal" },
     { file: "Chapter-two.html", key: "chapter-two", title: "Chapter Two", short: "Chapter 2", section: "Comic issue", summary: "The next signal in the Starboy story flow.", clearance: "oracle file", dossier: "Oracle chamber record naming the Anchor event.", hum: "signal" },
     { file: "NLXStarboyChapterOne.html", key: "reader", title: "Full Comic Reader", short: "Reader", section: "Reader node", summary: "Long-form chapter reader for the Starboy sequence.", clearance: "deep reader", dossier: "Long-scroll reader intended for full immersion.", hum: "soft" },
-    { file: "gemstone-field-distortion-paradox.html", key: "gemstone", title: "Gemstone Paradox", short: "Gemstone", section: "Concept portal", summary: "Field distortion lore, signal breakdown, and paradox chapters.", clearance: "vip vault", dossier: "Gemstone resonance research marked as high-interest lore.", hum: "resonance" },
-    { file: "nlxblackbox.html", key: "sage", title: "The Sage", short: "The Sage", section: "Talismans // Rings // Relics // Custom Signature Pieces", summary: "Jewelry pieces, relic visuals, and private collection pathway.", clearance: "private collection", dossier: "Talismans and relics private collection tied to the luxury node.", hum: "soft" },
     { file: "transmission-intake.html", key: "intake", title: "Transmission Intake", short: "Intake", section: "Commission ritual", summary: "Private commission intake shaped around metal, stone, symbolism, mood, life chapter, and budget.", clearance: "collector intake", dossier: "Direct ritual-style commission intake for serious custom work.", hum: "resonance" },
     { file: "rare-drop.html", key: "rare-drop", title: "Artifact Window", short: "Artifact", section: "Hidden collector node", summary: "Rare drop window unlocked through Horus with hidden collector-facing access.", clearance: "guardian approved", dossier: "Hidden artifact node for gated drops and brief access windows.", hum: "guard" },
     { file: "horus.html", key: "horus", title: "Horus Node", short: "Horus", section: "Guardian gate", summary: "Protection gateway and ceremonial landing page.", clearance: "guardian gate", dossier: "Protective threshold node with elevated lock state.", hum: "guard" }
@@ -47,6 +48,7 @@
     "/": "index.html",
     "/index": "index.html",
     "/index.html": "index.html",
+    "/main": "main.html",
     "/arcade": "arcade.html",
     "/arcade.html": "arcade.html",
     "/transmissions": "transmissions.html",
@@ -79,18 +81,19 @@
     "/rare-drop.html": "rare-drop.html",
     "/horus": "horus.html",
     "/horus.html": "horus.html",
-    "/main.html": "index.html"
+    "/main.html": "main.html"
   };
 
   const keyLinks = [
-    { label: "Home", href: "index.html", key: "home" },
+    { label: "Houses", href: "index.html", key: "houses" },
+    { label: "The Sage", href: "nlxblackbox.html", key: "sage" },
+    { label: "Envynomadix", href: "envynomadix.html", key: "envynomadix" },
+    { label: "Portal", href: "main.html", key: "home" },
+    { label: "Gemstone", href: "gemstone-field-distortion-paradox.html", key: "gemstone" },
     { label: "Transmissions", href: "transmissions.html", key: "transmissions" },
     { label: "Timeline", href: "timeline.html", key: "timeline" },
-    { label: "Envynomadix", href: "envynomadix.html", key: "envynomadix" },
     { label: "Starboy", href: "starboy.html", key: "starboy" },
     { label: "Reader", href: "NLXStarboyChapterOne.html", key: "reader" },
-    { label: "Gemstone", href: "gemstone-field-distortion-paradox.html", key: "gemstone" },
-    { label: "The Sage", href: "nlxblackbox.html", key: "sage" },
     { label: "Horus", href: "horus.html", key: "horus" }
   ];
 
@@ -177,6 +180,7 @@
         }
       }
 
+      if (rawHref === "/") anchor.setAttribute("href", "index.html");
       if (rawHref === "/index.html") anchor.setAttribute("href", "index.html");
       if (rawHref === "/arcade.html") anchor.setAttribute("href", "arcade.html");
       if (rawHref === "/transmissions.html") anchor.setAttribute("href", "transmissions.html");
@@ -187,7 +191,8 @@
       if (rawHref === "/envynomadix-worldwide.html") anchor.setAttribute("href", "envynomadix-worldwide.html");
       if (rawHref === "/gemstone-field-distortion-paradox.html") anchor.setAttribute("href", "gemstone-field-distortion-paradox.html");
       if (rawHref === "/transmission-intake.html") anchor.setAttribute("href", "transmission-intake.html");
-      if (rawHref === "main.html") anchor.setAttribute("href", "index.html");
+      if (rawHref === "/main.html") anchor.setAttribute("href", "main.html");
+      if (rawHref === "main.html") anchor.setAttribute("href", "main.html");
     });
   }
 
@@ -301,7 +306,7 @@
         '  <div class="siteflow-path">' + escapeHtml(currentPage.clearance) + '</div>',
         '  <div class="siteflow-small">' + escapeHtml(currentPage.summary) + '</div>',
         '  <div class="siteflow-card-actions">',
-        '    <a class="siteflow-link" href="index.html">return home</a>',
+        '    <a class="siteflow-link" href="index.html">open houses</a>',
         '    <a class="siteflow-link siteflow-secondary" href="' + escapeHtml(nextPage.file) + '">continue forward</a>',
         '  </div>',
         '</div>'

@@ -617,6 +617,71 @@
       line-height: 1.7;
     }
 
+    .fusion-shell {
+      padding: 30px;
+      border: 1px solid rgba(215, 171, 82, 0.16);
+      border-radius: 24px;
+      background:
+        radial-gradient(circle at 78% 12%, rgba(214,168,79,0.08), transparent 22%),
+        radial-gradient(circle at 18% 0%, rgba(255,255,255,0.03), transparent 24%),
+        linear-gradient(180deg, rgba(8,8,8,0.92), rgba(2,2,2,0.88));
+      box-shadow:
+        0 20px 56px rgba(0,0,0,0.46),
+        inset 0 0 24px rgba(255,255,255,0.02);
+    }
+
+    .fusion-intro {
+      max-width: 880px;
+      margin: 16px 0 0;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.9;
+    }
+
+    .fusion-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 22px;
+      margin-top: 26px;
+    }
+
+    .fusion-card {
+      padding: 24px 22px 22px;
+      border: 1px solid rgba(215, 171, 82, 0.12);
+      border-radius: 20px;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,0.025), rgba(255,255,255,0.01)),
+        rgba(0,0,0,0.22);
+    }
+
+    .fusion-card-tag {
+      color: var(--gold);
+      font-size: 10px;
+      letter-spacing: 0.26em;
+      text-transform: uppercase;
+    }
+
+    .fusion-card h3 {
+      margin: 14px 0 12px;
+      font-size: 20px;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .fusion-card p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.8;
+    }
+
+    .fusion-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-top: 24px;
+    }
+
     .doctrine-note {
       margin: 0 0 26px;
       padding: 18px 20px;
@@ -640,9 +705,79 @@
       text-transform: uppercase;
     }
 
+    .archive-shell {
+      margin: 0 0 28px;
+      padding: 28px 28px 24px;
+      border: 1px solid rgba(215, 171, 82, 0.16);
+      border-radius: 24px;
+      background:
+        radial-gradient(circle at 82% 16%, rgba(214,168,79,0.08), transparent 24%),
+        linear-gradient(180deg, rgba(8,8,8,0.92), rgba(2,2,2,0.88));
+      box-shadow:
+        0 18px 48px rgba(0,0,0,0.42),
+        inset 0 0 24px rgba(255,255,255,0.02);
+    }
+
+    .archive-kicker {
+      color: var(--gold);
+      font-size: 10px;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      margin-bottom: 14px;
+    }
+
+    .archive-title {
+      margin: 0;
+      font-size: clamp(22px, 3vw, 38px);
+      line-height: 1.06;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .archive-copy {
+      max-width: 900px;
+      margin: 18px 0 0;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.9;
+    }
+
+    .archive-truths {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+      margin-top: 24px;
+    }
+
+    .archive-truth {
+      padding: 18px 18px 16px;
+      border: 1px solid rgba(215, 171, 82, 0.12);
+      border-radius: 18px;
+      background: rgba(255,255,255,0.02);
+    }
+
+    .archive-truth strong,
+    .archive-truth span {
+      display: block;
+    }
+
+    .archive-truth strong {
+      margin-bottom: 8px;
+      color: var(--text);
+      font-size: 11px;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+    }
+
+    .archive-truth span {
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.7;
+    }
+
     .product-grid {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
       gap: 20px;
     }
 
@@ -1371,7 +1506,12 @@
     @media (max-width: 980px) {
       .hero,
       .buy-section,
-      .product-grid {
+      .product-grid,
+      .fusion-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .archive-truths {
         grid-template-columns: 1fr;
       }
 
@@ -1439,6 +1579,12 @@
         padding-right: 18px;
       }
 
+      .archive-shell,
+      .fusion-shell,
+      .fusion-card {
+        padding: 22px 18px;
+      }
+
       .gemstone-power-box {
         padding: 22px 18px;
       }
@@ -1479,13 +1625,15 @@
           </div>
           <div>
             <div class="brand-title">Nate’s World / The Gem Sage</div>
-            <div class="brand-sub">artists, outsiders, and icons</div>
+            <div class="brand-sub">jewelry, garments, and relic direction</div>
           </div>
         </div>
 
         <nav>
-          <a href="#designs">Designs</a>
           <a href="#about">About</a>
+          <a href="#fusion">House Merge</a>
+          <a href="#designs">Designs</a>
+          <a href="envynomadix.html">Envynomadix</a>
           <a href="#buy">How to Buy</a>
           <a href="mailto:natesavard@outlook.com">Contact</a>
         </nav>
@@ -1506,9 +1654,12 @@
           Custom talismans, pendants, rings, cloaks, and symbolic objects forged for artists, outsiders, and icons. Statement pieces made from precious
           stone, silk, linen, calf skin, gator - A cult luxury house of custom work and
           signature pieces lead by the one the only the original - Nate Savard.
+          <br><br>
+          The jewelry world now moves directly beside Envynomadix, so the stones, symbols, garments, and house marks start speaking as one collector language.
         </p>
         <div class="hero-actions">
           <a href="#designs" class="btn primary">View Designs</a>
+          <a href="envynomadix.html" class="btn secondary">Enter Envynomadix</a>
           <a href="#buy" class="btn secondary">How to Buy</a>
         </div>
       </div>
@@ -1520,10 +1671,49 @@
       </div>
     </section>
 
+    <section class="section" id="fusion">
+      <div class="fusion-shell">
+        <div class="section-head">
+          <div>
+            <div class="section-title">House Merge</div>
+            <p class="fusion-intro">
+              The Sage and Envynomadix are becoming the two main pillars of the site. Jewelry, garments, relic imagery, and private-order direction are now being built as one connected world instead of separate pages with separate energy.
+            </p>
+          </div>
+        </div>
+
+        <div class="fusion-grid">
+          <article class="fusion-card">
+            <div class="fusion-card-tag">The Sage</div>
+            <h3>Gemstones, Rings, And Talismans</h3>
+            <p>
+              Custom work, real stones, symbolic pieces, and collector-grade design built directly with Nate Savard. This is the metal-and-gem side of the house.
+            </p>
+          </article>
+
+          <article class="fusion-card">
+            <div class="fusion-card-tag">Envynomadix</div>
+            <h3>Garment House With The Same Symbol System</h3>
+            <p>
+              Distressed black garments, campaign relics, chrome marks, and house visuals now sit beside the jewelry line so styling and identity can move together.
+            </p>
+          </article>
+        </div>
+
+        <div class="fusion-actions">
+          <a href="envynomadix.html" class="btn primary">Open Envy House</a>
+          <a href="envynomadix-worldwide.html" class="btn secondary">View Envy Archive</a>
+        </div>
+      </div>
+    </section>
+
     <section class="section" id="designs">
       <div class="section-head">
-        <div class="section-title">Design Showcase</div>
-        <div class="section-copy">
+        <div>
+          <div class="section-title">Featured Signature Pieces</div>
+          <div class="section-copy">
+            Original Nate Savard pieces built from gemstone force, heavy gold presence, and custom architecture. These are collector designs made to stand among the finest custom pieces in the world.
+          </div>
         </div>
       </div>
 
@@ -1569,6 +1759,214 @@
       </div>
     </section>
 
+    <section class="section" id="archive">
+      <div class="archive-shell">
+        <div class="archive-kicker">Private Design Archive</div>
+        <h2 class="archive-title">Custom Pieces By Nate Savard</h2>
+        <p class="archive-copy">
+          Every design below is part of the Nate Savard jewelry world: custom rings, pendants, signets, medallions, and setting architectures drawn for people who want legacy pieces instead of ordinary jewelry. These are one-of-one level ideas and collector-grade directions, made to feel rare, personal, and world-class from the first glance.
+        </p>
+        <div class="archive-truths">
+          <div class="archive-truth">
+            <strong>Custom by Nate</strong>
+            <span>Not stock catalog work. Every piece begins with Nate Savard’s own symbol language, stone direction, and luxury finish choices.</span>
+          </div>
+          <div class="archive-truth">
+            <strong>Built for Legacy</strong>
+            <span>Rings, pendants, and talismans designed to live with you for life and speak about power, family, beauty, and hard-earned status.</span>
+          </div>
+          <div class="archive-truth">
+            <strong>World-Class Standard</strong>
+            <span>Made to stand among the finest custom pieces in the world through stone presence, gold weight, architecture, and atmosphere.</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-grid">
+        <article class="product-card">
+          <div class="product-image piece-trigger" tabindex="0" role="button" aria-label="Open Royal Sapphire Signet image" data-piece-title="Royal Sapphire Signet" data-piece-image="tashvi-ai-design_1773100220103_52fwcu10l.jpg">
+            <img src="tashvi-ai-design_1773100220103_52fwcu10l.jpg" alt="Royal sapphire signet ring by Nate Savard" />
+          </div>
+          <div class="product-info">
+            <div class="product-name">Royal Sapphire Signet</div>
+            <div class="product-desc">
+              Custom Nate Savard signet with carved gold texture, side sapphires, and a dominant blue center stone built with old-world weight.
+            </div>
+            <a href="mailto:natesavard@outlook.com?subject=Royal%20Sapphire%20Signet" class="product-link">Inquire</a>
+          </div>
+        </article>
+
+        <article class="product-card">
+          <div class="product-image piece-trigger" tabindex="0" role="button" aria-label="Open Imperial Blue Sapphire Ring image" data-piece-title="Imperial Blue Sapphire Ring" data-piece-image="tashvi-ai-design_1773099820044_va7ka8ce6.jpg">
+            <img src="tashvi-ai-design_1773099820044_va7ka8ce6.jpg" alt="Imperial blue sapphire ring by Nate Savard" />
+          </div>
+          <div class="product-info">
+            <div class="product-name">Imperial Blue Sapphire Ring</div>
+            <div class="product-desc">
+              Clean heavy-gold ring built around a rich royal sapphire, drawn for direct power, restraint, and permanent luxury.
+            </div>
+            <a href="mailto:natesavard@outlook.com?subject=Imperial%20Blue%20Sapphire%20Ring" class="product-link">Inquire</a>
+          </div>
+        </article>
+
+        <article class="product-card">
+          <div class="product-image piece-trigger" tabindex="0" role="button" aria-label="Open White Fire Scroll Ring image" data-piece-title="White Fire Scroll Ring" data-piece-image="imagine-variation-1.png">
+            <img src="imagine-variation-1.png" alt="White diamond scroll ring by Nate Savard" />
+          </div>
+          <div class="product-info">
+            <div class="product-name">White Fire Scroll Ring</div>
+            <div class="product-desc">
+              Diamond-forward scrollwork ring with cathedral lift and luminous center stone energy built for heirloom-level presence.
+            </div>
+            <a href="mailto:natesavard@outlook.com?subject=White%20Fire%20Scroll%20Ring" class="product-link">Inquire</a>
+          </div>
+        </article>
+
+        <article class="product-card">
+          <div class="product-image piece-trigger" tabindex="0" role="button" aria-label="Open Sapphire Halo Pendant image" data-piece-title="Sapphire Halo Pendant" data-piece-image="wP5fFPlbyjA3vG6FiBuVO_EIXyvyWX.png">
+            <img src="wP5fFPlbyjA3vG6FiBuVO_EIXyvyWX.png" alt="Sapphire halo pendant by Nate Savard" />
+          </div>
+          <div class="product-info">
+            <div class="product-name">Sapphire Halo Pendant</div>
+            <div class="product-desc">
+              Rotating pendant architecture with sapphire top link, diamond halo field, and ceremonial medallion proportions.
+            </div>
+            <a href="mailto:natesavard@outlook.com?subject=Sapphire%20Halo%20Pendant" class="product-link">Inquire</a>
+          </div>
+        </article>
+
+        <article class="product-card">
+          <div class="product-image piece-trigger" tabindex="0" role="button" aria-label="Open NLS Ring 2000 image" data-piece-title="NLS Ring 2000" data-piece-image="nls ring 2000.png">
+            <img src="nls ring 2000.png" alt="NLS Ring 2000 multi-angle study by Nate Savard" />
+          </div>
+          <div class="product-info">
+            <div class="product-name">NLS Ring 2000</div>
+            <div class="product-desc">
+              Full chassis study showing black inlay, diamond collar, engraved side panels, and the NS signet language from every angle.
+            </div>
+            <a href="mailto:natesavard@outlook.com?subject=NLS%20Ring%202000" class="product-link">Inquire</a>
+          </div>
+        </article>
+
+        <article class="product-card">
+          <div class="product-image piece-trigger" tabindex="0" role="button" aria-label="Open NLS Cathedral Ring Frame image" data-piece-title="NLS Cathedral Ring Frame" data-piece-image="Hi3D-image-2026-07-08 (1).png">
+            <img src="Hi3D-image-2026-07-08 (1).png" alt="NLS cathedral ring frame by Nate Savard" />
+          </div>
+          <div class="product-info">
+            <div class="product-name">NLS Cathedral Ring Frame</div>
+            <div class="product-desc">
+              18k ring architecture with black inlay, engraved under-gallery, and a diamond collar waiting for a commanding center stone.
+            </div>
+            <a href="mailto:natesavard@outlook.com?subject=NLS%20Cathedral%20Ring%20Frame" class="product-link">Inquire</a>
+          </div>
+        </article>
+
+        <article class="product-card">
+          <div class="product-image piece-trigger" tabindex="0" role="button" aria-label="Open NS Marquise Crest Frame image" data-piece-title="NS Marquise Crest Frame" data-piece-image="ChatGPT Image Jul 8, 2026, 06_33_06 PM.png">
+            <img src="ChatGPT Image Jul 8, 2026, 06_33_06 PM.png" alt="NS marquise crest ring frame by Nate Savard" />
+          </div>
+          <div class="product-info">
+            <div class="product-name">NS Marquise Crest Frame</div>
+            <div class="product-desc">
+              Front elevation of the NS crest build, centered on a marquise seat with monogram flanks and open diamond channels.
+            </div>
+            <a href="mailto:natesavard@outlook.com?subject=NS%20Marquise%20Crest%20Frame" class="product-link">Inquire</a>
+          </div>
+        </article>
+
+        <article class="product-card">
+          <div class="product-image piece-trigger" tabindex="0" role="button" aria-label="Open Black Gold NS Ring image" data-piece-title="Black Gold NS Ring" data-piece-image="Hi3D-image-2026-07-08.png">
+            <img src="Hi3D-image-2026-07-08.png" alt="Black gold NS ring by Nate Savard" />
+          </div>
+          <div class="product-info">
+            <div class="product-name">Black Gold NS Ring</div>
+            <div class="product-desc">
+              Sculpted black-and-gold ring body with carved inner gallery and a hard luxury setting platform built for a true statement stone.
+            </div>
+            <a href="mailto:natesavard@outlook.com?subject=Black%20Gold%20NS%20Ring" class="product-link">Inquire</a>
+          </div>
+        </article>
+
+        <article class="product-card">
+          <div class="product-image piece-trigger" tabindex="0" role="button" aria-label="Open Diamond Cathedral Signet image" data-piece-title="Diamond Cathedral Signet" data-piece-image="imagine-variation-1 (1).png">
+            <img src="imagine-variation-1 (1).png" alt="Diamond cathedral signet by Nate Savard" />
+          </div>
+          <div class="product-info">
+            <div class="product-name">Diamond Cathedral Signet</div>
+            <div class="product-desc">
+              Wide diamond halo signet with layered bezel and open lacework shoulders, designed for white-fire brilliance and elite finish.
+            </div>
+            <a href="mailto:natesavard@outlook.com?subject=Diamond%20Cathedral%20Signet" class="product-link">Inquire</a>
+          </div>
+        </article>
+
+        <article class="product-card">
+          <div class="product-image piece-trigger" tabindex="0" role="button" aria-label="Open NS Scale Crest Ring image" data-piece-title="NS Scale Crest Ring" data-piece-image="ChatGPT Image Jul 8, 2026, 07_50_34 PM.png">
+            <img src="ChatGPT Image Jul 8, 2026, 07_50_34 PM.png" alt="NS scale crest ring by Nate Savard" />
+          </div>
+          <div class="product-info">
+            <div class="product-name">NS Scale Crest Ring</div>
+            <div class="product-desc">
+              Marquise crest ring with scale texture, NS monograms, and precision openwork built for a custom stone of real consequence.
+            </div>
+            <a href="mailto:natesavard@outlook.com?subject=NS%20Scale%20Crest%20Ring" class="product-link">Inquire</a>
+          </div>
+        </article>
+
+        <article class="product-card">
+          <div class="product-image piece-trigger" tabindex="0" role="button" aria-label="Open Sapphire Monolith Pendant image" data-piece-title="Sapphire Monolith Pendant" data-piece-image="ChatGPT Image Mar 21, 2026, 03_43_03 PM.png">
+            <img src="ChatGPT Image Mar 21, 2026, 03_43_03 PM.png" alt="Sapphire monolith pendant by Nate Savard" />
+          </div>
+          <div class="product-info">
+            <div class="product-name">Sapphire Monolith Pendant</div>
+            <div class="product-desc">
+              Long sapphire pendant in black and gold with diamond border and a hard, elegant silhouette built for refined authority.
+            </div>
+            <a href="mailto:natesavard@outlook.com?subject=Sapphire%20Monolith%20Pendant" class="product-link">Inquire</a>
+          </div>
+        </article>
+
+        <article class="product-card">
+          <div class="product-image piece-trigger" tabindex="0" role="button" aria-label="Open Royal Marquise Sapphire Ring image" data-piece-title="Royal Marquise Sapphire Ring" data-piece-image="nate ring 1.2.png">
+            <img src="nate ring 1.2.png" alt="Royal marquise sapphire ring by Nate Savard" />
+          </div>
+          <div class="product-info">
+            <div class="product-name">Royal Marquise Sapphire Ring</div>
+            <div class="product-desc">
+              Multi-angle ring study with blue marquise sapphire, ornate galleries, and diamond rails drawn as a full custom signet.
+            </div>
+            <a href="mailto:natesavard@outlook.com?subject=Royal%20Marquise%20Sapphire%20Ring" class="product-link">Inquire</a>
+          </div>
+        </article>
+
+        <article class="product-card">
+          <div class="product-image piece-trigger" tabindex="0" role="button" aria-label="Open Twin Stone Spinner Pendant image" data-piece-title="Twin Stone Spinner Pendant" data-piece-image="2stone.png">
+            <img src="2stone.png" alt="Twin stone spinner pendant by Nate Savard" />
+          </div>
+          <div class="product-info">
+            <div class="product-name">Twin Stone Spinner Pendant</div>
+            <div class="product-desc">
+              Dual-version spinner pendant showing sapphire and opal directions inside the same diamond-heavy medallion system.
+            </div>
+            <a href="mailto:natesavard@outlook.com?subject=Twin%20Stone%20Spinner%20Pendant" class="product-link">Inquire</a>
+          </div>
+        </article>
+
+        <article class="product-card">
+          <div class="product-image piece-trigger" tabindex="0" role="button" aria-label="Open NS Monogram Signet image" data-piece-title="NS Monogram Signet" data-piece-image="c1766feb-0ff7-4be3-8d3c-123877220bf8.jpg">
+            <img src="c1766feb-0ff7-4be3-8d3c-123877220bf8.jpg" alt="NS monogram signet by Nate Savard" />
+          </div>
+          <div class="product-info">
+            <div class="product-name">NS Monogram Signet</div>
+            <div class="product-desc">
+              Clean NS monogram signet built with bold face geometry and a dark field texture for a sharper signature-piece identity.
+            </div>
+            <a href="mailto:natesavard@outlook.com?subject=NS%20Monogram%20Signet" class="product-link">Inquire</a>
+          </div>
+        </article>
+      </div>
+    </section>
+
     <section class="section" id="buy">
       <div class="section-head">
         <div class="section-title">How to Buy</div>
@@ -1580,7 +1978,7 @@
         <div class="buy-box">
           <h3>Custom Orders</h3>
           <p>
-            Contact me directly - let's talk. We will choose between 14k, 18k, 23k, or silver 925, then shape the piece around sapphire or opal first, with ruby and emerald available, and your price range / budget together. We will discuss what moves you, what direction you want to take, and what symbolism you want to build into the piece.
+            Contact me directly and we will build your piece from the ground up. Every commission is custom-designed by Nate Savard around your stone, your metal, your symbolism, and the level of luxury you want to wear for life. We can move through 14k, 18k, 23k, or silver 925, then shape the work around sapphire, opal, ruby, or emerald with your price range and life story in mind.
           </p>
           <a href="mailto:natesavard@outlook.com?subject=Custom%20Jewelry%20Inquiry" class="btn primary">Start Inquiry</a>
           <a href="transmission-intake.html" class="btn secondary" style="margin-top: 12px;">Open Ritual Intake</a>
@@ -1589,7 +1987,7 @@
         <div class="buy-box">
           <h3>Ready to Purchase</h3>
           <p>
-            For available designs or commission slots, message directly for pricing, lead time, and next steps. Right now this is routed straight to email for the simplest buying path.
+            For available designs, one-of-one builds, or collector commissions, message directly for pricing, lead time, and next steps. This route is for people who want Nate Savard originals and pieces built to stand with the finest custom jewelry in the world.
           </p>
           <a href="mailto:natesavard@outlook.com?subject=Jewelry%20Purchase%20Inquiry" class="btn secondary">Email Nate</a>
         </div>
