@@ -4035,10 +4035,6 @@
       const logo = document.querySelector('.main-logo');
       const ring = document.querySelector('.audio-ring');
 
-      let audioCtx;
-      let analyser;
-      let dataArray;
-      let source;
       let started = false;
 
       function fallbackPulse() {
@@ -4069,56 +4065,14 @@
         animate();
       }
 
-      async function startMicReactive() {
+      function startReactiveEntrance() {
         if (started) return;
         started = true;
-
-        try {
-          const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-          audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-          analyser = audioCtx.createAnalyser();
-          analyser.fftSize = 128;
-          dataArray = new Uint8Array(analyser.frequencyBinCount);
-          source = audioCtx.createMediaStreamSource(stream);
-          source.connect(analyser);
-
-          const tick = () => {
-            if (entered) return;
-            analyser.getByteFrequencyData(dataArray);
-
-            let sum = 0;
-            for (let i = 0; i < dataArray.length; i++) sum += dataArray[i];
-            const avg = sum / dataArray.length / 255;
-
-            const scale = 1 + avg * 0.07;
-            const ringScale = 0.95 + avg * 0.28;
-            const glow = 8 + avg * 34;
-
-            if (logo) {
-              logo.style.transform = `scale(${scale})`;
-              logo.style.filter = `
-                drop-shadow(0 0 ${glow * 0.5}px rgba(255,194,84,0.24))
-                drop-shadow(0 0 ${glow}px rgba(255,194,84,0.16))
-                drop-shadow(0 0 ${glow * 1.9}px rgba(255,194,84,0.10))
-              `;
-            }
-
-            if (ring) {
-              ring.style.transform = `scale(${ringScale})`;
-              ring.style.opacity = `${0.14 + avg * 0.38}`;
-            }
-
-            requestAnimationFrame(tick);
-          };
-
-          tick();
-        } catch (err) {
-          fallbackPulse();
-        }
+        fallbackPulse();
       }
 
       ['click', 'touchstart', 'keydown'].forEach(evt => {
-        window.addEventListener(evt, startMicReactive, { once: true });
+        window.addEventListener(evt, startReactiveEntrance, { once: true });
       });
 
       setTimeout(() => {
