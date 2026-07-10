@@ -356,18 +356,18 @@
     @media (max-width: 680px) {
       .entry-gate {
         grid-template-columns: 1fr 14px 1fr;
-        align-items: end;
-        padding: 18px 10px 24px;
+        align-items: center;
+        padding: 18px 10px;
       }
 
       .path {
         width: min(42vw, 190px);
         gap: 12px;
-        transform: translateY(10vh);
+        transform: translateY(0);
       }
 
       .path:hover {
-        transform: translateY(calc(10vh - 6px));
+        transform: translateY(-6px);
       }
 
       .path-logo {
@@ -391,11 +391,11 @@
       }
 
       .center-axis {
-        height: 58vh;
+        height: 46vh;
       }
 
       .center-kicker {
-        bottom: 5vh;
+        bottom: 8vh;
       }
     }
   </style>
