@@ -18,6 +18,8 @@
       --header-h: 96px;
       --radius: 18px;
       --radius-lg: 22px;
+      --shirt-focus-x: 54%;
+      --shirt-focus-y: 34%;
     }
 
     * { box-sizing: border-box; }
@@ -34,10 +36,45 @@
     }
 
     body {
+      position: relative;
+      isolation: isolate;
       background:
         linear-gradient(rgba(0,0,0,0.58), rgba(0,0,0,0.76)),
         radial-gradient(circle at 76% 18%, rgba(255, 226, 174, 0.10), rgba(0,0,0,0) 24%),
         url("nate savard forever.png") 38% center / cover no-repeat fixed;
+    }
+
+    body::before,
+    body::after,
+    .enter-screen::before {
+      content: "";
+      pointer-events: none;
+    }
+
+    body::before,
+    body::after {
+      position: fixed;
+      inset: 0;
+    }
+
+    body::before {
+      z-index: 0;
+      background:
+        radial-gradient(circle at var(--shirt-focus-x) var(--shirt-focus-y), rgba(255,255,255,0.16) 0%, rgba(255,236,196,0.12) 4.5%, rgba(255,205,120,0.08) 10%, rgba(0,0,0,0) 21%),
+        radial-gradient(circle at var(--shirt-focus-x) calc(var(--shirt-focus-y) + 1%), rgba(255,221,166,0.10), rgba(0,0,0,0) 16%);
+      mix-blend-mode: screen;
+      opacity: 0.72;
+      filter: blur(2px);
+      animation: shirtSigilPulse 11s ease-in-out infinite;
+    }
+
+    body::after {
+      z-index: 0;
+      background:
+        radial-gradient(ellipse at calc(var(--shirt-focus-x) - 0.5%) calc(var(--shirt-focus-y) + 0.5%), rgba(255, 220, 150, 0.12) 0%, rgba(255, 220, 150, 0.08) 10%, rgba(0,0,0,0) 28%);
+      opacity: 0.55;
+      filter: blur(18px);
+      animation: shirtSigilBloom 16s ease-in-out infinite;
     }
 
     a {
@@ -63,6 +100,19 @@
         linear-gradient(rgba(0,0,0,0.78), rgba(0,0,0,0.82)),
         url("nate savard forever.png") 38% center / cover no-repeat fixed;
       transition: opacity 1s ease, visibility 1s ease;
+    }
+
+    .enter-screen::before {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      background:
+        radial-gradient(circle at var(--shirt-focus-x) var(--shirt-focus-y), rgba(255,255,255,0.12) 0%, rgba(255,230,180,0.10) 5%, rgba(255,210,130,0.06) 12%, rgba(0,0,0,0) 24%),
+        radial-gradient(ellipse at calc(var(--shirt-focus-x) - 0.2%) calc(var(--shirt-focus-y) + 1%), rgba(255,216,128,0.08), rgba(0,0,0,0) 18%);
+      mix-blend-mode: screen;
+      filter: blur(2px);
+      opacity: 0.78;
+      animation: shirtSigilPulse 11s ease-in-out infinite;
     }
 
     .enter-screen.hidden {
@@ -122,6 +172,14 @@
       cursor: pointer;
     }
 
+    .logo-stage {
+      display: grid;
+      place-items: center;
+      animation: logoArrival 7.2s cubic-bezier(.12,.82,.2,1) both;
+      transform-origin: center center;
+      will-change: transform;
+    }
+
     .logo-shell {
       position: relative;
       width: min(34vw, 280px);
@@ -133,6 +191,24 @@
         nwFlicker 5.7s ease-in-out infinite;
       transform-style: preserve-3d;
       transition: transform 0.18s ease, filter 0.18s ease;
+    }
+
+    .logo-shell.rebel-flag-shell {
+      width: min(34vw, 268px);
+      aspect-ratio: 1 / 1;
+    }
+
+    .logo-shell.rebel-flag-shell::before {
+      content: "";
+      position: absolute;
+      inset: 14% 2% 12%;
+      z-index: 0;
+      border-radius: 50%;
+      background:
+        radial-gradient(circle at 50% 38%, rgba(255, 228, 176, 0.18), rgba(255, 214, 138, 0.08) 34%, rgba(0,0,0,0) 72%);
+      filter: blur(24px);
+      opacity: 0.92;
+      pointer-events: none;
     }
 
     .main-logo {
@@ -150,6 +226,12 @@
         nwAudioPulse 1.8s ease-in-out infinite;
       transition: opacity 0.35s ease, transform 0.18s ease, filter 0.18s ease;
       will-change: transform, filter;
+    }
+
+    .main-logo.rebel-flag-logo {
+      width: min(100%, 268px);
+      max-height: min(62vh, 360px);
+      object-position: center;
     }
 
     .logo-shell:hover .main-logo,
@@ -282,6 +364,8 @@
     }
 
     .site-shell {
+      position: relative;
+      z-index: 1;
       opacity: 0;
       transform: translateY(20px);
       transition: opacity 1s ease 0.15s, transform 1s ease 0.15s;
@@ -341,6 +425,11 @@
       filter:
         drop-shadow(0 0 8px rgba(255, 194, 84, 0.18))
         drop-shadow(0 0 18px rgba(255, 194, 84, 0.10));
+    }
+
+    .brand-logo-slot img.rebel-flag-header-logo {
+      width: auto;
+      height: 56px;
     }
 
     .brand-logo-slot img.visible {
@@ -472,7 +561,7 @@
     }
 
     .hero-wordmark {
-      width: min(560px, 100%);
+      width: min(700px, 100%);
       max-width: 100%;
       display: block;
       filter:
@@ -871,6 +960,16 @@
       letter-spacing: 0.22em;
       text-transform: uppercase;
       margin-bottom: 10px;
+    }
+
+    .product-name-mark {
+      display: block;
+      width: min(100%, 240px);
+      height: auto;
+      margin-bottom: 10px;
+      filter:
+        drop-shadow(0 10px 20px rgba(0, 0, 0, 0.26))
+        drop-shadow(0 0 14px rgba(215, 171, 82, 0.08));
     }
 
     .product-desc {
@@ -1948,6 +2047,18 @@
       50% { transform: translateY(-10px) rotate(0.25deg); }
     }
 
+    @keyframes logoArrival {
+      0% {
+        transform: scale(1.86);
+      }
+      55% {
+        transform: scale(1.28);
+      }
+      100% {
+        transform: scale(1);
+      }
+    }
+
     @keyframes nwGlow {
       0%, 100% {
         transform: scale(1);
@@ -2017,6 +2128,38 @@
     @keyframes dustDriftC {
       0%   { transform: translate3d(0, 0, 0) scale(1); }
       100% { transform: translate3d(-60px, 110px, 0) scale(1.02); }
+    }
+
+    @keyframes shirtSigilPulse {
+      0%, 100% {
+        transform: scale(1) translate3d(0, 0, 0);
+        opacity: 0.58;
+      }
+      50% {
+        transform: scale(1.06) translate3d(0, -6px, 0);
+        opacity: 0.96;
+      }
+    }
+
+    @keyframes shirtSigilBloom {
+      0%, 100% {
+        transform: scale(1);
+        opacity: 0.38;
+      }
+      50% {
+        transform: scale(1.14);
+        opacity: 0.70;
+      }
+    }
+
+    @keyframes envyCrossSpinSlow {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    @keyframes envyCrossSpinReverseFast {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(-360deg); }
     }
 
     @keyframes heroFloat {
@@ -2104,6 +2247,11 @@
     }
 
     @media (max-width: 980px) {
+      :root {
+        --shirt-focus-x: 57%;
+        --shirt-focus-y: 31%;
+      }
+
       .hero,
       .buy-section,
       .product-grid,
@@ -2155,10 +2303,16 @@
     @media (max-width: 640px) {
       :root {
         --header-h: 84px;
+        --shirt-focus-x: 59%;
+        --shirt-focus-y: 29%;
       }
 
       .logo-shell {
         width: min(56vw, 220px);
+      }
+
+      .logo-shell.rebel-flag-shell {
+        width: min(54vw, 228px);
       }
 
       .brand-logo-slot {
@@ -2170,6 +2324,11 @@
         width: 46px;
       }
 
+      .brand-logo-slot img.rebel-flag-header-logo {
+        width: auto;
+        height: 46px;
+      }
+
       nav {
         gap: 14px;
       }
@@ -2179,7 +2338,7 @@
       }
 
       .hero-wordmark {
-        width: min(460px, 100%);
+        width: min(560px, 100%);
       }
 
       .section,
@@ -2283,6 +2442,41 @@
       border-color: rgba(215, 171, 82, 0.28);
       background: rgba(215, 171, 82, 0.11);
       box-shadow: inset 0 0 0 1px rgba(255, 237, 194, 0.05);
+    }
+
+    body.originals-page .floating-envy-cross {
+      position: fixed;
+      bottom: max(72px, calc(env(safe-area-inset-bottom, 0px) + 24px));
+      right: clamp(18px, 3vw, 42px);
+      z-index: 2300;
+      width: clamp(68px, 7vw, 96px);
+      display: grid;
+      place-items: center;
+      transition: transform 0.35s ease, opacity 0.35s ease;
+    }
+
+    body.originals-page .floating-envy-cross img {
+      width: 100%;
+      height: auto;
+      display: block;
+      opacity: 0.92;
+      transform-origin: center;
+      filter:
+        drop-shadow(0 14px 24px rgba(0, 0, 0, 0.32))
+        drop-shadow(0 0 16px rgba(215, 171, 82, 0.12));
+      animation: envyCrossSpinSlow 12s linear infinite;
+    }
+
+    body.originals-page .floating-envy-cross:hover {
+      transform: translateY(-3px);
+      opacity: 1;
+    }
+
+    body.originals-page .floating-envy-cross:hover img {
+      animation: envyCrossSpinReverseFast 2.1s linear infinite;
+      filter:
+        drop-shadow(0 16px 26px rgba(0, 0, 0, 0.36))
+        drop-shadow(0 0 20px rgba(215, 171, 82, 0.18));
     }
 
     body.originals-page .nlx-shared-topbar {
@@ -2398,6 +2592,12 @@
         padding: 8px;
       }
 
+      body.originals-page .floating-envy-cross {
+        bottom: max(64px, calc(env(safe-area-inset-bottom, 0px) + 18px));
+        right: 14px;
+        width: 74px;
+      }
+
       body.originals-page nav a {
         padding: 9px 12px;
         letter-spacing: 0.14em;
@@ -2411,24 +2611,26 @@
     <div class="enter-dust"></div>
 
     <button class="enter-button" id="enterButton" aria-label="Enter jewelry page">
-      <div class="logo-shell">
-        <div class="sigil-orbit"></div>
-        <div class="audio-ring"></div>
-        <img src="nls cross emblem.png" alt="Nate's World Emblem" class="main-logo" id="centerLogo" />
-        <div class="light-sweep"></div>
+      <div class="logo-stage">
+        <div class="logo-shell rebel-flag-shell">
+          <div class="sigil-orbit"></div>
+          <div class="audio-ring"></div>
+          <img src="nate savard patch (1).png" alt="Nate Savard patch logo" class="main-logo rebel-flag-logo" id="centerLogo" />
+          <div class="light-sweep"></div>
+        </div>
       </div>
       <div class="enter-text" id="enterText">enter</div>
     </button>
   </div>
 
-  <img src="nls cross emblem.png" alt="" class="flying-logo" id="flyingLogo" />
+  <img src="nate savard patch (1).png" alt="" class="flying-logo" id="flyingLogo" />
 
   <div class="site-shell" id="siteShell">
     <header>
       <div class="header-inner">
         <div class="brand">
           <div class="brand-logo-slot" id="logoTarget">
-            <img src="nls cross emblem.png" alt="Nate's World Emblem" id="headerLogo" />
+            <img src="nate savard patch (1).png" alt="Nate Savard patch logo" class="rebel-flag-header-logo" id="headerLogo" />
           </div>
           <div>
             <div class="brand-title">Nate Savard / The Original Collection</div>
@@ -2438,7 +2640,6 @@
 
         <nav>
           <a href="#about">Jewelry World</a>
-          <a href="#fusion">Jewelry x Fashion</a>
           <a href="#designs">Originals</a>
           <a href="envynomadix.html">Fashion House</a>
           <a href="#buy">Commissions</a>
@@ -2447,19 +2648,25 @@
       </div>
     </header>
 
+    <a href="#" class="floating-envy-cross" id="floatingTopCross" aria-label="Return to top">
+      <img src="envy-cross.png" alt="Envy cross" />
+    </a>
+
     <section class="hero" id="about">
       <div class="hero-copy">
-        <div class="eyebrow">THE GEM SAGE</div>
+        <div class="eyebrow">THE ORIGINAL COLLECTION</div>
         <div class="hero-title-row">
           <img src="nate savard.png" alt="Nate Savard sigil" class="hero-sigil" />
-          <img src="sage-hero-logo.svg" alt="Nate Savard symbol and presence" class="hero-wordmark" />
+          <img src="14.png" alt="Nate Savard wordmark" class="hero-wordmark" />
         </div>
         <p>
           My name is Nate Savard, and I want your next piece to come from me - something lasting, personal, and powerful enough to stay with you for life.
           <br><br>
+          On your journey, life will mold you, change you, break you, and set you free. You will watch friends become foes, feel real love, and face spiritual attacks just when you thought you had already seen it all. That is life. That is what makes us shine. And once you have truly lived, you know what fits, you know your body, and you know what deserves to be worn on it. Jewelry is the final piece: the thing people see on you and feel immediately as stature, story, and a life fully lived. Let me give you something forever, a statement piece that reflects who you are and the path that made you.
+          <br><br>
           Underground luxury for the ones who build myth. For the Chosen Few.
           Custom talismans, pendants, rings, cloaks, and symbolic objects forged for artists, outsiders, and icons. Statement pieces made from precious
-          stone, silk, linen, calf skin, gator - A cult luxury house of custom work and
+          stone, silk, linen, calf skin, gator - A luxury house of custom work and
           signature pieces lead by the one the only the original - Nate Savard.
           <br><br>
           The jewelry world now moves directly beside Envynomadix, so the stones, symbols, garments, and house marks start speaking as one collector language.
@@ -2478,63 +2685,27 @@
       </div>
     </section>
 
-    <section class="section" id="fusion">
-      <div class="fusion-shell">
-        <div class="section-head">
-          <div>
-            <div class="section-title">House Merge</div>
-            <p class="fusion-intro">
-              The Original Collection and Envynomadix are becoming the two main pillars of the site. Jewelry, garments, relic imagery, and private-order direction are now being built as one connected world instead of separate pages with separate energy.
-            </p>
-          </div>
-        </div>
-
-        <div class="fusion-grid">
-          <article class="fusion-card">
-            <div class="fusion-card-tag">The Original Collection</div>
-            <h3>Gemstones, Rings, And Talismans</h3>
-            <p>
-              Custom work, real stones, symbolic pieces, and collector-grade design built directly with Nate Savard. This is the metal-and-gem side of the house.
-            </p>
-          </article>
-
-          <article class="fusion-card">
-            <div class="fusion-card-tag">Envynomadix</div>
-            <h3>Garment House With The Same Symbol System</h3>
-            <p>
-              Distressed black garments, campaign relics, chrome marks, and house visuals now sit beside the jewelry line so styling and identity can move together.
-            </p>
-          </article>
-        </div>
-
-        <div class="fusion-actions">
-          <a href="envynomadix.html" class="btn primary">Open Envy House</a>
-          <a href="envynomadix-worldwide.html" class="btn secondary">View Envy Archive</a>
-        </div>
-      </div>
-    </section>
-
     <section class="section" id="designs">
       <div class="section-head">
         <div>
           <div class="section-title">Featured Signature Pieces</div>
           <div class="section-copy">
-            Original Nate Savard pieces built from gemstone force, heavy gold presence, and custom architecture. These are collector designs made to stand among the finest custom pieces in the world.
+            Original Nate Savard pieces built from gemstone force, heavy gold presence, silver 925 pressure, and custom architecture. These are collector designs made to stand among the finest custom pieces in the world.
           </div>
         </div>
       </div>
 
       <div class="product-grid">
         <article class="product-card">
-          <div class="product-image piece-trigger" tabindex="0" role="button" aria-label="Open Blue Oval Talisman image" data-piece-title="Blue Oval Talisman" data-piece-image="nate savard - nls 1.png">
-            <img src="nate savard - nls 1.png" alt="Blue Oval Talisman" />
+          <div class="product-image piece-trigger" tabindex="0" role="button" aria-label="Open Royal Marquise Sapphire Ring image" data-piece-title="Royal Marquise Sapphire Ring" data-piece-image="nate ring 1.2.png">
+            <img src="nate ring 1.2.png" alt="Royal marquise sapphire ring by Nate Savard" />
           </div>
           <div class="product-info">
-            <div class="product-name">Blue Oval Talisman</div>
+            <img class="product-name-mark" src="clean nate savard logo.png" alt="Nate Savard patch logo" />
             <div class="product-desc">
-              Long-form luxury pendant language with deep stone focus, black-and-gold contrast, and quiet authority.
+              Multi-angle ring study with blue marquise sapphire, ornate galleries, and diamond rails drawn as a full custom signet.
             </div>
-            <a href="mailto:natesavard@outlook.com?subject=Blue%20Oval%20Talisman" class="product-link">Inquire</a>
+            <a href="mailto:natesavard@outlook.com?subject=Royal%20Marquise%20Sapphire%20Ring" class="product-link">Inquire</a>
           </div>
         </article>
 
@@ -2563,85 +2734,33 @@
             <a href="mailto:natesavard@outlook.com?subject=Sapphire%20Spinner%20Reverse" class="product-link">Inquire</a>
           </div>
         </article>
-      </div>
-    </section>
 
-    <section class="section" id="builder">
-      <div class="section-head">
-        <div>
-          <div class="section-title">Sage Ring Builder</div>
-          <div class="section-copy">
-            Choose your stone force, silhouette, and metal tone. This builder narrows the Nate Savard archive and drafts a private commission email from your exact direction.
+        <article class="product-card">
+          <div class="product-image piece-trigger" tabindex="0" role="button" aria-label="Open NS Monogram Link Chain image" data-piece-title="NS Monogram Link Chain" data-piece-image="n cross chain.png">
+            <img src="n cross chain.png" alt="NS monogram silver link chain by Nate Savard" />
           </div>
-        </div>
-      </div>
-
-      <div class="builder-shell">
-        <div class="builder-panel">
-          <div class="builder-kicker">Private Commission Flow</div>
-          <p>
-            This is the Nate Savard version of a ring builder: not mass retail, but a direction-setting tool for serious custom work. Start with the feeling, lock the architecture, and route the finished build path straight to Nate.
-          </p>
-
-          <div class="builder-group">
-            <div class="builder-label">Stone force</div>
-            <div class="builder-pills">
-              <button class="builder-pill is-active" type="button" data-builder-filter="stone" data-builder-value="sapphire">Sapphire</button>
-              <button class="builder-pill" type="button" data-builder-filter="stone" data-builder-value="opal">Opal</button>
-              <button class="builder-pill" type="button" data-builder-filter="stone" data-builder-value="diamond">Diamond</button>
-              <button class="builder-pill" type="button" data-builder-filter="stone" data-builder-value="mixed">Mixed Stones</button>
+          <div class="product-info">
+            <div class="product-name">NS Monogram Link Chain</div>
+            <div class="product-desc">
+              Silver monogram chain built from repeating NS cross links, made for people who want house identity and metal presence without losing edge.
             </div>
+            <a href="mailto:natesavard@outlook.com?subject=NS%20Monogram%20Link%20Chain" class="product-link">Inquire</a>
           </div>
+        </article>
 
-          <div class="builder-group">
-            <div class="builder-label">Silhouette</div>
-            <div class="builder-pills">
-              <button class="builder-pill is-active" type="button" data-builder-filter="silhouette" data-builder-value="signet">Signet</button>
-              <button class="builder-pill" type="button" data-builder-filter="silhouette" data-builder-value="spinner">Spinner</button>
-              <button class="builder-pill" type="button" data-builder-filter="silhouette" data-builder-value="cathedral">Cathedral</button>
-              <button class="builder-pill" type="button" data-builder-filter="silhouette" data-builder-value="pendant">Pendant</button>
+        <article class="product-card">
+          <div class="product-image piece-trigger" tabindex="0" role="button" aria-label="Open Envy Script Chain image" data-piece-title="Envy Script Chain" data-piece-image="envy-script-chain-dark.png">
+            <img src="envy-script-chain-dark.png" alt="Envy script silver chain by Nate Savard" />
+          </div>
+          <div class="product-info">
+            <div class="product-name">Envy Script Chain</div>
+            <div class="product-desc">
+              Silver script chain with a darker luxury finish, built to carry the house name in a sharper, more everyday collector direction.
             </div>
+            <a href="mailto:natesavard@outlook.com?subject=Envy%20Script%20Chain" class="product-link">Inquire</a>
           </div>
+        </article>
 
-          <div class="builder-group">
-            <div class="builder-label">Metal tone</div>
-            <div class="builder-pills">
-              <button class="builder-pill is-active" type="button" data-builder-filter="metal" data-builder-value="yellow">Yellow Gold</button>
-              <button class="builder-pill" type="button" data-builder-filter="metal" data-builder-value="black">Black Gold</button>
-              <button class="builder-pill" type="button" data-builder-filter="metal" data-builder-value="white">White Fire</button>
-            </div>
-          </div>
-
-          <div class="builder-summary" aria-live="polite">
-            <div class="builder-summary-line">Current build path</div>
-            <span class="builder-summary-value" id="builderSummaryValue">Sapphire / Signet / Yellow Gold</span>
-            <p class="builder-summary-copy" id="builderSummaryCopy">
-              Heavy sapphire signet energy in rich yellow gold, narrowed to Nate Savard directions that already carry legacy weight.
-            </p>
-          </div>
-
-          <div class="builder-actions">
-            <a href="mailto:natesavard@outlook.com?subject=Sage%20Ring%20Builder%20Inquiry" class="btn primary" id="builderMailLink">Send This Build To Nate</a>
-            <a href="#archive" class="btn secondary">Browse Full Archive</a>
-          </div>
-        </div>
-
-        <div class="builder-stage">
-          <div class="builder-preview">
-            <div class="builder-preview-media piece-trigger" id="builderHeroTrigger" tabindex="0" role="button" aria-label="Open builder preview piece" data-piece-title="Royal Sapphire Signet" data-piece-image="nate savard - nls 2.jpg">
-              <img src="nate savard - nls 2.jpg" alt="Royal Sapphire Signet builder preview" id="builderHeroImage" />
-            </div>
-            <div class="builder-preview-copy">
-              <div class="builder-preview-kicker" id="builderHeroTags">Sapphire / Signet / Yellow Gold</div>
-              <h3 class="builder-preview-title" id="builderHeroTitle">Royal Sapphire Signet</h3>
-              <p class="builder-preview-desc" id="builderHeroDesc">
-                Carved gold texture, side sapphires, and a dominant center stone built with old-world authority and full custom weight.
-              </p>
-            </div>
-          </div>
-
-          <div class="builder-match-grid" id="builderMatchGrid"></div>
-        </div>
       </div>
     </section>
 
@@ -2850,6 +2969,85 @@
             <a href="mailto:natesavard@outlook.com?subject=NS%20Monogram%20Signet" class="product-link">Inquire</a>
           </div>
         </article>
+      </div>
+    </section>
+
+    <section class="section" id="builder">
+      <div class="section-head">
+        <div>
+          <div class="section-title">Original Collection Ring Builder</div>
+          <div class="section-copy">
+            Choose your stone force, silhouette, and metal tone. This builder narrows the Nate Savard archive and drafts a private commission email from your exact direction.
+          </div>
+        </div>
+      </div>
+
+      <div class="builder-shell">
+        <div class="builder-panel">
+          <div class="builder-kicker">Private Commission Flow</div>
+          <p>
+            This is the Nate Savard version of a ring builder: not mass retail, but a direction-setting tool for serious custom work. Start with the feeling, lock the architecture, and route the finished build path straight to Nate.
+          </p>
+
+          <div class="builder-group">
+            <div class="builder-label">Stone force</div>
+            <div class="builder-pills">
+              <button class="builder-pill is-active" type="button" data-builder-filter="stone" data-builder-value="sapphire">Sapphire</button>
+              <button class="builder-pill" type="button" data-builder-filter="stone" data-builder-value="opal">Opal</button>
+              <button class="builder-pill" type="button" data-builder-filter="stone" data-builder-value="diamond">Diamond</button>
+              <button class="builder-pill" type="button" data-builder-filter="stone" data-builder-value="mixed">Mixed Stones</button>
+            </div>
+          </div>
+
+          <div class="builder-group">
+            <div class="builder-label">Silhouette</div>
+            <div class="builder-pills">
+              <button class="builder-pill is-active" type="button" data-builder-filter="silhouette" data-builder-value="signet">Signet</button>
+              <button class="builder-pill" type="button" data-builder-filter="silhouette" data-builder-value="spinner">Spinner</button>
+              <button class="builder-pill" type="button" data-builder-filter="silhouette" data-builder-value="cathedral">Cathedral</button>
+              <button class="builder-pill" type="button" data-builder-filter="silhouette" data-builder-value="pendant">Pendant</button>
+            </div>
+          </div>
+
+          <div class="builder-group">
+            <div class="builder-label">Metal tone</div>
+            <div class="builder-pills">
+              <button class="builder-pill is-active" type="button" data-builder-filter="metal" data-builder-value="yellow">Yellow Gold</button>
+              <button class="builder-pill" type="button" data-builder-filter="metal" data-builder-value="black">Black Gold</button>
+              <button class="builder-pill" type="button" data-builder-filter="metal" data-builder-value="white">White Fire</button>
+            </div>
+          </div>
+
+          <div class="builder-summary" aria-live="polite">
+            <div class="builder-summary-line">Current build path</div>
+            <span class="builder-summary-value" id="builderSummaryValue">Sapphire / Signet / Yellow Gold</span>
+            <p class="builder-summary-copy" id="builderSummaryCopy">
+              Heavy sapphire signet energy in rich yellow gold, narrowed to Nate Savard directions that already carry legacy weight.
+            </p>
+          </div>
+
+          <div class="builder-actions">
+            <a href="mailto:natesavard@outlook.com?subject=Original%20Collection%20Ring%20Builder%20Inquiry" class="btn primary" id="builderMailLink">Send This Build To Nate</a>
+            <a href="#archive" class="btn secondary">Browse Full Archive</a>
+          </div>
+        </div>
+
+        <div class="builder-stage">
+          <div class="builder-preview">
+            <div class="builder-preview-media piece-trigger" id="builderHeroTrigger" tabindex="0" role="button" aria-label="Open builder preview piece" data-piece-title="Royal Sapphire Signet" data-piece-image="nate savard - nls 2.jpg">
+              <img src="nate savard - nls 2.jpg" alt="Royal Sapphire Signet builder preview" id="builderHeroImage" />
+            </div>
+            <div class="builder-preview-copy">
+              <div class="builder-preview-kicker" id="builderHeroTags">Sapphire / Signet / Yellow Gold</div>
+              <h3 class="builder-preview-title" id="builderHeroTitle">Royal Sapphire Signet</h3>
+              <p class="builder-preview-desc" id="builderHeroDesc">
+                Carved gold texture, side sapphires, and a dominant center stone built with old-world authority and full custom weight.
+              </p>
+            </div>
+          </div>
+
+          <div class="builder-match-grid" id="builderMatchGrid"></div>
+        </div>
       </div>
     </section>
 
@@ -3075,6 +3273,7 @@
     const flyingLogo = document.getElementById('flyingLogo');
     const logoTarget = document.getElementById('logoTarget');
     const headerLogo = document.getElementById('headerLogo');
+    const floatingTopCross = document.getElementById('floatingTopCross');
     const footerScrollTop = document.getElementById('footerScrollTop');
     const logoShell = document.querySelector('.logo-shell');
 
@@ -3082,6 +3281,10 @@
 
     function rect(el) {
       return el.getBoundingClientRect();
+    }
+
+    function scrollToTopSmooth() {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
     enterButton.addEventListener('click', () => {
@@ -3104,10 +3307,11 @@
 
       requestAnimationFrame(() => {
         requestAnimationFrame(() => {
-          const targetSize = window.innerWidth <= 640 ? 46 : 58;
-          flyingLogo.style.left = `${target.left + (target.width - targetSize) / 2}px`;
-          flyingLogo.style.top = `${target.top + (target.height - targetSize) / 2}px`;
-          flyingLogo.style.width = `${targetSize}px`;
+          const targetWidth = window.innerWidth <= 640 ? 46 : 56;
+          const targetHeight = window.innerWidth <= 640 ? 46 : 56;
+          flyingLogo.style.left = `${target.left + (target.width - targetWidth) / 2}px`;
+          flyingLogo.style.top = `${target.top + (target.height - targetHeight) / 2}px`;
+          flyingLogo.style.width = `${targetWidth}px`;
         });
       });
 
@@ -3125,15 +3329,22 @@
       }, 1480);
     });
 
+    if (floatingTopCross) {
+      floatingTopCross.addEventListener('click', (e) => {
+        e.preventDefault();
+        scrollToTopSmooth();
+      });
+    }
+
     if (footerScrollTop) {
       footerScrollTop.addEventListener('click', () => {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+        scrollToTopSmooth();
       });
 
       footerScrollTop.addEventListener('keydown', (e) => {
         if (e.key === 'Enter' || e.key === ' ') {
           e.preventDefault();
-          window.scrollTo({ top: 0, behavior: 'smooth' });
+          scrollToTopSmooth();
         }
       });
     }
@@ -3446,7 +3657,7 @@
           'Please send me next steps, pricing direction, and whether we should build from one of these directions or create a fresh one-of-one.'
         ];
 
-        mailLink.href = `mailto:natesavard@outlook.com?subject=${encodeURIComponent(`Sage Ring Builder - ${stoneLabel} ${silhouetteLabel}`)}&body=${encodeURIComponent(lines.join('\n'))}`;
+        mailLink.href = `mailto:natesavard@outlook.com?subject=${encodeURIComponent(`Original Collection Ring Builder - ${stoneLabel} ${silhouetteLabel}`)}&body=${encodeURIComponent(lines.join('\n'))}`;
       }
 
       function updateBuilder() {
