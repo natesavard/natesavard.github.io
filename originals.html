@@ -498,7 +498,7 @@
       top: 44px;
       width: min(58vw, 760px);
       height: min(58vw, 760px);
-      background: url("nate savard.png") center center / contain no-repeat;
+      background: url("ns-logo-chrome.png") center center / contain no-repeat;
       opacity: 0.06;
       filter:
         drop-shadow(0 0 20px rgba(255, 194, 84, 0.12))
@@ -669,12 +669,12 @@
 
     .hero-feature-mark {
       display: block;
-      width: min(100%, 280px);
+      width: min(100%, 260px);
       height: auto;
       opacity: 0.9;
       filter:
-        invert(1)
-        brightness(1.06)
+        brightness(1.08)
+        contrast(1.08)
         drop-shadow(0 12px 20px rgba(0, 0, 0, 0.34))
         drop-shadow(0 0 18px rgba(214, 168, 79, 0.12));
     }
@@ -2435,13 +2435,18 @@
 
     body.originals-page .floating-envy-cross {
       position: fixed;
-      bottom: clamp(132px, 16vh, 196px);
-      right: clamp(18px, 3vw, 42px);
-      z-index: 3400;
-      width: clamp(74px, 7.6vw, 104px);
+      right: 24px;
+      bottom: 24px;
+      top: auto;
+      z-index: 2600;
+      width: clamp(64px, 8vw, 96px);
       display: grid;
       place-items: center;
       opacity: 1;
+      text-decoration: none;
+      filter:
+        drop-shadow(0 16px 28px rgba(0, 0, 0, 0.42))
+        drop-shadow(0 0 18px rgba(255, 255, 255, 0.1));
       transition: transform 0.35s ease, opacity 0.35s ease;
     }
 
@@ -2451,22 +2456,15 @@
       display: block;
       opacity: 0.92;
       transform-origin: center;
-      filter:
-        drop-shadow(0 14px 24px rgba(0, 0, 0, 0.32))
-        drop-shadow(0 0 16px rgba(215, 171, 82, 0.12));
-      animation: envyCrossSpinSlow 12s linear infinite;
-    }
-
-    body.originals-page .floating-envy-cross:hover {
-      transform: translateY(-3px);
-      opacity: 1;
+      transition: filter 0.35s ease, opacity 0.35s ease;
+      animation: envyCrossSpinSlow 8.5s linear infinite;
     }
 
     body.originals-page .floating-envy-cross:hover img {
-      animation: envyCrossSpinReverseFast 2.1s linear infinite;
+      animation: envyCrossSpinReverseFast 1.8s linear infinite;
       filter:
-        drop-shadow(0 16px 26px rgba(0, 0, 0, 0.36))
-        drop-shadow(0 0 20px rgba(215, 171, 82, 0.18));
+        drop-shadow(0 18px 30px rgba(0, 0, 0, 0.46))
+        drop-shadow(0 0 24px rgba(255, 255, 255, 0.16));
     }
 
     body.originals-page .nlx-shared-topbar {
@@ -2583,9 +2581,9 @@
       }
 
       body.originals-page .floating-envy-cross {
-        bottom: clamp(96px, 14vh, 144px);
-        right: 14px;
-        width: 78px;
+        right: 16px;
+        bottom: 16px;
+        width: 72px;
       }
 
       body.originals-page nav a {
@@ -2613,18 +2611,22 @@
     </button>
   </div>
 
-  <img src="nate savard patch (1).png" alt="" class="flying-logo" id="flyingLogo" />
+        <img src="nate savard patch (1).png" alt="" class="flying-logo" id="flyingLogo" />
+
+  <a href="#" class="floating-envy-cross" id="floatingTopCross" aria-label="Return to top">
+    <img src="envy-cross.png" alt="Envy cross" />
+  </a>
 
   <div class="site-shell" id="siteShell">
     <header>
       <div class="header-inner">
         <div class="brand">
           <div class="brand-logo-slot" id="logoTarget" role="button" tabindex="0" aria-label="Reload intro screen">
-            <img src="nate savard patch (1).png" alt="Nate Savard patch logo" class="rebel-flag-header-logo" id="headerLogo" />
+            <img src="ns-logo-chrome.png" alt="Nate Savard chrome logo" class="rebel-flag-header-logo" id="headerLogo" />
           </div>
           <div>
             <div class="brand-title">Nate Savard / The Original Collection</div>
-            <div class="brand-sub">jewelry world, fashion links, and private commissions</div>
+            <div class="brand-sub">runway streetwear jewel encrusted garments hand made original gemstone pendants and rings</div>
           </div>
         </div>
 
@@ -2638,15 +2640,11 @@
       </div>
     </header>
 
-    <a href="#" class="floating-envy-cross" id="floatingTopCross" aria-label="Return to top">
-      <img src="envy-cross.png" alt="Envy cross" />
-    </a>
-
     <section class="hero" id="about">
       <div class="hero-copy">
         <div class="eyebrow">THE ORIGINAL COLLECTION</div>
         <div class="hero-title-row">
-          <img src="nate savard.png" alt="Nate Savard sigil" class="hero-sigil" />
+          <img src="ns-logo-chrome.png" alt="Nate Savard chrome logo" class="hero-sigil" />
           <img src="14.png" alt="Nate Savard wordmark" class="hero-wordmark" />
         </div>
         <p>
@@ -2672,7 +2670,7 @@
         <div class="hero-card piece-trigger" tabindex="0" role="button" aria-label="Open Royal Marquise Sapphire Ring image" data-piece-title="Royal Marquise Sapphire Ring" data-piece-image="nate ring 1.2.png">
           <img src="nate ring 1.2.png" alt="Royal marquise sapphire ring by Nate Savard" />
         </div>
-        <img class="hero-feature-mark" src="clean nate savard logo.png" alt="Nate Savard patch logo" />
+        <img class="hero-feature-mark" src="nsavard-patch.png" alt="Nate Savard patch logo" />
       </div>
     </section>
 

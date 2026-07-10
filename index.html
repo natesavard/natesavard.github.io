@@ -4,20 +4,21 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="theme-color" content="#050505" />
-  <title>The Original Collection x Envynomadix</title>
+  <title>Nate Savard Entry Gate</title>
   <style>
     :root {
       --bg: #050505;
-      --ink: #f4ecdf;
-      --sand: #d8c4a2;
-      --sand-soft: rgba(216, 196, 162, 0.76);
+      --ink: #f5efe6;
+      --sand: #d9c09a;
       --gold: #d7ab52;
-      --gold-soft: rgba(215, 171, 82, 0.68);
+      --gold-soft: rgba(215, 171, 82, 0.62);
       --line: rgba(215, 171, 82, 0.18);
-      --line-strong: rgba(215, 171, 82, 0.32);
-      --panel: rgba(10, 7, 5, 0.72);
-      --panel-strong: rgba(14, 10, 7, 0.9);
-      --shadow: 0 30px 90px rgba(0, 0, 0, 0.42);
+      --line-strong: rgba(255, 228, 176, 0.22);
+      --panel-dark: rgba(9, 7, 5, 0.76);
+      --panel-steel: rgba(72, 72, 76, 0.34);
+      --shadow: 0 30px 90px rgba(0, 0, 0, 0.46);
+      --mono: "Courier New", monospace;
+      --serif: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", Georgia, serif;
     }
 
     * {
@@ -30,16 +31,18 @@
       min-height: 100%;
       background: var(--bg);
       color: var(--ink);
-      font-family: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", Georgia, serif;
+      font-family: var(--serif);
     }
 
     body {
       position: relative;
-      overflow-x: hidden;
+      overflow: hidden;
     }
 
     body::before,
-    body::after {
+    body::after,
+    .entry-shell::before,
+    .entry-shell::after {
       content: "";
       position: fixed;
       inset: 0;
@@ -47,30 +50,46 @@
     }
 
     body::before {
-      z-index: -3;
-      transform: scale(1.03);
+      z-index: -4;
       background:
-        linear-gradient(90deg, rgba(7, 6, 5, 0.86) 0%, rgba(7, 6, 5, 0.44) 28%, rgba(7, 6, 5, 0.18) 56%, rgba(7, 6, 5, 0.66) 100%),
-        radial-gradient(circle at 74% 20%, rgba(215, 171, 82, 0.24), transparent 18%),
-        radial-gradient(circle at 16% 74%, rgba(248, 231, 199, 0.08), transparent 22%),
-        linear-gradient(180deg, rgba(0, 0, 0, 0.18), rgba(0, 0, 0, 0.62)),
-        url("nate savard forever.png") center center / cover no-repeat fixed;
-      filter: saturate(0.92) contrast(1.02) brightness(0.8);
+        linear-gradient(rgba(0,0,0,0.58), rgba(0,0,0,0.76)),
+        radial-gradient(circle at 76% 18%, rgba(255, 226, 174, 0.10), rgba(0,0,0,0) 24%),
+        radial-gradient(circle at 14% 80%, rgba(245, 233, 204, 0.08), rgba(0,0,0,0) 26%),
+        url("nate savard forever.png") 38% center / cover no-repeat fixed;
+      transform: scale(1.02);
+      filter: saturate(0.94) contrast(1.04) brightness(0.88);
     }
 
     body::after {
-      z-index: -2;
-      opacity: 0.92;
+      z-index: -3;
       background:
-        linear-gradient(180deg, rgba(4, 4, 4, 0.08) 0%, rgba(4, 4, 4, 0) 22%, rgba(4, 4, 4, 0) 68%, rgba(4, 4, 4, 0.94) 100%),
+        linear-gradient(180deg, rgba(4,4,4,0.02) 0%, rgba(4,4,4,0.0) 26%, rgba(4,4,4,0.0) 74%, rgba(4,4,4,0.92) 100%),
         repeating-linear-gradient(
           to bottom,
-          rgba(255, 255, 255, 0.014) 0,
-          rgba(255, 255, 255, 0.014) 1px,
+          rgba(255,255,255,0.012) 0,
+          rgba(255,255,255,0.012) 1px,
           transparent 2px,
           transparent 5px
         );
       mix-blend-mode: screen;
+      opacity: 0.9;
+    }
+
+    .entry-shell::before {
+      z-index: -2;
+      background:
+        radial-gradient(circle at 47% 30%, rgba(255,255,255,0.14) 0%, rgba(255,233,190,0.11) 4.5%, rgba(255,205,120,0.07) 10%, rgba(0,0,0,0) 22%),
+        radial-gradient(ellipse at 46% 31%, rgba(255,220,150,0.11) 0%, rgba(255,220,150,0.05) 11%, rgba(0,0,0,0) 28%);
+      mix-blend-mode: screen;
+      opacity: 0.72;
+      animation: shirtGlow 9s ease-in-out infinite;
+    }
+
+    .entry-shell::after {
+      z-index: -1;
+      background:
+        radial-gradient(circle at 50% 50%, rgba(255, 214, 120, 0.06), transparent 34%),
+        linear-gradient(90deg, rgba(0,0,0,0.45), rgba(0,0,0,0.08) 18%, rgba(0,0,0,0.08) 82%, rgba(0,0,0,0.45));
     }
 
     a {
@@ -78,343 +97,285 @@
       text-decoration: none;
     }
 
-    .page {
-      position: relative;
+    .entry-shell {
       min-height: 100vh;
+      padding: 22px 0 26px;
     }
 
-    .page::before,
-    .page::after {
-      content: "";
-      position: fixed;
-      pointer-events: none;
-      z-index: -1;
-    }
-
-    .page::before {
-      top: -10vh;
-      left: -8vw;
-      width: 46vw;
-      height: 46vw;
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba(246, 219, 171, 0.12) 0%, rgba(246, 219, 171, 0) 64%);
-      filter: blur(24px);
-      animation: breathe 12s ease-in-out infinite;
-    }
-
-    .page::after {
-      right: -12vw;
-      bottom: 2vh;
-      width: 48vw;
-      height: 48vw;
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba(215, 171, 82, 0.1) 0%, rgba(215, 171, 82, 0) 62%);
-      filter: blur(28px);
-      animation: breathe 14s ease-in-out infinite reverse;
-    }
-
-    .topline,
-    .hero-stage,
-    .collector-grid,
-    .merge-panel {
-      width: min(1380px, calc(100vw - 40px));
+    .entry-top,
+    .entry-gate,
+    .entry-bottom {
+      width: min(1460px, calc(100vw - 42px));
       margin: 0 auto;
     }
 
-    .topline {
+    .entry-top,
+    .entry-bottom {
       display: flex;
       justify-content: space-between;
       align-items: center;
       gap: 16px;
-      padding: 24px 0 0;
-      color: var(--sand-soft);
-      font-family: "Courier New", monospace;
+      color: rgba(245, 239, 230, 0.74);
+      font-family: var(--mono);
       font-size: 10px;
       letter-spacing: 0.28em;
       text-transform: uppercase;
     }
 
-    .topline-links {
+    .entry-links {
       display: flex;
       flex-wrap: wrap;
       justify-content: flex-end;
       gap: 14px;
     }
 
-    .topline-links a {
+    .entry-links a,
+    .entry-bottom a {
       opacity: 0.82;
-      transition: opacity 0.25s ease, color 0.25s ease;
+      transition: opacity 0.22s ease, color 0.22s ease;
     }
 
-    .topline-links a:hover {
+    .entry-links a:hover,
+    .entry-bottom a:hover {
       opacity: 1;
       color: var(--ink);
     }
 
-    .hero-stage {
-      position: relative;
-      min-height: calc(100vh - 34px);
+    .entry-gate {
+      min-height: calc(100vh - 104px);
       display: grid;
-      grid-template-columns: minmax(0, 1fr) minmax(320px, 430px);
-      gap: 30px;
-      align-items: center;
-      padding: 54px 0 96px;
+      grid-template-columns: minmax(0, 1fr) minmax(220px, 290px) minmax(0, 1fr);
+      gap: clamp(16px, 2.8vw, 38px);
+      align-items: stretch;
+      padding: 28px 0 24px;
     }
 
-    .hero-stage::after {
-      content: "";
-      position: absolute;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      height: 180px;
-      background: linear-gradient(180deg, rgba(5, 5, 5, 0), rgba(5, 5, 5, 0.92));
-      pointer-events: none;
-    }
-
-    .hero-ghost {
-      align-self: end;
-      max-width: 520px;
-      padding: 0 0 28px 6px;
-    }
-
-    .hero-kicker,
-    .panel-kicker,
-    .card-kicker,
-    .merge-kicker,
-    .quote-label {
-      color: var(--gold-soft);
-      font-family: "Courier New", monospace;
-      font-size: 10px;
-      letter-spacing: 0.3em;
-      text-transform: uppercase;
-    }
-
-    .hero-kicker {
-      margin-bottom: 16px;
-    }
-
-    .hero-ghost h1 {
-      margin: 0;
-      font-size: clamp(3.1rem, 7vw, 6.8rem);
-      line-height: 0.88;
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-      text-shadow: 0 22px 80px rgba(0, 0, 0, 0.58);
-    }
-
-    .hero-ghost h1 span {
-      color: rgba(215, 171, 82, 0.8);
-    }
-
-    .hero-ghost p {
-      max-width: 30rem;
-      margin: 18px 0 0;
-      color: rgba(244, 236, 223, 0.72);
-      font-size: 0.98rem;
-      line-height: 1.8;
-    }
-
-    .signature-panel {
+    .path-card {
       position: relative;
       overflow: hidden;
-      padding: 26px 24px 24px;
+      min-height: clamp(460px, 72vh, 760px);
       border: 1px solid var(--line);
-      background:
-        linear-gradient(180deg, rgba(17, 12, 8, 0.78), rgba(7, 5, 4, 0.9)),
-        radial-gradient(circle at top, rgba(215, 171, 82, 0.12), transparent 38%);
-      backdrop-filter: blur(16px);
       box-shadow: var(--shadow);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      transition: transform 0.28s ease, border-color 0.28s ease, box-shadow 0.28s ease;
     }
 
-    .signature-panel::before {
+    .path-card::before,
+    .path-card::after {
       content: "";
       position: absolute;
       inset: 0;
-      background:
-        linear-gradient(
-          122deg,
-          transparent 0%,
-          rgba(255, 246, 228, 0) 42%,
-          rgba(255, 246, 228, 0.08) 50%,
-          rgba(255, 246, 228, 0) 58%,
-          transparent 100%
-        );
-      transform: translateX(-140%);
-      animation: sweep 11s ease-in-out infinite;
-      mix-blend-mode: screen;
       pointer-events: none;
     }
 
-    .signature-panel > * {
+    .path-card::before {
+      background:
+        linear-gradient(
+          118deg,
+          rgba(255,255,255,0) 0%,
+          rgba(255,255,255,0) 40%,
+          rgba(255,255,255,0.08) 50%,
+          rgba(255,255,255,0) 60%,
+          rgba(255,255,255,0) 100%
+        );
+      transform: translateX(-140%);
+      animation: sweep 10.8s ease-in-out infinite;
+      mix-blend-mode: screen;
+      opacity: 0.7;
+    }
+
+    .path-card::after {
+      border: 1px solid rgba(255, 244, 224, 0.05);
+      inset: 12px;
+    }
+
+    .path-card:hover {
+      transform: translateY(-6px);
+      border-color: var(--line-strong);
+      box-shadow: 0 36px 110px rgba(0, 0, 0, 0.58);
+    }
+
+    .path-card.left-card {
+      background:
+        radial-gradient(circle at 50% 24%, rgba(255, 226, 174, 0.08), transparent 20%),
+        linear-gradient(180deg, rgba(12, 10, 8, 0.82), rgba(2, 2, 2, 0.92)),
+        #050505;
+    }
+
+    .path-card.right-card {
+      background:
+        radial-gradient(circle at 50% 24%, rgba(255,255,255,0.14), transparent 20%),
+        linear-gradient(180deg, rgba(104, 104, 110, 0.34), rgba(22, 22, 26, 0.90)),
+        var(--panel-steel);
+      border-color: rgba(255,255,255,0.10);
+    }
+
+    .path-link {
       position: relative;
       z-index: 1;
-    }
-
-    .signature-panel h2 {
-      margin: 12px 0 0;
-      font-size: clamp(2rem, 4vw, 3.3rem);
-      line-height: 0.92;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-    }
-
-    .panel-copy,
-    .signature-quote {
-      margin: 18px 0 0;
-      color: rgba(244, 236, 223, 0.76);
-      font-size: 0.98rem;
-      line-height: 1.86;
-    }
-
-    .signature-quote {
-      padding-top: 16px;
-      border-top: 1px solid rgba(215, 171, 82, 0.14);
-      font-style: italic;
-    }
-
-    .quote-label {
-      display: block;
-      margin-bottom: 10px;
-      font-style: normal;
-    }
-
-    .signature-menu {
       display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-top: 24px;
+      flex-direction: column;
+      justify-content: space-between;
+      width: 100%;
+      height: 100%;
+      padding: 28px;
+      gap: 16px;
     }
 
-    .signature-link {
-      display: inline-flex;
+    .path-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 12px;
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: rgba(245, 239, 230, 0.7);
+    }
+
+    .path-index {
+      color: rgba(215, 171, 82, 0.86);
+    }
+
+    .path-title {
+      margin: 0;
+      font-size: clamp(2rem, 4.6vw, 4.4rem);
+      line-height: 0.88;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      text-shadow: 0 22px 70px rgba(0, 0, 0, 0.52);
+      text-wrap: balance;
+    }
+
+    .path-copy {
+      max-width: 18rem;
+      margin: 14px 0 0;
+      color: rgba(245, 239, 230, 0.74);
+      font-size: 0.98rem;
+      line-height: 1.82;
+    }
+
+    .path-logo-wrap {
+      flex: 1;
+      display: flex;
       align-items: center;
       justify-content: center;
-      min-width: 0;
-      padding: 10px 12px;
-      border: 1px solid rgba(215, 171, 82, 0.18);
-      background: rgba(255, 255, 255, 0.02);
+      padding: 10px 0 18px;
+    }
+
+    .path-logo {
+      display: block;
+      width: min(100%, clamp(250px, 26vw, 400px));
+      height: auto;
+      transition: transform 0.3s ease, filter 0.3s ease;
+      will-change: transform, filter;
+    }
+
+    .left-card .path-logo {
+      filter:
+        drop-shadow(0 0 16px rgba(255,255,255,0.08))
+        drop-shadow(0 0 36px rgba(255,255,255,0.05))
+        drop-shadow(0 24px 44px rgba(0,0,0,0.42));
+      animation: nsFloat 7.2s ease-in-out infinite;
+    }
+
+    .right-card .path-logo {
+      width: min(100%, clamp(250px, 24vw, 360px));
+      filter:
+        drop-shadow(0 0 12px rgba(255,255,255,0.16))
+        drop-shadow(0 0 30px rgba(255,255,255,0.08))
+        drop-shadow(0 22px 40px rgba(0,0,0,0.38));
+      animation: crossFloat 7.6s ease-in-out infinite;
+    }
+
+    .path-card:hover .path-logo {
+      transform: scale(1.04);
+      filter:
+        drop-shadow(0 0 18px rgba(255,255,255,0.16))
+        drop-shadow(0 0 40px rgba(255,235,190,0.12))
+        drop-shadow(0 26px 50px rgba(0,0,0,0.48));
+    }
+
+    .path-route {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
       color: var(--sand);
-      font-family: "Courier New", monospace;
-      font-size: 0.66rem;
+      font-family: var(--mono);
+      font-size: 0.72rem;
       letter-spacing: 0.18em;
       text-transform: uppercase;
-      transition: transform 0.25s ease, border-color 0.25s ease, background 0.25s ease, color 0.25s ease;
     }
 
-    .signature-link.is-primary {
-      background: linear-gradient(180deg, rgba(215, 171, 82, 0.18), rgba(215, 171, 82, 0.06));
-      color: var(--ink);
+    .path-route::after {
+      content: ">>";
+      color: rgba(255, 232, 184, 0.88);
     }
 
-    .signature-link:hover {
-      transform: translateY(-2px);
-      border-color: rgba(215, 171, 82, 0.42);
-      background: rgba(215, 171, 82, 0.12);
-      color: var(--ink);
+    .gate-center {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      gap: 18px;
+      padding: 20px 8px;
     }
 
-    .panel-note {
-      margin-top: 20px;
-      color: rgba(216, 196, 162, 0.78);
-      font-family: "Courier New", monospace;
-      font-size: 0.7rem;
-      letter-spacing: 0.16em;
+    .center-line {
+      width: 1px;
+      height: min(14vh, 118px);
+      background: linear-gradient(180deg, rgba(255,255,255,0), rgba(215,171,82,0.9), rgba(255,255,255,0));
+      box-shadow: 0 0 16px rgba(215, 171, 82, 0.26);
+    }
+
+    .center-wordmark {
+      width: min(100%, 248px);
+      height: auto;
+      opacity: 0.94;
+      filter:
+        drop-shadow(0 8px 28px rgba(0,0,0,0.34))
+        drop-shadow(0 0 12px rgba(255, 232, 184, 0.08));
+    }
+
+    .center-kicker,
+    .center-note {
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.28em;
       text-transform: uppercase;
+    }
+
+    .center-kicker {
+      color: rgba(215, 171, 82, 0.8);
+    }
+
+    .center-title {
+      margin: 0;
+      font-size: clamp(1.8rem, 3vw, 3.4rem);
+      line-height: 0.94;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      text-wrap: balance;
+    }
+
+    .center-copy {
+      max-width: 15rem;
+      margin: 0;
+      color: rgba(245, 239, 230, 0.74);
+      font-size: 0.95rem;
+      line-height: 1.78;
+    }
+
+    .center-note {
+      color: rgba(245, 239, 230, 0.56);
       line-height: 1.8;
     }
 
-    .collector-grid {
-      position: relative;
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 18px;
-      padding-bottom: 20px;
-    }
-
-    .collector-card,
-    .merge-panel {
-      position: relative;
-      overflow: hidden;
-      border: 1px solid var(--line);
-      background:
-        linear-gradient(180deg, rgba(14, 10, 7, 0.82), rgba(7, 6, 5, 0.92)),
-        radial-gradient(circle at top, rgba(215, 171, 82, 0.08), transparent 34%);
-      backdrop-filter: blur(14px);
-      box-shadow: var(--shadow);
-    }
-
-    .collector-card {
-      padding: 28px 24px;
-    }
-
-    .collector-card h3,
-    .merge-panel h3 {
-      margin: 14px 0 0;
-      font-size: clamp(1.55rem, 2.2vw, 2.5rem);
-      line-height: 0.98;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-    }
-
-    .collector-card p,
-    .merge-panel p {
-      margin: 16px 0 0;
-      color: rgba(244, 236, 223, 0.74);
-      line-height: 1.82;
-      font-size: 0.96rem;
-    }
-
-    .collector-card a {
-      display: inline-flex;
-      margin-top: 20px;
-      color: var(--sand);
-      font-family: "Courier New", monospace;
-      font-size: 0.72rem;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-    }
-
-    .collector-card a:hover {
-      color: var(--ink);
-    }
-
-    .merge-panel {
-      margin-bottom: 72px;
-      padding: 30px 28px;
-    }
-
-    .merge-panel h3 {
-      max-width: 820px;
-    }
-
-    .merge-grid {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 16px;
-      margin-top: 22px;
-    }
-
-    .merge-item {
-      padding: 18px 16px;
-      border: 1px solid rgba(215, 171, 82, 0.12);
-      background: rgba(255, 255, 255, 0.02);
-    }
-
-    .merge-item strong {
-      display: block;
-      margin-bottom: 8px;
-      color: var(--ink);
-      font-family: "Courier New", monospace;
-      font-size: 0.75rem;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-    }
-
-    .merge-item span {
-      color: rgba(244, 236, 223, 0.72);
-      font-size: 0.92rem;
-      line-height: 1.72;
+    .entry-bottom {
+      padding-bottom: 4px;
     }
 
     @keyframes sweep {
@@ -427,188 +388,172 @@
       }
     }
 
-    @keyframes breathe {
+    @keyframes shirtGlow {
       0%,
       100% {
+        opacity: 0.62;
         transform: scale(1) translate3d(0, 0, 0);
-        opacity: 0.9;
       }
       50% {
-        transform: scale(1.06) translate3d(0, 10px, 0);
-        opacity: 1;
+        opacity: 0.86;
+        transform: scale(1.03) translate3d(0, 6px, 0);
       }
     }
 
-    @media (max-width: 1100px) {
-      .hero-stage,
-      .collector-grid,
-      .merge-grid {
+    @keyframes nsFloat {
+      0%,
+      100% {
+        transform: translate3d(0, 0, 0);
+      }
+      50% {
+        transform: translate3d(0, -10px, 0);
+      }
+    }
+
+    @keyframes crossFloat {
+      0%,
+      100% {
+        transform: translate3d(0, 0, 0) rotate(0deg);
+      }
+      50% {
+        transform: translate3d(0, -12px, 0) rotate(2deg);
+      }
+    }
+
+    @media (max-width: 1120px) {
+      body {
+        overflow-y: auto;
+      }
+
+      .entry-gate {
         grid-template-columns: 1fr;
-      }
-
-      .hero-stage {
         min-height: auto;
-        padding-top: 70px;
       }
 
-      .hero-ghost {
-        padding-bottom: 0;
+      .gate-center {
+        order: -1;
+        padding: 12px 8px 22px;
       }
 
-      .signature-panel {
-        max-width: 560px;
+      .center-line {
+        height: 74px;
       }
     }
 
     @media (max-width: 720px) {
-      body::before {
-        background:
-          linear-gradient(180deg, rgba(7, 6, 5, 0.68) 0%, rgba(7, 6, 5, 0.18) 40%, rgba(7, 6, 5, 0.84) 100%),
-          radial-gradient(circle at 76% 16%, rgba(215, 171, 82, 0.22), transparent 20%),
-          linear-gradient(180deg, rgba(0, 0, 0, 0.08), rgba(0, 0, 0, 0.62)),
-          url("nate savard forever.png") 40% center / cover no-repeat fixed;
-      }
-
-      .topline,
-      .hero-stage,
-      .collector-grid,
-      .merge-panel {
+      .entry-top,
+      .entry-gate,
+      .entry-bottom {
         width: min(100vw - 20px, 100%);
       }
 
-      .topline {
+      .entry-top,
+      .entry-bottom {
         flex-direction: column;
         align-items: flex-start;
-        padding-top: 18px;
       }
 
-      .topline-links {
+      .entry-links {
         justify-content: flex-start;
       }
 
-      .hero-stage {
-        gap: 22px;
-        padding: 48px 0 74px;
+      .entry-gate {
+        gap: 14px;
+        padding-top: 16px;
       }
 
-      .hero-ghost h1 {
-        font-size: clamp(2.3rem, 13vw, 4.1rem);
+      .path-card {
+        min-height: 400px;
       }
 
-      .signature-panel,
-      .collector-card,
-      .merge-panel {
-        padding: 22px 18px;
+      .path-link {
+        padding: 20px;
       }
 
-      .signature-menu {
-        gap: 8px;
+      .path-title {
+        font-size: clamp(1.7rem, 10vw, 3rem);
       }
 
-      .signature-link {
-        font-size: 0.62rem;
-        padding: 10px 11px;
+      .center-title {
+        font-size: clamp(1.55rem, 8vw, 2.5rem);
       }
     }
   </style>
 </head>
 <body>
-  <main class="page">
-    <div class="topline">
-      <span>Nate Savard // Artist Entry</span>
-      <div class="topline-links">
-        <a href="originals.html">Originals</a>
-        <a href="envynomadix.html">Envynomadix</a>
+  <main class="entry-shell">
+    <header class="entry-top">
+      <span>Nate Savard / Entry Gate</span>
+      <nav class="entry-links" aria-label="Entry links">
+        <a href="originals.html">Jewelry House</a>
+        <a href="envynomadix.html">Fashion House</a>
         <a href="envynomadix-worldwide.html">Archive</a>
-        <a href="main.html">Portal</a>
-      </div>
-    </div>
+        <a href="mailto:natesavard@outlook.com">Private Contact</a>
+      </nav>
+    </header>
 
-    <section class="hero-stage">
-      <div class="hero-ghost">
-        <div class="hero-kicker">Jewelry // Fashion // Relics // Myth</div>
-        <h1>The Original Collection <span>x</span> Envynomadix</h1>
-        <p>
-          One image holding the whole entrance. One house moving between jewelry, garments, symbols, and private collector work.
-        </p>
-      </div>
+    <section class="entry-gate" aria-label="Choose your path">
+      <a class="path-card left-card" href="originals.html" aria-label="Enter The Original Collection jewelry house">
+        <div class="path-link">
+          <div class="path-top">
+            <span>Jewelry House</span>
+            <span class="path-index">01</span>
+          </div>
 
-      <aside class="signature-panel">
-        <div class="panel-kicker">Nate Savard // Signature Menu</div>
-        <h2>One Designer. Two Worlds.</h2>
-        <p class="panel-copy">
-          ENVYNOMADIX is runway streetwear built from the ground up: heavy symbols, dark luxury garments, gold-chain energy, and pieces made to be worn with pendants, rings, and custom talismans. Designed by Nate Savard as one house &mdash; clothing, jewelry, relics, and myth.
-        </p>
-        <p class="signature-quote">
-          <span class="quote-label">Envynomadix Signature Line</span>
-          &#10016; N. the composition of waters, movement, growth, embodying and disembodying, drawing the spirits from bodies and bonding the spirits within bodies.
-        </p>
+          <div>
+            <h2 class="path-title">The Original Collection</h2>
+            <p class="path-copy">
+              Hand made original gemstone pendants, rings, custom talismans, collector stones, and jewelry built with permanence.
+            </p>
+          </div>
 
-        <div class="signature-menu">
-          <a class="signature-link is-primary" href="originals.html">Enter Originals</a>
-          <a class="signature-link is-primary" href="envynomadix.html">Enter Envynomadix</a>
-          <a class="signature-link" href="envynomadix-worldwide.html">View Archive</a>
-          <a class="signature-link" href="main.html">Open Portal</a>
-          <a class="signature-link" href="mailto:natesavard@outlook.com">Private Contact</a>
+          <div class="path-logo-wrap">
+            <img class="path-logo" src="ns-logo-chrome.png" alt="Chrome NS logo" />
+          </div>
+
+          <div class="path-route">Enter Jewelry World</div>
         </div>
+      </a>
 
-        <div class="panel-note">
-          fixed portrait / jewelry house / garment house / collector route
+      <div class="gate-center">
+        <div class="center-line"></div>
+        <img class="center-wordmark" src="14.png" alt="Nate Savard wordmark" />
+        <div class="center-kicker">One Designer / Two Paths</div>
+        <h1 class="center-title">Choose The House Route</h1>
+        <p class="center-copy">
+          Same background. Same world. One path opens the jewelry house. The other opens ENVYNOMADIX.
+        </p>
+        <div class="center-note">jewelry / garments / symbols / myth</div>
+        <div class="center-line"></div>
+      </div>
+
+      <a class="path-card right-card" href="envynomadix.html" aria-label="Enter Envynomadix fashion house">
+        <div class="path-link">
+          <div class="path-top">
+            <span>Fashion House</span>
+            <span class="path-index">02</span>
+          </div>
+
+          <div>
+            <h2 class="path-title">Envynomadix</h2>
+            <p class="path-copy">
+              Runway streetwear, jewel encrusted garments, chrome marks, and full uniform pieces made to move with chains, pendants, and rings.
+            </p>
+          </div>
+
+          <div class="path-logo-wrap">
+            <img class="path-logo" src="envy-cross-entry.png" alt="Envy cross emblem" />
+          </div>
+
+          <div class="path-route">Enter Fashion World</div>
         </div>
-      </aside>
+      </a>
     </section>
 
-    <section class="collector-grid">
-      <article class="collector-card">
-        <div class="card-kicker">The Original Collection</div>
-        <h3>Jewelry With Weight, Stone, And Myth.</h3>
-        <p>
-          Custom talismans, pendants, rings, relic objects, gemstone work, and signature pieces shaped directly through Nate Savard for collectors who want permanence.
-        </p>
-        <a href="originals.html">Open Jewelry House</a>
-      </article>
-
-      <article class="collector-card">
-        <div class="card-kicker">Envynomadix</div>
-        <h3>Fashion Cut With The Pressure Of Fine Jewelry.</h3>
-        <p>
-          Distressed black garments, chrome marks, campaign relics, and dark luxury silhouettes designed to sit with chains, pendants, rings, and full styling direction.
-        </p>
-        <a href="envynomadix.html">Open Fashion House</a>
-      </article>
-
-      <article class="collector-card">
-        <div class="card-kicker">Collector Route</div>
-        <h3>One House For Garments, Jewelry, And Full Uniform Work.</h3>
-        <p>
-          Move between custom stone commissions, symbolic objects, garment placements, and collector styling through one connected Nate Savard world instead of separate lanes.
-        </p>
-        <a href="mailto:natesavard@outlook.com">Start Private Inquiry</a>
-      </article>
-    </section>
-
-    <section class="merge-panel">
-      <div class="merge-kicker">Merged Direction</div>
-      <h3>The Portrait Holds The Entrance. The House Opens From There.</h3>
-      <p>
-        This landing page now moves like an artist entrance instead of a standard split hero: the portrait stays fixed, the page fades through it, and the right-side signature menu carries the jewelry and fashion route in one tighter control panel.
-      </p>
-
-      <div class="merge-grid">
-        <div class="merge-item">
-          <strong>Image First</strong>
-          <span>The photograph takes the full site and becomes the mood bed for everything else, instead of sitting inside a normal content box.</span>
-        </div>
-        <div class="merge-item">
-          <strong>Signature Kontrol</strong>
-          <span>The smaller horizontal menu stays to the right so the image can breathe while the house links still stay immediate and usable.</span>
-        </div>
-        <div class="merge-item">
-          <strong>Artist Entrance</strong>
-          <span>Jewelry, fashion, archive, and contact all move through one controlled black, beige, and gold composition built around Nate Savard as the center.</span>
-        </div>
-      </div>
-    </section>
+    <footer class="entry-bottom">
+      <span>fixed portrait / split entrance / collector direction</span>
+      <a href="main.html">open portal</a>
+    </footer>
   </main>
 </body>
 </html>
