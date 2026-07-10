@@ -721,6 +721,8 @@
     }
 
     .after-enter-world {
+      display: flex;
+      flex-direction: column;
       opacity: 0;
       max-height: 0;
       overflow: hidden;
@@ -729,6 +731,30 @@
         opacity 1.15s ease,
         filter 1.15s ease,
         max-height 0s linear 1.15s;
+    }
+
+    .after-enter-world > .catalogue-stage {
+      order: 1;
+    }
+
+    .after-enter-world > .collection-stage {
+      order: 2;
+    }
+
+    .after-enter-world > .merge-stage {
+      order: 3;
+    }
+
+    .after-enter-world > .archives-stage {
+      order: 4;
+    }
+
+    .after-enter-world > .jewelry-stage {
+      order: 5;
+    }
+
+    .after-enter-world > .contact-stage {
+      order: 6;
     }
 
     .collection-stage,
@@ -2775,7 +2801,7 @@
       <section class="lux-reveal" id="luxReveal">
         <div class="brand-header">
           <nav class="lux-nav" aria-label="Envy navigation">
-            <a href="#collectionPhase" id="enterCollectionLink">enter collection</a>
+            <a href="#cataloguePhase" id="enterCollectionLink">enter collection</a>
             <a href="envynomadix-signature-collection.html">signature collection</a>
             <a href="#sageMerge">house merge</a>
             <a href="#jewelryPhase">jewelry lane</a>
@@ -2794,7 +2820,7 @@
           <p class="collection-stance">
             ✠ N̷. the composition of waters, movement, growth, embodying and disembodying, drawing the spirits from bodies and bonding the spirits within bodies
           </p>
-          <a class="collection-button" href="#cataloguePhase">view collection</a>
+          <a class="collection-button" href="#sageMerge">continue through house</a>
         </div>
 
         <div class="collection-visual">
@@ -2986,6 +3012,105 @@
                 <p class="jewelry-card-text">monogram bracelet study added into the sideways catalog so the jewelry world starts feeling like its own line.</p>
               </div>
             </article>
+
+            <article class="jewelry-card" data-house-product="Royal Sapphire Signet" data-house-price="private quote" data-house-description="Custom Nate Savard signet with carved gold texture, side sapphires, and a dominant blue center stone built with old-world weight." data-house-image="nate savard - nls 2.jpg" data-house-option-label="Select ring size" data-house-options="7,8,9,10,11">
+              <div class="jewelry-card-media">
+                <img src="nate savard - nls 2.jpg" alt="Royal Sapphire Signet ring by Nate Savard" />
+              </div>
+              <div class="jewelry-card-copy">
+                <h3 class="jewelry-card-title">Royal Sapphire Signet</h3>
+                <p class="jewelry-card-note">yellow gold / sapphire crown / tap to view</p>
+                <p class="jewelry-card-text">the gold side begins with full authority: carved texture, hard sapphire presence, and a signet body built to wear like a house relic.</p>
+              </div>
+            </article>
+
+            <article class="jewelry-card" data-house-product="Imperial Blue Sapphire Ring" data-house-price="private quote" data-house-description="Clean heavy-gold ring built around a rich royal sapphire, drawn for direct power, restraint, and permanent luxury." data-house-image="nate savard - nls 3.jpg" data-house-option-label="Select ring size" data-house-options="7,8,9,10,11">
+              <div class="jewelry-card-media">
+                <img src="nate savard - nls 3.jpg" alt="Imperial Blue Sapphire Ring by Nate Savard" />
+              </div>
+              <div class="jewelry-card-copy">
+                <h3 class="jewelry-card-title">Imperial Blue Sapphire Ring</h3>
+                <p class="jewelry-card-note">heavy gold / royal sapphire / tap to view</p>
+                <p class="jewelry-card-text">cleaner and more severe, this ring carries deep blue force inside a bold gold body with no wasted movement.</p>
+              </div>
+            </article>
+
+            <article class="jewelry-card" data-house-product="White Fire Scroll Ring" data-house-price="private quote" data-house-description="Diamond-forward scrollwork ring with cathedral lift and luminous center stone energy built for heirloom-level presence." data-house-image="nate savard - nls 4.png" data-house-option-label="Select ring size" data-house-options="7,8,9,10,11">
+              <div class="jewelry-card-media">
+                <img src="nate savard - nls 4.png" alt="White Fire Scroll Ring by Nate Savard" />
+              </div>
+              <div class="jewelry-card-copy">
+                <h3 class="jewelry-card-title">White Fire Scroll Ring</h3>
+                <p class="jewelry-card-note">diamond lift / scrollwork / tap to view</p>
+                <p class="jewelry-card-text">cathedral scrollwork and white-fire brilliance push this one into heirloom territory the second it catches light.</p>
+              </div>
+            </article>
+
+            <article class="jewelry-card" data-house-product="Royal Marquise Sapphire Ring" data-house-price="private quote" data-house-description="Multi-angle ring study with blue marquise sapphire, ornate galleries, and diamond rails drawn as a full custom signet." data-house-image="nate ring 1.2.png" data-house-option-label="Select ring size" data-house-options="7,8,9,10,11">
+              <div class="jewelry-card-media">
+                <img src="nate ring 1.2.png" alt="Royal Marquise Sapphire Ring by Nate Savard" />
+              </div>
+              <div class="jewelry-card-copy">
+                <h3 class="jewelry-card-title">Royal Marquise Sapphire Ring</h3>
+                <p class="jewelry-card-note">marquise sapphire / ornate rails / tap to view</p>
+                <p class="jewelry-card-text">blue marquise energy, full custom galleries, and diamond edgework make this one feel like a final-form Nate Savard signature ring.</p>
+              </div>
+            </article>
+
+            <article class="jewelry-card" data-house-product="Opal Sage Spinner" data-house-price="private quote" data-house-description="Double-sided talisman concept with jelly opal center, diamond field, and rich gold architecture." data-house-image="nate savard opal sage front.png" data-house-option-label="Select center stone" data-house-options="opal,sapphire">
+              <div class="jewelry-card-media">
+                <img src="nate savard opal sage front.png" alt="Opal Sage Spinner pendant by Nate Savard" />
+              </div>
+              <div class="jewelry-card-copy">
+                <h3 class="jewelry-card-title">Opal Sage Spinner</h3>
+                <p class="jewelry-card-note">opal fire / spinner relic / tap to view</p>
+                <p class="jewelry-card-text">jelly opal, diamond pressure, and ceremonial gold proportions turn this spinner into a collector pendant with real myth in it.</p>
+              </div>
+            </article>
+
+            <article class="jewelry-card" data-house-product="Sapphire Spinner Reverse" data-house-price="private quote" data-house-description="Millionaire-status spinner pendant concept with blue sapphire center, crushed diamonds, and bold presence." data-house-image="nate savard saphire back.png" data-house-option-label="Select center stone" data-house-options="sapphire,opal">
+              <div class="jewelry-card-media">
+                <img src="nate savard saphire back.png" alt="Sapphire Spinner Reverse pendant by Nate Savard" />
+              </div>
+              <div class="jewelry-card-copy">
+                <h3 class="jewelry-card-title">Sapphire Spinner Reverse</h3>
+                <p class="jewelry-card-note">blue core / diamond flood / tap to view</p>
+                <p class="jewelry-card-text">the reverse side brings harder blue pressure and a richer millionaire finish for clients who want the sapphire version to hit first.</p>
+              </div>
+            </article>
+
+            <article class="jewelry-card" data-house-product="Sapphire Halo Pendant" data-house-price="private quote" data-house-description="Rotating pendant architecture with sapphire top link, diamond halo field, and ceremonial medallion proportions." data-house-image="nate savard - nls 5.png" data-house-option-label="Select gold" data-house-options="14k,18k,22k">
+              <div class="jewelry-card-media">
+                <img src="nate savard - nls 5.png" alt="Sapphire Halo Pendant by Nate Savard" />
+              </div>
+              <div class="jewelry-card-copy">
+                <h3 class="jewelry-card-title">Sapphire Halo Pendant</h3>
+                <p class="jewelry-card-note">halo field / ceremonial medallion / tap to view</p>
+                <p class="jewelry-card-text">sapphire top link, halo diamonds, and spinning medallion architecture push this pendant into a true ceremonial piece.</p>
+              </div>
+            </article>
+
+            <article class="jewelry-card" data-house-product="Sapphire Monolith Pendant" data-house-price="private quote" data-house-description="Long sapphire pendant in black and gold with diamond border and a hard, elegant silhouette built for refined authority." data-house-image="nate savard - nls 11.png" data-house-option-label="Select gold" data-house-options="14k,18k,22k">
+              <div class="jewelry-card-media">
+                <img src="nate savard - nls 11.png" alt="Sapphire Monolith Pendant by Nate Savard" />
+              </div>
+              <div class="jewelry-card-copy">
+                <h3 class="jewelry-card-title">Sapphire Monolith Pendant</h3>
+                <p class="jewelry-card-note">black and gold / monolith cut / tap to view</p>
+                <p class="jewelry-card-text">longer, harder, and more architectural, this pendant carries refined authority through its sapphire core and monolith shape.</p>
+              </div>
+            </article>
+
+            <article class="jewelry-card" data-house-product="Twin Stone Spinner Pendant" data-house-price="private quote" data-house-description="Dual-version spinner pendant showing sapphire and opal directions inside the same diamond-heavy medallion system." data-house-image="2stone.png" data-house-option-label="Select center stone" data-house-options="sapphire,opal">
+              <div class="jewelry-card-media">
+                <img src="2stone.png" alt="Twin Stone Spinner Pendant by Nate Savard" />
+              </div>
+              <div class="jewelry-card-copy">
+                <h3 class="jewelry-card-title">Twin Stone Spinner Pendant</h3>
+                <p class="jewelry-card-note">sapphire / opal flip / tap to view</p>
+                <p class="jewelry-card-text">the two-stone spinner closes the rail with both worlds in one object: sapphire gravity on one side, opal fire on the other.</p>
+              </div>
+            </article>
           </div>
         </div>
       </section>
@@ -3107,6 +3232,7 @@
       var rotatingLine = document.getElementById("rotatingLine");
       var luxReveal = document.getElementById("luxReveal");
       var collectionPhase = document.getElementById("collectionPhase");
+      var cataloguePhase = document.getElementById("cataloguePhase");
       var catalogueRail = document.querySelector(".catalogue-rail");
       var jewelryRail = document.getElementById("jewelryRail");
       var houseProductTriggers = Array.prototype.slice.call(document.querySelectorAll("[data-house-product]"));
@@ -3888,12 +4014,12 @@
       bindRailDrag(catalogueRail);
       bindRailDrag(jewelryRail);
 
-      if (enterCollectionLink && collectionPhase) {
+      if (enterCollectionLink && cataloguePhase) {
         enterCollectionLink.addEventListener("click", function (event) {
           event.preventDefault();
           if (!hasEntered) return;
           document.body.classList.add("is-collection-open");
-          collectionPhase.scrollIntoView({ behavior: "smooth", block: "start" });
+          cataloguePhase.scrollIntoView({ behavior: "smooth", block: "start" });
           queueHeroDepth();
         });
       }
