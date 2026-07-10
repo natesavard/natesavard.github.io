@@ -35,13 +35,32 @@
       overflow-x: hidden;
     }
 
+    html {
+      position: relative;
+      isolation: isolate;
+      background: #000;
+    }
+
+    html::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      background: url("nate savard forever.png") 38% center / cover no-repeat fixed;
+      transform: scale(1.04);
+      transform-origin: center center;
+      filter: saturate(0.94) contrast(1.04) brightness(0.88);
+      animation: originalsPortraitFloat 13s ease-in-out infinite;
+    }
+
     body {
       position: relative;
       isolation: isolate;
+      z-index: 1;
       background:
         linear-gradient(rgba(0,0,0,0.58), rgba(0,0,0,0.76)),
-        radial-gradient(circle at 76% 18%, rgba(255, 226, 174, 0.10), rgba(0,0,0,0) 24%),
-        url("nate savard forever.png") 38% center / cover no-repeat fixed;
+        radial-gradient(circle at 76% 18%, rgba(255, 226, 174, 0.10), rgba(0,0,0,0) 24%);
     }
 
     body::before,
@@ -574,6 +593,11 @@
     @keyframes sageSigilFloat {
       0%, 100% { transform: translateY(0); }
       50% { transform: translateY(-5px); }
+    }
+
+    @keyframes originalsPortraitFloat {
+      0%, 100% { transform: scale(1.04) translate3d(0, 0, 0); }
+      50% { transform: scale(1.065) translate3d(0, -12px, 0); }
     }
 
     @keyframes sageMarkFloat {
