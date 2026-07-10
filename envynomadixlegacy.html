@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ENVY NOMADIX LEGACY</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { width: 100%; height: 100%; overflow: hidden; background:#020202; font-family: Arial, Helvetica, sans-serif; color:white; }
+
+    body::before {
+      content:"";
+      position:fixed; inset:-20%;
+      background:
+        radial-gradient(circle at 50% 42%, rgba(255,255,255,.08), transparent 18%),
+        radial-gradient(circle at 20% 70%, rgba(255,255,255,.035), transparent 22%),
+        radial-gradient(circle at 82% 20%, rgba(255,255,255,.035), transparent 20%),
+        #020202;
+      animation: ambientPulse 7s infinite ease-in-out;
+      z-index:0;
+    }
+
+    body::after {
+      content:"";
+      position:fixed; inset:0; pointer-events:none;
+      background:repeating-linear-gradient(to bottom, rgba(255,255,255,.025) 0px, rgba(255,255,255,.025) 1px, transparent 2px, transparent 5px);
+      mix-blend-mode:screen; opacity:.12; animation:scan 5s linear infinite; z-index:8;
+    }
+
+    .stage { position:relative; height:100vh; width:100vw; display:grid; place-items:center; isolation:isolate; }
+
+    .ghost-bg {
+      position:absolute; width:min(135vw, 1350px); opacity:.055;
+      filter:blur(1.5px) contrast(1.4);
+      transform:scale(1.2);
+      animation:ghostGlitch 5.5s infinite steps(1), breathe 9s infinite ease-in-out;
+      z-index:1;
+    }
+
+    .crest-wrap {
+      position:relative; width:min(78vw, 720px); aspect-ratio:1/1;
+      display:grid; place-items:center; z-index:3;
+      filter:drop-shadow(0 0 24px rgba(255,255,255,.08));
+      animation:crestLoad 2.4s cubic-bezier(.16,1,.3,1) forwards, microFlicker 7s infinite steps(1);
+    }
+
+    .shield, .top-symbol, .envy, .cross { position:absolute; user-select:none; pointer-events:none; object-fit:contain; }
+
+    .shield {
+      width:100%; opacity:.92; filter:contrast(1.15) brightness(.92);
+      animation:shieldWake 2.6s ease-out forwards;
+    }
+
+    .top-symbol {
+      width:22%; top:13.5%; opacity:0; transform-origin:center;
+      animation:symbolAppear 2s ease forwards 1.3s, slowCounterSpin 22s linear infinite 3.3s;
+      filter:drop-shadow(0 0 12px rgba(255,255,255,.15));
+    }
+
+    .envy {
+      width:58%; top:40%; opacity:0;
+      transform:rotate(-4deg) scale(.96);
+      animation:envyIn 1.4s ease forwards 2.1s;
+      filter:drop-shadow(0 0 14px rgba(255,255,255,.12));
+    }
+
+    .envy-light {
+      position:absolute; width:62%; height:17%; top:41%;
+      transform:rotate(-4deg) translateX(-120%);
+      background:linear-gradient(105deg, transparent 0%, rgba(255,255,255,.02) 35%, rgba(255,255,255,.6) 50%, rgba(255,255,255,.04) 65%, transparent 100%);
+      mix-blend-mode:screen; filter:blur(10px); opacity:0;
+      animation:lightGlaze 4.5s ease-in-out infinite 3.2s; z-index:6;
+    }
+
+    .cross {
+      width:18%; bottom:18.5%; opacity:0;
+      transform:scale(1.8) translateY(40px);
+      animation:crossLock 1s cubic-bezier(.12,1.2,.2,1) forwards 3.15s;
+      filter:drop-shadow(0 0 10px rgba(255,255,255,.12));
+    }
+
+    .enter {
+      position:absolute; bottom:7vh; z-index:7;
+      color:rgba(255,255,255,.78); letter-spacing:.5em; text-transform:uppercase;
+      font-size:11px; text-decoration:none; padding:14px 18px 14px 23px;
+      border:1px solid rgba(255,255,255,.14); background:rgba(255,255,255,.025);
+      backdrop-filter:blur(6px); opacity:0;
+      animation:enterFade 1.5s ease forwards 4.1s, buttonFlicker 6s infinite steps(1) 5.2s;
+    }
+
+    .enter:hover { color:white; border-color:rgba(255,255,255,.42); box-shadow:0 0 30px rgba(255,255,255,.08); }
+
+    .static-flash {
+      position:fixed; inset:0; background:white; opacity:0; mix-blend-mode:screen;
+      pointer-events:none; z-index:10; animation:randomFlash 8s infinite steps(1);
+    }
+
+    .noise {
+      position:fixed; inset:-50%;
+      background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.55'/%3E%3C/svg%3E");
+      opacity:.035; animation:noiseMove .45s infinite steps(2); pointer-events:none; z-index:9;
+    }
+
+    .sound-button {
+      position:fixed; top:24px; right:24px; z-index:20;
+      border:1px solid rgba(255,255,255,.14); background:rgba(0,0,0,.55);
+      color:rgba(255,255,255,.7); padding:10px 12px; font-size:10px;
+      letter-spacing:.22em; text-transform:uppercase; cursor:pointer;
+    }
+    .sound-button:hover { color:white; border-color:rgba(255,255,255,.36); }
+
+    @keyframes ambientPulse { 0%,100%{filter:brightness(.75)} 50%{filter:brightness(1.15)} }
+    @keyframes scan { from{transform:translateY(-40px)} to{transform:translateY(40px)} }
+    @keyframes breathe { 0%,100%{transform:scale(1.22)} 50%{transform:scale(1.29)} }
+    @keyframes ghostGlitch {
+      0%,91%,100%{transform:translate(0,0) scale(1.22);opacity:.055}
+      92%{transform:translate(8px,-2px) scale(1.24);opacity:.09}
+      93%{transform:translate(-10px,3px) scale(1.2);opacity:.035}
+      94%{transform:translate(0,0) scale(1.22);opacity:.055}
+    }
+    @keyframes crestLoad {
+      0%{opacity:0;transform:scale(.82) translateY(34px);filter:blur(8px) brightness(2)}
+      42%{opacity:1;filter:blur(0) brightness(1.35)}
+      100%{opacity:1;transform:scale(1) translateY(0);filter:blur(0) brightness(1)}
+    }
+    @keyframes shieldWake { 0%{opacity:0;transform:scale(.94)} 100%{opacity:.92;transform:scale(1)} }
+    @keyframes symbolAppear {
+      0%{opacity:0;transform:scale(.5) rotate(20deg);filter:blur(6px) brightness(2.5)}
+      100%{opacity:1;transform:scale(1) rotate(0deg);filter:blur(0) brightness(1)}
+    }
+    @keyframes slowCounterSpin { from{transform:rotate(0deg)} to{transform:rotate(-360deg)} }
+    @keyframes envyIn {
+      0%{opacity:0;transform:rotate(-4deg) scale(.82) translateY(18px);filter:blur(7px) brightness(2.2)}
+      100%{opacity:1;transform:rotate(-4deg) scale(1);filter:blur(0) brightness(1)}
+    }
+    @keyframes lightGlaze {
+      0%,35%{opacity:0;transform:rotate(-4deg) translateX(-120%)}
+      48%{opacity:.8}
+      62%{opacity:0;transform:rotate(-4deg) translateX(120%)}
+      100%{opacity:0;transform:rotate(-4deg) translateX(120%)}
+    }
+    @keyframes crossLock {
+      0%{opacity:0;transform:scale(1.8) translateY(40px);filter:blur(5px) brightness(2)}
+      70%{opacity:1;transform:scale(.92) translateY(-3px)}
+      100%{opacity:1;transform:scale(1) translateY(0);filter:blur(0) brightness(1)}
+    }
+    @keyframes enterFade { to{opacity:1} }
+    @keyframes noiseMove { 0%{transform:translate(0,0)} 100%{transform:translate(-4%,3%)} }
+    @keyframes randomFlash { 0%,86%,88%,100%{opacity:0} 87%{opacity:.08} 89%{opacity:.025} }
+    @keyframes microFlicker { 0%,96%,100%{transform:translate(0,0)} 97%{transform:translate(1px,0)} 98%{transform:translate(-1px,1px)} }
+    @keyframes buttonFlicker { 0%,94%,100%{opacity:1} 95%{opacity:.25} 96%{opacity:.9} }
+
+    @media (max-width:700px) {
+      .crest-wrap { width:96vw; }
+      .enter { bottom:5vh; }
+    }
+  </style>
+</head>
+<body>
+  <!--
+    This entrance now points at the real files in this repo:
+    shield.png.png
+    ../envynomadix-nx-cutout.png
+    envy.png.png
+    cross.png.png
+  -->
+
+  <button class="sound-button" id="soundBtn">sound</button>
+
+  <main class="stage">
+    <img class="ghost-bg" src="shield.png.png" alt="" />
+
+    <section class="crest-wrap" aria-label="Envy crest entrance">
+      <img class="shield" src="shield.png.png" alt="Envy shield" />
+      <img class="top-symbol" src="../envynomadix-nx-cutout.png" alt="" />
+      <img class="envy" src="envy.png.png" alt="Envy" />
+      <span class="envy-light"></span>
+      <img class="cross" src="cross.png.png" alt="" />
+    </section>
+
+    <a class="enter" href="../envynomadix-signature-collection-FIXED-v4.html">Enter</a>
+  </main>
+
+  <div class="noise"></div>
+  <div class="static-flash"></div>
+
+  <script>
+    const soundBtn = document.getElementById('soundBtn');
+    let audioCtx = null;
+    let playing = false;
+    let cleanup = null;
+
+    function makeNoiseBuffer(ctx) {
+      const bufferSize = ctx.sampleRate * 2;
+      const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
+      const output = buffer.getChannelData(0);
+      for (let i = 0; i < bufferSize; i++) output[i] = (Math.random() * 2 - 1) * 0.28;
+      return buffer;
+    }
+
+    function startSound() {
+      audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+
+      const master = audioCtx.createGain();
+      master.gain.value = 0.16;
+      master.connect(audioCtx.destination);
+
+      const noise = audioCtx.createBufferSource();
+      noise.buffer = makeNoiseBuffer(audioCtx);
+      noise.loop = true;
+
+      const filter = audioCtx.createBiquadFilter();
+      filter.type = 'bandpass';
+      filter.frequency.value = 950;
+      filter.Q.value = 0.8;
+
+      const staticGain = audioCtx.createGain();
+      staticGain.gain.value = 0.045;
+
+      noise.connect(filter);
+      filter.connect(staticGain);
+      staticGain.connect(master);
+      noise.start();
+
+      const hum = audioCtx.createOscillator();
+      hum.type = 'sine';
+      hum.frequency.value = 48;
+
+      const humGain = audioCtx.createGain();
+      humGain.gain.value = 0.055;
+
+      hum.connect(humGain);
+      humGain.connect(master);
+      hum.start();
+
+      const crackle = setInterval(() => {
+        if (!audioCtx) return;
+        const pop = audioCtx.createOscillator();
+        const popGain = audioCtx.createGain();
+
+        pop.type = 'square';
+        pop.frequency.value = 1800 + Math.random() * 2200;
+        popGain.gain.setValueAtTime(Math.random() * 0.035, audioCtx.currentTime);
+        popGain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + 0.04);
+
+        pop.connect(popGain);
+        popGain.connect(master);
+        pop.start();
+        pop.stop(audioCtx.currentTime + 0.045);
+      }, 760);
+
+      cleanup = () => {
+        clearInterval(crackle);
+        try { noise.stop(); } catch(e) {}
+        try { hum.stop(); } catch(e) {}
+        master.disconnect();
+        audioCtx.close();
+        audioCtx = null;
+      };
+
+      playing = true;
+      soundBtn.textContent = 'mute';
+    }
+
+    function stopSound() {
+      if (cleanup) cleanup();
+      cleanup = null;
+      playing = false;
+      soundBtn.textContent = 'sound';
+    }
+
+    soundBtn.addEventListener('click', () => {
+      if (!playing) startSound();
+      else stopSound();
+    });
+  </script>
+</body>
+</html>
