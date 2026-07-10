@@ -9,14 +9,10 @@
     :root {
       --bg: #050505;
       --ink: #f5efe6;
-      --sand: #d9c09a;
+      --sand: #dec39a;
       --gold: #d7ab52;
-      --gold-soft: rgba(215, 171, 82, 0.62);
-      --line: rgba(215, 171, 82, 0.18);
-      --line-strong: rgba(255, 228, 176, 0.22);
-      --panel-dark: rgba(9, 7, 5, 0.76);
-      --panel-steel: rgba(72, 72, 76, 0.34);
-      --shadow: 0 30px 90px rgba(0, 0, 0, 0.46);
+      --line: rgba(255, 232, 188, 0.22);
+      --orb-travel: clamp(110px, 15vh, 170px);
       --mono: "Courier New", monospace;
       --serif: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", Georgia, serif;
     }
@@ -28,21 +24,25 @@
     html,
     body {
       margin: 0;
-      min-height: 100%;
-      background: var(--bg);
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 74% 16%, rgba(255, 225, 176, 0.08), rgba(0, 0, 0, 0) 24%),
+        radial-gradient(circle at 14% 82%, rgba(245, 235, 210, 0.06), rgba(0, 0, 0, 0) 28%),
+        linear-gradient(180deg, #78787c 0%, #66676c 34%, #4d4d52 58%, #1a1a1d 100%);
       color: var(--ink);
       font-family: var(--serif);
     }
 
     body {
       position: relative;
-      overflow: hidden;
     }
 
     body::before,
     body::after,
-    .entry-shell::before,
-    .entry-shell::after {
+    .entry-gate::before,
+    .entry-gate::after {
       content: "";
       position: fixed;
       inset: 0;
@@ -51,356 +51,246 @@
 
     body::before {
       z-index: -4;
-      background:
-        linear-gradient(rgba(0,0,0,0.58), rgba(0,0,0,0.76)),
-        radial-gradient(circle at 76% 18%, rgba(255, 226, 174, 0.10), rgba(0,0,0,0) 24%),
-        radial-gradient(circle at 14% 80%, rgba(245, 233, 204, 0.08), rgba(0,0,0,0) 26%),
-        url("nate savard forever.png") 38% center / cover no-repeat fixed;
-      transform: scale(1.02);
-      filter: saturate(0.94) contrast(1.04) brightness(0.88);
+      background: url("nate savard forever.png") 38% center / cover no-repeat;
+      transform: scale(1.04);
+      transform-origin: center center;
+      filter: saturate(0.96) contrast(1.02) brightness(0.98);
+      opacity: 0.6;
+      animation: portraitFloat 13s ease-in-out infinite;
     }
 
     body::after {
       z-index: -3;
       background:
-        linear-gradient(180deg, rgba(4,4,4,0.02) 0%, rgba(4,4,4,0.0) 26%, rgba(4,4,4,0.0) 74%, rgba(4,4,4,0.92) 100%),
+        linear-gradient(90deg, rgba(0, 0, 0, 0.18), rgba(0, 0, 0, 0.02) 18%, rgba(0, 0, 0, 0.02) 82%, rgba(0, 0, 0, 0.18)),
+        linear-gradient(180deg, rgba(4, 4, 4, 0.02) 0%, rgba(4, 4, 4, 0.0) 24%, rgba(4, 4, 4, 0.0) 76%, rgba(4, 4, 4, 0.38) 100%),
         repeating-linear-gradient(
           to bottom,
-          rgba(255,255,255,0.012) 0,
-          rgba(255,255,255,0.012) 1px,
+          rgba(255, 255, 255, 0.012) 0,
+          rgba(255, 255, 255, 0.012) 1px,
           transparent 2px,
           transparent 5px
         );
       mix-blend-mode: screen;
-      opacity: 0.9;
-    }
-
-    .entry-shell::before {
-      z-index: -2;
-      background:
-        radial-gradient(circle at 47% 30%, rgba(255,255,255,0.14) 0%, rgba(255,233,190,0.11) 4.5%, rgba(255,205,120,0.07) 10%, rgba(0,0,0,0) 22%),
-        radial-gradient(ellipse at 46% 31%, rgba(255,220,150,0.11) 0%, rgba(255,220,150,0.05) 11%, rgba(0,0,0,0) 28%);
-      mix-blend-mode: screen;
-      opacity: 0.72;
-      animation: shirtGlow 9s ease-in-out infinite;
-    }
-
-    .entry-shell::after {
-      z-index: -1;
-      background:
-        radial-gradient(circle at 50% 50%, rgba(255, 214, 120, 0.06), transparent 34%),
-        linear-gradient(90deg, rgba(0,0,0,0.45), rgba(0,0,0,0.08) 18%, rgba(0,0,0,0.08) 82%, rgba(0,0,0,0.45));
-    }
-
-    a {
-      color: inherit;
-      text-decoration: none;
-    }
-
-    .entry-shell {
-      min-height: 100vh;
-      padding: 22px 0 26px;
-    }
-
-    .entry-top,
-    .entry-gate,
-    .entry-bottom {
-      width: min(1460px, calc(100vw - 42px));
-      margin: 0 auto;
-    }
-
-    .entry-top,
-    .entry-bottom {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 16px;
-      color: rgba(245, 239, 230, 0.74);
-      font-family: var(--mono);
-      font-size: 10px;
-      letter-spacing: 0.28em;
-      text-transform: uppercase;
-    }
-
-    .entry-links {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: flex-end;
-      gap: 14px;
-    }
-
-    .entry-links a,
-    .entry-bottom a {
-      opacity: 0.82;
-      transition: opacity 0.22s ease, color 0.22s ease;
-    }
-
-    .entry-links a:hover,
-    .entry-bottom a:hover {
-      opacity: 1;
-      color: var(--ink);
+      opacity: 0.46;
     }
 
     .entry-gate {
-      min-height: calc(100vh - 104px);
+      position: relative;
+      width: 100vw;
+      height: 100vh;
       display: grid;
-      grid-template-columns: minmax(0, 1fr) minmax(220px, 290px) minmax(0, 1fr);
-      gap: clamp(16px, 2.8vw, 38px);
-      align-items: stretch;
-      padding: 28px 0 24px;
+      grid-template-columns: 1fr minmax(16px, 44px) 1fr;
+      align-items: center;
+      justify-items: center;
+      padding: clamp(18px, 3vw, 40px);
+      isolation: isolate;
     }
 
-    .path-card {
-      position: relative;
-      overflow: hidden;
-      min-height: clamp(460px, 72vh, 760px);
-      border: 1px solid var(--line);
-      box-shadow: var(--shadow);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      transition: transform 0.28s ease, border-color 0.28s ease, box-shadow 0.28s ease;
-    }
-
-    .path-card::before,
-    .path-card::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      pointer-events: none;
-    }
-
-    .path-card::before {
+    .entry-gate::before {
+      z-index: -2;
       background:
-        linear-gradient(
-          118deg,
-          rgba(255,255,255,0) 0%,
-          rgba(255,255,255,0) 40%,
-          rgba(255,255,255,0.08) 50%,
-          rgba(255,255,255,0) 60%,
-          rgba(255,255,255,0) 100%
+        radial-gradient(
+          circle at 47% 30%,
+          rgba(255, 255, 255, 0.10) 0%,
+          rgba(255, 236, 196, 0.08) 4.5%,
+          rgba(255, 205, 120, 0.05) 10%,
+          rgba(0, 0, 0, 0) 22%
+        ),
+        radial-gradient(
+          ellipse at 46% 31%,
+          rgba(255, 220, 150, 0.08) 0%,
+          rgba(255, 220, 150, 0.04) 11%,
+          rgba(0, 0, 0, 0) 28%
         );
-      transform: translateX(-140%);
-      animation: sweep 10.8s ease-in-out infinite;
       mix-blend-mode: screen;
-      opacity: 0.7;
+      opacity: 0.6;
+      animation: shirtPulse 8.5s ease-in-out infinite;
     }
 
-    .path-card::after {
-      border: 1px solid rgba(255, 244, 224, 0.05);
-      inset: 12px;
-    }
-
-    .path-card:hover {
-      transform: translateY(-6px);
-      border-color: var(--line-strong);
-      box-shadow: 0 36px 110px rgba(0, 0, 0, 0.58);
-    }
-
-    .path-card.left-card {
+    .entry-gate::after {
+      z-index: -1;
       background:
-        radial-gradient(circle at 50% 24%, rgba(255, 226, 174, 0.08), transparent 20%),
-        linear-gradient(180deg, rgba(12, 10, 8, 0.82), rgba(2, 2, 2, 0.92)),
-        #050505;
+        radial-gradient(circle at 50% 48%, rgba(255, 214, 120, 0.04), transparent 32%),
+        radial-gradient(circle at 50% 56%, rgba(255, 255, 255, 0.02), transparent 20%);
     }
 
-    .path-card.right-card {
-      background:
-        radial-gradient(circle at 50% 24%, rgba(255,255,255,0.14), transparent 20%),
-        linear-gradient(180deg, rgba(104, 104, 110, 0.34), rgba(22, 22, 26, 0.90)),
-        var(--panel-steel);
-      border-color: rgba(255,255,255,0.10);
-    }
-
-    .path-link {
-      position: relative;
-      z-index: 1;
+    .path {
       display: flex;
       flex-direction: column;
-      justify-content: space-between;
-      width: 100%;
-      height: 100%;
-      padding: 28px;
-      gap: 16px;
-    }
-
-    .path-top {
-      display: flex;
-      justify-content: space-between;
-      align-items: baseline;
-      gap: 12px;
-      font-family: var(--mono);
-      font-size: 10px;
-      letter-spacing: 0.28em;
-      text-transform: uppercase;
-      color: rgba(245, 239, 230, 0.7);
-    }
-
-    .path-index {
-      color: rgba(215, 171, 82, 0.86);
-    }
-
-    .path-title {
-      margin: 0;
-      font-size: clamp(2rem, 4.6vw, 4.4rem);
-      line-height: 0.88;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      text-shadow: 0 22px 70px rgba(0, 0, 0, 0.52);
-      text-wrap: balance;
-    }
-
-    .path-copy {
-      max-width: 18rem;
-      margin: 14px 0 0;
-      color: rgba(245, 239, 230, 0.74);
-      font-size: 0.98rem;
-      line-height: 1.82;
-    }
-
-    .path-logo-wrap {
-      flex: 1;
-      display: flex;
       align-items: center;
       justify-content: center;
-      padding: 10px 0 18px;
+      gap: 18px;
+      width: min(30vw, 420px);
+      text-align: center;
+      text-decoration: none;
+      color: var(--ink);
+      transform: translateY(2vh);
+      transition: transform 0.28s ease, filter 0.28s ease;
+    }
+
+    .path:hover {
+      transform: translateY(calc(2vh - 8px));
+    }
+
+    .path-kicker,
+    .path-route,
+    .center-kicker {
+      font-family: var(--mono);
+      font-size: clamp(9px, 0.72vw, 11px);
+      letter-spacing: 0.32em;
+      text-transform: uppercase;
+    }
+
+    .path-kicker {
+      color: rgba(245, 239, 230, 0.74);
     }
 
     .path-logo {
       display: block;
-      width: min(100%, clamp(250px, 26vw, 400px));
+      width: min(100%, clamp(220px, 24vw, 390px));
       height: auto;
-      transition: transform 0.3s ease, filter 0.3s ease;
+      transition: transform 0.32s ease, filter 0.32s ease, opacity 0.32s ease;
       will-change: transform, filter;
     }
 
-    .left-card .path-logo {
+    .path.left .path-logo {
       filter:
-        drop-shadow(0 0 16px rgba(255,255,255,0.08))
-        drop-shadow(0 0 36px rgba(255,255,255,0.05))
-        drop-shadow(0 24px 44px rgba(0,0,0,0.42));
-      animation: nsFloat 7.2s ease-in-out infinite;
+        drop-shadow(0 0 18px rgba(255, 255, 255, 0.10))
+        drop-shadow(0 0 46px rgba(255, 255, 255, 0.06))
+        drop-shadow(0 24px 44px rgba(0, 0, 0, 0.44));
+      animation: leftLogoFloat 7.4s ease-in-out infinite;
     }
 
-    .right-card .path-logo {
-      width: min(100%, clamp(250px, 24vw, 360px));
+    .path.right .path-logo {
+      width: min(100%, clamp(210px, 22vw, 330px));
       filter:
-        drop-shadow(0 0 12px rgba(255,255,255,0.16))
-        drop-shadow(0 0 30px rgba(255,255,255,0.08))
-        drop-shadow(0 22px 40px rgba(0,0,0,0.38));
-      animation: crossFloat 7.6s ease-in-out infinite;
+        drop-shadow(0 0 16px rgba(255, 255, 255, 0.14))
+        drop-shadow(0 0 40px rgba(255, 255, 255, 0.08))
+        drop-shadow(0 22px 42px rgba(0, 0, 0, 0.40));
+      transform-origin: center center;
+      animation: rightLogoSpin 30s linear infinite;
     }
 
-    .path-card:hover .path-logo {
-      transform: scale(1.04);
+    .path:hover .path-logo {
+      transform: scale(1.045);
       filter:
-        drop-shadow(0 0 18px rgba(255,255,255,0.16))
-        drop-shadow(0 0 40px rgba(255,235,190,0.12))
-        drop-shadow(0 26px 50px rgba(0,0,0,0.48));
+        drop-shadow(0 0 24px rgba(255, 255, 255, 0.18))
+        drop-shadow(0 0 52px rgba(255, 233, 188, 0.12))
+        drop-shadow(0 28px 54px rgba(0, 0, 0, 0.50));
+    }
+
+    .path-title {
+      margin: 0;
+      font-size: clamp(1.4rem, 2.4vw, 2.6rem);
+      line-height: 0.94;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      text-shadow: 0 18px 50px rgba(0, 0, 0, 0.54);
     }
 
     .path-route {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
       color: var(--sand);
-      font-family: var(--mono);
-      font-size: 0.72rem;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
+      opacity: 0.92;
     }
 
     .path-route::after {
-      content: ">>";
-      color: rgba(255, 232, 184, 0.88);
+      content: " >>";
+      color: rgba(255, 230, 180, 0.88);
     }
 
-    .gate-center {
+    .center-axis {
+      position: relative;
+      width: 100%;
+      height: min(76vh, 720px);
       display: flex;
-      flex-direction: column;
       align-items: center;
       justify-content: center;
-      text-align: center;
-      gap: 18px;
-      padding: 20px 8px;
     }
 
-    .center-line {
+    .center-axis::before,
+    .center-axis::after {
+      content: "";
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      pointer-events: none;
+    }
+
+    .center-axis::before {
       width: 1px;
-      height: min(14vh, 118px);
-      background: linear-gradient(180deg, rgba(255,255,255,0), rgba(215,171,82,0.9), rgba(255,255,255,0));
-      box-shadow: 0 0 16px rgba(215, 171, 82, 0.26);
+      height: 100%;
+      background: linear-gradient(
+        180deg,
+        rgba(255, 255, 255, 0),
+        rgba(255, 239, 205, 0.82) 16%,
+        rgba(215, 171, 82, 0.95) 50%,
+        rgba(255, 239, 205, 0.82) 84%,
+        rgba(255, 255, 255, 0)
+      );
+      box-shadow:
+        0 0 12px rgba(215, 171, 82, 0.40),
+        0 0 28px rgba(215, 171, 82, 0.18);
+      opacity: 0.95;
     }
 
-    .center-wordmark {
-      width: min(100%, 248px);
-      height: auto;
-      opacity: 0.94;
-      filter:
-        drop-shadow(0 8px 28px rgba(0,0,0,0.34))
-        drop-shadow(0 0 12px rgba(255, 232, 184, 0.08));
-    }
-
-    .center-kicker,
-    .center-note {
-      font-family: var(--mono);
-      font-size: 10px;
-      letter-spacing: 0.28em;
-      text-transform: uppercase;
+    .center-axis::after {
+      top: 50%;
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      background:
+        radial-gradient(circle, rgba(255, 234, 194, 0.92) 0%, rgba(215, 171, 82, 0.66) 30%, rgba(215, 171, 82, 0.0) 72%);
+      filter: blur(4px);
+      box-shadow: 0 0 34px rgba(255, 219, 140, 0.30);
+      animation: axisTravel 6.8s ease-in-out infinite;
     }
 
     .center-kicker {
-      color: rgba(215, 171, 82, 0.8);
+      position: absolute;
+      left: 50%;
+      bottom: 8vh;
+      transform: translateX(-50%);
+      color: rgba(255, 234, 194, 0.68);
+      text-align: center;
+      white-space: nowrap;
     }
 
-    .center-title {
-      margin: 0;
-      font-size: clamp(1.8rem, 3vw, 3.4rem);
-      line-height: 0.94;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      text-wrap: balance;
-    }
-
-    .center-copy {
-      max-width: 15rem;
-      margin: 0;
-      color: rgba(245, 239, 230, 0.74);
-      font-size: 0.95rem;
-      line-height: 1.78;
-    }
-
-    .center-note {
-      color: rgba(245, 239, 230, 0.56);
-      line-height: 1.8;
-    }
-
-    .entry-bottom {
-      padding-bottom: 4px;
-    }
-
-    @keyframes sweep {
+    @keyframes portraitFloat {
       0%,
       100% {
-        transform: translateX(-140%);
+        transform: scale(1.04) translate3d(0, 0, 0);
       }
       50% {
-        transform: translateX(140%);
+        transform: scale(1.065) translate3d(0, -12px, 0);
       }
     }
 
-    @keyframes shirtGlow {
+    @keyframes shirtPulse {
       0%,
       100% {
-        opacity: 0.62;
+        opacity: 0.66;
         transform: scale(1) translate3d(0, 0, 0);
       }
       50% {
-        opacity: 0.86;
-        transform: scale(1.03) translate3d(0, 6px, 0);
+        opacity: 0.9;
+        transform: scale(1.03) translate3d(0, 5px, 0);
       }
     }
 
-    @keyframes nsFloat {
+    @keyframes axisTravel {
+      0%,
+      100% {
+        opacity: 0.66;
+        transform: translate(-50%, calc(-1 * var(--orb-travel))) scale(0.88);
+      }
+      50% {
+        opacity: 1;
+        transform: translate(-50%, var(--orb-travel)) scale(1.12);
+      }
+    }
+
+    @keyframes leftLogoFloat {
       0%,
       100% {
         transform: translate3d(0, 0, 0);
@@ -410,150 +300,107 @@
       }
     }
 
-    @keyframes crossFloat {
+    @keyframes rightLogoSpin {
       0%,
       100% {
         transform: translate3d(0, 0, 0) rotate(0deg);
       }
+      25% {
+        transform: translate3d(0, -4px, 0) rotate(90deg);
+      }
       50% {
-        transform: translate3d(0, -12px, 0) rotate(2deg);
+        transform: translate3d(0, -8px, 0) rotate(180deg);
+      }
+      75% {
+        transform: translate3d(0, -4px, 0) rotate(270deg);
       }
     }
 
-    @media (max-width: 1120px) {
-      body {
-        overflow-y: auto;
-      }
-
+    @media (max-width: 980px) {
       .entry-gate {
-        grid-template-columns: 1fr;
-        min-height: auto;
+        grid-template-columns: 1fr 24px 1fr;
+        padding: 18px;
       }
 
-      .gate-center {
-        order: -1;
-        padding: 12px 8px 22px;
-      }
-
-      .center-line {
-        height: 74px;
-      }
-    }
-
-    @media (max-width: 720px) {
-      .entry-top,
-      .entry-gate,
-      .entry-bottom {
-        width: min(100vw - 20px, 100%);
-      }
-
-      .entry-top,
-      .entry-bottom {
-        flex-direction: column;
-        align-items: flex-start;
-      }
-
-      .entry-links {
-        justify-content: flex-start;
-      }
-
-      .entry-gate {
-        gap: 14px;
-        padding-top: 16px;
-      }
-
-      .path-card {
-        min-height: 400px;
-      }
-
-      .path-link {
-        padding: 20px;
+      .path {
+        width: min(40vw, 300px);
       }
 
       .path-title {
-        font-size: clamp(1.7rem, 10vw, 3rem);
+        font-size: clamp(1.1rem, 2.8vw, 1.8rem);
       }
 
-      .center-title {
-        font-size: clamp(1.55rem, 8vw, 2.5rem);
+      .center-axis {
+        height: min(68vh, 520px);
+      }
+    }
+
+    @media (max-width: 680px) {
+      .entry-gate {
+        grid-template-columns: 1fr 14px 1fr;
+        align-items: end;
+        padding: 18px 10px 24px;
+      }
+
+      .path {
+        width: min(42vw, 190px);
+        gap: 12px;
+        transform: translateY(10vh);
+      }
+
+      .path:hover {
+        transform: translateY(calc(10vh - 6px));
+      }
+
+      .path-logo {
+        width: min(100%, 180px);
+      }
+
+      .path.right .path-logo {
+        width: min(100%, 150px);
+      }
+
+      .path-title {
+        font-size: 0.98rem;
+        letter-spacing: 0.18em;
+      }
+
+      .path-route,
+      .path-kicker,
+      .center-kicker {
+        font-size: 8px;
+        letter-spacing: 0.24em;
+      }
+
+      .center-axis {
+        height: 58vh;
+      }
+
+      .center-kicker {
+        bottom: 5vh;
       }
     }
   </style>
 </head>
 <body>
-  <main class="entry-shell">
-    <header class="entry-top">
-      <span>Nate Savard / Entry Gate</span>
-      <nav class="entry-links" aria-label="Entry links">
-        <a href="originals.html">Jewelry House</a>
-        <a href="envynomadix.html">Fashion House</a>
-        <a href="envynomadix-worldwide.html">Archive</a>
-        <a href="mailto:natesavard@outlook.com">Private Contact</a>
-      </nav>
-    </header>
+  <main class="entry-gate" aria-label="Choose your path">
+    <a class="path left" href="originals.html" aria-label="Enter The Original Collection jewelry house">
+      <div class="path-kicker">Jewelry House</div>
+      <img class="path-logo" src="ns-logo-chrome.png" alt="Chrome NS logo" />
+      <h1 class="path-title">The Original Collection</h1>
+      <div class="path-route">Enter Jewelry</div>
+    </a>
 
-    <section class="entry-gate" aria-label="Choose your path">
-      <a class="path-card left-card" href="originals.html" aria-label="Enter The Original Collection jewelry house">
-        <div class="path-link">
-          <div class="path-top">
-            <span>Jewelry House</span>
-            <span class="path-index">01</span>
-          </div>
+    <div class="center-axis" aria-hidden="true">
+      <div class="center-kicker">choose your world</div>
+    </div>
 
-          <div>
-            <h2 class="path-title">The Original Collection</h2>
-            <p class="path-copy">
-              Hand made original gemstone pendants, rings, custom talismans, collector stones, and jewelry built with permanence.
-            </p>
-          </div>
-
-          <div class="path-logo-wrap">
-            <img class="path-logo" src="ns-logo-chrome.png" alt="Chrome NS logo" />
-          </div>
-
-          <div class="path-route">Enter Jewelry World</div>
-        </div>
-      </a>
-
-      <div class="gate-center">
-        <div class="center-line"></div>
-        <img class="center-wordmark" src="14.png" alt="Nate Savard wordmark" />
-        <div class="center-kicker">One Designer / Two Paths</div>
-        <h1 class="center-title">Choose The House Route</h1>
-        <p class="center-copy">
-          Same background. Same world. One path opens the jewelry house. The other opens ENVYNOMADIX.
-        </p>
-        <div class="center-note">jewelry / garments / symbols / myth</div>
-        <div class="center-line"></div>
-      </div>
-
-      <a class="path-card right-card" href="envynomadix.html" aria-label="Enter Envynomadix fashion house">
-        <div class="path-link">
-          <div class="path-top">
-            <span>Fashion House</span>
-            <span class="path-index">02</span>
-          </div>
-
-          <div>
-            <h2 class="path-title">Envynomadix</h2>
-            <p class="path-copy">
-              Runway streetwear, jewel encrusted garments, chrome marks, and full uniform pieces made to move with chains, pendants, and rings.
-            </p>
-          </div>
-
-          <div class="path-logo-wrap">
-            <img class="path-logo" src="envy-cross-entry.png" alt="Envy cross emblem" />
-          </div>
-
-          <div class="path-route">Enter Fashion World</div>
-        </div>
-      </a>
-    </section>
-
-    <footer class="entry-bottom">
-      <span>fixed portrait / split entrance / collector direction</span>
-      <a href="main.html">open portal</a>
-    </footer>
+    <a class="path right" href="envynomadix.html" aria-label="Enter Envynomadix fashion house">
+      <div class="path-kicker">Fashion House</div>
+      <img class="path-logo" src="envy-cross-entry.png" alt="Envy cross emblem" />
+      <h1 class="path-title">Envynomadix</h1>
+      <div class="path-route">Enter Fashion</div>
+    </a>
   </main>
 </body>
 </html>
