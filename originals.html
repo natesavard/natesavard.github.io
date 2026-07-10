@@ -415,6 +415,7 @@
       place-items: center;
       position: relative;
       overflow: visible;
+      cursor: pointer;
     }
 
     .brand-logo-slot img {
@@ -435,23 +436,6 @@
     .brand-logo-slot img.visible {
       opacity: 1;
       transform: scale(1);
-    }
-
-    .brand-logo-slot::before {
-      content: "";
-      position: absolute;
-      inset: 4px;
-      border-radius: 50%;
-      border: 1px solid rgba(255, 214, 138, 0.0);
-      box-shadow: 0 0 0 rgba(255, 214, 138, 0);
-      transition: all 0.18s ease;
-    }
-
-    .brand-logo-slot:hover::before,
-    .brand-logo-slot.is-reactive::before {
-      inset: -2px;
-      border-color: rgba(255, 214, 138, 0.22);
-      box-shadow: 0 0 20px rgba(255, 214, 138, 0.12);
     }
 
     .brand-logo-slot:hover img.visible,
@@ -2635,7 +2619,7 @@
     <header>
       <div class="header-inner">
         <div class="brand">
-          <div class="brand-logo-slot" id="logoTarget">
+          <div class="brand-logo-slot" id="logoTarget" role="button" tabindex="0" aria-label="Reload intro screen">
             <img src="nate savard patch (1).png" alt="Nate Savard patch logo" class="rebel-flag-header-logo" id="headerLogo" />
           </div>
           <div>
@@ -3004,7 +2988,7 @@
 
       <div class="builder-shell">
         <div class="builder-panel">
-          <div class="builder-kicker">Private Commission Flow</div>
+          <div class="builder-kicker">Private Commission Kontrol</div>
           <p>
             This is the Nate Savard version of a ring builder: not mass retail, but a direction-setting tool for serious custom work. Start with the feeling, lock the architecture, and route the finished build path straight to Nate.
           </p>
@@ -3307,6 +3291,10 @@
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
+    function reloadIntroPage() {
+      window.location.assign(window.location.pathname + window.location.search);
+    }
+
     enterButton.addEventListener('click', () => {
       if (entered) return;
       entered = true;
@@ -3388,6 +3376,15 @@
     }
 
     if (logoTarget) {
+      logoTarget.addEventListener('click', reloadIntroPage);
+
+      logoTarget.addEventListener('keydown', (event) => {
+        if (event.key === 'Enter' || event.key === ' ') {
+          event.preventDefault();
+          reloadIntroPage();
+        }
+      });
+
       logoTarget.addEventListener('mouseenter', () => {
         logoTarget.classList.add('is-reactive');
       });
