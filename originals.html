@@ -1,0 +1,4148 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="color-scheme" content="dark" />
+  <meta name="theme-color" content="#050505" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  <title>Nate's World — Jewelry</title>
+
+  <style>
+    :root {
+      --gold: #d7ab52;
+      --gold-line: rgba(215, 171, 82, 0.16);
+      --text: #f5efe6;
+      --muted: rgba(245, 239, 230, 0.68);
+      --muted2: rgba(245, 239, 230, 0.44);
+      --header-h: 96px;
+      --radius: 18px;
+      --radius-lg: 22px;
+    }
+
+    * { box-sizing: border-box; }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      min-height: 100%;
+      scroll-behavior: smooth;
+      background: #000;
+      color: var(--text);
+      font-family: Arial, Helvetica, sans-serif;
+      overflow-x: hidden;
+    }
+
+    body {
+      background:
+        linear-gradient(rgba(0,0,0,0.58), rgba(0,0,0,0.76)),
+        radial-gradient(circle at 76% 18%, rgba(255, 226, 174, 0.10), rgba(0,0,0,0) 24%),
+        url("nate savard forever.png") 38% center / cover no-repeat fixed;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    img {
+      display: block;
+      max-width: 100%;
+    }
+
+    .enter-screen {
+      position: fixed;
+      inset: 0;
+      z-index: 3000;
+      overflow: hidden;
+      display: grid;
+      place-items: center;
+      background:
+        radial-gradient(circle at center, rgba(255, 216, 120, 0.07) 0%, rgba(0,0,0,0) 35%),
+        radial-gradient(circle at center, rgba(255, 188, 70, 0.03) 0%, rgba(0,0,0,0) 58%),
+        linear-gradient(rgba(0,0,0,0.78), rgba(0,0,0,0.82)),
+        url("nate savard forever.png") 38% center / cover no-repeat fixed;
+      transition: opacity 1s ease, visibility 1s ease;
+    }
+
+    .enter-screen.hidden {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    .enter-dust,
+    .enter-dust::before,
+    .enter-dust::after {
+      content: "";
+      position: absolute;
+      inset: -20%;
+      pointer-events: none;
+      background-repeat: repeat;
+    }
+
+    .enter-dust {
+      z-index: 0;
+      opacity: 0.34;
+      background-size: 240px 240px, 320px 320px, 420px 420px;
+      background-image:
+        radial-gradient(circle, rgba(255,220,150,0.55) 0 1px, transparent 1.6px),
+        radial-gradient(circle, rgba(255,230,185,0.26) 0 1px, transparent 1.8px),
+        radial-gradient(circle, rgba(255,190,90,0.18) 0 0.8px, transparent 1.4px);
+      animation: dustDriftA 28s linear infinite;
+      filter: blur(0.2px);
+    }
+
+    .enter-dust::before {
+      opacity: 0.42;
+      background-size: 280px 280px, 360px 360px, 430px 430px;
+      background-image:
+        radial-gradient(circle, rgba(255,215,145,0.22) 0 1px, transparent 1.8px),
+        radial-gradient(circle, rgba(255,255,255,0.10) 0 0.9px, transparent 1.6px),
+        radial-gradient(circle, rgba(255,190,90,0.15) 0 0.9px, transparent 1.5px);
+      animation: dustDriftB 35s linear infinite reverse;
+    }
+
+    .enter-dust::after {
+      opacity: 0.28;
+      background-size: 260px 260px, 340px 340px, 420px 420px;
+      background-image:
+        radial-gradient(circle, rgba(255,240,210,0.18) 0 1px, transparent 1.8px),
+        radial-gradient(circle, rgba(255,205,120,0.12) 0 0.8px, transparent 1.5px),
+        radial-gradient(circle, rgba(255,255,255,0.08) 0 0.7px, transparent 1.3px);
+      animation: dustDriftC 42s linear infinite;
+    }
+
+    .enter-button {
+      position: relative;
+      z-index: 3;
+      border: 0;
+      background: transparent;
+      padding: 0;
+      cursor: pointer;
+    }
+
+    .logo-shell {
+      position: relative;
+      width: min(34vw, 280px);
+      aspect-ratio: 1 / 1.28;
+      display: grid;
+      place-items: center;
+      animation:
+        nwFloat 7.4s ease-in-out infinite,
+        nwFlicker 5.7s ease-in-out infinite;
+      transform-style: preserve-3d;
+      transition: transform 0.18s ease, filter 0.18s ease;
+    }
+
+    .main-logo {
+      position: relative;
+      z-index: 3;
+      width: 100%;
+      height: auto;
+      object-fit: contain;
+      filter:
+        drop-shadow(0 0 8px rgba(255, 194, 84, 0.20))
+        drop-shadow(0 0 20px rgba(255, 194, 84, 0.12))
+        drop-shadow(0 0 42px rgba(255, 194, 84, 0.08));
+      animation:
+        nwGlow 4.8s ease-in-out infinite,
+        nwAudioPulse 1.8s ease-in-out infinite;
+      transition: opacity 0.35s ease, transform 0.18s ease, filter 0.18s ease;
+      will-change: transform, filter;
+    }
+
+    .logo-shell:hover .main-logo,
+    .logo-shell.is-reactive .main-logo {
+      transform: scale(1.035) rotate(-2deg);
+      filter:
+        drop-shadow(0 0 12px rgba(255, 210, 110, 0.34))
+        drop-shadow(0 0 28px rgba(255, 194, 84, 0.22))
+        drop-shadow(0 0 64px rgba(255, 194, 84, 0.12));
+    }
+
+    .light-sweep {
+      position: absolute;
+      inset: -18%;
+      z-index: 4;
+      pointer-events: none;
+      background:
+        linear-gradient(
+          110deg,
+          rgba(255,255,255,0) 38%,
+          rgba(255,235,190,0.03) 45%,
+          rgba(255,245,215,0.18) 50%,
+          rgba(255,230,170,0.04) 55%,
+          rgba(255,255,255,0) 62%
+        );
+      mix-blend-mode: screen;
+      filter: blur(8px);
+      transform: translateX(-145%) rotate(8deg);
+      animation: nwSweep 8.6s ease-in-out infinite;
+      transition: opacity 0.18s ease, transform 0.18s ease;
+    }
+
+    .logo-shell:hover .light-sweep,
+    .logo-shell.is-reactive .light-sweep {
+      opacity: 1;
+      transform: translateX(-20%) rotate(12deg);
+    }
+
+    .audio-ring {
+      position: absolute;
+      inset: 12%;
+      z-index: 1;
+      border-radius: 50%;
+      pointer-events: none;
+      border: 1px solid rgba(255, 197, 92, 0.12);
+      box-shadow:
+        0 0 18px rgba(255, 197, 92, 0.08),
+        inset 0 0 14px rgba(255, 197, 92, 0.04);
+      animation: nwRingPulse 1.8s ease-in-out infinite;
+      transition: transform 0.18s ease, opacity 0.18s ease, box-shadow 0.18s ease;
+    }
+
+    .logo-shell:hover .audio-ring,
+    .logo-shell.is-reactive .audio-ring {
+      opacity: 1;
+      transform: scale(1.08);
+      box-shadow:
+        0 0 26px rgba(255, 197, 92, 0.16),
+        inset 0 0 18px rgba(255, 197, 92, 0.08);
+    }
+
+    .sigil-orbit {
+      position: absolute;
+      inset: -12%;
+      border-radius: 50%;
+      border: 1px solid rgba(255, 214, 138, 0.12);
+      pointer-events: none;
+      z-index: 2;
+      opacity: 0.42;
+      animation: sigilOrbitSpin 14s linear infinite;
+      transition: opacity 0.18s ease, transform 0.18s ease, border-color 0.18s ease;
+    }
+
+    .sigil-orbit::before,
+    .sigil-orbit::after {
+      content: "";
+      position: absolute;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: rgba(255, 220, 150, 0.65);
+      box-shadow: 0 0 10px rgba(255, 220, 150, 0.28);
+    }
+
+    .sigil-orbit::before {
+      top: 6%;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    .sigil-orbit::after {
+      bottom: 8%;
+      left: 20%;
+    }
+
+    .logo-shell:hover .sigil-orbit,
+    .logo-shell.is-reactive .sigil-orbit {
+      opacity: 0.95;
+      transform: scale(1.05) rotate(18deg);
+      border-color: rgba(255, 214, 138, 0.28);
+    }
+
+    .enter-text {
+      position: absolute;
+      left: 50%;
+      top: calc(100% + 18px);
+      transform: translateX(-50%);
+      color: rgba(245,239,230,0.62);
+      font-size: 11px;
+      letter-spacing: 0.34em;
+      text-transform: uppercase;
+      white-space: nowrap;
+      transition: opacity 0.35s ease;
+    }
+
+    .flying-logo {
+      position: fixed;
+      z-index: 3200;
+      pointer-events: none;
+      display: none;
+      filter:
+        drop-shadow(0 0 8px rgba(255, 194, 84, 0.20))
+        drop-shadow(0 0 20px rgba(255, 194, 84, 0.12))
+        drop-shadow(0 0 42px rgba(255, 194, 84, 0.08));
+      transition:
+        top 1.2s cubic-bezier(.2,.8,.2,1),
+        left 1.2s cubic-bezier(.2,.8,.2,1),
+        width 1.2s cubic-bezier(.2,.8,.2,1),
+        opacity 0.35s ease;
+    }
+
+    .site-shell {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 1s ease 0.15s, transform 1s ease 0.15s;
+    }
+
+    .site-shell.revealed {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 2500;
+      background: rgba(5,5,5,0.86);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--gold-line);
+      transform: translateZ(0);
+    }
+
+    .header-inner {
+      max-width: 1220px;
+      margin: 0 auto;
+      min-height: var(--header-h);
+      padding: 16px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      min-width: 0;
+    }
+
+    .brand-logo-slot {
+      width: 64px;
+      height: 64px;
+      flex: 0 0 auto;
+      display: grid;
+      place-items: center;
+      position: relative;
+      overflow: visible;
+    }
+
+    .brand-logo-slot img {
+      width: 58px;
+      opacity: 0;
+      transform: scale(0.9);
+      transition: opacity 0.45s ease, transform 0.45s ease;
+      filter:
+        drop-shadow(0 0 8px rgba(255, 194, 84, 0.18))
+        drop-shadow(0 0 18px rgba(255, 194, 84, 0.10));
+    }
+
+    .brand-logo-slot img.visible {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    .brand-logo-slot::before {
+      content: "";
+      position: absolute;
+      inset: 4px;
+      border-radius: 50%;
+      border: 1px solid rgba(255, 214, 138, 0.0);
+      box-shadow: 0 0 0 rgba(255, 214, 138, 0);
+      transition: all 0.18s ease;
+    }
+
+    .brand-logo-slot:hover::before,
+    .brand-logo-slot.is-reactive::before {
+      inset: -2px;
+      border-color: rgba(255, 214, 138, 0.22);
+      box-shadow: 0 0 20px rgba(255, 214, 138, 0.12);
+    }
+
+    .brand-logo-slot:hover img.visible,
+    .brand-logo-slot.is-reactive img.visible {
+      transform: scale(1.08) rotate(-3deg);
+      filter:
+        drop-shadow(0 0 10px rgba(255, 210, 110, 0.26))
+        drop-shadow(0 0 24px rgba(255, 194, 84, 0.18));
+    }
+
+    .brand-title {
+      font-size: 13px;
+      letter-spacing: 0.34em;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+
+    .brand-sub {
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted2);
+    }
+
+    nav {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+
+    nav a {
+      font-size: 11px;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      color: var(--muted);
+      transition: color 0.25s ease, opacity 0.25s ease;
+    }
+
+    nav a:hover {
+      color: var(--text);
+    }
+
+    .hero {
+      position: relative;
+      max-width: 1220px;
+      margin: 0 auto;
+      padding: 170px 24px 54px;
+      display: grid;
+      grid-template-columns: 1.18fr 1fr;
+      gap: 42px;
+      align-items: center;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      left: -6%;
+      top: 44px;
+      width: min(58vw, 760px);
+      height: min(58vw, 760px);
+      background: url("nate savard.png") center center / contain no-repeat;
+      opacity: 0.06;
+      filter:
+        drop-shadow(0 0 20px rgba(255, 194, 84, 0.12))
+        drop-shadow(0 0 60px rgba(255, 194, 84, 0.08));
+      pointer-events: none;
+      animation:
+        sageMarkFloat 9s ease-in-out infinite,
+        sageMarkFlash 6.6s ease-in-out infinite;
+      z-index: 0;
+    }
+
+    .eyebrow {
+      color: var(--gold);
+      font-size: 11px;
+      letter-spacing: 0.30em;
+      text-transform: uppercase;
+      margin-bottom: 18px;
+    }
+
+    h1 {
+      margin: 0 0 18px;
+      font-size: clamp(38px, 7vw, 82px);
+      line-height: 0.95;
+      letter-spacing: -0.03em;
+      font-weight: 600;
+    }
+
+    .hero-copy,
+    .hero-visual {
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-title-row {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 18px;
+      flex-wrap: wrap;
+    }
+
+    .hero-title-row h1 {
+      margin: 0;
+    }
+
+    .hero-wordmark {
+      width: min(560px, 100%);
+      max-width: 100%;
+      display: block;
+      filter:
+        drop-shadow(0 0 14px rgba(255, 194, 84, 0.22))
+        drop-shadow(0 0 30px rgba(142,214,255,0.12));
+    }
+
+    .hero-sigil {
+      width: clamp(68px, 9vw, 110px);
+      height: auto;
+      opacity: 0.82;
+      filter:
+        drop-shadow(0 0 10px rgba(255, 194, 84, 0.20))
+        drop-shadow(0 0 26px rgba(255, 194, 84, 0.12));
+      animation: sageSigilFloat 5.8s ease-in-out infinite;
+    }
+
+    .hero p {
+      margin: 0 0 28px;
+      max-width: 560px;
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.8;
+    }
+
+    @keyframes sageSigilFloat {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-5px); }
+    }
+
+    @keyframes sageMarkFloat {
+      0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+      50% { transform: translate3d(10px, -10px, 0) scale(1.03); }
+    }
+
+    @keyframes sageMarkFlash {
+      0%, 100% { opacity: 0.05; }
+      50% { opacity: 0.09; }
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+    }
+
+    .btn {
+      padding: 14px 18px;
+      border: 1px solid var(--gold-line);
+      font-size: 11px;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      transition: all 0.25s ease;
+      border-radius: 999px;
+    }
+
+    .btn.primary {
+      background: linear-gradient(180deg, rgba(214,168,79,0.18), rgba(214,168,79,0.08));
+    }
+
+    .btn.secondary {
+      background: rgba(255,255,255,0.01);
+      color: var(--muted);
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+      border-color: rgba(214,168,79,0.34);
+      color: var(--text);
+    }
+
+    .hero-visual {
+      position: relative;
+      min-height: 500px;
+      display: grid;
+      place-items: center;
+    }
+
+    .hero-card {
+      width: min(100%, 520px);
+      aspect-ratio: 4 / 5;
+      overflow: hidden;
+      border: 1px solid var(--gold-line);
+      background:
+        radial-gradient(circle at 50% 22%, rgba(214,168,79,0.08), transparent 28%),
+        linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      display: grid;
+      place-items: center;
+      position: relative;
+      backdrop-filter: blur(4px);
+      border-radius: var(--radius-lg);
+      box-shadow:
+        0 16px 40px rgba(0,0,0,0.45),
+        inset 0 0 18px rgba(255,255,255,0.02);
+      cursor: zoom-in;
+    }
+
+    .hero-card img {
+      width: auto;
+      height: auto;
+      max-width: 76%;
+      max-height: 76%;
+      object-fit: contain;
+      object-position: center;
+      filter:
+        drop-shadow(0 0 20px rgba(255, 196, 92, 0.10))
+        drop-shadow(0 0 42px rgba(255, 196, 92, 0.08));
+      animation: heroFloat 8s ease-in-out infinite;
+      transition: transform 0.28s ease, filter 0.28s ease;
+    }
+
+    .hero-card:hover img {
+      transform: scale(1.04);
+      filter:
+        drop-shadow(0 0 24px rgba(255, 196, 92, 0.16))
+        drop-shadow(0 0 50px rgba(255, 196, 92, 0.12));
+    }
+
+    .section {
+      max-width: 1220px;
+      margin: 0 auto;
+      padding: 24px 24px 90px;
+    }
+
+    .section-head {
+      margin-bottom: 28px;
+      display: flex;
+      justify-content: space-between;
+      gap: 24px;
+      align-items: end;
+    }
+
+    .section-title {
+      font-size: 13px;
+      letter-spacing: 0.34em;
+      text-transform: uppercase;
+    }
+
+    .section-copy {
+      max-width: 520px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.7;
+    }
+
+    .fusion-shell {
+      padding: 30px;
+      border: 1px solid rgba(215, 171, 82, 0.16);
+      border-radius: 24px;
+      background:
+        radial-gradient(circle at 78% 12%, rgba(214,168,79,0.08), transparent 22%),
+        radial-gradient(circle at 18% 0%, rgba(255,255,255,0.03), transparent 24%),
+        linear-gradient(180deg, rgba(8,8,8,0.92), rgba(2,2,2,0.88));
+      box-shadow:
+        0 20px 56px rgba(0,0,0,0.46),
+        inset 0 0 24px rgba(255,255,255,0.02);
+    }
+
+    .fusion-intro {
+      max-width: 880px;
+      margin: 16px 0 0;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.9;
+    }
+
+    .fusion-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 22px;
+      margin-top: 26px;
+    }
+
+    .fusion-card {
+      padding: 24px 22px 22px;
+      border: 1px solid rgba(215, 171, 82, 0.12);
+      border-radius: 20px;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,0.025), rgba(255,255,255,0.01)),
+        rgba(0,0,0,0.22);
+    }
+
+    .fusion-card-tag {
+      color: var(--gold);
+      font-size: 10px;
+      letter-spacing: 0.26em;
+      text-transform: uppercase;
+    }
+
+    .fusion-card h3 {
+      margin: 14px 0 12px;
+      font-size: 20px;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .fusion-card p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.8;
+    }
+
+    .fusion-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-top: 24px;
+    }
+
+    .doctrine-note {
+      margin: 0 0 26px;
+      padding: 18px 20px;
+      border: 1px solid rgba(215, 171, 82, 0.18);
+      border-radius: 20px;
+      background:
+        radial-gradient(circle at top left, rgba(214,168,79,0.08), transparent 26%),
+        linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.015));
+      box-shadow:
+        0 14px 40px rgba(0,0,0,0.28),
+        inset 0 0 18px rgba(255,255,255,0.02);
+      color: #f0e6d2;
+    }
+
+    .doctrine-note-label {
+      display: block;
+      margin-bottom: 8px;
+      color: var(--gold);
+      font-size: 10px;
+      letter-spacing: 0.26em;
+      text-transform: uppercase;
+    }
+
+    .archive-shell {
+      margin: 0 0 28px;
+      padding: 28px 28px 24px;
+      border: 1px solid rgba(215, 171, 82, 0.16);
+      border-radius: 24px;
+      background:
+        radial-gradient(circle at 82% 16%, rgba(214,168,79,0.08), transparent 24%),
+        linear-gradient(180deg, rgba(8,8,8,0.92), rgba(2,2,2,0.88));
+      box-shadow:
+        0 18px 48px rgba(0,0,0,0.42),
+        inset 0 0 24px rgba(255,255,255,0.02);
+    }
+
+    .archive-kicker {
+      color: var(--gold);
+      font-size: 10px;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      margin-bottom: 14px;
+    }
+
+    .archive-title {
+      margin: 0;
+      font-size: clamp(22px, 3vw, 38px);
+      line-height: 1.06;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .archive-copy {
+      max-width: 900px;
+      margin: 18px 0 0;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.9;
+    }
+
+    .archive-truths {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+      margin-top: 24px;
+    }
+
+    .archive-truth {
+      padding: 18px 18px 16px;
+      border: 1px solid rgba(215, 171, 82, 0.12);
+      border-radius: 18px;
+      background: rgba(255,255,255,0.02);
+    }
+
+    .archive-truth strong,
+    .archive-truth span {
+      display: block;
+    }
+
+    .archive-truth strong {
+      margin-bottom: 8px;
+      color: var(--text);
+      font-size: 11px;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+    }
+
+    .archive-truth span {
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.7;
+    }
+
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 20px;
+    }
+
+    .product-card {
+      background: rgba(255,255,255,0.015);
+      border: 1px solid var(--gold-line);
+      overflow: hidden;
+      transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+      border-radius: var(--radius);
+      backdrop-filter: blur(4px);
+      box-shadow:
+        0 10px 30px rgba(0,0,0,0.35),
+        inset 0 0 18px rgba(255,255,255,0.02);
+    }
+
+    .product-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(214,168,79,0.35);
+      box-shadow:
+        0 18px 50px rgba(0,0,0,0.55),
+        0 0 18px rgba(214,168,79,0.10);
+    }
+
+    .product-image {
+      position: relative;
+      aspect-ratio: 4 / 5;
+      padding: 20px;
+      background:
+        radial-gradient(circle at center, rgba(214,168,79,0.05), transparent 42%),
+        rgba(9,9,9,0.78);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: var(--radius);
+      cursor: zoom-in;
+      overflow: hidden;
+    }
+
+    .product-image img {
+      width: auto;
+      height: auto;
+      max-width: 82%;
+      max-height: 82%;
+      object-fit: contain;
+      object-position: center;
+      filter:
+        drop-shadow(0 0 18px rgba(255, 196, 92, 0.10))
+        drop-shadow(0 0 30px rgba(255, 196, 92, 0.08));
+      transition: transform 0.28s ease, filter 0.28s ease;
+    }
+
+    .product-image::after {
+      content: "view piece";
+      position: absolute;
+      right: 14px;
+      bottom: 14px;
+      padding: 8px 10px;
+      border: 1px solid rgba(215, 171, 82, 0.18);
+      border-radius: 999px;
+      background: rgba(0,0,0,0.52);
+      color: rgba(245,239,230,0.86);
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      opacity: 0;
+      transform: translateY(8px);
+      transition: opacity 0.24s ease, transform 0.24s ease;
+    }
+
+    .product-card:hover .product-image::after,
+    .product-image:hover::after {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .product-card:hover .product-image img,
+    .product-image:hover img {
+      transform: scale(1.05);
+      filter:
+        drop-shadow(0 0 24px rgba(255, 196, 92, 0.16))
+        drop-shadow(0 0 42px rgba(255, 196, 92, 0.12));
+    }
+
+    .product-info {
+      padding: 18px 18px 20px;
+    }
+
+    .product-name {
+      font-size: 12px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+
+    .product-desc {
+      margin-bottom: 18px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.7;
+    }
+
+    .product-link {
+      color: var(--gold);
+      font-size: 11px;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+    }
+
+    .piece-lightbox {
+      position: fixed;
+      inset: 0;
+      z-index: 4000;
+      display: grid;
+      place-items: center;
+      padding: 24px;
+      background:
+        radial-gradient(circle at center, rgba(214,168,79,0.08), transparent 28%),
+        rgba(0,0,0,0.88);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.28s ease;
+    }
+
+    .piece-lightbox.is-open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .piece-lightbox-panel {
+      position: relative;
+      width: min(960px, 100%);
+      max-height: min(88vh, 920px);
+      padding: 22px 22px 18px;
+      border: 1px solid rgba(215, 171, 82, 0.18);
+      border-radius: 24px;
+      background:
+        radial-gradient(circle at 50% 16%, rgba(214,168,79,0.09), transparent 28%),
+        linear-gradient(180deg, rgba(8,8,8,0.92), rgba(2,2,2,0.88));
+      box-shadow:
+        0 22px 70px rgba(0,0,0,0.58),
+        inset 0 0 20px rgba(255,255,255,0.02);
+    }
+
+    .piece-lightbox-close {
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      width: 42px;
+      height: 42px;
+      border: 1px solid rgba(215, 171, 82, 0.18);
+      border-radius: 50%;
+      background: rgba(255,255,255,0.03);
+      color: var(--text);
+      font-size: 20px;
+      line-height: 1;
+      cursor: pointer;
+      transition: all 0.24s ease;
+    }
+
+    .piece-lightbox-close:hover {
+      border-color: rgba(215, 171, 82, 0.34);
+      background: rgba(214,168,79,0.10);
+      transform: scale(1.06);
+    }
+
+    .piece-lightbox-kicker {
+      margin-bottom: 16px;
+      color: var(--gold);
+      font-size: 11px;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+    }
+
+    .piece-lightbox-figure {
+      margin: 0;
+      display: grid;
+      gap: 14px;
+      justify-items: center;
+    }
+
+    .piece-lightbox-image {
+      display: block;
+      width: auto;
+      height: auto;
+      max-width: min(100%, 760px);
+      max-height: 66vh;
+      object-fit: contain;
+      filter:
+        drop-shadow(0 0 26px rgba(255, 196, 92, 0.12))
+        drop-shadow(0 0 50px rgba(255, 196, 92, 0.10));
+    }
+
+    .piece-lightbox-caption {
+      color: var(--muted);
+      font-size: 13px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      text-align: center;
+    }
+
+    .builder-shell,
+    .world-shell,
+    .stories-shell {
+      padding: 30px;
+      border: 1px solid rgba(215, 171, 82, 0.16);
+      border-radius: 24px;
+      background:
+        radial-gradient(circle at 84% 14%, rgba(214,168,79,0.08), transparent 24%),
+        radial-gradient(circle at 16% 0%, rgba(255,255,255,0.03), transparent 22%),
+        linear-gradient(180deg, rgba(8,8,8,0.92), rgba(2,2,2,0.88));
+      box-shadow:
+        0 18px 52px rgba(0,0,0,0.44),
+        inset 0 0 24px rgba(255,255,255,0.02);
+    }
+
+    .builder-shell,
+    .world-grid {
+      display: grid;
+      grid-template-columns: minmax(280px, 0.94fr) minmax(320px, 1.06fr);
+      gap: 24px;
+      align-items: start;
+    }
+
+    .builder-kicker,
+    .world-kicker,
+    .stories-kicker,
+    .builder-label,
+    .builder-preview-kicker,
+    .world-stat-label,
+    .story-detail,
+    .story-link {
+      color: var(--gold);
+      font-size: 10px;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+    }
+
+    .builder-panel,
+    .builder-stage,
+    .world-copy {
+      display: grid;
+      gap: 18px;
+      align-content: start;
+    }
+
+    .builder-panel p,
+    .world-copy p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.8;
+    }
+
+    .builder-group {
+      display: grid;
+      gap: 10px;
+    }
+
+    .builder-pills,
+    .story-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .builder-pill,
+    .story-tab {
+      border: 1px solid rgba(215, 171, 82, 0.16);
+      border-radius: 999px;
+      background: rgba(255,255,255,0.02);
+      color: var(--muted);
+      cursor: pointer;
+      transition: transform 0.22s ease, border-color 0.22s ease, background 0.22s ease, color 0.22s ease;
+    }
+
+    .builder-pill {
+      padding: 12px 14px;
+      font-size: 10px;
+      letter-spacing: 0.20em;
+      text-transform: uppercase;
+    }
+
+    .story-tab {
+      padding: 12px 16px;
+      font-size: 10px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+    }
+
+    .builder-pill:hover,
+    .story-tab:hover {
+      transform: translateY(-1px);
+      border-color: rgba(215, 171, 82, 0.32);
+      color: var(--text);
+    }
+
+    .builder-pill.is-active,
+    .story-tab.is-active {
+      background: linear-gradient(180deg, rgba(214,168,79,0.90), rgba(214,168,79,0.74));
+      border-color: rgba(255, 220, 150, 0.48);
+      color: #050505;
+      box-shadow: 0 10px 28px rgba(214,168,79,0.20);
+    }
+
+    .builder-summary {
+      padding: 20px;
+      border: 1px solid rgba(215, 171, 82, 0.16);
+      border-radius: 20px;
+      background:
+        radial-gradient(circle at top left, rgba(214,168,79,0.08), transparent 28%),
+        rgba(255,255,255,0.02);
+    }
+
+    .builder-summary-line {
+      color: var(--muted2);
+      font-size: 12px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .builder-summary-value {
+      display: block;
+      margin-top: 10px;
+      color: var(--text);
+      font-size: clamp(20px, 2.4vw, 30px);
+      line-height: 1.1;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .builder-summary-copy {
+      margin-top: 12px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.8;
+    }
+
+    .builder-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .builder-preview {
+      padding: 22px;
+      border: 1px solid rgba(215, 171, 82, 0.16);
+      border-radius: 22px;
+      background:
+        radial-gradient(circle at 50% 18%, rgba(214,168,79,0.07), transparent 30%),
+        linear-gradient(180deg, rgba(255,255,255,0.025), rgba(255,255,255,0.008)),
+        rgba(0,0,0,0.24);
+      box-shadow:
+        0 16px 40px rgba(0,0,0,0.36),
+        inset 0 0 18px rgba(255,255,255,0.02);
+    }
+
+    .builder-preview-media {
+      position: relative;
+      aspect-ratio: 4 / 5;
+      border-radius: 20px;
+      border: 1px solid rgba(215, 171, 82, 0.14);
+      background:
+        radial-gradient(circle at center, rgba(214,168,79,0.06), transparent 42%),
+        rgba(6,6,6,0.78);
+      display: grid;
+      place-items: center;
+      overflow: hidden;
+      cursor: zoom-in;
+    }
+
+    .builder-preview-media::after,
+    .builder-match-media::after,
+    .story-media::after {
+      position: absolute;
+      right: 14px;
+      bottom: 14px;
+      padding: 8px 10px;
+      border: 1px solid rgba(215, 171, 82, 0.18);
+      border-radius: 999px;
+      background: rgba(0,0,0,0.52);
+      color: rgba(245,239,230,0.86);
+      font-size: 10px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      opacity: 0;
+      transform: translateY(8px);
+      transition: opacity 0.24s ease, transform 0.24s ease;
+    }
+
+    .builder-preview-media::after {
+      content: "open preview";
+    }
+
+    .builder-match-media::after {
+      content: "view path";
+    }
+
+    .story-media::after {
+      content: "open image";
+    }
+
+    .builder-preview-media:hover::after,
+    .builder-match-media:hover::after,
+    .story-media:hover::after,
+    .builder-match-card:hover .builder-match-media::after,
+    .story-card:hover .story-media::after {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .builder-preview-media img {
+      width: auto;
+      height: auto;
+      max-width: 82%;
+      max-height: 82%;
+      object-fit: contain;
+      filter:
+        drop-shadow(0 0 22px rgba(255, 196, 92, 0.14))
+        drop-shadow(0 0 46px rgba(255, 196, 92, 0.10));
+    }
+
+    .builder-preview-copy {
+      padding-top: 18px;
+    }
+
+    .builder-preview-title,
+    .world-title {
+      margin: 10px 0 12px;
+      font-size: clamp(24px, 3vw, 42px);
+      line-height: 1.04;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .builder-preview-desc {
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.85;
+    }
+
+    .builder-match-grid,
+    .story-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .builder-match-card,
+    .story-card {
+      overflow: hidden;
+      border: 1px solid rgba(215, 171, 82, 0.14);
+      border-radius: 20px;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.008)),
+        rgba(0,0,0,0.24);
+      box-shadow:
+        0 12px 34px rgba(0,0,0,0.32),
+        inset 0 0 18px rgba(255,255,255,0.02);
+      transition: transform 0.24s ease, border-color 0.24s ease, box-shadow 0.24s ease;
+    }
+
+    .builder-match-card:hover,
+    .story-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(215, 171, 82, 0.30);
+      box-shadow:
+        0 18px 44px rgba(0,0,0,0.46),
+        0 0 18px rgba(214,168,79,0.10);
+    }
+
+    .builder-match-media,
+    .story-media {
+      position: relative;
+      aspect-ratio: 4 / 5;
+      background:
+        radial-gradient(circle at center, rgba(214,168,79,0.05), transparent 42%),
+        rgba(8,8,8,0.78);
+      display: grid;
+      place-items: center;
+      padding: 16px;
+      cursor: zoom-in;
+    }
+
+    .builder-match-media img,
+    .story-media img {
+      width: auto;
+      height: auto;
+      max-width: 84%;
+      max-height: 84%;
+      object-fit: contain;
+      filter:
+        drop-shadow(0 0 16px rgba(255, 196, 92, 0.12))
+        drop-shadow(0 0 30px rgba(255, 196, 92, 0.08));
+      transition: transform 0.28s ease, filter 0.28s ease;
+    }
+
+    .builder-match-card:hover img,
+    .story-card:hover img,
+    .builder-match-media:hover img,
+    .story-media:hover img {
+      transform: scale(1.05);
+      filter:
+        drop-shadow(0 0 24px rgba(255, 196, 92, 0.16))
+        drop-shadow(0 0 40px rgba(255, 196, 92, 0.10));
+    }
+
+    .builder-match-info,
+    .story-body {
+      padding: 18px;
+    }
+
+    .builder-match-name,
+    .story-name {
+      color: var(--text);
+      font-size: 12px;
+      letter-spacing: 0.20em;
+      text-transform: uppercase;
+    }
+
+    .builder-match-desc {
+      margin: 10px 0 0;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.7;
+    }
+
+    .builder-match-meta {
+      margin-top: 14px;
+      color: var(--gold);
+      font-size: 10px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+    }
+
+    .world-stage {
+      position: relative;
+      padding: 18px 18px 22px;
+      border: 1px solid rgba(215, 171, 82, 0.16);
+      border-radius: 28px;
+      background:
+        radial-gradient(circle at center, rgba(214,168,79,0.07), transparent 42%),
+        rgba(0,0,0,0.36);
+      box-shadow:
+        inset 0 0 22px rgba(255,255,255,0.02),
+        0 16px 40px rgba(0,0,0,0.34);
+    }
+
+    .sage-globe-canvas {
+      display: block;
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      cursor: grab;
+      touch-action: none;
+    }
+
+    .sage-globe-canvas.is-dragging {
+      cursor: grabbing;
+    }
+
+    .world-focus {
+      margin-bottom: 10px;
+      min-height: 16px;
+      color: rgba(245,239,230,0.74);
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      text-align: center;
+    }
+
+    .world-hint {
+      margin-top: 10px;
+      color: var(--gold);
+      font-size: 10px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      text-align: center;
+      opacity: 0.86;
+    }
+
+    .world-stats {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 8px;
+    }
+
+    .world-stat {
+      padding: 18px 14px 16px;
+      border: 1px solid rgba(215, 171, 82, 0.14);
+      border-radius: 18px;
+      background: rgba(255,255,255,0.02);
+      text-align: center;
+    }
+
+    .world-stat-value {
+      display: block;
+      color: var(--text);
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(28px, 3vw, 40px);
+      line-height: 1;
+      margin-bottom: 10px;
+    }
+
+    .world-stars {
+      color: var(--gold);
+      letter-spacing: 0.18em;
+      font-size: clamp(18px, 2vw, 24px);
+    }
+
+    .world-modal {
+      position: fixed;
+      inset: 0;
+      z-index: 4200;
+      display: grid;
+      place-items: center;
+      padding: 24px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.28s ease;
+    }
+
+    .world-modal.is-open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .world-modal-backdrop {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at center, rgba(214,168,79,0.06), transparent 32%),
+        rgba(0,0,0,0.88);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+
+    .world-modal-panel {
+      position: relative;
+      z-index: 1;
+      width: min(880px, 100%);
+      display: grid;
+      grid-template-columns: minmax(280px, 0.88fr) minmax(280px, 1fr);
+      gap: 0;
+      overflow: hidden;
+      border: 1px solid rgba(215, 171, 82, 0.18);
+      border-radius: 24px;
+      background:
+        linear-gradient(180deg, rgba(8,8,8,0.94), rgba(2,2,2,0.88));
+      box-shadow:
+        0 24px 70px rgba(0,0,0,0.58),
+        inset 0 0 20px rgba(255,255,255,0.02);
+    }
+
+    .world-modal-media {
+      min-height: 100%;
+      padding: 24px;
+      display: grid;
+      place-items: center;
+      background:
+        radial-gradient(circle at center, rgba(214,168,79,0.08), transparent 40%),
+        rgba(0,0,0,0.56);
+    }
+
+    .world-modal-media img {
+      width: auto;
+      height: auto;
+      max-width: 82%;
+      max-height: 58vh;
+      object-fit: contain;
+      filter:
+        drop-shadow(0 0 24px rgba(255, 196, 92, 0.14))
+        drop-shadow(0 0 48px rgba(255, 196, 92, 0.10));
+    }
+
+    .world-modal-body {
+      padding: 28px 26px 26px;
+      display: grid;
+      align-content: start;
+      gap: 14px;
+    }
+
+    .world-modal-close {
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      width: 42px;
+      height: 42px;
+      border: 1px solid rgba(215, 171, 82, 0.18);
+      border-radius: 50%;
+      background: rgba(255,255,255,0.03);
+      color: var(--text);
+      font-size: 20px;
+      line-height: 1;
+      cursor: pointer;
+      transition: all 0.24s ease;
+    }
+
+    .world-modal-close:hover {
+      border-color: rgba(215, 171, 82, 0.34);
+      background: rgba(214,168,79,0.10);
+      transform: scale(1.06);
+    }
+
+    .world-modal-title {
+      margin: 0;
+      font-size: clamp(24px, 3vw, 38px);
+      line-height: 1.08;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .world-modal-location {
+      color: var(--gold);
+      font-size: 11px;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+    }
+
+    .world-modal-note {
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.85;
+    }
+
+    .stories-note {
+      margin: 0 0 22px;
+      padding: 18px 20px;
+      border: 1px solid rgba(215, 171, 82, 0.14);
+      border-radius: 18px;
+      background:
+        radial-gradient(circle at top left, rgba(214,168,79,0.06), transparent 26%),
+        rgba(255,255,255,0.02);
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.8;
+    }
+
+    .story-grid {
+      margin-top: 4px;
+    }
+
+    .story-badge {
+      position: absolute;
+      top: 14px;
+      left: 14px;
+      padding: 8px 10px;
+      border: 1px solid rgba(215, 171, 82, 0.18);
+      border-radius: 999px;
+      background: rgba(0,0,0,0.52);
+      color: rgba(245,239,230,0.90);
+      font-size: 9px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+    }
+
+    .story-stars {
+      color: var(--gold);
+      font-size: 14px;
+      letter-spacing: 0.18em;
+    }
+
+    .story-copy {
+      margin: 0;
+      color: rgba(245,239,230,0.90);
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 19px;
+      line-height: 1.55;
+      font-style: italic;
+    }
+
+    .story-meta {
+      padding-top: 14px;
+      border-top: 1px solid rgba(215, 171, 82, 0.12);
+      display: grid;
+      gap: 8px;
+    }
+
+    .story-name {
+      color: var(--gold);
+      margin: 0;
+    }
+
+    .story-detail {
+      color: var(--muted);
+      font-size: 11px;
+      line-height: 1.6;
+    }
+
+    .story-link {
+      display: inline-block;
+      margin-top: 2px;
+      color: var(--gold);
+      font-size: 10px;
+      letter-spacing: 0.20em;
+      text-transform: uppercase;
+    }
+
+    .buy-section {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 28px;
+      padding-top: 44px;
+      border-top: 1px solid var(--gold-line);
+    }
+
+    .buy-box {
+      padding: 24px;
+      border: 1px solid var(--gold-line);
+      background: rgba(255,255,255,0.015);
+      backdrop-filter: blur(4px);
+      border-radius: var(--radius);
+      box-shadow:
+        0 10px 30px rgba(0,0,0,0.35),
+        inset 0 0 18px rgba(255,255,255,0.02);
+    }
+
+    .buy-box h3 {
+      margin: 0 0 12px;
+      font-size: 13px;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      font-weight: 500;
+    }
+
+    .buy-box p {
+      margin: 0 0 18px;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.8;
+    }
+
+    .price-grid {
+      display: grid;
+      gap: 10px;
+      margin: 0 0 16px;
+    }
+
+    .live-xau-wrap {
+      margin: 0 0 18px;
+      padding: 12px 14px 8px;
+      border: 1px solid rgba(215, 171, 82, 0.16);
+      border-radius: 18px;
+      background:
+        radial-gradient(circle at top left, rgba(214,168,79,0.08), transparent 26%),
+        rgba(255,255,255,0.02);
+      overflow: hidden;
+    }
+
+    .live-xau-label {
+      display: block;
+      margin-bottom: 8px;
+      color: var(--gold);
+      font-size: 10px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+    }
+
+    .live-xau-wrap .tradingview-widget-container__widget {
+      min-height: 64px;
+    }
+
+    .price-line {
+      display: flex;
+      justify-content: space-between;
+      gap: 14px;
+      padding-bottom: 9px;
+      border-bottom: 1px solid rgba(215, 171, 82, 0.12);
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    .price-line strong {
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    .price-note {
+      margin: 0;
+      color: rgba(240, 230, 210, 0.82);
+      font-size: 12px;
+      line-height: 1.7;
+    }
+
+    .price-stamp {
+      margin: -4px 0 14px;
+      color: var(--gold);
+      font-size: 10px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      opacity: 0.9;
+    }
+
+    .price-note a {
+      color: var(--gold);
+      text-decoration: none;
+    }
+
+    .gemstone-doctrine-section {
+      position: relative;
+      opacity: 0;
+      transform: translateY(36px);
+      transition: opacity 1.15s ease, transform 1.15s ease;
+    }
+
+    .gemstone-doctrine-section.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .gemstone-power-box {
+      position: relative;
+      overflow: hidden;
+      margin-top: 10px;
+      max-width: 760px;
+      padding: 28px 30px;
+      border: 1px solid rgba(215, 171, 82, 0.16);
+      border-radius: 20px;
+      background:
+        radial-gradient(circle at 18% 0%, rgba(215,171,82,0.06), transparent 38%),
+        linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.008)),
+        rgba(0,0,0,0.24);
+      box-shadow:
+        0 14px 40px rgba(0,0,0,0.35),
+        inset 0 0 20px rgba(255,255,255,0.02);
+      backdrop-filter: blur(6px);
+    }
+
+    .gemstone-power-box::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(
+          115deg,
+          transparent 0%,
+          rgba(255,245,220,0.00) 40%,
+          rgba(255,245,220,0.12) 50%,
+          rgba(255,245,220,0.00) 60%,
+          transparent 100%
+        );
+      transform: translateX(-130%);
+      animation: doctrineSweep 7.8s ease-in-out infinite;
+      pointer-events: none;
+      mix-blend-mode: screen;
+    }
+
+    .gemstone-power-box::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: 20px;
+      box-shadow: inset 0 0 28px rgba(215,171,82,0.03);
+      pointer-events: none;
+    }
+
+    .power-box-label {
+      margin-bottom: 16px;
+      color: var(--gold);
+      font-size: 10px;
+      letter-spacing: 0.30em;
+      text-transform: uppercase;
+      opacity: 0.9;
+      position: relative;
+      z-index: 1;
+    }
+
+    .power-line {
+      margin: 0 0 10px;
+      font-size: 12px;
+      line-height: 1.8;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      color: rgba(245, 239, 230, 0.76);
+      transform: translateY(18px);
+      opacity: 0;
+      filter: blur(4px);
+      transition: transform 0.25s ease, color 0.25s ease, text-shadow 0.25s ease;
+      position: relative;
+      z-index: 1;
+    }
+
+    .gemstone-doctrine-section.visible .power-line {
+      animation: doctrineLineIn 0.9s ease forwards;
+    }
+
+    .gemstone-doctrine-section.visible .power-line[data-order="1"] { animation-delay: 0.10s; }
+    .gemstone-doctrine-section.visible .power-line[data-order="2"] { animation-delay: 0.18s; }
+    .gemstone-doctrine-section.visible .power-line[data-order="3"] { animation-delay: 0.26s; }
+    .gemstone-doctrine-section.visible .power-line[data-order="4"] { animation-delay: 0.34s; }
+    .gemstone-doctrine-section.visible .power-line[data-order="5"] { animation-delay: 0.42s; }
+    .gemstone-doctrine-section.visible .power-line[data-order="6"] { animation-delay: 0.50s; }
+    .gemstone-doctrine-section.visible .power-line[data-order="7"] { animation-delay: 0.58s; }
+    .gemstone-doctrine-section.visible .power-line[data-order="8"] { animation-delay: 0.66s; }
+    .gemstone-doctrine-section.visible .power-line[data-order="9"] { animation-delay: 0.74s; }
+
+    .power-line:hover {
+      transform: translateX(6px);
+      color: #fff8ee;
+      text-shadow: 0 0 14px rgba(255,210,120,0.14);
+    }
+
+    .power-line.strong {
+      color: var(--gold);
+      font-weight: 700;
+      letter-spacing: 0.28em;
+    }
+
+    .power-line.highlight {
+      color: #f5efe6;
+    }
+
+    .power-line.final {
+      margin-top: 6px;
+      color: var(--gold);
+      font-size: 13px;
+      letter-spacing: 0.22em;
+    }
+
+    .power-divider {
+      width: 70%;
+      height: 1px;
+      margin: 14px 0;
+      background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(215,171,82,0.35),
+        transparent
+      );
+      opacity: 0;
+      transform: scaleX(0.6);
+      transform-origin: left center;
+      position: relative;
+      z-index: 1;
+    }
+
+    .gemstone-doctrine-section.visible .power-divider {
+      animation: doctrineDividerIn 1s ease forwards;
+    }
+
+    .gemstone-doctrine-section.visible .power-divider[data-divider="1"] { animation-delay: 0.30s; }
+    .gemstone-doctrine-section.visible .power-divider[data-divider="2"] { animation-delay: 0.54s; }
+
+    .site-footer {
+      max-width: 1220px;
+      margin: 0 auto;
+      padding: 10px 24px 70px;
+      text-align: center;
+    }
+
+    .footer-divider {
+      height: 1px;
+      background: linear-gradient(
+        90deg,
+        rgba(215,171,82,0),
+        rgba(215,171,82,0.18),
+        rgba(215,171,82,0)
+      );
+      margin-bottom: 34px;
+    }
+
+    .footer-logo-wrap {
+      display: inline-flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 14px;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .footer-logo-shell {
+      position: relative;
+      width: 92px;
+      height: 92px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      animation: footerPulse 4.6s ease-in-out infinite;
+    }
+
+    .footer-logo-shell::before {
+      content: "";
+      position: absolute;
+      inset: -14px;
+      border-radius: 50%;
+      background:
+        radial-gradient(circle, rgba(255,210,120,0.10), rgba(255,210,120,0.02) 45%, transparent 70%);
+      filter: blur(10px);
+      animation: footerHalo 4.2s ease-in-out infinite;
+      pointer-events: none;
+    }
+
+    .footer-logo-shell::after {
+      content: "";
+      position: absolute;
+      inset: -6px;
+      border-radius: 50%;
+      border: 1px solid rgba(215,171,82,0.14);
+      box-shadow:
+        0 0 18px rgba(215,171,82,0.10),
+        inset 0 0 14px rgba(215,171,82,0.04);
+      animation: footerRing 3.4s ease-in-out infinite;
+      pointer-events: none;
+    }
+
+    .footer-logo {
+      position: relative;
+      z-index: 2;
+      width: 68px;
+      filter:
+        drop-shadow(0 0 8px rgba(255, 194, 84, 0.20))
+        drop-shadow(0 0 16px rgba(255, 194, 84, 0.12))
+        drop-shadow(0 0 28px rgba(255, 194, 84, 0.08));
+      transition: transform 0.3s ease, filter 0.3s ease;
+      animation: footerGlow 4.2s ease-in-out infinite;
+    }
+
+    .footer-logo-wrap:hover .footer-logo {
+      transform: scale(1.05);
+      filter:
+        drop-shadow(0 0 10px rgba(255, 210, 120, 0.28))
+        drop-shadow(0 0 22px rgba(255, 210, 120, 0.18))
+        drop-shadow(0 0 40px rgba(255, 210, 120, 0.12));
+    }
+
+    .footer-logo-flash {
+      position: absolute;
+      inset: -24px;
+      z-index: 3;
+      border-radius: 50%;
+      pointer-events: none;
+      background:
+        linear-gradient(
+          120deg,
+          rgba(255,255,255,0) 38%,
+          rgba(255,245,220,0.06) 46%,
+          rgba(255,245,220,0.22) 50%,
+          rgba(255,245,220,0.05) 55%,
+          rgba(255,255,255,0) 62%
+        );
+      filter: blur(8px);
+      opacity: 0;
+      animation: footerFlash 6.5s ease-in-out infinite;
+    }
+
+    .footer-text {
+      font-size: 11px;
+      letter-spacing: 0.26em;
+      text-transform: uppercase;
+      color: var(--muted2);
+    }
+
+    .footer-subtext {
+      margin-top: 18px;
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(244,239,231,0.46);
+    }
+
+    @keyframes nwFloat {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      50% { transform: translateY(-10px) rotate(0.25deg); }
+    }
+
+    @keyframes nwGlow {
+      0%, 100% {
+        transform: scale(1);
+        filter:
+          drop-shadow(0 0 8px rgba(255, 194, 84, 0.20))
+          drop-shadow(0 0 18px rgba(255, 194, 84, 0.12))
+          drop-shadow(0 0 36px rgba(255, 194, 84, 0.08));
+      }
+      50% {
+        transform: scale(1.018);
+        filter:
+          drop-shadow(0 0 10px rgba(255, 205, 110, 0.26))
+          drop-shadow(0 0 28px rgba(255, 205, 110, 0.18))
+          drop-shadow(0 0 56px rgba(255, 205, 110, 0.12));
+      }
+    }
+
+    @keyframes nwFlicker {
+      0%, 100% { opacity: 1; }
+      8% { opacity: 0.995; }
+      9% { opacity: 0.975; }
+      10% { opacity: 1; }
+      47% { opacity: 0.992; }
+      48% { opacity: 0.968; }
+      49% { opacity: 1; }
+      78% { opacity: 0.988; }
+      79% { opacity: 0.972; }
+      80% { opacity: 1; }
+    }
+
+    @keyframes nwSweep {
+      0%   { transform: translateX(-145%) rotate(8deg); opacity: 0; }
+      8%   { opacity: 0; }
+      20%  { opacity: 0.9; }
+      38%  { opacity: 0.35; }
+      48%  { transform: translateX(145%) rotate(8deg); opacity: 0; }
+      100% { transform: translateX(145%) rotate(8deg); opacity: 0; }
+    }
+
+    @keyframes nwAudioPulse {
+      0%, 100% { transform: scale(1); }
+      25% { transform: scale(1.012); }
+      50% { transform: scale(1.024); }
+      75% { transform: scale(1.01); }
+    }
+
+    @keyframes nwRingPulse {
+      0%, 100% { transform: scale(0.94); opacity: 0.18; }
+      50% { transform: scale(1.08); opacity: 0.34; }
+    }
+
+    @keyframes sigilOrbitSpin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    @keyframes dustDriftA {
+      0%   { transform: translate3d(0, 0, 0) scale(1); }
+      100% { transform: translate3d(-90px, -130px, 0) scale(1.04); }
+    }
+
+    @keyframes dustDriftB {
+      0%   { transform: translate3d(0, 0, 0) scale(1); }
+      100% { transform: translate3d(120px, -100px, 0) scale(1.03); }
+    }
+
+    @keyframes dustDriftC {
+      0%   { transform: translate3d(0, 0, 0) scale(1); }
+      100% { transform: translate3d(-60px, 110px, 0) scale(1.02); }
+    }
+
+    @keyframes heroFloat {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-8px); }
+    }
+
+    @keyframes footerGlow {
+      0%, 100% {
+        filter:
+          drop-shadow(0 0 8px rgba(255, 194, 84, 0.20))
+          drop-shadow(0 0 16px rgba(255, 194, 84, 0.12))
+          drop-shadow(0 0 28px rgba(255, 194, 84, 0.08));
+      }
+      50% {
+        filter:
+          drop-shadow(0 0 10px rgba(255, 210, 120, 0.28))
+          drop-shadow(0 0 24px rgba(255, 210, 120, 0.16))
+          drop-shadow(0 0 44px rgba(255, 210, 120, 0.10));
+      }
+    }
+
+    @keyframes footerPulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.035); }
+    }
+
+    @keyframes footerHalo {
+      0%, 100% { opacity: 0.45; transform: scale(0.96); }
+      50% { opacity: 0.75; transform: scale(1.06); }
+    }
+
+    @keyframes footerRing {
+      0%, 100% { transform: scale(0.98); opacity: 0.18; }
+      50% { transform: scale(1.08); opacity: 0.34; }
+    }
+
+    @keyframes footerFlash {
+      0%, 100% {
+        opacity: 0;
+        transform: translateX(-70%) rotate(10deg);
+      }
+      18% {
+        opacity: 0;
+      }
+      28% {
+        opacity: 0.9;
+      }
+      40% {
+        opacity: 0;
+        transform: translateX(70%) rotate(10deg);
+      }
+    }
+
+    @keyframes doctrineSweep {
+      0%   { transform: translateX(-130%); opacity: 0; }
+      18%  { opacity: 0; }
+      34%  { opacity: 1; }
+      52%  { transform: translateX(130%); opacity: 0; }
+      100% { transform: translateX(130%); opacity: 0; }
+    }
+
+    @keyframes doctrineLineIn {
+      0% {
+        opacity: 0;
+        transform: translateY(18px);
+        filter: blur(4px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+        filter: blur(0);
+      }
+    }
+
+    @keyframes doctrineDividerIn {
+      0% {
+        opacity: 0;
+        transform: scaleX(0.6);
+      }
+      100% {
+        opacity: 1;
+        transform: scaleX(1);
+      }
+    }
+
+    @media (max-width: 980px) {
+      .hero,
+      .buy-section,
+      .product-grid,
+      .fusion-grid,
+      .builder-shell,
+      .world-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .archive-truths,
+      .builder-match-grid,
+      .story-grid,
+      .world-stats {
+        grid-template-columns: 1fr;
+      }
+
+      .header-inner {
+        flex-direction: column;
+        align-items: flex-start;
+        padding-top: 14px;
+        padding-bottom: 14px;
+      }
+
+      .hero {
+        padding-top: 190px;
+      }
+
+      .hero::before {
+        left: 50%;
+        top: 56px;
+        width: min(88vw, 520px);
+        height: min(88vw, 520px);
+        transform: translateX(-50%);
+      }
+
+      .hero-visual {
+        min-height: auto;
+      }
+
+      .piece-lightbox-panel {
+        padding: 18px 18px 16px;
+      }
+
+      .world-modal-panel {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 640px) {
+      :root {
+        --header-h: 84px;
+      }
+
+      .logo-shell {
+        width: min(56vw, 220px);
+      }
+
+      .brand-logo-slot {
+        width: 52px;
+        height: 52px;
+      }
+
+      .brand-logo-slot img {
+        width: 46px;
+      }
+
+      nav {
+        gap: 14px;
+      }
+
+      .hero {
+        padding: 190px 18px 54px;
+      }
+
+      .hero-wordmark {
+        width: min(460px, 100%);
+      }
+
+      .section,
+      .site-footer {
+        padding-left: 18px;
+        padding-right: 18px;
+      }
+
+      .archive-shell,
+      .fusion-shell,
+      .fusion-card,
+      .builder-shell,
+      .world-shell,
+      .stories-shell {
+        padding: 22px 18px;
+      }
+
+      .gemstone-power-box {
+        padding: 22px 18px;
+      }
+
+      .power-line,
+      .power-line.final {
+        font-size: 11px;
+        letter-spacing: 0.18em;
+      }
+
+      .builder-match-grid,
+      .story-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .world-modal-body,
+      .builder-match-info,
+      .story-body {
+        padding-left: 18px;
+        padding-right: 18px;
+      }
+
+      .world-modal-media {
+        padding: 18px;
+      }
+
+      .story-copy {
+        font-size: 17px;
+      }
+    }
+  </style>
+  <link rel="stylesheet" href="site-flow.css" />
+  <style>
+    body.originals-page {
+      --siteflow-bg: rgba(14, 10, 7, 0.9);
+      --siteflow-border: rgba(215, 171, 82, 0.22);
+      --siteflow-text: #f6eddd;
+      --siteflow-muted: #c9b99b;
+      --siteflow-accent: #d7ab52;
+      --siteflow-accent-2: #d7ab52;
+      --siteflow-shadow: 0 22px 54px rgba(0, 0, 0, 0.44);
+    }
+
+    body.originals-page header {
+      background: rgba(6, 4, 3, 0.9);
+      border-bottom: 1px solid rgba(215, 171, 82, 0.14);
+      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.32);
+    }
+
+    body.originals-page .header-inner {
+      max-width: 1280px;
+      gap: 18px;
+    }
+
+    body.originals-page .brand-title {
+      color: #f6eddd;
+      letter-spacing: 0.28em;
+    }
+
+    body.originals-page .brand-sub {
+      color: rgba(229, 211, 183, 0.62);
+    }
+
+    body.originals-page nav {
+      gap: 10px;
+      padding: 9px 10px;
+      border: 1px solid rgba(215, 171, 82, 0.16);
+      border-radius: 999px;
+      background: linear-gradient(135deg, rgba(18, 12, 7, 0.94), rgba(8, 6, 4, 0.82));
+      box-shadow: 0 18px 34px rgba(0, 0, 0, 0.24);
+    }
+
+    body.originals-page nav a {
+      padding: 10px 14px;
+      border: 1px solid transparent;
+      border-radius: 999px;
+      color: #cfbb98;
+      letter-spacing: 0.18em;
+      background: rgba(255, 255, 255, 0.01);
+    }
+
+    body.originals-page nav a:hover {
+      color: #fff2dc;
+      border-color: rgba(215, 171, 82, 0.28);
+      background: rgba(215, 171, 82, 0.11);
+      box-shadow: inset 0 0 0 1px rgba(255, 237, 194, 0.05);
+    }
+
+    body.originals-page .nlx-shared-topbar {
+      background: linear-gradient(to bottom, rgba(12, 9, 7, 0.98), rgba(3, 2, 1, 0.95));
+      border-bottom: 1px solid rgba(215, 171, 82, 0.22);
+      box-shadow:
+        0 0 18px rgba(215, 171, 82, 0.12),
+        0 8px 30px rgba(0, 0, 0, 0.38);
+    }
+
+    body.originals-page .nlx-shared-scanlines {
+      background:
+        repeating-linear-gradient(
+          to bottom,
+          rgba(255,255,255,0.00) 0px,
+          rgba(255,255,255,0.00) 2px,
+          rgba(215,171,82,0.05) 3px,
+          rgba(215,171,82,0.00) 4px
+        );
+    }
+
+    body.originals-page .nlx-shared-glow {
+      background:
+        radial-gradient(circle at 20% 50%, rgba(215, 171, 82, 0.14), transparent 24%),
+        radial-gradient(circle at 80% 50%, rgba(245, 230, 201, 0.08), transparent 22%);
+    }
+
+    body.originals-page .nlx-shared-dot {
+      background: #d7ab52;
+      box-shadow:
+        0 0 8px rgba(215, 171, 82, 0.8),
+        0 0 16px rgba(215, 171, 82, 0.48);
+    }
+
+    body.originals-page .nlx-shared-status,
+    body.originals-page .nlx-shared-node {
+      color: #e8c98b;
+      text-shadow: 0 0 8px rgba(215, 171, 82, 0.2);
+    }
+
+    body.originals-page .nlx-shared-message {
+      color: #dcc4a0;
+      text-shadow:
+        0 0 6px rgba(215, 171, 82, 0.24),
+        0 0 14px rgba(215, 171, 82, 0.12);
+    }
+
+    body.originals-page .nlx-shared-symbol {
+      border: 1px solid rgba(215, 171, 82, 0.72);
+      box-shadow:
+        0 0 10px rgba(215, 171, 82, 0.22),
+        inset 0 0 10px rgba(215, 171, 82, 0.12);
+    }
+
+    body.originals-page .nlx-shared-symbol::before,
+    body.originals-page .nlx-shared-symbol::after {
+      background: rgba(233, 201, 138, 0.92);
+      box-shadow: 0 0 8px rgba(215, 171, 82, 0.34);
+    }
+
+    body.originals-page .siteflow-shell::before {
+      background: linear-gradient(180deg, rgba(215, 171, 82, 0.16), rgba(178, 146, 96, 0.08));
+    }
+
+    body.originals-page .siteflow-bar,
+    body.originals-page .siteflow-fragment,
+    body.originals-page .siteflow-chat,
+    body.originals-page .siteflow-pager {
+      background: linear-gradient(135deg, rgba(11, 8, 5, 0.95), rgba(20, 14, 9, 0.84));
+      border-color: rgba(215, 171, 82, 0.16);
+    }
+
+    body.originals-page .siteflow-jump a,
+    body.originals-page .siteflow-link,
+    body.originals-page .siteflow-directory a {
+      border-color: rgba(215, 171, 82, 0.1);
+      background: rgba(255, 245, 226, 0.02);
+    }
+
+    body.originals-page .siteflow-jump a:hover,
+    body.originals-page .siteflow-link:hover,
+    body.originals-page .siteflow-jump a.siteflow-active,
+    body.originals-page .siteflow-link.siteflow-active,
+    body.originals-page .siteflow-directory a:hover,
+    body.originals-page .siteflow-directory a.siteflow-active {
+      border-color: rgba(215, 171, 82, 0.34);
+      background: rgba(215, 171, 82, 0.12);
+    }
+
+    body.originals-page .siteflow-transmission {
+      color: #e7c78b;
+      border-color: rgba(215, 171, 82, 0.2);
+      background: rgba(215, 171, 82, 0.07);
+    }
+
+    body.originals-page .siteflow-path,
+    body.originals-page .siteflow-chat-status,
+    body.originals-page .siteflow-clearance,
+    body.originals-page .siteflow-fragment-glyph {
+      color: #d7ab52;
+    }
+
+    @media (max-width: 980px) {
+      body.originals-page nav {
+        width: 100%;
+        border-radius: 24px;
+      }
+    }
+
+    @media (max-width: 640px) {
+      body.originals-page nav {
+        gap: 8px;
+        padding: 8px;
+      }
+
+      body.originals-page nav a {
+        padding: 9px 12px;
+        letter-spacing: 0.14em;
+      }
+    }
+  </style>
+</head>
+<body class="originals-page">
+
+  <div class="enter-screen" id="enterScreen">
+    <div class="enter-dust"></div>
+
+    <button class="enter-button" id="enterButton" aria-label="Enter jewelry page">
+      <div class="logo-shell">
+        <div class="sigil-orbit"></div>
+        <div class="audio-ring"></div>
+        <img src="nls cross emblem.png" alt="Nate's World Emblem" class="main-logo" id="centerLogo" />
+        <div class="light-sweep"></div>
+      </div>
+      <div class="enter-text" id="enterText">enter</div>
+    </button>
+  </div>
+
+  <img src="nls cross emblem.png" alt="" class="flying-logo" id="flyingLogo" />
+
+  <div class="site-shell" id="siteShell">
+    <header>
+      <div class="header-inner">
+        <div class="brand">
+          <div class="brand-logo-slot" id="logoTarget">
+            <img src="nls cross emblem.png" alt="Nate's World Emblem" id="headerLogo" />
+          </div>
+          <div>
+            <div class="brand-title">Nate Savard / The Original Collection</div>
+            <div class="brand-sub">jewelry world, fashion links, and private commissions</div>
+          </div>
+        </div>
+
+        <nav>
+          <a href="#about">Jewelry World</a>
+          <a href="#fusion">Jewelry x Fashion</a>
+          <a href="#designs">Originals</a>
+          <a href="envynomadix.html">Fashion House</a>
+          <a href="#buy">Commissions</a>
+          <a href="mailto:natesavard@outlook.com">Private Contact</a>
+        </nav>
+      </div>
+    </header>
+
+    <section class="hero" id="about">
+      <div class="hero-copy">
+        <div class="eyebrow">THE GEM SAGE</div>
+        <div class="hero-title-row">
+          <img src="nate savard.png" alt="Nate Savard sigil" class="hero-sigil" />
+          <img src="sage-hero-logo.svg" alt="Nate Savard symbol and presence" class="hero-wordmark" />
+        </div>
+        <p>
+          My name is Nate Savard, and I want your next piece to come from me - something lasting, personal, and powerful enough to stay with you for life.
+          <br><br>
+          Underground luxury for the ones who build myth. For the Chosen Few.
+          Custom talismans, pendants, rings, cloaks, and symbolic objects forged for artists, outsiders, and icons. Statement pieces made from precious
+          stone, silk, linen, calf skin, gator - A cult luxury house of custom work and
+          signature pieces lead by the one the only the original - Nate Savard.
+          <br><br>
+          The jewelry world now moves directly beside Envynomadix, so the stones, symbols, garments, and house marks start speaking as one collector language.
+        </p>
+        <div class="hero-actions">
+          <a href="#designs" class="btn primary">View Designs</a>
+          <a href="envynomadix.html" class="btn secondary">Enter Envynomadix</a>
+          <a href="#buy" class="btn secondary">How to Buy</a>
+        </div>
+      </div>
+
+      <div class="hero-visual">
+        <div class="hero-card piece-trigger" tabindex="0" role="button" aria-label="Open featured talisman image" data-piece-title="Featured Talisman" data-piece-image="nate savard - nls 1.png">
+          <img src="nate savard - nls 1.png" alt="Featured talisman" />
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="fusion">
+      <div class="fusion-shell">
+        <div class="section-head">
+          <div>
+            <div class="section-title">House Merge</div>
+            <p class="fusion-intro">
+              The Original Collection and Envynomadix are becoming the two main pillars of the site. Jewelry, garments, relic imagery, and private-order direction are now being built as one connected world instead of separate pages with separate energy.
+            </p>
+          </div>
+        </div>
+
+        <div class="fusion-grid">
+          <article class="fusion-card">
+            <div class="fusion-card-tag">The Original Collection</div>
+            <h3>Gemstones, Rings, And Talismans</h3>
+            <p>
+              Custom work, real stones, symbolic pieces, and collector-grade design built directly with Nate Savard. This is the metal-and-gem side of the house.
+            </p>
+          </article>
+
+          <article class="fusion-card">
+            <div class="fusion-card-tag">Envynomadix</div>
+            <h3>Garment House With The Same Symbol System</h3>
+            <p>
+              Distressed black garments, campaign relics, chrome marks, and house visuals now sit beside the jewelry line so styling and identity can move together.
+            </p>
+          </article>
+        </div>
+
+        <div class="fusion-actions">
+          <a href="envynomadix.html" class="btn primary">Open Envy House</a>
+          <a href="envynomadix-worldwide.html" class="btn secondary">View Envy Archive</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="designs">
+      <div class="section-head">
+        <div>
+          <div class="section-title">Featured Signature Pieces</div>
+          <div class="section-copy">
+            Original Nate Savard pieces built from gemstone force, heavy gold presence, and custom architecture. These are collector designs made to stand among the finest custom pieces in the world.
+          </div>
+        </div>
+      </div>
+
+      <div class="product-grid">
+        <article class="product-card">
+          <div class="product-image piece-trigger" tabindex="0" role="button" aria-label="Open Blue Oval Talisman image" data-piece-title="Blue Oval Talisman" data-piece-image="nate savard - nls 1.png">
+            <img src="nate savard - nls 1.png" alt="Blue Oval Talisman" />
+          </div>
+          <div class="product-info">
+            <div class="product-name">Blue Oval Talisman</div>
+            <div class="product-desc">
+              Long-form luxury pendant language with deep stone focus, black-and-gold contrast, and quiet authority.
+            </div>
+            <a href="mailto:natesavard@outlook.com?subject=Blue%20Oval%20Talisman" class="product-link">Inquire</a>
+          </div>
+        </article>
+
+        <article class="product-card">
+          <div class="product-image piece-trigger" tabindex="0" role="button" aria-label="Open Opal Sage Spinner image" data-piece-title="Opal Sage Spinner" data-piece-image="nate savard opal sage front.png">
+            <img src="nate savard opal sage front.png" alt="Opal Sage Spinner" />
+          </div>
+          <div class="product-info">
+            <div class="product-name">Opal Sage Spinner</div>
+            <div class="product-desc">
+              Double-sided talisman concept with jelly opal center, diamond field, and rich gold architecture.
+            </div>
+            <a href="mailto:natesavard@outlook.com?subject=Opal%20Sage%20Spinner" class="product-link">Inquire</a>
+          </div>
+        </article>
+
+        <article class="product-card">
+          <div class="product-image piece-trigger" tabindex="0" role="button" aria-label="Open Sapphire Spinner Reverse image" data-piece-title="Sapphire Spinner Reverse" data-piece-image="nate savard saphire back.png">
+            <img src="nate savard saphire back.png" alt="Sapphire Spinner Reverse" />
+          </div>
+          <div class="product-info">
+            <div class="product-name">Sapphire Spinner Reverse</div>
+            <div class="product-desc">
+              Millionaire-status spinner pendant concept with blue sapphire center, crushed diamonds, and bold presence.
+            </div>
+            <a href="mailto:natesavard@outlook.com?subject=Sapphire%20Spinner%20Reverse" class="product-link">Inquire</a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="builder">
+      <div class="section-head">
+        <div>
+          <div class="section-title">Sage Ring Builder</div>
+          <div class="section-copy">
+            Choose your stone force, silhouette, and metal tone. This builder narrows the Nate Savard archive and drafts a private commission email from your exact direction.
+          </div>
+        </div>
+      </div>
+
+      <div class="builder-shell">
+        <div class="builder-panel">
+          <div class="builder-kicker">Private Commission Flow</div>
+          <p>
+            This is the Nate Savard version of a ring builder: not mass retail, but a direction-setting tool for serious custom work. Start with the feeling, lock the architecture, and route the finished build path straight to Nate.
+          </p>
+
+          <div class="builder-group">
+            <div class="builder-label">Stone force</div>
+            <div class="builder-pills">
+              <button class="builder-pill is-active" type="button" data-builder-filter="stone" data-builder-value="sapphire">Sapphire</button>
+              <button class="builder-pill" type="button" data-builder-filter="stone" data-builder-value="opal">Opal</button>
+              <button class="builder-pill" type="button" data-builder-filter="stone" data-builder-value="diamond">Diamond</button>
+              <button class="builder-pill" type="button" data-builder-filter="stone" data-builder-value="mixed">Mixed Stones</button>
+            </div>
+          </div>
+
+          <div class="builder-group">
+            <div class="builder-label">Silhouette</div>
+            <div class="builder-pills">
+              <button class="builder-pill is-active" type="button" data-builder-filter="silhouette" data-builder-value="signet">Signet</button>
+              <button class="builder-pill" type="button" data-builder-filter="silhouette" data-builder-value="spinner">Spinner</button>
+              <button class="builder-pill" type="button" data-builder-filter="silhouette" data-builder-value="cathedral">Cathedral</button>
+              <button class="builder-pill" type="button" data-builder-filter="silhouette" data-builder-value="pendant">Pendant</button>
+            </div>
+          </div>
+
+          <div class="builder-group">
+            <div class="builder-label">Metal tone</div>
+            <div class="builder-pills">
+              <button class="builder-pill is-active" type="button" data-builder-filter="metal" data-builder-value="yellow">Yellow Gold</button>
+              <button class="builder-pill" type="button" data-builder-filter="metal" data-builder-value="black">Black Gold</button>
+              <button class="builder-pill" type="button" data-builder-filter="metal" data-builder-value="white">White Fire</button>
+            </div>
+          </div>
+
+          <div class="builder-summary" aria-live="polite">
+            <div class="builder-summary-line">Current build path</div>
+            <span class="builder-summary-value" id="builderSummaryValue">Sapphire / Signet / Yellow Gold</span>
+            <p class="builder-summary-copy" id="builderSummaryCopy">
+              Heavy sapphire signet energy in rich yellow gold, narrowed to Nate Savard directions that already carry legacy weight.
+            </p>
+          </div>
+
+          <div class="builder-actions">
+            <a href="mailto:natesavard@outlook.com?subject=Sage%20Ring%20Builder%20Inquiry" class="btn primary" id="builderMailLink">Send This Build To Nate</a>
+            <a href="#archive" class="btn secondary">Browse Full Archive</a>
+          </div>
+        </div>
+
+        <div class="builder-stage">
+          <div class="builder-preview">
+            <div class="builder-preview-media piece-trigger" id="builderHeroTrigger" tabindex="0" role="button" aria-label="Open builder preview piece" data-piece-title="Royal Sapphire Signet" data-piece-image="nate savard - nls 2.jpg">
+              <img src="nate savard - nls 2.jpg" alt="Royal Sapphire Signet builder preview" id="builderHeroImage" />
+            </div>
+            <div class="builder-preview-copy">
+              <div class="builder-preview-kicker" id="builderHeroTags">Sapphire / Signet / Yellow Gold</div>
+              <h3 class="builder-preview-title" id="builderHeroTitle">Royal Sapphire Signet</h3>
+              <p class="builder-preview-desc" id="builderHeroDesc">
+                Carved gold texture, side sapphires, and a dominant center stone built with old-world authority and full custom weight.
+              </p>
+            </div>
+          </div>
+
+          <div class="builder-match-grid" id="builderMatchGrid"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="archive">
+      <div class="archive-shell">
+        <div class="archive-kicker">Private Design Archive</div>
+        <h2 class="archive-title">Custom Pieces By Nate Savard</h2>
+        <p class="archive-copy">
+          Every design below is part of the Nate Savard jewelry world: custom rings, pendants, signets, medallions, and setting architectures drawn for people who want legacy pieces instead of ordinary jewelry. These are one-of-one level ideas and collector-grade directions, made to feel rare, personal, and world-class from the first glance.
+        </p>
+        <div class="archive-truths">
+          <div class="archive-truth">
+            <strong>Custom by Nate</strong>
+            <span>Not stock catalog work. Every piece begins with Nate Savard’s own symbol language, stone direction, and luxury finish choices.</span>
+          </div>
+          <div class="archive-truth">
+            <strong>Built for Legacy</strong>
+            <span>Rings, pendants, and talismans designed to live with you for life and speak about power, family, beauty, and hard-earned status.</span>
+          </div>
+          <div class="archive-truth">
+            <strong>World-Class Standard</strong>
+            <span>Made to stand among the finest custom pieces in the world through stone presence, gold weight, architecture, and atmosphere.</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-grid">
+        <article class="product-card">
+          <div class="product-image piece-trigger" tabindex="0" role="button" aria-label="Open Royal Sapphire Signet image" data-piece-title="Royal Sapphire Signet" data-piece-image="nate savard - nls 2.jpg">
+            <img src="nate savard - nls 2.jpg" alt="Royal sapphire signet ring by Nate Savard" />
+          </div>
+          <div class="product-info">
+            <div class="product-name">Royal Sapphire Signet</div>
+            <div class="product-desc">
+              Custom Nate Savard signet with carved gold texture, side sapphires, and a dominant blue center stone built with old-world weight.
+            </div>
+            <a href="mailto:natesavard@outlook.com?subject=Royal%20Sapphire%20Signet" class="product-link">Inquire</a>
+          </div>
+        </article>
+
+        <article class="product-card">
+          <div class="product-image piece-trigger" tabindex="0" role="button" aria-label="Open Imperial Blue Sapphire Ring image" data-piece-title="Imperial Blue Sapphire Ring" data-piece-image="nate savard - nls 3.jpg">
+            <img src="nate savard - nls 3.jpg" alt="Imperial blue sapphire ring by Nate Savard" />
+          </div>
+          <div class="product-info">
+            <div class="product-name">Imperial Blue Sapphire Ring</div>
+            <div class="product-desc">
+              Clean heavy-gold ring built around a rich royal sapphire, drawn for direct power, restraint, and permanent luxury.
+            </div>
+            <a href="mailto:natesavard@outlook.com?subject=Imperial%20Blue%20Sapphire%20Ring" class="product-link">Inquire</a>
+          </div>
+        </article>
+
+        <article class="product-card">
+          <div class="product-image piece-trigger" tabindex="0" role="button" aria-label="Open White Fire Scroll Ring image" data-piece-title="White Fire Scroll Ring" data-piece-image="nate savard - nls 4.png">
+            <img src="nate savard - nls 4.png" alt="White diamond scroll ring by Nate Savard" />
+          </div>
+          <div class="product-info">
+            <div class="product-name">White Fire Scroll Ring</div>
+            <div class="product-desc">
+              Diamond-forward scrollwork ring with cathedral lift and luminous center stone energy built for heirloom-level presence.
+            </div>
+            <a href="mailto:natesavard@outlook.com?subject=White%20Fire%20Scroll%20Ring" class="product-link">Inquire</a>
+          </div>
+        </article>
+
+        <article class="product-card">
+          <div class="product-image piece-trigger" tabindex="0" role="button" aria-label="Open Sapphire Halo Pendant image" data-piece-title="Sapphire Halo Pendant" data-piece-image="nate savard - nls 5.png">
+            <img src="nate savard - nls 5.png" alt="Sapphire halo pendant by Nate Savard" />
+          </div>
+          <div class="product-info">
+            <div class="product-name">Sapphire Halo Pendant</div>
+            <div class="product-desc">
+              Rotating pendant architecture with sapphire top link, diamond halo field, and ceremonial medallion proportions.
+            </div>
+            <a href="mailto:natesavard@outlook.com?subject=Sapphire%20Halo%20Pendant" class="product-link">Inquire</a>
+          </div>
+        </article>
+
+        <article class="product-card">
+          <div class="product-image piece-trigger" tabindex="0" role="button" aria-label="Open NLS Ring 2000 image" data-piece-title="NLS Ring 2000" data-piece-image="nls ring 2000.png">
+            <img src="nls ring 2000.png" alt="NLS Ring 2000 multi-angle study by Nate Savard" />
+          </div>
+          <div class="product-info">
+            <div class="product-name">NLS Ring 2000</div>
+            <div class="product-desc">
+              Full chassis study showing black inlay, diamond collar, engraved side panels, and the NS signet language from every angle.
+            </div>
+            <a href="mailto:natesavard@outlook.com?subject=NLS%20Ring%202000" class="product-link">Inquire</a>
+          </div>
+        </article>
+
+        <article class="product-card">
+          <div class="product-image piece-trigger" tabindex="0" role="button" aria-label="Open NLS Cathedral Ring Frame image" data-piece-title="NLS Cathedral Ring Frame" data-piece-image="nate savard - nls 6.png">
+            <img src="nate savard - nls 6.png" alt="NLS cathedral ring frame by Nate Savard" />
+          </div>
+          <div class="product-info">
+            <div class="product-name">NLS Cathedral Ring Frame</div>
+            <div class="product-desc">
+              18k ring architecture with black inlay, engraved under-gallery, and a diamond collar waiting for a commanding center stone.
+            </div>
+            <a href="mailto:natesavard@outlook.com?subject=NLS%20Cathedral%20Ring%20Frame" class="product-link">Inquire</a>
+          </div>
+        </article>
+
+        <article class="product-card">
+          <div class="product-image piece-trigger" tabindex="0" role="button" aria-label="Open NS Marquise Crest Frame image" data-piece-title="NS Marquise Crest Frame" data-piece-image="nate savard - nls 7.png">
+            <img src="nate savard - nls 7.png" alt="NS marquise crest ring frame by Nate Savard" />
+          </div>
+          <div class="product-info">
+            <div class="product-name">NS Marquise Crest Frame</div>
+            <div class="product-desc">
+              Front elevation of the NS crest build, centered on a marquise seat with monogram flanks and open diamond channels.
+            </div>
+            <a href="mailto:natesavard@outlook.com?subject=NS%20Marquise%20Crest%20Frame" class="product-link">Inquire</a>
+          </div>
+        </article>
+
+        <article class="product-card">
+          <div class="product-image piece-trigger" tabindex="0" role="button" aria-label="Open Black Gold NS Ring image" data-piece-title="Black Gold NS Ring" data-piece-image="nate savard - nls 8.png">
+            <img src="nate savard - nls 8.png" alt="Black gold NS ring by Nate Savard" />
+          </div>
+          <div class="product-info">
+            <div class="product-name">Black Gold NS Ring</div>
+            <div class="product-desc">
+              Sculpted black-and-gold ring body with carved inner gallery and a hard luxury setting platform built for a true statement stone.
+            </div>
+            <a href="mailto:natesavard@outlook.com?subject=Black%20Gold%20NS%20Ring" class="product-link">Inquire</a>
+          </div>
+        </article>
+
+        <article class="product-card">
+          <div class="product-image piece-trigger" tabindex="0" role="button" aria-label="Open Diamond Cathedral Signet image" data-piece-title="Diamond Cathedral Signet" data-piece-image="nate savard - nls 9.png">
+            <img src="nate savard - nls 9.png" alt="Diamond cathedral signet by Nate Savard" />
+          </div>
+          <div class="product-info">
+            <div class="product-name">Diamond Cathedral Signet</div>
+            <div class="product-desc">
+              Wide diamond halo signet with layered bezel and open lacework shoulders, designed for white-fire brilliance and elite finish.
+            </div>
+            <a href="mailto:natesavard@outlook.com?subject=Diamond%20Cathedral%20Signet" class="product-link">Inquire</a>
+          </div>
+        </article>
+
+        <article class="product-card">
+          <div class="product-image piece-trigger" tabindex="0" role="button" aria-label="Open NS Scale Crest Ring image" data-piece-title="NS Scale Crest Ring" data-piece-image="nate savard - nls 10.png">
+            <img src="nate savard - nls 10.png" alt="NS scale crest ring by Nate Savard" />
+          </div>
+          <div class="product-info">
+            <div class="product-name">NS Scale Crest Ring</div>
+            <div class="product-desc">
+              Marquise crest ring with scale texture, NS monograms, and precision openwork built for a custom stone of real consequence.
+            </div>
+            <a href="mailto:natesavard@outlook.com?subject=NS%20Scale%20Crest%20Ring" class="product-link">Inquire</a>
+          </div>
+        </article>
+
+        <article class="product-card">
+          <div class="product-image piece-trigger" tabindex="0" role="button" aria-label="Open Sapphire Monolith Pendant image" data-piece-title="Sapphire Monolith Pendant" data-piece-image="nate savard - nls 11.png">
+            <img src="nate savard - nls 11.png" alt="Sapphire monolith pendant by Nate Savard" />
+          </div>
+          <div class="product-info">
+            <div class="product-name">Sapphire Monolith Pendant</div>
+            <div class="product-desc">
+              Long sapphire pendant in black and gold with diamond border and a hard, elegant silhouette built for refined authority.
+            </div>
+            <a href="mailto:natesavard@outlook.com?subject=Sapphire%20Monolith%20Pendant" class="product-link">Inquire</a>
+          </div>
+        </article>
+
+        <article class="product-card">
+          <div class="product-image piece-trigger" tabindex="0" role="button" aria-label="Open Royal Marquise Sapphire Ring image" data-piece-title="Royal Marquise Sapphire Ring" data-piece-image="nate ring 1.2.png">
+            <img src="nate ring 1.2.png" alt="Royal marquise sapphire ring by Nate Savard" />
+          </div>
+          <div class="product-info">
+            <div class="product-name">Royal Marquise Sapphire Ring</div>
+            <div class="product-desc">
+              Multi-angle ring study with blue marquise sapphire, ornate galleries, and diamond rails drawn as a full custom signet.
+            </div>
+            <a href="mailto:natesavard@outlook.com?subject=Royal%20Marquise%20Sapphire%20Ring" class="product-link">Inquire</a>
+          </div>
+        </article>
+
+        <article class="product-card">
+          <div class="product-image piece-trigger" tabindex="0" role="button" aria-label="Open Twin Stone Spinner Pendant image" data-piece-title="Twin Stone Spinner Pendant" data-piece-image="2stone.png">
+            <img src="2stone.png" alt="Twin stone spinner pendant by Nate Savard" />
+          </div>
+          <div class="product-info">
+            <div class="product-name">Twin Stone Spinner Pendant</div>
+            <div class="product-desc">
+              Dual-version spinner pendant showing sapphire and opal directions inside the same diamond-heavy medallion system.
+            </div>
+            <a href="mailto:natesavard@outlook.com?subject=Twin%20Stone%20Spinner%20Pendant" class="product-link">Inquire</a>
+          </div>
+        </article>
+
+        <article class="product-card">
+          <div class="product-image piece-trigger" tabindex="0" role="button" aria-label="Open NS Monogram Signet image" data-piece-title="NS Monogram Signet" data-piece-image="nate savard - nls 12.jpg">
+            <img src="nate savard - nls 12.jpg" alt="NS monogram signet by Nate Savard" />
+          </div>
+          <div class="product-info">
+            <div class="product-name">NS Monogram Signet</div>
+            <div class="product-desc">
+              Clean NS monogram signet built with bold face geometry and a dark field texture for a sharper signature-piece identity.
+            </div>
+            <a href="mailto:natesavard@outlook.com?subject=NS%20Monogram%20Signet" class="product-link">Inquire</a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="world">
+      <div class="section-head">
+        <div>
+          <div class="section-title">Global Spinner</div>
+          <div class="section-copy">
+            The jewelry side now gets its own world-spinner treatment too. Drag the globe, stop on a light pin, and open a house signal tied to one of Nate Savard’s signature directions.
+          </div>
+        </div>
+      </div>
+
+      <div class="world-shell">
+        <div class="world-grid">
+          <div class="world-copy">
+            <div class="world-kicker">House Signal Atlas</div>
+            <h3 class="world-title">The Original Collection Moves Worldwide.</h3>
+            <p>
+              This section carries the same luxury proof energy as the reference you showed me, but translated into your own world. It is a drag-to-spin globe built for the house, the archive, and the myth around the pieces.
+            </p>
+            <div class="world-stats" id="worldStats">
+              <div class="world-stat">
+                <span class="world-stat-value world-stars">?????</span>
+                <span class="world-stat-label">custom standard</span>
+              </div>
+              <div class="world-stat">
+                <span class="world-stat-value" data-count-up="8">8</span>
+                <span class="world-stat-label">house cities</span>
+              </div>
+              <div class="world-stat">
+                <span class="world-stat-value" data-count-up="17">17</span>
+                <span class="world-stat-label">signature pieces</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="world-stage">
+            <div class="world-focus" id="worldFocusLabel">drag the globe or tap a light pin</div>
+            <canvas id="sageGlobeCanvas" class="sage-globe-canvas" aria-label="Interactive world globe for Nate Savard house signals"></canvas>
+            <div class="world-hint">drag to spin / click a city pin</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="stories">
+      <div class="section-head">
+        <div>
+          <div class="section-title">Five-Star Collector Wall</div>
+          <div class="section-copy">
+            Built in the same luxury review language you pointed out: stars, filters, imagery, and a strong proof wall. To keep the site honest, this launches as house story slots now, ready for your real verified client reviews the moment you want to swap them in.
+          </div>
+        </div>
+      </div>
+
+      <div class="stories-shell">
+        <div class="stories-kicker">Review-Ready Presentation</div>
+        <p class="stories-note">
+          The format is live right now, but the copy below is presented as house story direction rather than fake verified testimonials. When you have real client reviews, we can drop them into this exact wall without changing the design system.
+        </p>
+
+        <div class="story-tabs" id="storyTabs">
+          <button class="story-tab is-active" type="button" data-story-filter="all">All</button>
+          <button class="story-tab" type="button" data-story-filter="rings">Rings</button>
+          <button class="story-tab" type="button" data-story-filter="pendants">Pendants</button>
+          <button class="story-tab" type="button" data-story-filter="spinners">Spinners</button>
+          <button class="story-tab" type="button" data-story-filter="signets">Signets</button>
+        </div>
+
+        <div class="story-grid" id="storyGrid"></div>
+      </div>
+    </section>
+
+    <section class="section" id="buy">
+      <div class="section-head">
+        <div class="section-title">How to Buy</div>
+        <div class="section-copy">
+        </div>
+      </div>
+
+      <div class="buy-section">
+        <div class="buy-box">
+          <h3>Custom Orders</h3>
+          <p>
+            Contact me directly and we will build your piece from the ground up. Every commission is custom-designed by Nate Savard around your stone, your metal, your symbolism, and the level of luxury you want to wear for life. We can move through 14k, 18k, 23k, or silver 925, then shape the work around sapphire, opal, ruby, or emerald with your price range and life story in mind.
+          </p>
+          <a href="mailto:natesavard@outlook.com?subject=Custom%20Jewelry%20Inquiry" class="btn primary">Start Inquiry</a>
+          <a href="transmission-intake.html" class="btn secondary" style="margin-top: 12px;">Open Ritual Intake</a>
+        </div>
+
+        <div class="buy-box">
+          <h3>Ready to Purchase</h3>
+          <p>
+            For available designs, one-of-one builds, or collector commissions, message directly for pricing, lead time, and next steps. This route is for people who want Nate Savard originals and pieces built to stand with the finest custom jewelry in the world.
+          </p>
+          <a href="mailto:natesavard@outlook.com?subject=Jewelry%20Purchase%20Inquiry" class="btn secondary">Email Nate</a>
+        </div>
+
+        <div class="buy-box">
+          <h3>Gold Desk</h3>
+          <div class="price-stamp">updated april 11 2026 // usd spot check</div>
+          <div class="live-xau-wrap">
+            <span class="live-xau-label">live xauusd</span>
+            <div class="tradingview-widget-container">
+              <div class="tradingview-widget-container__widget"></div>
+              <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-single-quote.js" async>
+              {
+                "symbol": "OANDA:XAUUSD",
+                "width": "100%",
+                "isTransparent": true,
+                "colorTheme": "dark",
+                "locale": "en"
+              }
+              </script>
+            </div>
+          </div>
+          <div class="price-grid">
+            <div class="price-line"><span>spot gold / oz</span><strong>$4,797.90 USD</strong></div>
+            <div class="price-line"><span>24k / gram</span><strong>$154.26</strong></div>
+            <div class="price-line"><span>18k / gram</span><strong>$115.69</strong></div>
+            <div class="price-line"><span>14k / gram</span><strong>$89.98</strong></div>
+            <div class="price-line"><span>10k / gram</span><strong>$64.28</strong></div>
+            <div class="price-line"><span>men's ring / 6g in 14k</span><strong>$539.88 raw gold</strong></div>
+            <div class="price-line"><span>regular man's ring / 8g in 14k</span><strong>$719.84 raw gold</strong></div>
+            <div class="price-line"><span>heavy ring / 10g in 18k</span><strong>$1,156.90 raw gold</strong></div>
+            <div class="price-line"><span>women's ring / 4g in 14k</span><strong>$359.92 raw gold</strong></div>
+          </div>
+          <p class="price-note">
+            Raw metal value only before stones, setting, design, and labor. Numbers are based on a spot check from <a href="https://goldprice.org/live-gold-price.html" target="_blank" rel="noopener noreferrer">GoldPrice.org</a> and should be refreshed as the market moves.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section gemstone-doctrine-section" id="doctrine">
+      <div class="section-head">
+        <div class="section-title">Nate Savard Gemstones</div>
+        <div class="section-copy"></div>
+      </div>
+
+      <div class="gemstone-power-box">
+        <div class="doctrine-note">
+          <span class="doctrine-note-label">source note</span>
+          Nate Savard travels the world and sources stones with real power, energy, and presence. He does not create just to create. Every piece carries soul, presence, and intention, and is created and forged by master artist and designer Nate Savard under the Original Collection from beginning to end.
+        </div>
+
+        <div class="power-box-label">core identity</div>
+
+        <p class="power-line strong" data-order="1">we are the most original and classic collection you will find.</p>
+        <p class="power-line" data-order="2">in life, there comes a moment when you begin to have it all - the story, the scars, the wins, the beauty, the power, the family, the legacy.</p>
+        <p class="power-line" data-order="3">this collection offers the final piece you put on to express to the world who you are, what you have been through, and what you now stand for.</p>
+
+        <div class="power-divider" data-divider="1"></div>
+
+        <p class="power-line" data-order="4">let us give you the final touch - one piece can tell the story of a million lives lived, and become part of your legacy forever.</p>
+
+        <div class="power-divider" data-divider="2"></div>
+
+        <div class="power-box-label">gemstone truth</div>
+
+        <p class="power-line highlight" data-order="5">gemstone is the precious force.</p>
+        <p class="power-line highlight" data-order="6">the standard.</p>
+        <p class="power-line highlight" data-order="7">the power source.</p>
+        <p class="power-line highlight" data-order="8">the one that prevails.</p>
+
+        <p class="power-line final" data-order="9">
+          the one with the beautiful family, the legacy, the heat, and the kingdom.
+        </p>
+      </div>
+    </section>
+
+    <footer class="site-footer">
+      <div class="footer-divider"></div>
+
+      <div class="footer-logo-wrap" id="footerScrollTop" aria-label="Scroll to top" role="button" tabindex="0">
+        <div class="footer-logo-shell">
+          <div class="footer-logo-flash"></div>
+          <img src="nate savard gold.png" alt="Nate Savard logo" class="footer-logo" />
+        </div>
+        <div class="footer-text">Long Live The Original Collection</div>
+      </div>
+
+      <div class="footer-subtext">Cloaks / Jewelry / Talismen / Rings / Charms / Custom Work</div>
+    </footer>
+  </div>
+
+  <div class="world-modal" id="worldModal" aria-hidden="true">
+    <div class="world-modal-backdrop" id="worldModalBackdrop"></div>
+    <div class="world-modal-panel">
+      <button class="world-modal-close" id="worldModalClose" type="button" aria-label="Close world signal">×</button>
+      <div class="world-modal-media">
+        <img src="" alt="" id="worldModalImage" />
+      </div>
+      <div class="world-modal-body">
+        <div class="world-kicker" id="worldModalKicker">house signal</div>
+        <h3 class="world-modal-title" id="worldModalTitle">Royal Sapphire Signet</h3>
+        <div class="world-modal-location" id="worldModalLocation">Calgary, Canada</div>
+        <p class="world-modal-note" id="worldModalNote">
+          Heavy sapphire signet energy routed through the city that built the cold, sharp part of the house.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="piece-lightbox" id="pieceLightbox" aria-hidden="true">
+    <div class="piece-lightbox-panel">
+      <button class="piece-lightbox-close" id="pieceLightboxClose" type="button" aria-label="Close enlarged image">×</button>
+      <div class="piece-lightbox-kicker">collector preview</div>
+      <figure class="piece-lightbox-figure">
+        <img src="" alt="" class="piece-lightbox-image" id="pieceLightboxImage" />
+        <figcaption class="piece-lightbox-caption" id="pieceLightboxCaption"></figcaption>
+      </figure>
+    </div>
+  </div>
+
+  <script>
+    const enterButton = document.getElementById('enterButton');
+    const enterScreen = document.getElementById('enterScreen');
+    const siteShell = document.getElementById('siteShell');
+    const centerLogo = document.getElementById('centerLogo');
+    const enterText = document.getElementById('enterText');
+    const flyingLogo = document.getElementById('flyingLogo');
+    const logoTarget = document.getElementById('logoTarget');
+    const headerLogo = document.getElementById('headerLogo');
+    const footerScrollTop = document.getElementById('footerScrollTop');
+    const logoShell = document.querySelector('.logo-shell');
+
+    let entered = false;
+
+    function rect(el) {
+      return el.getBoundingClientRect();
+    }
+
+    enterButton.addEventListener('click', () => {
+      if (entered) return;
+      entered = true;
+
+      const start = rect(centerLogo);
+      const target = rect(logoTarget);
+
+      flyingLogo.style.display = 'block';
+      flyingLogo.style.opacity = '1';
+      flyingLogo.style.left = `${start.left}px`;
+      flyingLogo.style.top = `${start.top}px`;
+      flyingLogo.style.width = `${start.width}px`;
+
+      siteShell.classList.add('revealed');
+
+      centerLogo.style.opacity = '0';
+      enterText.style.opacity = '0';
+
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          const targetSize = window.innerWidth <= 640 ? 46 : 58;
+          flyingLogo.style.left = `${target.left + (target.width - targetSize) / 2}px`;
+          flyingLogo.style.top = `${target.top + (target.height - targetSize) / 2}px`;
+          flyingLogo.style.width = `${targetSize}px`;
+        });
+      });
+
+      setTimeout(() => {
+        enterScreen.classList.add('hidden');
+        headerLogo.classList.add('visible');
+      }, 920);
+
+      setTimeout(() => {
+        flyingLogo.style.opacity = '0';
+      }, 1160);
+
+      setTimeout(() => {
+        flyingLogo.style.display = 'none';
+      }, 1480);
+    });
+
+    if (footerScrollTop) {
+      footerScrollTop.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+
+      footerScrollTop.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+      });
+    }
+
+    if (logoShell) {
+      logoShell.addEventListener('mouseenter', () => {
+        logoShell.classList.add('is-reactive');
+      });
+
+      logoShell.addEventListener('mouseleave', () => {
+        logoShell.classList.remove('is-reactive');
+        logoShell.style.transform = '';
+      });
+
+      logoShell.addEventListener('mousemove', (event) => {
+        const bounds = logoShell.getBoundingClientRect();
+        const x = (event.clientX - bounds.left) / bounds.width - 0.5;
+        const y = (event.clientY - bounds.top) / bounds.height - 0.5;
+        logoShell.style.transform = `rotateX(${(-y * 10).toFixed(2)}deg) rotateY(${(x * 12).toFixed(2)}deg) translateY(-4px)`;
+      });
+    }
+
+    if (logoTarget) {
+      logoTarget.addEventListener('mouseenter', () => {
+        logoTarget.classList.add('is-reactive');
+      });
+
+      logoTarget.addEventListener('mouseleave', () => {
+        logoTarget.classList.remove('is-reactive');
+      });
+    }
+
+    (() => {
+      const lightbox = document.getElementById('pieceLightbox');
+      const lightboxImage = document.getElementById('pieceLightboxImage');
+      const lightboxCaption = document.getElementById('pieceLightboxCaption');
+      const lightboxClose = document.getElementById('pieceLightboxClose');
+
+      if (!lightbox || !lightboxImage || !lightboxCaption || !lightboxClose) return;
+
+      function openPiece(trigger) {
+        const image = trigger.getAttribute('data-piece-image');
+        const title = trigger.getAttribute('data-piece-title') || 'Collector piece';
+        const altText = trigger.querySelector('img') ? trigger.querySelector('img').getAttribute('alt') : title;
+
+        lightboxImage.src = image;
+        lightboxImage.alt = altText || title;
+        lightboxCaption.textContent = title;
+        lightbox.classList.add('is-open');
+        lightbox.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
+      }
+
+      function closePiece() {
+        lightbox.classList.remove('is-open');
+        lightbox.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+      }
+
+      document.addEventListener('click', (event) => {
+        const trigger = event.target.closest('.piece-trigger');
+        if (!trigger) return;
+        if (lightbox.contains(trigger)) return;
+        openPiece(trigger);
+      });
+
+      document.addEventListener('keydown', (event) => {
+        const trigger = document.activeElement && document.activeElement.closest ? document.activeElement.closest('.piece-trigger') : null;
+        if (trigger && (event.key === 'Enter' || event.key === ' ')) {
+          event.preventDefault();
+          openPiece(trigger);
+          return;
+        }
+
+        if (event.key === 'Escape' && lightbox.classList.contains('is-open')) {
+          closePiece();
+        }
+      });
+
+      lightboxClose.addEventListener('click', closePiece);
+      lightbox.addEventListener('click', (event) => {
+        if (event.target === lightbox) closePiece();
+      });
+    })();
+
+    (() => {
+      const builderSection = document.getElementById('builder');
+      const summaryValue = document.getElementById('builderSummaryValue');
+      const summaryCopy = document.getElementById('builderSummaryCopy');
+      const heroTrigger = document.getElementById('builderHeroTrigger');
+      const heroImage = document.getElementById('builderHeroImage');
+      const heroTitle = document.getElementById('builderHeroTitle');
+      const heroDesc = document.getElementById('builderHeroDesc');
+      const heroTags = document.getElementById('builderHeroTags');
+      const matchGrid = document.getElementById('builderMatchGrid');
+      const mailLink = document.getElementById('builderMailLink');
+
+      if (!builderSection || !summaryValue || !summaryCopy || !heroTrigger || !heroImage || !heroTitle || !heroDesc || !heroTags || !matchGrid || !mailLink) return;
+
+      const builderLibrary = [
+        {
+          name: 'Royal Sapphire Signet',
+          image: 'nate savard - nls 2.jpg',
+          desc: 'Carved gold texture, side sapphires, and a dominant center stone built with old-world authority and full custom weight.',
+          stone: 'sapphire',
+          silhouette: 'signet',
+          metal: 'yellow'
+        },
+        {
+          name: 'Imperial Blue Sapphire Ring',
+          image: 'nate savard - nls 3.jpg',
+          desc: 'Clean heavy-gold sapphire ring drawn for direct power, restraint, and permanent luxury.',
+          stone: 'sapphire',
+          silhouette: 'signet',
+          metal: 'yellow'
+        },
+        {
+          name: 'White Fire Scroll Ring',
+          image: 'nate savard - nls 4.png',
+          desc: 'Diamond-forward scrollwork ring with cathedral lift and heirloom-level white-fire presence.',
+          stone: 'diamond',
+          silhouette: 'cathedral',
+          metal: 'white'
+        },
+        {
+          name: 'Opal Sage Spinner',
+          image: 'nate savard opal sage front.png',
+          desc: 'Double-sided opal spinner concept with diamond field and ceremonial medallion architecture.',
+          stone: 'opal',
+          silhouette: 'spinner',
+          metal: 'yellow'
+        },
+        {
+          name: 'Sapphire Spinner Reverse',
+          image: 'nate savard saphire back.png',
+          desc: 'Blue sapphire spinner reverse with crushed-diamond energy and millionaire-status presence.',
+          stone: 'sapphire',
+          silhouette: 'spinner',
+          metal: 'yellow'
+        },
+        {
+          name: 'NLS Cathedral Ring Frame',
+          image: 'nate savard - nls 6.png',
+          desc: '18k architecture with black inlay and a cathedral profile waiting for a commanding center stone.',
+          stone: 'mixed',
+          silhouette: 'cathedral',
+          metal: 'black'
+        },
+        {
+          name: 'Black Gold NS Ring',
+          image: 'nate savard - nls 8.png',
+          desc: 'Black-and-gold ring body with carved inner gallery and a sharper statement-platform silhouette.',
+          stone: 'mixed',
+          silhouette: 'signet',
+          metal: 'black'
+        },
+        {
+          name: 'Diamond Cathedral Signet',
+          image: 'nate savard - nls 9.png',
+          desc: 'Layered diamond bezel and cathedral shoulders designed for elite finish and bright stone energy.',
+          stone: 'diamond',
+          silhouette: 'cathedral',
+          metal: 'white'
+        },
+        {
+          name: 'Royal Marquise Sapphire Ring',
+          image: 'nate ring 1.2.png',
+          desc: 'Multi-angle sapphire build with ornate galleries, diamond rails, and a serious custom ring attitude.',
+          stone: 'sapphire',
+          silhouette: 'cathedral',
+          metal: 'yellow'
+        },
+        {
+          name: 'Sapphire Halo Pendant',
+          image: 'nate savard - nls 5.png',
+          desc: 'Rotating pendant system with sapphire top link and medallion-scale diamond halo framing.',
+          stone: 'sapphire',
+          silhouette: 'pendant',
+          metal: 'yellow'
+        },
+        {
+          name: 'Sapphire Monolith Pendant',
+          image: 'nate savard - nls 11.png',
+          desc: 'Black-and-gold pendant silhouette with sapphire core and a more restrained, modern authority.',
+          stone: 'sapphire',
+          silhouette: 'pendant',
+          metal: 'black'
+        },
+        {
+          name: 'Twin Stone Spinner Pendant',
+          image: '2stone.png',
+          desc: 'Dual-version spinner pendant showing sapphire and opal paths inside the same diamond-heavy system.',
+          stone: 'mixed',
+          silhouette: 'spinner',
+          metal: 'yellow'
+        }
+      ];
+
+      const state = {
+        stone: 'sapphire',
+        silhouette: 'signet',
+        metal: 'yellow'
+      };
+
+      const labels = {
+        stone: {
+          sapphire: 'Sapphire',
+          opal: 'Opal',
+          diamond: 'Diamond',
+          mixed: 'Mixed Stones'
+        },
+        silhouette: {
+          signet: 'Signet',
+          spinner: 'Spinner',
+          cathedral: 'Cathedral',
+          pendant: 'Pendant'
+        },
+        metal: {
+          yellow: 'Yellow Gold',
+          black: 'Black Gold',
+          white: 'White Fire'
+        }
+      };
+
+      const escapeHtml = (value = '') => value
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+
+      function scoreItem(item) {
+        let score = 0;
+        if (item.stone === state.stone) score += 4;
+        if (item.silhouette === state.silhouette) score += 3;
+        if (item.metal === state.metal) score += 2;
+        if (state.stone === 'mixed' && item.stone === 'mixed') score += 1;
+        return score;
+      }
+
+      function getMatches() {
+        return builderLibrary
+          .map((item, index) => ({ ...item, score: scoreItem(item), index }))
+          .sort((a, b) => {
+            if (b.score !== a.score) return b.score - a.score;
+            return a.index - b.index;
+          })
+          .slice(0, 3);
+      }
+
+      function updateBuilderButtons() {
+        builderSection.querySelectorAll('[data-builder-filter]').forEach((button) => {
+          const group = button.getAttribute('data-builder-filter');
+          const value = button.getAttribute('data-builder-value');
+          button.classList.toggle('is-active', state[group] === value);
+        });
+      }
+
+      function updateBuilderHero(item) {
+        const tagLine = `${labels.stone[item.stone]} / ${labels.silhouette[item.silhouette]} / ${labels.metal[item.metal]}`;
+        heroImage.src = item.image;
+        heroImage.alt = `${item.name} by Nate Savard`;
+        heroTitle.textContent = item.name;
+        heroDesc.textContent = item.desc;
+        heroTags.textContent = tagLine;
+        heroTrigger.setAttribute('data-piece-title', item.name);
+        heroTrigger.setAttribute('data-piece-image', item.image);
+        heroTrigger.setAttribute('aria-label', `Open ${item.name} preview`);
+      }
+
+      function renderBuilderMatches(matches) {
+        matchGrid.innerHTML = matches.map((item) => {
+          const itemTags = `${labels.stone[item.stone]} / ${labels.silhouette[item.silhouette]} / ${labels.metal[item.metal]}`;
+          const mailHref = `mailto:natesavard@outlook.com?subject=${encodeURIComponent(item.name)}%20Inquiry`;
+          return `
+            <article class="builder-match-card">
+              <div class="builder-match-media piece-trigger" tabindex="0" role="button" aria-label="Open ${escapeHtml(item.name)}" data-piece-title="${escapeHtml(item.name)}" data-piece-image="${escapeHtml(item.image)}">
+                <img src="${escapeHtml(item.image)}" alt="${escapeHtml(item.name)} by Nate Savard" />
+              </div>
+              <div class="builder-match-info">
+                <div class="builder-match-name">${escapeHtml(item.name)}</div>
+                <p class="builder-match-desc">${escapeHtml(item.desc)}</p>
+                <div class="builder-match-meta">${escapeHtml(itemTags)}</div>
+                <a href="${mailHref}" class="story-link">inquire</a>
+              </div>
+            </article>
+          `;
+        }).join('');
+      }
+
+      function updateBuilderSummary(matches) {
+        const stoneLabel = labels.stone[state.stone];
+        const silhouetteLabel = labels.silhouette[state.silhouette];
+        const metalLabel = labels.metal[state.metal];
+        const lead = matches[0];
+
+        summaryValue.textContent = `${stoneLabel} / ${silhouetteLabel} / ${metalLabel}`;
+        summaryCopy.textContent = `Built for a ${stoneLabel.toLowerCase()} ${silhouetteLabel.toLowerCase()} in ${metalLabel.toLowerCase()}, narrowed to Nate Savard directions like ${lead.name}. This is now ready to route into a real one-of-one commission.`;
+
+        const lines = [
+          'Nate, I want to start from the Original Collection Ring Builder.',
+          '',
+          `Stone force: ${stoneLabel}`,
+          `Silhouette: ${silhouetteLabel}`,
+          `Metal tone: ${metalLabel}`,
+          '',
+          'Top suggested directions:',
+          ...matches.map((item, index) => `${index + 1}. ${item.name} // ${labels.stone[item.stone]} / ${labels.silhouette[item.silhouette]} / ${labels.metal[item.metal]}`),
+          '',
+          'Please send me next steps, pricing direction, and whether we should build from one of these directions or create a fresh one-of-one.'
+        ];
+
+        mailLink.href = `mailto:natesavard@outlook.com?subject=${encodeURIComponent(`Sage Ring Builder - ${stoneLabel} ${silhouetteLabel}`)}&body=${encodeURIComponent(lines.join('\n'))}`;
+      }
+
+      function updateBuilder() {
+        const matches = getMatches();
+        updateBuilderButtons();
+        updateBuilderHero(matches[0]);
+        renderBuilderMatches(matches);
+        updateBuilderSummary(matches);
+      }
+
+      builderSection.querySelectorAll('[data-builder-filter]').forEach((button) => {
+        button.addEventListener('click', () => {
+          const group = button.getAttribute('data-builder-filter');
+          const value = button.getAttribute('data-builder-value');
+          state[group] = value;
+          updateBuilder();
+        });
+      });
+
+      updateBuilder();
+    })();
+
+    (() => {
+      const storyGrid = document.getElementById('storyGrid');
+      const storyTabs = Array.from(document.querySelectorAll('.story-tab'));
+      if (!storyGrid || !storyTabs.length) return;
+
+      const stories = [
+        {
+          category: 'signets',
+          badge: 'placeholder',
+          name: 'Collector Review Placeholder 01',
+          image: 'nate savard - nls 3.jpg',
+          copy: 'Placeholder slot for a future verified collector quote about a sapphire signet commission. Replace with the client\'s exact words when approved.',
+          detail: 'placeholder / signet commission / awaiting verified review',
+          link: 'mailto:natesavard@outlook.com?subject=Signet%20Review%20Placeholder'
+        },
+        {
+          category: 'rings',
+          badge: 'placeholder',
+          name: 'Collector Review Placeholder 02',
+          image: 'nate savard - nls 9.png',
+          copy: 'Placeholder slot for a future verified collector quote about a white-fire custom ring. Keep the five-star layout and swap in the final review later.',
+          detail: 'placeholder / ring build / awaiting verified review',
+          link: 'mailto:natesavard@outlook.com?subject=Ring%20Review%20Placeholder'
+        },
+        {
+          category: 'pendants',
+          badge: 'placeholder',
+          name: 'Collector Review Placeholder 03',
+          image: 'nate savard saphire back.png',
+          copy: 'Placeholder slot for a future verified collector quote about a pendant or talisman order. Built to hold real delivery, stone, and craftsmanship feedback.',
+          detail: 'placeholder / pendant order / awaiting verified review',
+          link: 'mailto:natesavard@outlook.com?subject=Pendant%20Review%20Placeholder'
+        },
+        {
+          category: 'spinners',
+          badge: 'placeholder',
+          name: 'Collector Review Placeholder 04',
+          image: 'nate savard opal sage front.png',
+          copy: 'Placeholder slot for a future verified collector quote about a spinner talisman. Ready for a real note on movement, presence, and stone detail.',
+          detail: 'placeholder / spinner build / awaiting verified review',
+          link: 'mailto:natesavard@outlook.com?subject=Spinner%20Review%20Placeholder'
+        },
+        {
+          category: 'signets',
+          badge: 'placeholder',
+          name: 'Collector Review Placeholder 05',
+          image: 'nate ring 1.2.png',
+          copy: 'Placeholder slot for a future verified collector quote about a one-of-one signet. Use this space for real fit, finish, and design feedback once collected.',
+          detail: 'placeholder / one-of-one signet / awaiting verified review',
+          link: 'mailto:natesavard@outlook.com?subject=One-of-One%20Review%20Placeholder'
+        },
+        {
+          category: 'signets',
+          name: 'Royal Sapphire Signet',
+          image: 'nate savard - nls 2.jpg',
+          copy: 'The strongest sapphire signets feel inherited on first contact: heavy gold, carved texture, and a center stone that reads like power instead of decoration.',
+          detail: 'house story / sapphire / legacy signet',
+          link: 'mailto:natesavard@outlook.com?subject=Royal%20Sapphire%20Signet'
+        },
+        {
+          category: 'signets',
+          name: 'NS Monogram Signet',
+          image: 'nate savard - nls 12.jpg',
+          copy: 'A monogram signet only works when the face feels strong enough to become family language. This one is built for that exact kind of permanence.',
+          detail: 'house story / monogram / black field',
+          link: 'mailto:natesavard@outlook.com?subject=NS%20Monogram%20Signet'
+        },
+        {
+          category: 'rings',
+          name: 'White Fire Scroll Ring',
+          image: 'nate savard - nls 4.png',
+          copy: 'White-fire ring work has to feel bright without losing gravity. The scroll architecture keeps it elegant while the stone keeps it dangerous.',
+          detail: 'house story / diamond / cathedral lift',
+          link: 'mailto:natesavard@outlook.com?subject=White%20Fire%20Scroll%20Ring'
+        },
+        {
+          category: 'spinners',
+          name: 'Opal Sage Spinner',
+          image: 'nate savard opal sage front.png',
+          copy: 'Spinner pieces should feel ceremonial, not gimmicky. The opal center and halo field make this one feel like a talisman with real status.',
+          detail: 'house story / spinner / opal force',
+          link: 'mailto:natesavard@outlook.com?subject=Opal%20Sage%20Spinner'
+        },
+        {
+          category: 'spinners',
+          name: 'Twin Stone Spinner Pendant',
+          image: '2stone.png',
+          copy: 'The sapphire path and the opal path can live inside one body when the architecture is strong enough. This is that kind of collector system.',
+          detail: 'house story / spinner / dual-stone build',
+          link: 'mailto:natesavard@outlook.com?subject=Twin%20Stone%20Spinner%20Pendant'
+        },
+        {
+          category: 'pendants',
+          name: 'Sapphire Monolith Pendant',
+          image: 'nate savard - nls 11.png',
+          copy: 'A vertical pendant needs discipline. The silhouette here stays refined while the sapphire and diamond framing carry the flex.',
+          detail: 'house story / pendant / black and gold',
+          link: 'mailto:natesavard@outlook.com?subject=Sapphire%20Monolith%20Pendant'
+        },
+        {
+          category: 'pendants',
+          name: 'Blue Oval Talisman',
+          image: 'nate savard - nls 1.png',
+          copy: 'Some pendants are made to sit quietly until the light catches them. Then the whole piece starts telling the truth about the wearer.',
+          detail: 'house story / talisman / sapphire oval',
+          link: 'mailto:natesavard@outlook.com?subject=Blue%20Oval%20Talisman'
+        }
+      ];
+
+      const escapeHtml = (value = '') => value
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+
+      let activeFilter = 'all';
+
+      function renderStories() {
+        const visibleStories = activeFilter === 'all'
+          ? stories
+          : stories.filter((story) => story.category === activeFilter);
+
+        storyGrid.innerHTML = visibleStories.map((story) => `
+          <article class="story-card">
+            <div class="story-media piece-trigger" tabindex="0" role="button" aria-label="Open ${escapeHtml(story.name)}" data-piece-title="${escapeHtml(story.name)}" data-piece-image="${escapeHtml(story.image)}">
+              <span class="story-badge">${escapeHtml(story.badge || 'house story')}</span>
+              <img src="${escapeHtml(story.image)}" alt="${escapeHtml(story.name)} by Nate Savard" />
+            </div>
+            <div class="story-body">
+              <div class="story-stars" aria-label="Five-star presentation">?????</div>
+              <p class="story-copy">${escapeHtml(story.copy)}</p>
+              <div class="story-meta">
+                <div class="story-name">${escapeHtml(story.name)}</div>
+                <div class="story-detail">${escapeHtml(story.detail)}</div>
+                <a href="${story.link}" class="story-link">inquire</a>
+              </div>
+            </div>
+          </article>
+        `).join('');
+      }
+
+      storyTabs.forEach((tab) => {
+        tab.addEventListener('click', () => {
+          activeFilter = tab.getAttribute('data-story-filter') || 'all';
+          storyTabs.forEach((button) => {
+            button.classList.toggle('is-active', button === tab);
+          });
+          renderStories();
+        });
+      });
+
+      renderStories();
+    })();
+
+    (() => {
+      const canvas = document.getElementById('sageGlobeCanvas');
+      const focusLabel = document.getElementById('worldFocusLabel');
+      const worldStats = document.getElementById('worldStats');
+      const modal = document.getElementById('worldModal');
+      const modalBackdrop = document.getElementById('worldModalBackdrop');
+      const modalClose = document.getElementById('worldModalClose');
+      const modalImage = document.getElementById('worldModalImage');
+      const modalTitle = document.getElementById('worldModalTitle');
+      const modalLocation = document.getElementById('worldModalLocation');
+      const modalNote = document.getElementById('worldModalNote');
+      const modalKicker = document.getElementById('worldModalKicker');
+
+      if (!canvas || !focusLabel || !worldStats || !modal || !modalBackdrop || !modalClose || !modalImage || !modalTitle || !modalLocation || !modalNote || !modalKicker) return;
+
+      const ctx = canvas.getContext('2d');
+      if (!ctx) return;
+
+      const worldSignals = [
+        {
+          city: 'Calgary, Canada',
+          lat: 51.05,
+          lon: -114.07,
+          title: 'Royal Sapphire Signet',
+          image: 'nate savard - nls 2.jpg',
+          note: 'Heavy sapphire signet energy routed through the city that built the colder, sharper edge of the house.'
+        },
+        {
+          city: 'Vancouver, Canada',
+          lat: 49.28,
+          lon: -123.12,
+          title: 'Blue Oval Talisman',
+          image: 'nate savard - nls 1.png',
+          note: 'A cleaner talisman direction with enough calm light and dark water energy to feel expensive without forcing it.'
+        },
+        {
+          city: 'New York, USA',
+          lat: 40.71,
+          lon: -74.01,
+          title: 'Sapphire Monolith Pendant',
+          image: 'nate savard - nls 11.png',
+          note: 'Vertical pendant authority built for a city that respects silhouette, speed, and hard luxury finishes.'
+        },
+        {
+          city: 'London, UK',
+          lat: 51.51,
+          lon: -0.13,
+          title: 'NS Monogram Signet',
+          image: 'nate savard - nls 12.jpg',
+          note: 'The monogram route belongs in old cities too: formal, restrained, and sharp enough to feel inherited.'
+        },
+        {
+          city: 'Istanbul, Turkiye',
+          lat: 41.01,
+          lon: 28.98,
+          title: 'Opal Sage Spinner',
+          image: 'nate savard opal sage front.png',
+          note: 'A ceremonial spinner path with richer color fire, stronger ornament, and a more mythic talisman presence.'
+        },
+        {
+          city: 'Dubai, UAE',
+          lat: 25.2,
+          lon: 55.27,
+          title: 'Twin Stone Spinner Pendant',
+          image: '2stone.png',
+          note: 'Diamond-heavy spinner architecture pushed into a brighter, more visibly elite medallion direction.'
+        },
+        {
+          city: 'Seoul, South Korea',
+          lat: 37.56,
+          lon: 126.98,
+          title: 'NS Scale Crest Ring',
+          image: 'nate savard - nls 10.png',
+          note: 'Scale texture, crest geometry, and precision channels built for a city that understands design discipline.'
+        },
+        {
+          city: 'Berlin, Germany',
+          lat: 52.52,
+          lon: 13.4,
+          title: 'White Fire Scroll Ring',
+          image: 'nate savard - nls 4.png',
+          note: 'The bright cathedral ring route lands here with more structure, more restraint, and a colder kind of fire.'
+        }
+      ];
+
+      const counterNodes = worldStats.querySelectorAll('[data-count-up]');
+      const productCount = document.querySelectorAll('.product-card').length;
+      if (counterNodes[0]) {
+        counterNodes[0].dataset.countUp = String(worldSignals.length);
+        counterNodes[0].textContent = String(worldSignals.length);
+      }
+      if (counterNodes[1]) {
+        counterNodes[1].dataset.countUp = String(productCount);
+        counterNodes[1].textContent = String(productCount);
+      }
+
+      let width = 0;
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      let radius = 0;
+      let rotation = 0.8;
+      let tilt = -0.24;
+      let dragging = false;
+      let movedDuringDrag = false;
+      let activePointerId = null;
+      let lastX = 0;
+      let lastY = 0;
+      let pinHits = [];
+      let hoverSignal = null;
+
+      function resizeCanvas() {
+        const bounds = canvas.getBoundingClientRect();
+        width = Math.max(bounds.width, 320);
+        canvas.width = Math.floor(width * dpr);
+        canvas.height = Math.floor(width * dpr);
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        radius = width * 0.37;
+      }
+
+      function project(latDeg, lonDeg) {
+        const lat = latDeg * Math.PI / 180;
+        const lon = lonDeg * Math.PI / 180 + rotation;
+        const cosLat = Math.cos(lat);
+        const x = cosLat * Math.sin(lon);
+        const y = Math.sin(lat);
+        const z = cosLat * Math.cos(lon);
+        const cosTilt = Math.cos(tilt);
+        const sinTilt = Math.sin(tilt);
+        return {
+          x,
+          y: y * cosTilt - z * sinTilt,
+          z: y * sinTilt + z * cosTilt
+        };
+      }
+
+      function drawArc(points, color, lineWidth) {
+        const cx = width / 2;
+        const cy = width / 2;
+        ctx.beginPath();
+        let started = false;
+        points.forEach((point) => {
+          const projected = project(point.lat, point.lon);
+          const px = cx + radius * projected.x;
+          const py = cy - radius * projected.y;
+          if (projected.z > 0) {
+            if (!started) {
+              ctx.moveTo(px, py);
+              started = true;
+            } else {
+              ctx.lineTo(px, py);
+            }
+          } else {
+            started = false;
+          }
+        });
+        ctx.strokeStyle = color;
+        ctx.lineWidth = lineWidth;
+        ctx.stroke();
+      }
+
+      function drawGlobe() {
+        if (!width) resizeCanvas();
+
+        if (!dragging) {
+          rotation += 0.0022;
+        }
+
+        const cx = width / 2;
+        const cy = width / 2;
+
+        ctx.clearRect(0, 0, width, width);
+
+        const outerGlow = ctx.createRadialGradient(cx, cy, radius * 0.72, cx, cy, radius * 1.24);
+        outerGlow.addColorStop(0, 'rgba(214,168,79,0)');
+        outerGlow.addColorStop(0.76, 'rgba(214,168,79,0.12)');
+        outerGlow.addColorStop(1, 'rgba(214,168,79,0)');
+        ctx.fillStyle = outerGlow;
+        ctx.beginPath();
+        ctx.arc(cx, cy, radius * 1.24, 0, Math.PI * 2);
+        ctx.fill();
+
+        const globeFill = ctx.createRadialGradient(cx - radius * 0.32, cy - radius * 0.34, radius * 0.12, cx, cy, radius * 1.08);
+        globeFill.addColorStop(0, 'rgba(38, 28, 12, 0.98)');
+        globeFill.addColorStop(0.52, 'rgba(11, 9, 9, 0.98)');
+        globeFill.addColorStop(1, 'rgba(3, 3, 3, 1)');
+        ctx.fillStyle = globeFill;
+        ctx.beginPath();
+        ctx.arc(cx, cy, radius, 0, Math.PI * 2);
+        ctx.fill();
+
+        ctx.strokeStyle = 'rgba(215,171,82,0.22)';
+        ctx.lineWidth = 1;
+        ctx.beginPath();
+        ctx.arc(cx, cy, radius, 0, Math.PI * 2);
+        ctx.stroke();
+
+        for (let lat = -60; lat <= 60; lat += 30) {
+          const points = [];
+          for (let lon = -180; lon <= 180; lon += 5) {
+            points.push({ lat, lon });
+          }
+          drawArc(points, lat === 0 ? 'rgba(215,171,82,0.20)' : 'rgba(215,171,82,0.12)', 1);
+        }
+
+        for (let lon = -150; lon <= 180; lon += 30) {
+          const points = [];
+          for (let lat = -90; lat <= 90; lat += 5) {
+            points.push({ lat, lon });
+          }
+          drawArc(points, 'rgba(215,171,82,0.10)', 1);
+        }
+
+        pinHits = [];
+        worldSignals.forEach((signal) => {
+          const projected = project(signal.lat, signal.lon);
+          if (projected.z <= 0) return;
+
+          const x = cx + radius * projected.x;
+          const y = cy - radius * projected.y;
+          const pinSize = 4 + projected.z * 2.8;
+
+          const halo = ctx.createRadialGradient(x, y, 0, x, y, pinSize * 5);
+          halo.addColorStop(0, 'rgba(255, 220, 150, 0.72)');
+          halo.addColorStop(0.42, 'rgba(255, 220, 150, 0.18)');
+          halo.addColorStop(1, 'rgba(255, 220, 150, 0)');
+          ctx.fillStyle = halo;
+          ctx.beginPath();
+          ctx.arc(x, y, pinSize * 5, 0, Math.PI * 2);
+          ctx.fill();
+
+          ctx.fillStyle = hoverSignal === signal ? 'rgba(255, 240, 208, 1)' : 'rgba(255, 220, 150, 0.96)';
+          ctx.beginPath();
+          ctx.arc(x, y, pinSize, 0, Math.PI * 2);
+          ctx.fill();
+
+          if (hoverSignal === signal) {
+            ctx.strokeStyle = 'rgba(255, 240, 208, 0.90)';
+            ctx.lineWidth = 1.4;
+            ctx.beginPath();
+            ctx.arc(x, y, pinSize * 2.6, 0, Math.PI * 2);
+            ctx.stroke();
+          }
+
+          pinHits.push({
+            signal,
+            x,
+            y,
+            radius: pinSize * 3.2
+          });
+        });
+
+        requestAnimationFrame(drawGlobe);
+      }
+
+      function findNearestSignal(x, y) {
+        let best = null;
+        pinHits.forEach((pin) => {
+          const distance = Math.hypot(pin.x - x, pin.y - y);
+          if (distance <= pin.radius && (!best || distance < best.distance)) {
+            best = { ...pin, distance };
+          }
+        });
+        return best;
+      }
+
+      function setFocusLabel(text) {
+        focusLabel.textContent = text;
+      }
+
+      function openWorldModal(signal) {
+        modalImage.src = signal.image;
+        modalImage.alt = signal.title;
+        modalTitle.textContent = signal.title;
+        modalLocation.textContent = signal.city;
+        modalNote.textContent = signal.note;
+        modalKicker.textContent = 'house signal';
+        modal.classList.add('is-open');
+        modal.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
+      }
+
+      function closeWorldModal() {
+        modal.classList.remove('is-open');
+        modal.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+      }
+
+      function handleHover(event) {
+        const bounds = canvas.getBoundingClientRect();
+        const x = event.clientX - bounds.left;
+        const y = event.clientY - bounds.top;
+        const nearest = findNearestSignal(x, y);
+        hoverSignal = nearest ? nearest.signal : null;
+        if (hoverSignal) {
+          setFocusLabel(`${hoverSignal.city} / ${hoverSignal.title}`);
+        } else {
+          setFocusLabel('drag the globe or tap a light pin');
+        }
+      }
+
+      canvas.addEventListener('pointerdown', (event) => {
+        dragging = true;
+        movedDuringDrag = false;
+        activePointerId = event.pointerId;
+        lastX = event.clientX;
+        lastY = event.clientY;
+        canvas.classList.add('is-dragging');
+        if (canvas.setPointerCapture) {
+          canvas.setPointerCapture(event.pointerId);
+        }
+      });
+
+      canvas.addEventListener('pointermove', (event) => {
+        if (!dragging || activePointerId !== event.pointerId) {
+          handleHover(event);
+          return;
+        }
+
+        const dx = event.clientX - lastX;
+        const dy = event.clientY - lastY;
+        if (Math.abs(dx) + Math.abs(dy) > 2) {
+          movedDuringDrag = true;
+        }
+
+        rotation += dx * 0.008;
+        tilt = Math.max(-0.72, Math.min(0.72, tilt + dy * 0.006));
+        lastX = event.clientX;
+        lastY = event.clientY;
+      });
+
+      canvas.addEventListener('pointerup', (event) => {
+        if (activePointerId !== event.pointerId) return;
+
+        dragging = false;
+        canvas.classList.remove('is-dragging');
+
+        const bounds = canvas.getBoundingClientRect();
+        const x = event.clientX - bounds.left;
+        const y = event.clientY - bounds.top;
+        const nearest = findNearestSignal(x, y);
+
+        if (!movedDuringDrag && nearest) {
+          openWorldModal(nearest.signal);
+        }
+
+        movedDuringDrag = false;
+        activePointerId = null;
+      });
+
+      canvas.addEventListener('pointercancel', () => {
+        dragging = false;
+        movedDuringDrag = false;
+        activePointerId = null;
+        canvas.classList.remove('is-dragging');
+      });
+
+      canvas.addEventListener('pointerleave', () => {
+        if (!dragging) {
+          hoverSignal = null;
+          setFocusLabel('drag the globe or tap a light pin');
+        }
+      });
+
+      modalClose.addEventListener('click', closeWorldModal);
+      modalBackdrop.addEventListener('click', closeWorldModal);
+
+      document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape' && modal.classList.contains('is-open')) {
+          closeWorldModal();
+        }
+      });
+
+      if ('ResizeObserver' in window) {
+        new ResizeObserver(() => resizeCanvas()).observe(canvas);
+      } else {
+        window.addEventListener('resize', resizeCanvas);
+      }
+      resizeCanvas();
+      drawGlobe();
+
+      const countObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+
+          worldStats.querySelectorAll('[data-count-up]').forEach((node) => {
+            const target = Number(node.getAttribute('data-count-up') || '0');
+            const start = performance.now();
+            const duration = 1200;
+
+            function animateCount(now) {
+              const progress = Math.min((now - start) / duration, 1);
+              const eased = 1 - Math.pow(1 - progress, 3);
+              node.textContent = String(Math.round(target * eased));
+              if (progress < 1) {
+                requestAnimationFrame(animateCount);
+              }
+            }
+
+            requestAnimationFrame(animateCount);
+          });
+
+          countObserver.disconnect();
+        });
+      }, { threshold: 0.4 });
+
+      countObserver.observe(worldStats);
+    })();
+
+    (() => {
+      const logo = document.querySelector('.main-logo');
+      const ring = document.querySelector('.audio-ring');
+
+      let audioCtx;
+      let analyser;
+      let dataArray;
+      let source;
+      let started = false;
+
+      function fallbackPulse() {
+        let t = 0;
+        function animate() {
+          if (entered) return;
+          t += 0.03;
+          const fake = (Math.sin(t) + 1) / 2;
+          const scale = 1 + fake * 0.03;
+          const glow = 10 + fake * 18;
+
+          if (logo) {
+            logo.style.transform = `scale(${scale})`;
+            logo.style.filter = `
+              drop-shadow(0 0 ${glow * 0.5}px rgba(255,194,84,0.22))
+              drop-shadow(0 0 ${glow}px rgba(255,194,84,0.14))
+              drop-shadow(0 0 ${glow * 1.8}px rgba(255,194,84,0.08))
+            `;
+          }
+
+          if (ring) {
+            ring.style.transform = `scale(${0.96 + fake * 0.16})`;
+            ring.style.opacity = `${0.12 + fake * 0.22}`;
+          }
+
+          requestAnimationFrame(animate);
+        }
+        animate();
+      }
+
+      async function startMicReactive() {
+        if (started) return;
+        started = true;
+
+        try {
+          const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+          audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+          analyser = audioCtx.createAnalyser();
+          analyser.fftSize = 128;
+          dataArray = new Uint8Array(analyser.frequencyBinCount);
+          source = audioCtx.createMediaStreamSource(stream);
+          source.connect(analyser);
+
+          const tick = () => {
+            if (entered) return;
+            analyser.getByteFrequencyData(dataArray);
+
+            let sum = 0;
+            for (let i = 0; i < dataArray.length; i++) sum += dataArray[i];
+            const avg = sum / dataArray.length / 255;
+
+            const scale = 1 + avg * 0.07;
+            const ringScale = 0.95 + avg * 0.28;
+            const glow = 8 + avg * 34;
+
+            if (logo) {
+              logo.style.transform = `scale(${scale})`;
+              logo.style.filter = `
+                drop-shadow(0 0 ${glow * 0.5}px rgba(255,194,84,0.24))
+                drop-shadow(0 0 ${glow}px rgba(255,194,84,0.16))
+                drop-shadow(0 0 ${glow * 1.9}px rgba(255,194,84,0.10))
+              `;
+            }
+
+            if (ring) {
+              ring.style.transform = `scale(${ringScale})`;
+              ring.style.opacity = `${0.14 + avg * 0.38}`;
+            }
+
+            requestAnimationFrame(tick);
+          };
+
+          tick();
+        } catch (err) {
+          fallbackPulse();
+        }
+      }
+
+      ['click', 'touchstart', 'keydown'].forEach(evt => {
+        window.addEventListener(evt, startMicReactive, { once: true });
+      });
+
+      setTimeout(() => {
+        if (!started) fallbackPulse();
+      }, 1600);
+    })();
+
+    (() => {
+      const doctrine = document.querySelector('.gemstone-doctrine-section');
+      if (!doctrine) return;
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            doctrine.classList.add('visible');
+          }
+        });
+      }, { threshold: 0.22 });
+
+      observer.observe(doctrine);
+    })();
+  </script>
+  <script src="site-flow.js"></script>
+</body>
+</html>
+
+

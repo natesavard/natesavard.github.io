@@ -1,8 +1,8 @@
 ﻿(function () {
   const pages = [
-    { file: "index.html", key: "houses", title: "The Sage x Envynomadix", short: "Houses", section: "Dual flagship entry", summary: "The two main houses front and center: jewelry, garments, relics, and collector direction.", clearance: "main entry", dossier: "Primary landing page connecting the jewelry house and the Envynomadix fashion world.", hum: "soft" },
-    { file: "nlxblackbox.html", key: "sage", title: "The Sage", short: "The Sage", section: "Talismans // Rings // Relics // Custom Signature Pieces", summary: "Jewelry pieces, relic visuals, and private collection pathway.", clearance: "private collection", dossier: "Talismans and relics private collection tied to the luxury node.", hum: "soft" },
-    { file: "envynomadix-worldwide.html", key: "envynomadix", title: "Envynomadix", short: "Envynomadix", section: "Fashion house", summary: "Dark luxury garments, campaign visuals, and the merged house archive beside The Sage.", clearance: "fashion signal", dossier: "Digital flagship for the Envynomadix clothing world and its crossover with the jewelry line.", hum: "soft" },
+    { file: "index.html", key: "houses", title: "The Original Collection x Envynomadix", short: "Houses", section: "Dual flagship entry", summary: "The two main houses front and center: jewelry, garments, relics, and collector direction.", clearance: "main entry", dossier: "Primary landing page connecting the Original Collection jewelry house and the Envynomadix fashion world.", hum: "soft" },
+    { file: "originals.html", key: "sage", title: "The Original Collection", short: "The Original Collection", section: "Talismans // Rings // Relics // Custom Signature Pieces", summary: "Jewelry pieces, relic visuals, and private collection pathway.", clearance: "private collection", dossier: "Talismans and relics private collection tied to the luxury node.", hum: "soft" },
+    { file: "envynomadix-worldwide.html", key: "envynomadix", title: "Envynomadix", short: "Envynomadix", section: "Fashion house", summary: "Dark luxury garments, campaign visuals, and the merged house archive beside The Original Collection.", clearance: "fashion signal", dossier: "Digital flagship for the Envynomadix clothing world and its crossover with the jewelry line.", hum: "soft" },
     { file: "main.html", key: "home", title: "Nate's World Portal", short: "Portal", section: "Full archive hub", summary: "Expanded gateway for the wider archive, music, visuals, and outbound nodes.", clearance: "public node", dossier: "Secondary portal for the broader Nate's World network beyond the two main houses.", hum: "soft" },
     { file: "gemstone-field-distortion-paradox.html", key: "gemstone", title: "Gemstone Paradox", short: "Gemstone", section: "Concept portal", summary: "Field distortion lore, signal breakdown, and paradox chapters.", clearance: "vip vault", dossier: "Gemstone resonance research marked as high-interest lore.", hum: "resonance" },
     { file: "transmissions.html", key: "transmissions", title: "Transmission Updates", short: "Transmissions", section: "Signal log", summary: "Active updates, collector notices, and private network movement.", clearance: "signal stable", dossier: "Rolling log of new drops, active routes, and underground status updates.", hum: "signal" },
@@ -73,8 +73,8 @@
     "/nlxstarboychapterone.html": "NLXStarboyChapterOne.html",
     "/gemstone-field-distortion-paradox": "gemstone-field-distortion-paradox.html",
     "/gemstone-field-distortion-paradox.html": "gemstone-field-distortion-paradox.html",
-    "/nlxblackbox": "nlxblackbox.html",
-    "/nlxblackbox.html": "nlxblackbox.html",
+    "/originals": "originals.html",
+    "/originals.html": "originals.html",
     "/transmission-intake": "transmission-intake.html",
     "/transmission-intake.html": "transmission-intake.html",
     "/rare-drop": "rare-drop.html",
@@ -86,7 +86,7 @@
 
   const keyLinks = [
     { label: "Houses", href: "index.html", key: "houses" },
-    { label: "The Sage", href: "nlxblackbox.html", key: "sage" },
+    { label: "The Original Collection", href: "originals.html", key: "sage" },
     { label: "Envynomadix", href: "envynomadix.html", key: "envynomadix" },
     { label: "Portal", href: "main.html", key: "home" },
     { label: "Gemstone", href: "gemstone-field-distortion-paradox.html", key: "gemstone" },
