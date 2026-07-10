@@ -636,8 +636,11 @@
     .hero-visual {
       position: relative;
       min-height: 500px;
-      display: grid;
-      place-items: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 18px;
     }
 
     .hero-card {
@@ -678,6 +681,18 @@
       filter:
         drop-shadow(0 0 24px rgba(255, 196, 92, 0.16))
         drop-shadow(0 0 50px rgba(255, 196, 92, 0.12));
+    }
+
+    .hero-feature-mark {
+      display: block;
+      width: min(100%, 280px);
+      height: auto;
+      opacity: 0.9;
+      filter:
+        invert(1)
+        brightness(1.06)
+        drop-shadow(0 12px 20px rgba(0, 0, 0, 0.34))
+        drop-shadow(0 0 18px rgba(214, 168, 79, 0.12));
     }
 
     .section {
@@ -960,16 +975,6 @@
       letter-spacing: 0.22em;
       text-transform: uppercase;
       margin-bottom: 10px;
-    }
-
-    .product-name-mark {
-      display: block;
-      width: min(100%, 240px);
-      height: auto;
-      margin-bottom: 10px;
-      filter:
-        drop-shadow(0 10px 20px rgba(0, 0, 0, 0.26))
-        drop-shadow(0 0 14px rgba(215, 171, 82, 0.08));
     }
 
     .product-desc {
@@ -2446,12 +2451,13 @@
 
     body.originals-page .floating-envy-cross {
       position: fixed;
-      bottom: max(72px, calc(env(safe-area-inset-bottom, 0px) + 24px));
+      bottom: clamp(132px, 16vh, 196px);
       right: clamp(18px, 3vw, 42px);
-      z-index: 2300;
-      width: clamp(68px, 7vw, 96px);
+      z-index: 3400;
+      width: clamp(74px, 7.6vw, 104px);
       display: grid;
       place-items: center;
+      opacity: 1;
       transition: transform 0.35s ease, opacity 0.35s ease;
     }
 
@@ -2593,9 +2599,9 @@
       }
 
       body.originals-page .floating-envy-cross {
-        bottom: max(64px, calc(env(safe-area-inset-bottom, 0px) + 18px));
+        bottom: clamp(96px, 14vh, 144px);
         right: 14px;
-        width: 74px;
+        width: 78px;
       }
 
       body.originals-page nav a {
@@ -2679,9 +2685,10 @@
       </div>
 
       <div class="hero-visual">
-        <div class="hero-card piece-trigger" tabindex="0" role="button" aria-label="Open featured talisman image" data-piece-title="Featured Talisman" data-piece-image="nate savard - nls 1.png">
-          <img src="nate savard - nls 1.png" alt="Featured talisman" />
+        <div class="hero-card piece-trigger" tabindex="0" role="button" aria-label="Open Royal Marquise Sapphire Ring image" data-piece-title="Royal Marquise Sapphire Ring" data-piece-image="nate ring 1.2.png">
+          <img src="nate ring 1.2.png" alt="Royal marquise sapphire ring by Nate Savard" />
         </div>
+        <img class="hero-feature-mark" src="clean nate savard logo.png" alt="Nate Savard patch logo" />
       </div>
     </section>
 
@@ -2697,15 +2704,15 @@
 
       <div class="product-grid">
         <article class="product-card">
-          <div class="product-image piece-trigger" tabindex="0" role="button" aria-label="Open Royal Marquise Sapphire Ring image" data-piece-title="Royal Marquise Sapphire Ring" data-piece-image="nate ring 1.2.png">
-            <img src="nate ring 1.2.png" alt="Royal marquise sapphire ring by Nate Savard" />
+          <div class="product-image piece-trigger" tabindex="0" role="button" aria-label="Open Blue Oval Talisman image" data-piece-title="Blue Oval Talisman" data-piece-image="nate savard - nls 11.png">
+            <img src="nate savard - nls 11.png" alt="Blue Oval Talisman" />
           </div>
           <div class="product-info">
-            <img class="product-name-mark" src="clean nate savard logo.png" alt="Nate Savard patch logo" />
+            <div class="product-name">Blue Oval Talisman</div>
             <div class="product-desc">
-              Multi-angle ring study with blue marquise sapphire, ornate galleries, and diamond rails drawn as a full custom signet.
+              Long-form luxury pendant language with deep stone focus, black-and-gold contrast, and quiet authority.
             </div>
-            <a href="mailto:natesavard@outlook.com?subject=Royal%20Marquise%20Sapphire%20Ring" class="product-link">Inquire</a>
+            <a href="mailto:natesavard@outlook.com?subject=Blue%20Oval%20Talisman" class="product-link">Inquire</a>
           </div>
         </article>
 
@@ -2732,6 +2739,19 @@
               Millionaire-status spinner pendant concept with blue sapphire center, crushed diamonds, and bold presence.
             </div>
             <a href="mailto:natesavard@outlook.com?subject=Sapphire%20Spinner%20Reverse" class="product-link">Inquire</a>
+          </div>
+        </article>
+
+        <article class="product-card">
+          <div class="product-image piece-trigger" tabindex="0" role="button" aria-label="Open Sapphire Monolith Pendant image" data-piece-title="Sapphire Monolith Pendant" data-piece-image="nate savard - nls 11.png">
+            <img src="nate savard - nls 11.png" alt="Sapphire monolith pendant by Nate Savard" />
+          </div>
+          <div class="product-info">
+            <div class="product-name">Sapphire Monolith Pendant</div>
+            <div class="product-desc">
+              Long sapphire pendant in black and gold with diamond border and a hard, elegant silhouette built for refined authority.
+            </div>
+            <a href="mailto:natesavard@outlook.com?subject=Sapphire%20Monolith%20Pendant" class="product-link">Inquire</a>
           </div>
         </article>
 
@@ -3782,7 +3802,7 @@
         {
           category: 'pendants',
           name: 'Blue Oval Talisman',
-          image: 'nate savard - nls 1.png',
+          image: 'nate savard - nls 11.png',
           copy: 'Some pendants are made to sit quietly until the light catches them. Then the whole piece starts telling the truth about the wearer.',
           detail: 'house story / talisman / sapphire oval',
           link: 'mailto:natesavard@outlook.com?subject=Blue%20Oval%20Talisman'
@@ -3867,7 +3887,7 @@
           lat: 49.28,
           lon: -123.12,
           title: 'Blue Oval Talisman',
-          image: 'nate savard - nls 1.png',
+          image: 'nate savard - nls 11.png',
           note: 'A cleaner talisman direction with enough calm light and dark water energy to feel expensive without forcing it.'
         },
         {
