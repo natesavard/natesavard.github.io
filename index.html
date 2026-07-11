@@ -37,18 +37,30 @@
       isolation: isolate;
     }
 
-    html::before {
+    html::before,
+    html::after {
       content: "";
       position: fixed;
       inset: 0;
       z-index: 0;
       pointer-events: none;
+      transform-origin: center center;
+    }
+
+    html::before {
       background: url("nate savard forever.png") 38% center / cover no-repeat;
       transform: scale(1.04);
-      transform-origin: center center;
       filter: saturate(0.96) contrast(1.02) brightness(0.98);
       opacity: 0.6;
-      animation: portraitFloat 13s ease-in-out infinite;
+      animation: portraitFloat 13s ease-in-out infinite, backgroundSwapPortrait 18s ease-in-out infinite;
+    }
+
+    html::after {
+      background: url("envy-nomadix-noise.png") center center / cover no-repeat;
+      transform: scale(1.06);
+      filter: grayscale(0.06) contrast(1.04) brightness(0.76);
+      opacity: 0;
+      animation: storefrontFloat 15s ease-in-out infinite, backgroundSwapStorefront 18s ease-in-out infinite;
     }
 
     body {
@@ -207,6 +219,16 @@
       text-shadow: 0 18px 50px rgba(0, 0, 0, 0.54);
     }
 
+    .path-wordmark {
+      display: block;
+      width: min(100%, clamp(220px, 24vw, 380px));
+      height: auto;
+      opacity: 0.86;
+      filter:
+        drop-shadow(0 12px 28px rgba(0, 0, 0, 0.36))
+        drop-shadow(0 0 10px rgba(255, 255, 255, 0.04));
+    }
+
     .path-route {
       color: var(--sand);
       opacity: 0.92;
@@ -284,6 +306,44 @@
       }
     }
 
+    @keyframes storefrontFloat {
+      0%,
+      100% {
+        transform: scale(1.06) translate3d(0, 0, 0);
+      }
+      50% {
+        transform: scale(1.085) translate3d(0, -8px, 0);
+      }
+    }
+
+    @keyframes backgroundSwapPortrait {
+      0%,
+      42% {
+        opacity: 0.6;
+      }
+      50%,
+      92% {
+        opacity: 0;
+      }
+      100% {
+        opacity: 0.6;
+      }
+    }
+
+    @keyframes backgroundSwapStorefront {
+      0%,
+      42% {
+        opacity: 0;
+      }
+      50%,
+      92% {
+        opacity: 0.56;
+      }
+      100% {
+        opacity: 0;
+      }
+    }
+
     @keyframes shirtPulse {
       0%,
       100% {
@@ -348,6 +408,10 @@
         font-size: clamp(1.1rem, 2.8vw, 1.8rem);
       }
 
+      .path-wordmark {
+        width: min(100%, 280px);
+      }
+
       .center-axis {
         height: min(68vh, 520px);
       }
@@ -383,6 +447,10 @@
         letter-spacing: 0.18em;
       }
 
+      .path-wordmark {
+        width: min(100%, 170px);
+      }
+
       .path-route,
       .path-kicker,
       .center-kicker {
@@ -416,7 +484,7 @@
     <a class="path right" href="envynomadix.html" aria-label="Enter Envynomadix fashion house">
       <div class="path-kicker">Fashion House</div>
       <img class="path-logo" src="envy-cross.png" alt="Envy cross emblem" />
-      <h1 class="path-title">Envynomadix</h1>
+      <img class="path-wordmark" src="envy-nomadix-wordmark.png" alt="Envy Nomadix" />
       <div class="path-route">Enter Fashion</div>
     </a>
   </main>
