@@ -163,6 +163,29 @@
       transform: translateY(calc(2vh - 8px));
     }
 
+    .path-official-logo {
+      display: block;
+      width: min(100%, clamp(120px, 13vw, 210px));
+      height: auto;
+      opacity: 0.74;
+      filter:
+        invert(0.96)
+        brightness(0.94)
+        drop-shadow(0 8px 18px rgba(0, 0, 0, 0.34))
+        drop-shadow(0 0 10px rgba(255, 240, 216, 0.05));
+      transition: opacity 0.28s ease, filter 0.28s ease, transform 0.28s ease;
+    }
+
+    .path:hover .path-official-logo {
+      opacity: 0.92;
+      transform: translateY(-2px);
+      filter:
+        invert(0.98)
+        brightness(1)
+        drop-shadow(0 10px 22px rgba(0, 0, 0, 0.40))
+        drop-shadow(0 0 14px rgba(255, 242, 214, 0.08));
+    }
+
     .path-kicker,
     .path-route,
     .center-kicker {
@@ -467,6 +490,10 @@
         transform: translateY(0);
       }
 
+      .path-official-logo {
+        width: min(100%, 120px);
+      }
+
       .path:hover {
         transform: translateY(-6px);
       }
@@ -519,11 +546,12 @@
     </div>
 
     <a class="path right" href="envynomadix.html" aria-label="Enter Envynomadix fashion house">
+      <img class="path-official-logo" src="envy-official-logo.png" alt="Envy official logo" />
       <div class="path-kicker">Fashion House</div>
       <img class="path-logo" src="envy-cross.png" alt="Envy cross emblem" />
       <span class="path-wordmark-stack">
-        <img class="path-wordmark base" src="ENVY NOMADIX.png" alt="Envy Nomadix" />
-        <img class="path-wordmark angel" src="ENVY NOMADIX ANGELS (1).png" alt="" aria-hidden="true" />
+        <img class="path-wordmark base" src="envy-nomadix-logo.png" alt="Envy Nomadix" />
+        <img class="path-wordmark angel" src="envy-nomadix-angels.png" alt="" aria-hidden="true" />
       </span>
       <div class="path-route">Enter Fashion</div>
     </a>
