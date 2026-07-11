@@ -163,27 +163,62 @@
       transform: translateY(calc(2vh - 8px));
     }
 
-    .path-official-logo {
+    .path-official-logo-stack {
+      position: relative;
       display: block;
       width: min(100%, clamp(120px, 13vw, 210px));
-      height: auto;
-      opacity: 0.74;
-      filter:
-        invert(0.96)
-        brightness(0.94)
-        drop-shadow(0 8px 18px rgba(0, 0, 0, 0.34))
-        drop-shadow(0 0 10px rgba(255, 240, 216, 0.05));
-      transition: opacity 0.28s ease, filter 0.28s ease, transform 0.28s ease;
+      transition: transform 0.28s ease;
+      isolation: isolate;
     }
 
-    .path:hover .path-official-logo {
-      opacity: 0.92;
-      transform: translateY(-2px);
+    .path-official-logo {
+      display: block;
+      width: 100%;
+      height: auto;
+      pointer-events: none;
+    }
+
+    .path-official-logo.shadow {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      opacity: 0.34;
+      filter:
+        blur(10px)
+        brightness(0.18)
+        saturate(0)
+        drop-shadow(0 0 14px rgba(0, 0, 0, 0.36));
+      transform: translate3d(-8px, 8px, 0) scale(1.05);
+      mix-blend-mode: multiply;
+      animation: envyShadowDrift 18s ease-in-out infinite;
+    }
+
+    .path-official-logo.base {
+      position: relative;
+      z-index: 2;
+      opacity: 0.76;
+      filter:
+        invert(0.24)
+        brightness(0.76)
+        drop-shadow(0 8px 18px rgba(0, 0, 0, 0.34));
+      animation: envyBaseFade 14s ease-in-out infinite;
+    }
+
+    .path-official-logo.white {
+      position: absolute;
+      inset: 0;
+      z-index: 3;
+      opacity: 0.18;
       filter:
         invert(0.98)
-        brightness(1)
-        drop-shadow(0 10px 22px rgba(0, 0, 0, 0.40))
-        drop-shadow(0 0 14px rgba(255, 242, 214, 0.08));
+        brightness(0.98)
+        drop-shadow(0 0 10px rgba(255, 243, 217, 0.08))
+        drop-shadow(0 0 26px rgba(255, 243, 217, 0.08));
+      animation: envyWhiteFade 14s ease-in-out infinite;
+    }
+
+    .path:hover .path-official-logo-stack {
+      transform: translateY(-2px) scale(1.015);
     }
 
     .path-kicker,
@@ -438,6 +473,42 @@
       }
     }
 
+    @keyframes envyShadowDrift {
+      0%,
+      100% {
+        transform: translate3d(-8px, 8px, 0) scale(1.05);
+      }
+      25% {
+        transform: translate3d(2px, -5px, 0) scale(1.08);
+      }
+      50% {
+        transform: translate3d(10px, 2px, 0) scale(1.04);
+      }
+      75% {
+        transform: translate3d(1px, 10px, 0) scale(1.07);
+      }
+    }
+
+    @keyframes envyBaseFade {
+      0%,
+      100% {
+        opacity: 0.8;
+      }
+      50% {
+        opacity: 0.22;
+      }
+    }
+
+    @keyframes envyWhiteFade {
+      0%,
+      100% {
+        opacity: 0.16;
+      }
+      50% {
+        opacity: 0.96;
+      }
+    }
+
     @keyframes rightLogoSpin {
       0%,
       100% {
@@ -490,7 +561,7 @@
         transform: translateY(0);
       }
 
-      .path-official-logo {
+      .path-official-logo-stack {
         width: min(100%, 120px);
       }
 
@@ -546,7 +617,11 @@
     </div>
 
     <a class="path right" href="envynomadix.html" aria-label="Enter Envynomadix fashion house">
-      <img class="path-official-logo" src="envy-official-logo.png" alt="Envy official logo" />
+      <span class="path-official-logo-stack" aria-hidden="true">
+        <img class="path-official-logo shadow" src="envy-official-logo.png" alt="" />
+        <img class="path-official-logo base" src="envy-official-logo.png" alt="" />
+        <img class="path-official-logo white" src="envy-official-logo.png" alt="" />
+      </span>
       <div class="path-kicker">Fashion House</div>
       <img class="path-logo" src="envy-cross.png" alt="Envy cross emblem" />
       <span class="path-wordmark-stack">

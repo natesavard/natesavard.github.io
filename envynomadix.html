@@ -2750,6 +2750,72 @@
       }
 
     }
+
+    /* Floating garment cleanup */
+    .catalogue-card,
+    .catalogue-card.is-art {
+      background: transparent !important;
+      border: 0 !important;
+      box-shadow: none !important;
+      overflow: visible !important;
+      isolation: isolate;
+    }
+
+    .catalogue-card-copy {
+      background: transparent !important;
+      backdrop-filter: none !important;
+    }
+
+    .catalogue-card img {
+      transition: transform 0.45s ease, filter 0.45s ease;
+    }
+
+    .house-viewer-frame {
+      background: transparent !important;
+      border: 0 !important;
+      box-shadow: none !important;
+      overflow: visible !important;
+    }
+
+    .house-viewer-visual {
+      overflow: hidden;
+    }
+
+    .house-viewer-visual::after {
+      border: 0 !important;
+      background: transparent !important;
+      box-shadow: none !important;
+      text-shadow: 0 0 14px rgba(0, 0, 0, 0.82);
+    }
+
+    .catalogue-card img[src$="envy-cross-tee-board.png"],
+    .catalogue-card img[src$="envy-cross-hood-board.png"],
+    .house-cart-item-image img[src$="envy-cross-tee-board.png"],
+    .house-cart-item-image img[src$="envy-cross-hood-board.png"],
+    #houseViewerImage[src$="envy-cross-tee-board.png"],
+    #houseViewerImage[src$="envy-cross-hood-board.png"],
+    #houseImageZoomImg[src$="envy-cross-tee-board.png"],
+    #houseImageZoomImg[src$="envy-cross-hood-board.png"] {
+      width: 100%;
+      height: 100%;
+      max-width: none;
+      max-height: none;
+      object-fit: cover;
+    }
+
+    .catalogue-card img[src$="envy-cross-tee-board.png"],
+    .house-cart-item-image img[src$="envy-cross-tee-board.png"],
+    #houseViewerImage[src$="envy-cross-tee-board.png"],
+    #houseImageZoomImg[src$="envy-cross-tee-board.png"] {
+      object-position: 18% 22%;
+    }
+
+    .catalogue-card img[src$="envy-cross-hood-board.png"],
+    .house-cart-item-image img[src$="envy-cross-hood-board.png"],
+    #houseViewerImage[src$="envy-cross-hood-board.png"],
+    #houseImageZoomImg[src$="envy-cross-hood-board.png"] {
+      object-position: 16% 24%;
+    }
   </style>
 </head>
 <body>
@@ -2844,6 +2910,14 @@
 
         <div class="catalogue-rail" aria-label="Sideways catalogue">
           <div class="catalogue-track">
+            <article class="catalogue-card" data-house-product="Envy Shirt Legacy Tee" data-house-price="$145.00" data-house-description="Main house shirt. deep v legacy tee with crystal script in front and the envy cross carried across the back." data-house-image="envy-shirt-legacy-tee.png">
+              <img src="envy-shirt-legacy-tee.png" alt="Envy Shirt Legacy Tee product cutout" />
+              <div class="catalogue-card-copy">
+                <h3 class="catalogue-card-title">Envy Shirt Legacy Tee</h3>
+                <p class="catalogue-card-note">main shirt / legacy deep v / crossback</p>
+              </div>
+            </article>
+
             <article class="catalogue-card" data-house-product="Fuck Up Tee" data-house-price="$190.00" data-house-description="Luxury deep v tee carrying the envy cross on back with a scarred front statement and stripped-down finish." data-house-image="envy-cross-tee-board.png">
               <img src="envy-cross-tee-board.png" alt="Fuck up tee board" />
               <div class="catalogue-card-copy">
@@ -2873,14 +2947,6 @@
               <div class="catalogue-card-copy">
                 <h3 class="catalogue-card-title">Angel Signal</h3>
                 <p class="catalogue-card-note">cathedral rise / archive pressure</p>
-              </div>
-            </article>
-
-            <article class="catalogue-card" data-house-product="Envy Shirt Legacy Tee" data-house-price="$145.00" data-house-description="Main house shirt. deep v legacy tee with crystal script in front and the envy cross carried across the back." data-house-image="envy-shirt-legacy-tee.png">
-              <img src="envy-shirt-legacy-tee.png" alt="Envy Shirt Legacy Tee product cutout" />
-              <div class="catalogue-card-copy">
-                <h3 class="catalogue-card-title">Envy Shirt Legacy Tee</h3>
-                <p class="catalogue-card-note">main shirt / legacy deep v / crossback</p>
               </div>
             </article>
 
