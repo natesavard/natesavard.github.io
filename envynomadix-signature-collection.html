@@ -60,7 +60,7 @@
     .bg {
       background:
         linear-gradient(180deg, rgba(0, 0, 0, 0.18), rgba(0, 0, 0, 0.78)),
-        url("envynomadix-campaign-03.png") center center / cover no-repeat;
+        url("envynomadix-campaign-07.png") center center / cover no-repeat;
       filter: blur(18px) saturate(0.86) contrast(1.15);
       transform: scale(1.12);
       opacity: 0.72;
@@ -69,7 +69,7 @@
     .bg::before,
     .bg::after {
       content: "";
-      background: url("envynomadix-campaign-03.png") center center / cover no-repeat;
+      background: url("envynomadix-campaign-07.png") center center / cover no-repeat;
       mix-blend-mode: screen;
       opacity: 0.08;
     }
@@ -822,13 +822,13 @@
     .shirt-viewer-frame {
       position: relative;
       z-index: 1;
-      width: min(94vw, 1380px);
-      max-height: min(92vh, 1200px);
+      width: min(88vw, 1040px);
+      max-height: min(88vh, 1100px);
       display: grid;
-      grid-template-columns: minmax(420px, 1.35fr) minmax(300px, 0.82fr);
-      gap: clamp(22px, 3.4vw, 42px);
+      grid-template-columns: minmax(280px, 0.92fr) minmax(320px, 1.08fr);
+      gap: clamp(18px, 3vw, 34px);
       align-items: center;
-      padding: 36px 36px 112px;
+      padding: 30px 30px 108px;
       background:
         radial-gradient(circle at 50% 28%, rgba(255, 237, 205, 0.08), transparent 28%),
         linear-gradient(180deg, rgba(10, 6, 4, 0.56), rgba(2, 1, 1, 0.2));
@@ -839,11 +839,9 @@
 
     .shirt-viewer-visual {
       position: relative;
-      min-height: clamp(460px, 72vh, 820px);
+      min-height: 420px;
       display: grid;
       place-items: center;
-      align-self: stretch;
-      padding: 24px 26px 58px;
     }
 
     .viewer-nav {
@@ -882,35 +880,17 @@
     .shirt-viewer-visual::before {
       content: "";
       position: absolute;
-      inset: 12% 6% 14%;
+      inset: 16% 8% 10%;
       background: radial-gradient(circle at center, rgba(221, 176, 109, 0.12), transparent 66%);
       filter: blur(18px);
     }
 
-    .shirt-viewer-visual::after {
-      content: "click garment to inspect full detail";
-      position: absolute;
-      left: 50%;
-      bottom: 12px;
-      transform: translateX(-50%);
-      padding: 10px 14px;
-      border: 1px solid rgba(221, 176, 109, 0.18);
-      background: rgba(7, 4, 3, 0.64);
-      color: rgba(246, 230, 202, 0.72);
-      font-family: "Courier New", monospace;
-      font-size: 9px;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      white-space: nowrap;
-      pointer-events: none;
-    }
-
-    #shirtViewerImage {
+    .shirt-viewer-frame img {
       position: relative;
       z-index: 1;
-      max-width: min(100%, 860px);
-      max-height: min(82vh, 960px);
-      width: min(100%, 860px);
+      max-width: 100%;
+      max-height: calc(80vh - 180px);
+      width: auto;
       height: auto;
       object-fit: contain;
       display: block;
@@ -925,7 +905,7 @@
       display: grid;
       gap: 16px;
       align-content: start;
-      max-height: calc(92vh - 160px);
+      max-height: calc(88vh - 160px);
       overflow-y: auto;
       padding-right: 8px;
     }
@@ -1489,14 +1469,9 @@
       }
 
       .shirt-viewer-frame {
-        width: min(92vw, 820px);
+        width: min(88vw, 720px);
         grid-template-columns: 1fr;
-        max-height: 92vh;
-      }
-
-      .shirt-viewer-visual {
-        min-height: clamp(380px, 58vh, 620px);
-        padding: 18px 18px 52px;
+        max-height: 90vh;
       }
 
       .return-cross {
@@ -1677,20 +1652,7 @@
       }
 
       .shirt-viewer-visual {
-        min-height: 320px;
-        padding: 14px 10px 48px;
-      }
-
-      .shirt-viewer-visual::after {
-        white-space: normal;
-        width: min(78vw, 250px);
-        text-align: center;
-        line-height: 1.5;
-      }
-
-      #shirtViewerImage {
-        max-height: min(62vh, 560px);
-        width: min(100%, 420px);
+        min-height: 240px;
       }
 
       .product-sheet {
@@ -1748,8 +1710,8 @@
     .image-zoom img {
       position: relative;
       z-index: 1;
-      max-width: min(97vw, 1800px);
-      max-height: 94vh;
+      max-width: min(92vw, 1200px);
+      max-height: 88vh;
       width: auto;
       height: auto;
       object-fit: contain;
@@ -2459,6 +2421,315 @@
       }
     }
 
+
+    /* ===== V4 TOP FIX + MID SCENE BREAK ===== */
+    .hero-pane {
+      height: 170px !important;
+      min-height: 170px !important;
+      padding-top: 0 !important;
+      overflow: visible !important;
+      border-bottom: 1px solid rgba(221, 176, 109, 0.2) !important;
+      background:
+        linear-gradient(180deg, rgba(0, 0, 0, 0.98), rgba(0, 0, 0, 0.82) 72%, rgba(0, 0, 0, 0.54)),
+        radial-gradient(circle at 32% 0%, rgba(221, 176, 109, 0.12), transparent 32%) !important;
+    }
+
+    .hero-brand-stack,
+    .hero-copy,
+    .hero-spirit-board {
+      display: none !important;
+    }
+
+    .hero-grid {
+      height: 170px !important;
+      min-height: 170px !important;
+      width: 100% !important;
+      max-width: none !important;
+      overflow: visible !important;
+    }
+
+    .hero-visual {
+      position: absolute !important;
+      left: clamp(180px, 20vw, 360px) !important;
+      top: -66px !important;
+      width: min(42vw, 560px) !important;
+      height: 330px !important;
+      display: flex !important;
+      align-items: flex-start !important;
+      justify-content: center !important;
+      overflow: visible !important;
+      pointer-events: none !important;
+    }
+
+    .hero-visual::before {
+      inset: 18% 5% auto 5% !important;
+      height: 64% !important;
+      background: radial-gradient(circle at center, rgba(221, 176, 109, 0.18), transparent 68%) !important;
+    }
+
+    .hero-angel {
+      width: min(36vw, 520px) !important;
+      max-width: none !important;
+      opacity: 0.78 !important;
+      transform: translateY(-8px) scale(1.08) !important;
+      mix-blend-mode: screen !important;
+      filter:
+        brightness(1.1)
+        contrast(1.08)
+        drop-shadow(0 34px 58px rgba(0, 0, 0, 0.5))
+        drop-shadow(0 0 62px rgba(221, 176, 109, 0.24)) !important;
+    }
+
+    .page-content {
+      margin-top: 170px !important;
+      padding-top: 72px !important;
+    }
+
+    .site-mini-logo {
+      top: 22px !important;
+      left: 22px !important;
+    }
+
+    .site-mini-logo img {
+      width: clamp(104px, 9.6vw, 152px) !important;
+    }
+
+    .utility-menu {
+      top: 34px !important;
+      right: clamp(18px, 3vw, 42px) !important;
+    }
+
+    .signature-mid-scene {
+      position: relative;
+      z-index: 7;
+      width: min(1260px, 96vw);
+      min-height: 430px;
+      margin: 76px auto 86px !important;
+      padding: clamp(54px, 6vw, 88px) clamp(18px, 4vw, 54px) !important;
+      display: grid;
+      place-items: center;
+      overflow: hidden;
+      isolation: isolate;
+      border-top: 1px solid rgba(221, 176, 109, 0.18);
+      border-bottom: 1px solid rgba(221, 176, 109, 0.18);
+      background:
+        linear-gradient(180deg, rgba(0,0,0,0.08), rgba(0,0,0,0.36) 46%, rgba(0,0,0,0.84)),
+        radial-gradient(circle at 50% 34%, rgba(221, 176, 109, 0.13), transparent 42%) !important;
+    }
+
+    .signature-mid-scene .mid-scene-angel {
+      position: absolute;
+      left: 11%;
+      top: -15%;
+      width: min(44vw, 520px);
+      opacity: 0.42;
+      z-index: -1;
+      transform: rotate(-7deg);
+      mix-blend-mode: screen;
+      filter:
+        brightness(1.16)
+        contrast(1.08)
+        drop-shadow(0 36px 64px rgba(0, 0, 0, 0.5))
+        drop-shadow(0 0 72px rgba(221, 176, 109, 0.22));
+    }
+
+    .signature-mid-scene .mid-scene-board {
+      position: absolute;
+      right: 5%;
+      top: 13%;
+      width: min(48vw, 620px);
+      opacity: 0.22;
+      z-index: -1;
+      mix-blend-mode: screen;
+      filter: brightness(0.8) contrast(1.1) drop-shadow(0 0 44px rgba(221,176,109,0.12));
+    }
+
+    .signature-mid-scene .bottom-banner-logo {
+      width: min(360px, 66vw) !important;
+      margin-bottom: -6px !important;
+      opacity: 0.9;
+    }
+
+    .signature-mid-scene .bottom-banner-ribbon {
+      height: 86px !important;
+      margin-top: -18px !important;
+    }
+
+    .signature-mid-scene .bottom-banner-copy {
+      max-width: 790px;
+      font-size: clamp(0.62rem, 0.9vw, 0.78rem) !important;
+      color: rgba(246, 230, 202, 0.72) !important;
+    }
+
+    .signature-mid-scene .bottom-banner-crosses {
+      margin-top: 18px !important;
+    }
+
+    @media (max-width: 720px) {
+      .hero-pane,
+      .hero-grid {
+        height: 132px !important;
+        min-height: 132px !important;
+      }
+
+      .hero-visual {
+        left: 26% !important;
+        top: -34px !important;
+        width: 52vw !important;
+        height: 230px !important;
+      }
+
+      .hero-angel {
+        width: min(54vw, 260px) !important;
+        opacity: 0.58 !important;
+      }
+
+      .page-content {
+        margin-top: 132px !important;
+        padding-top: 38px !important;
+      }
+
+      .utility-menu {
+        top: 18px !important;
+      }
+
+      .site-mini-logo img {
+        width: 92px !important;
+      }
+
+      .signature-mid-scene {
+        min-height: 360px;
+        margin: 48px auto 60px !important;
+      }
+
+      .signature-mid-scene .mid-scene-angel {
+        width: 72vw;
+        left: -8%;
+        top: -4%;
+        opacity: 0.28;
+      }
+
+      .signature-mid-scene .mid-scene-board {
+        width: 84vw;
+        right: -24%;
+        top: 18%;
+        opacity: 0.16;
+      }
+    }
+
+    /* Floating garment cleanup */
+    .panel.garment-panel,
+    .catalogue-item,
+    .product-card,
+    .catalogue-flip,
+    .catalogue-image {
+      background: transparent !important;
+      border: 0 !important;
+      box-shadow: none !important;
+      overflow: visible !important;
+      isolation: isolate;
+    }
+
+    .panel.garment-panel::after {
+      display: none !important;
+    }
+
+    .panel.garment-panel .panel-copy {
+      background: transparent !important;
+      backdrop-filter: none !important;
+    }
+
+    .catalogue-image img,
+    .panel.garment-panel img,
+    .product-card img {
+      transition: transform 0.45s ease, filter 0.45s ease;
+    }
+
+    .shirt-viewer-frame {
+      background: transparent !important;
+      border: 0 !important;
+      box-shadow: none !important;
+      overflow: visible !important;
+    }
+
+    .shirt-viewer-visual {
+      overflow: hidden;
+    }
+
+    .floating-garment img[src$="envy-cross-tee-board.png"],
+    .cart-item-image img[src$="envy-cross-tee-board.png"],
+    .catalogue-image img[src$="envy-cross-tee-board.png"],
+    .cart-item-image img[src$="envy-cross-hood-board.png"],
+    .catalogue-image img[src$="envy-cross-hood-board.png"],
+    .cart-item-image img[src$="envy-cross-tee-lookbook.png"],
+    .catalogue-image img[src$="envy-cross-tee-lookbook.png"],
+    .cart-item-image img[src$="envy-cross-hood-lookbook.png"],
+    .catalogue-image img[src$="envy-cross-hood-lookbook.png"],
+    .cart-item-image img[src$="envy-cross-tee-fuck-up-lookbook.png"],
+    .catalogue-image img[src$="envy-cross-tee-fuck-up-lookbook.png"],
+    .panel.garment-panel img[src$="envy-cross-tee-board.png"],
+    .panel.garment-panel img[src$="envy-cross-hood-board.png"],
+    .panel.garment-panel img[src$="envy-cross-tee-lookbook.png"],
+    .panel.garment-panel img[src$="envy-cross-hood-lookbook.png"],
+    .panel.garment-panel img[src$="envy-cross-tee-fuck-up-lookbook.png"],
+    #shirtViewerImage[src$="envy-cross-tee-board.png"],
+    #shirtViewerImage[src$="envy-cross-hood-board.png"],
+    #shirtViewerImage[src$="envy-cross-tee-lookbook.png"],
+    #shirtViewerImage[src$="envy-cross-hood-lookbook.png"],
+    #shirtViewerImage[src$="envy-cross-tee-fuck-up-lookbook.png"],
+    #signatureImageZoomImg[src$="envy-cross-tee-board.png"],
+    #signatureImageZoomImg[src$="envy-cross-hood-board.png"],
+    #signatureImageZoomImg[src$="envy-cross-tee-lookbook.png"],
+    #signatureImageZoomImg[src$="envy-cross-hood-lookbook.png"],
+    #signatureImageZoomImg[src$="envy-cross-tee-fuck-up-lookbook.png"] {
+      width: 100%;
+      height: 100%;
+      max-width: none;
+      max-height: none;
+      object-fit: cover;
+    }
+
+    .floating-garment img[src$="envy-cross-tee-board.png"],
+    .cart-item-image img[src$="envy-cross-tee-board.png"],
+    .catalogue-image img[src$="envy-cross-tee-board.png"],
+    .panel.garment-panel img[src$="envy-cross-tee-board.png"],
+    #shirtViewerImage[src$="envy-cross-tee-board.png"],
+    #signatureImageZoomImg[src$="envy-cross-tee-board.png"] {
+      object-position: 18% 22%;
+    }
+
+    .cart-item-image img[src$="envy-cross-hood-board.png"],
+    .catalogue-image img[src$="envy-cross-hood-board.png"],
+    .panel.garment-panel img[src$="envy-cross-hood-board.png"],
+    #shirtViewerImage[src$="envy-cross-hood-board.png"],
+    #signatureImageZoomImg[src$="envy-cross-hood-board.png"] {
+      object-position: 16% 24%;
+    }
+
+    .cart-item-image img[src$="envy-cross-tee-lookbook.png"],
+    .catalogue-image img[src$="envy-cross-tee-lookbook.png"],
+    .panel.garment-panel img[src$="envy-cross-tee-lookbook.png"],
+    #shirtViewerImage[src$="envy-cross-tee-lookbook.png"],
+    #signatureImageZoomImg[src$="envy-cross-tee-lookbook.png"] {
+      object-position: 85% 20%;
+    }
+
+    .cart-item-image img[src$="envy-cross-hood-lookbook.png"],
+    .catalogue-image img[src$="envy-cross-hood-lookbook.png"],
+    .panel.garment-panel img[src$="envy-cross-hood-lookbook.png"],
+    #shirtViewerImage[src$="envy-cross-hood-lookbook.png"],
+    #signatureImageZoomImg[src$="envy-cross-hood-lookbook.png"] {
+      object-position: 14% 20%;
+    }
+
+    .cart-item-image img[src$="envy-cross-tee-fuck-up-lookbook.png"],
+    .catalogue-image img[src$="envy-cross-tee-fuck-up-lookbook.png"],
+    .panel.garment-panel img[src$="envy-cross-tee-fuck-up-lookbook.png"],
+    #shirtViewerImage[src$="envy-cross-tee-fuck-up-lookbook.png"],
+    #signatureImageZoomImg[src$="envy-cross-tee-fuck-up-lookbook.png"] {
+      object-position: 16% 18%;
+    }
+
   </style>
 </head>
 <body>
@@ -2530,8 +2801,8 @@
 
     <div class="page-content lower-collection">
     <section class="rail-pane" id="railStart">
-      <div class="floating-garment" data-shirt-viewer="envy-cross-tee-board.png" data-product="Fuck Up Tee" data-price="$190.00" data-description="Luxury deep v tee carrying the envy cross on back with a scarred front statement and stripped-down finish." aria-label="Open Fuck Up Tee">
-        <img src="envy-cross-tee-board.png" alt="" />
+      <div class="floating-garment" data-shirt-viewer="envy-shirt-legacy-tee.png" data-product="Envy Shirt Legacy Tee" data-price="$145.00" data-description="Main house shirt. deep v legacy tee with crystal script in front and the envy cross carried across the back." aria-label="Open Envy Shirt Legacy Tee">
+        <img src="envy-shirt-legacy-tee.png" alt="" />
       </div>
       <div class="rail-shell">
         <div class="rail-head">
@@ -2539,12 +2810,12 @@
           <strong>Signature Collection</strong>
         </div>
         <div class="catalogue-strip" aria-label="Catalogue">
-          <article class="catalogue-item" data-shirt-viewer="envy-cross-tee-board.png" data-product="Fuck Up Tee" data-price="$190.00" data-description="Luxury deep v tee carrying the envy cross on back with a scarred front statement and stripped-down finish.">
+          <article class="catalogue-item" data-shirt-viewer="envy-shirt-legacy-tee.png" data-product="Envy Shirt Legacy Tee" data-price="$145.00" data-description="Main house shirt. deep v legacy tee with crystal script in front and the envy cross carried across the back.">
             <div class="catalogue-flip">
-              <div class="catalogue-image primary"><img src="envy-cross-tee-board.png" alt="Fuck up tee catalogue view" /></div>
-              <div class="catalogue-image alt"><img src="envy-cross-tee-fuck-up-lookbook.png" alt="Fuck up tee alternate view" /></div>
+              <div class="catalogue-image primary"><img src="envy-shirt-legacy-tee.png" alt="Envy Shirt Legacy Tee catalogue view" /></div>
+              <div class="catalogue-image alt"><img src="envy-cross.png" alt="Envy cross alternate view" /></div>
             </div>
-            <div class="catalogue-label">fuck up tee</div>
+            <div class="catalogue-label">legacy deep v</div>
           </article>
 
           <article class="catalogue-item" data-shirt-viewer="envy-cross-hood-board.png" data-product="Distressed Vicuna Hood" data-price="$175.00" data-description="Heavy washed hood with the envy cross dropped oversized across the back and a scarred front statement.">
@@ -2555,12 +2826,12 @@
             <div class="catalogue-label">vicuna hood</div>
           </article>
 
-          <article class="catalogue-item" data-shirt-viewer="envy-shirt-legacy-tee.png" data-product="Envy Shirt Legacy Tee" data-price="$145.00" data-description="Main house shirt. deep v legacy tee with crystal script in front and the envy cross carried across the back.">
+          <article class="catalogue-item" data-shirt-viewer="envy-cross-tee-board.png" data-product="Fuck Up Tee" data-price="$190.00" data-description="Luxury deep v tee carrying the envy cross on back with a scarred front statement and stripped-down finish.">
             <div class="catalogue-flip">
-              <div class="catalogue-image primary"><img src="envy-shirt-legacy-tee.png" alt="Envy Shirt Legacy Tee catalogue view" /></div>
-              <div class="catalogue-image alt"><img src="envy-cross.png" alt="Envy cross alternate view" /></div>
+              <div class="catalogue-image primary"><img src="envy-cross-tee-board.png" alt="Fuck up tee catalogue view" /></div>
+              <div class="catalogue-image alt"><img src="envy-cross-tee-fuck-up-lookbook.png" alt="Fuck up tee alternate view" /></div>
             </div>
-            <div class="catalogue-label">legacy deep v</div>
+            <div class="catalogue-label">fuck up tee</div>
           </article>
 
           <article class="catalogue-item" data-shirt-viewer="envy-cross-tee-lookbook.png" data-product="Crossback Deep V Tee" data-price="$160.00" data-description="Relaxed deep v tee with a stripped front and the envy cross blown large across the back.">
@@ -2573,12 +2844,12 @@
         </div>
         <div class="rail-window" data-rail-window>
           <div class="rail-track" id="railTrack">
-            <article class="panel garment-panel" data-shirt-viewer="envy-cross-tee-board.png" data-product="Fuck Up Tee" data-price="$190.00" data-description="Luxury deep v tee carrying the envy cross on back with a scarred front statement and stripped-down finish.">
-              <img src="envy-cross-tee-board.png" alt="Fuck up tee board" />
+            <article class="panel garment-panel" data-shirt-viewer="envy-shirt-legacy-tee.png" data-product="Envy Shirt Legacy Tee" data-price="$145.00" data-description="Main house shirt. deep v legacy tee with crystal script in front and the envy cross carried across the back.">
+              <img src="envy-shirt-legacy-tee.png" alt="Envy Shirt Legacy Tee cutout" />
               <div class="panel-copy">
                 <div class="panel-kicker">signature / 01</div>
-                <div class="panel-title">Fuck Up Tee</div>
-                <div class="panel-note">Lead garment / scarred front / crossback</div>
+                <div class="panel-title">Envy Shirt Legacy Tee</div>
+                <div class="panel-note">Lead garment / legacy deep v / house shirt</div>
               </div>
             </article>
 
@@ -2600,12 +2871,12 @@
               </div>
             </article>
 
-            <article class="panel garment-panel" data-shirt-viewer="envy-shirt-legacy-tee.png" data-product="Envy Shirt Legacy Tee" data-price="$145.00" data-description="Main house shirt. deep v legacy tee with crystal script in front and the envy cross carried across the back.">
-              <img src="envy-shirt-legacy-tee.png" alt="Envy Shirt Legacy Tee cutout" />
+            <article class="panel garment-panel" data-shirt-viewer="envy-cross-tee-board.png" data-product="Fuck Up Tee" data-price="$190.00" data-description="Luxury deep v tee carrying the envy cross on back with a scarred front statement and stripped-down finish.">
+              <img src="envy-cross-tee-board.png" alt="Fuck up tee board" />
               <div class="panel-copy">
                 <div class="panel-kicker">signature / 04</div>
-                <div class="panel-title">Envy Shirt Legacy Tee</div>
-                <div class="panel-note">Second shirt / legacy deep v</div>
+                <div class="panel-title">Fuck Up Tee</div>
+                <div class="panel-note">Scarred front / chrome crossback</div>
               </div>
             </article>
 
@@ -2634,7 +2905,7 @@
             <div class="footer-links">
               <a href="envynomadix.html">enter page</a>
               <a href="#railStart">signature collection</a>
-              <button type="button" data-shirt-viewer="envy-cross-tee-board.png" data-product="Fuck Up Tee" data-price="$190.00" data-description="Luxury deep v tee carrying the envy cross on back with a scarred front statement and stripped-down finish.">featured shirt</button>
+              <button type="button" data-shirt-viewer="envy-shirt-legacy-tee.png" data-product="Envy Shirt Legacy Tee" data-price="$145.00" data-description="Main house shirt. deep v legacy tee with crystal script in front and the envy cross carried across the back.">featured shirt</button>
             </div>
           </div>
           <div class="footer-group">
@@ -2648,8 +2919,8 @@
           <div class="footer-group">
             <div class="footer-kicker">catalogue</div>
             <div class="footer-links">
-              <button type="button" data-shirt-viewer="envy-cross-hood-board.png" data-product="Distressed Vicuna Hood" data-price="$175.00" data-description="Heavy washed hood with the envy cross dropped oversized across the back and a scarred front statement.">hood</button>
               <button type="button" data-shirt-viewer="envy-shirt-legacy-tee.png" data-product="Envy Shirt Legacy Tee" data-price="$145.00" data-description="Main house shirt. deep v legacy tee with crystal script in front and the envy cross carried across the back.">legacy deep v</button>
+              <button type="button" data-shirt-viewer="envy-cross-hood-board.png" data-product="Distressed Vicuna Hood" data-price="$175.00" data-description="Heavy washed hood with the envy cross dropped oversized across the back and a scarred front statement.">hood</button>
               <button type="button" data-shirt-viewer="envy-cross-tee-board.png" data-product="Fuck Up Tee" data-price="$190.00" data-description="Luxury deep v tee carrying the envy cross on back with a scarred front statement and stripped-down finish.">fuck up tee</button>
             </div>
           </div>
@@ -2662,18 +2933,35 @@
         <strong>signature collection</strong>
       </div>
 
-      <section class="catalogue-section" aria-labelledby="catalogueRowTitle">
+  
+    <section class="signature-bottom-banner signature-mid-scene" aria-label="Envynomadix signature banner">
+      <img class="mid-scene-angel" src="ANGELL ENTER.png" alt="" aria-hidden="true" />
+      <img class="mid-scene-board" src="spirit-board.png" alt="" aria-hidden="true" />
+      <img class="bottom-banner-logo" src="envynomadix-logo-cutout.png" alt="Envynomadix" />
+      <div class="bottom-banner-ribbon"><span>signature collection</span></div>
+      <p class="bottom-banner-copy">
+        ✠ N̷. the composition of waters, movement, growth, embodying and disembodying, drawing the spirits from bodies and bonding the spirits within bodies
+      </p>
+      <div class="bottom-banner-crosses" aria-hidden="true">
+        <img src="envy-cross.png" alt="" />
+        <img src="envy-cross.png" alt="" />
+        <img src="envy-cross.png" alt="" />
+      </div>
+    </section>
+
+
+    <section class="catalogue-section" aria-labelledby="catalogueRowTitle">
         <div class="catalogue-head">
           <span>quick catalogue</span>
           <strong class="lower-section-title" id="catalogueRowTitle">Expanded Selection</strong>
         </div>
         <div class="catalogue-strip product-scroll-row" aria-label="Catalogue">
-          <article class="catalogue-item product-card" data-shirt-viewer="envy-cross-tee-board.png" data-product="Fuck Up Tee" data-price="$190.00" data-description="Luxury deep v tee carrying the envy cross on back with a scarred front statement and stripped-down finish.">
+          <article class="catalogue-item product-card" data-shirt-viewer="envy-shirt-legacy-tee.png" data-product="Envy Shirt Legacy Tee" data-price="$145.00" data-description="Main house shirt. deep v legacy tee with crystal script in front and the envy cross carried across the back.">
             <div class="catalogue-flip">
-              <div class="catalogue-image primary"><img src="envy-cross-tee-board.png" alt="Fuck up tee catalogue view" /></div>
-              <div class="catalogue-image alt"><img src="envy-cross-tee-fuck-up-lookbook.png" alt="Fuck up tee alternate view" /></div>
+              <div class="catalogue-image primary"><img src="envy-shirt-legacy-tee.png" alt="Envy Shirt Legacy Tee catalogue view" /></div>
+              <div class="catalogue-image alt"><img src="envy-cross.png" alt="Envy cross alternate view" /></div>
             </div>
-            <div class="catalogue-label">fuck up tee</div>
+            <div class="catalogue-label">legacy deep v</div>
           </article>
 
           <article class="catalogue-item product-card" data-shirt-viewer="envy-cross-hood-board.png" data-product="Distressed Vicuna Hood" data-price="$175.00" data-description="Heavy washed hood with the envy cross dropped oversized across the back and a scarred front statement.">
@@ -2684,12 +2972,12 @@
             <div class="catalogue-label">vicuna hood</div>
           </article>
 
-          <article class="catalogue-item product-card" data-shirt-viewer="envy-shirt-legacy-tee.png" data-product="Envy Shirt Legacy Tee" data-price="$145.00" data-description="Main house shirt. deep v legacy tee with crystal script in front and the envy cross carried across the back.">
+          <article class="catalogue-item product-card" data-shirt-viewer="envy-cross-tee-board.png" data-product="Fuck Up Tee" data-price="$190.00" data-description="Luxury deep v tee carrying the envy cross on back with a scarred front statement and stripped-down finish.">
             <div class="catalogue-flip">
-              <div class="catalogue-image primary"><img src="envy-shirt-legacy-tee.png" alt="Envy Shirt Legacy Tee catalogue view" /></div>
-              <div class="catalogue-image alt"><img src="envy-cross.png" alt="Envy cross alternate view" /></div>
+              <div class="catalogue-image primary"><img src="envy-cross-tee-board.png" alt="Fuck up tee catalogue view" /></div>
+              <div class="catalogue-image alt"><img src="envy-cross-tee-fuck-up-lookbook.png" alt="Fuck up tee alternate view" /></div>
             </div>
-            <div class="catalogue-label">legacy deep v</div>
+            <div class="catalogue-label">fuck up tee</div>
           </article>
 
           <article class="catalogue-item product-card" data-shirt-viewer="envy-cross-tee-lookbook.png" data-product="Crossback Deep V Tee" data-price="$160.00" data-description="Relaxed deep v tee with a stripped front and the envy cross blown large across the back.">
@@ -2715,21 +3003,21 @@
           </div>
           <div class="rail-window" data-rail-window>
             <div class="rail-track product-scroll-row" id="secondaryRailTrack">
-              <article class="panel garment-panel product-card" data-shirt-viewer="envy-cross-hood-board.png" data-product="Distressed Vicuna Hood" data-price="$175.00" data-description="Heavy washed hood with the envy cross dropped oversized across the back and a scarred front statement.">
-                <img src="envy-cross-hood-board.png" alt="Distressed vicuna hood board" />
-                <div class="panel-copy">
-                  <div class="panel-kicker">line / 01</div>
-                  <div class="panel-title">Distressed Vicuna Hood</div>
-                  <div class="panel-note">Board view / washed body / hooded archive line</div>
-                </div>
-              </article>
-
               <article class="panel garment-panel product-card" data-shirt-viewer="envy-shirt-legacy-tee.png" data-product="Envy Shirt Legacy Tee" data-price="$145.00" data-description="Main house shirt. deep v legacy tee with crystal script in front and the envy cross carried across the back.">
                 <img src="envy-shirt-legacy-tee.png" alt="Envy Shirt Legacy Tee" />
                 <div class="panel-copy">
-                  <div class="panel-kicker">line / 02</div>
+                  <div class="panel-kicker">line / 01</div>
                   <div class="panel-title">Legacy Deep V</div>
                   <div class="panel-note">Main shirt / crystal script / polished black field</div>
+                </div>
+              </article>
+
+              <article class="panel garment-panel product-card" data-shirt-viewer="envy-cross-hood-board.png" data-product="Distressed Vicuna Hood" data-price="$175.00" data-description="Heavy washed hood with the envy cross dropped oversized across the back and a scarred front statement.">
+                <img src="envy-cross-hood-board.png" alt="Distressed vicuna hood board" />
+                <div class="panel-copy">
+                  <div class="panel-kicker">line / 02</div>
+                  <div class="panel-title">Distressed Vicuna Hood</div>
+                  <div class="panel-note">Board view / washed body / hooded archive line</div>
                 </div>
               </article>
 
@@ -2770,7 +3058,7 @@
           <div class="footer-links">
             <a href="envynomadix.html">enter page</a>
             <a href="#railStart">signature collection</a>
-            <button type="button" data-shirt-viewer="envy-cross-tee-board.png" data-product="Fuck Up Tee" data-price="$190.00" data-description="Luxury deep v tee carrying the envy cross on back with a scarred front statement and stripped-down finish.">featured shirt</button>
+            <button type="button" data-shirt-viewer="envy-shirt-legacy-tee.png" data-product="Envy Shirt Legacy Tee" data-price="$145.00" data-description="Main house shirt. deep v legacy tee with crystal script in front and the envy cross carried across the back.">featured shirt</button>
           </div>
         </div>
         <div class="footer-group">
@@ -2784,8 +3072,8 @@
         <div class="footer-group">
           <div class="footer-kicker">catalogue</div>
           <div class="footer-links">
-            <button type="button" data-shirt-viewer="envy-cross-hood-board.png" data-product="Distressed Vicuna Hood" data-price="$175.00" data-description="Heavy washed hood with the envy cross dropped oversized across the back and a scarred front statement.">hood</button>
             <button type="button" data-shirt-viewer="envy-shirt-legacy-tee.png" data-product="Envy Shirt Legacy Tee" data-price="$145.00" data-description="Main house shirt. deep v legacy tee with crystal script in front and the envy cross carried across the back.">legacy deep v</button>
+            <button type="button" data-shirt-viewer="envy-cross-hood-board.png" data-product="Distressed Vicuna Hood" data-price="$175.00" data-description="Heavy washed hood with the envy cross dropped oversized across the back and a scarred front statement.">hood</button>
             <button type="button" data-shirt-viewer="envy-cross-tee-board.png" data-product="Fuck Up Tee" data-price="$190.00" data-description="Luxury deep v tee carrying the envy cross on back with a scarred front statement and stripped-down finish.">fuck up tee</button>
           </div>
         </div>
@@ -2797,61 +3085,48 @@
 
       <div class="product-scroll-row">
         <div class="product-card">
-          <img src="envy-shirt-legacy-tee.png" alt="ENVY Legacy Tee">
+          <img src="ENVY LEGACY TEE.png" alt="ENVY Legacy Tee">
           <h3>ENVY Legacy Tee</h3>
         </div>
 
         <div class="product-card">
-          <img src="envy-cross-tee-board.png" alt="Fuck Up Tee">
-          <h3>Fuck Up Tee</h3>
+          <img src="signature-shirt-01.png" alt="Signature Tee">
+          <h3>Signature Tee</h3>
         </div>
 
         <div class="product-card">
-          <img src="envy-cross-hood-board.png" alt="Distressed Vicuna Hood">
-          <h3>Distressed Vicuna Hood</h3>
+          <img src="signature-shirt-02.png" alt="Chosen Few Tee">
+          <h3>Chosen Few Tee</h3>
         </div>
 
         <div class="product-card">
-          <img src="envy-cross-tee-lookbook.png" alt="Crossback Deep V Tee">
-          <h3>Crossback Deep V Tee</h3>
+          <img src="signature-shirt-03.png" alt="Silent Edition">
+          <h3>Silent Edition</h3>
         </div>
       </div>
 
-      <div class="lower-section-title">archive views</div>
+      <div class="lower-section-title">future line</div>
 
       <div class="product-scroll-row">
         <div class="product-card">
-          <img src="envy-cross-tee-fuck-up-lookbook.png" alt="Fuck Up Tee Lookbook">
-          <h3>Fuck Up Tee Lookbook</h3>
+          <img src="placeholder-shirt.png" alt="Future Drop">
+          <h3>Future Drop</h3>
         </div>
 
         <div class="product-card">
-          <img src="envy-cross-hood-lookbook.png" alt="Vicuna Hood Lookbook">
-          <h3>Vicuna Hood Lookbook</h3>
+          <img src="placeholder-shirt.png" alt="Archive Piece">
+          <h3>Archive Piece</h3>
         </div>
       </div>
     </section>
 
-
-    <section class="signature-bottom-banner" aria-label="Envynomadix signature banner">
-      <img class="bottom-banner-logo" src="envynomadix-logo-cutout.png" alt="Envynomadix" />
-      <div class="bottom-banner-ribbon"><span>signature collection</span></div>
-      <p class="bottom-banner-copy">
-        ✠ N̷. the composition of waters, movement, growth, embodying and disembodying, drawing the spirits from bodies and bonding the spirits within bodies
-      </p>
-      <div class="bottom-banner-crosses" aria-hidden="true">
-        <img src="envy-cross.png" alt="" />
-        <img src="envy-cross.png" alt="" />
-        <img src="envy-cross.png" alt="" />
-      </div>
-    </section>
 
     <div class="shirt-viewer" id="shirtViewer" aria-hidden="true">
       <div class="shirt-viewer-backdrop" id="shirtViewerBackdrop"></div>
       <div class="shirt-viewer-frame">
         <div class="shirt-viewer-visual">
           <button class="viewer-nav prev" id="shirtViewerPrev" type="button" aria-label="Previous product">&lt;</button>
-          <img id="shirtViewerImage" src="" alt="Signature shirt enlarged view" role="button" tabindex="0" aria-label="Open full-size garment detail" />
+          <img id="shirtViewerImage" src="" alt="Signature shirt enlarged view" />
           <button class="viewer-nav next" id="shirtViewerNext" type="button" aria-label="Next product">&gt;</button>
         </div>
         <div class="product-sheet">
@@ -2881,7 +3156,7 @@
             <button class="product-action is-primary" id="addToCartButton" type="button">add to cart</button>
             <button class="product-action" id="openCartFromProduct" type="button">open cart</button>
           </div>
-          <div class="product-note">Click the garment image to inspect it full size. Each order request is routed privately through the house, and checkout opens an email draft with your selected sizes, quantities, and contact details.</div>
+          <div class="product-note">Each order request is routed privately through the house. checkout opens an email draft with your selected sizes, quantities, and contact details.</div>
         </div>
         <button class="shirt-viewer-close" id="shirtViewerClose" type="button" aria-label="Close shirt view">
           <img src="envynomadix-logo-cutout.png" alt="Close with Envy" />
@@ -3414,11 +3689,6 @@
 
       if (shirtViewerImage) {
         shirtViewerImage.addEventListener("click", openSignatureImageZoom);
-        shirtViewerImage.addEventListener("keydown", function (event) {
-          if (event.key !== "Enter" && event.key !== " ") return;
-          event.preventDefault();
-          openSignatureImageZoom();
-        });
       }
 
       if (signatureImageZoomImg) {
