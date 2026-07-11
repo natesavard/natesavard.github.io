@@ -56,7 +56,7 @@
     }
 
     html::after {
-      background: url("envy-nomadix-noise.png") center center / cover no-repeat;
+      background: url("envy-nomadix-world-store.png") center center / cover no-repeat;
       transform: scale(1.06);
       filter: grayscale(0.06) contrast(1.04) brightness(0.76);
       opacity: 0;
@@ -219,14 +219,37 @@
       text-shadow: 0 18px 50px rgba(0, 0, 0, 0.54);
     }
 
-    .path-wordmark {
+    .path-wordmark-stack {
+      position: relative;
       display: block;
       width: min(100%, clamp(220px, 24vw, 380px));
+    }
+
+    .path-wordmark {
+      display: block;
+      width: 100%;
       height: auto;
+    }
+
+    .path-wordmark.base {
+      position: relative;
+      z-index: 1;
       opacity: 0.86;
       filter:
         drop-shadow(0 12px 28px rgba(0, 0, 0, 0.36))
         drop-shadow(0 0 10px rgba(255, 255, 255, 0.04));
+    }
+
+    .path-wordmark.angel {
+      position: absolute;
+      inset: 0;
+      z-index: 2;
+      opacity: 0;
+      filter:
+        drop-shadow(0 0 14px rgba(255, 255, 255, 0.12))
+        drop-shadow(0 0 34px rgba(255, 241, 210, 0.10))
+        drop-shadow(0 12px 28px rgba(0, 0, 0, 0.24));
+      animation: wordmarkAngelSwap 18s ease-in-out infinite;
     }
 
     .path-route {
@@ -344,6 +367,20 @@
       }
     }
 
+    @keyframes wordmarkAngelSwap {
+      0%,
+      42% {
+        opacity: 0;
+      }
+      50%,
+      92% {
+        opacity: 0.98;
+      }
+      100% {
+        opacity: 0;
+      }
+    }
+
     @keyframes shirtPulse {
       0%,
       100% {
@@ -408,7 +445,7 @@
         font-size: clamp(1.1rem, 2.8vw, 1.8rem);
       }
 
-      .path-wordmark {
+      .path-wordmark-stack {
         width: min(100%, 280px);
       }
 
@@ -447,7 +484,7 @@
         letter-spacing: 0.18em;
       }
 
-      .path-wordmark {
+      .path-wordmark-stack {
         width: min(100%, 170px);
       }
 
@@ -484,7 +521,10 @@
     <a class="path right" href="envynomadix.html" aria-label="Enter Envynomadix fashion house">
       <div class="path-kicker">Fashion House</div>
       <img class="path-logo" src="envy-cross.png" alt="Envy cross emblem" />
-      <img class="path-wordmark" src="envy-nomadix-wordmark.png" alt="Envy Nomadix" />
+      <span class="path-wordmark-stack">
+        <img class="path-wordmark base" src="ENVY NOMADIX.png" alt="Envy Nomadix" />
+        <img class="path-wordmark angel" src="ENVY NOMADIX ANGELS (1).png" alt="" aria-hidden="true" />
+      </span>
       <div class="path-route">Enter Fashion</div>
     </a>
   </main>
