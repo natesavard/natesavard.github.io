@@ -2529,24 +2529,27 @@
       --siteflow-shadow: 0 22px 54px rgba(0, 0, 0, 0.44);
     }
 
-    body.originals-page .site-shell::before {
-      content: "";
+    body.originals-page .top-shadow-veil {
       position: fixed;
-      top: 0;
+      top: -12px;
       left: 0;
       right: 0;
-      height: 118px;
+      height: 92px;
       z-index: 2200;
       pointer-events: none;
       background:
-        linear-gradient(180deg, rgba(6, 4, 3, 0.88) 0%, rgba(6, 4, 3, 0.58) 34%, rgba(6, 4, 3, 0.14) 72%, rgba(6, 4, 3, 0) 100%);
-      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.32);
-      opacity: 0.96;
+        linear-gradient(180deg, rgba(6, 4, 3, 0.96) 0%, rgba(6, 4, 3, 0.74) 26%, rgba(6, 4, 3, 0.24) 68%, rgba(6, 4, 3, 0) 100%);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.28);
+      opacity: 1;
+    }
+
+    body.originals-page .site-shell::before {
+      display: none;
     }
 
     body.originals-page .shop-utility {
       position: fixed;
-      top: 16px;
+      top: 10px;
       right: 24px;
       z-index: 2305;
       display: flex;
@@ -2573,6 +2576,7 @@
     }
 
     body.originals-page .shop-utility-link {
+      appearance: none;
       padding: 9px 12px;
       border: 1px solid transparent;
       border-radius: 999px;
@@ -2581,6 +2585,9 @@
       letter-spacing: 0.18em;
       text-transform: uppercase;
       background: rgba(255, 255, 255, 0.01);
+      font-family: inherit;
+      line-height: 1;
+      cursor: pointer;
       transition: color 0.25s ease, border-color 0.25s ease, background 0.25s ease, transform 0.25s ease;
       white-space: nowrap;
     }
@@ -2596,6 +2603,303 @@
       color: #f6eddd;
       border-color: rgba(215, 171, 82, 0.18);
       background: linear-gradient(180deg, rgba(214, 168, 79, 0.18), rgba(214, 168, 79, 0.08));
+    }
+
+    body.originals-page .shop-cart-count {
+      display: inline-grid;
+      place-items: center;
+      min-width: 18px;
+      height: 18px;
+      margin-left: 6px;
+      padding: 0 5px;
+      border-radius: 999px;
+      background: rgba(215, 171, 82, 0.18);
+      color: #f6eddd;
+      font-size: 9px;
+      letter-spacing: 0.12em;
+    }
+
+    body.originals-page .shop-utility-link.is-bumped {
+      animation: utilityCartPulse 0.42s ease;
+    }
+
+    .product-actions {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .product-actions .product-link,
+    .product-add-cart {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 38px;
+      padding: 10px 14px;
+      border: 1px solid rgba(215, 171, 82, 0.18);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.01);
+      color: var(--gold);
+      font-size: 10px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      transition: transform 0.24s ease, border-color 0.24s ease, background 0.24s ease, color 0.24s ease;
+    }
+
+    .product-actions .product-link:hover,
+    .product-add-cart:hover {
+      transform: translateY(-1px);
+      color: #fff2dc;
+      border-color: rgba(215, 171, 82, 0.28);
+      background: rgba(215, 171, 82, 0.11);
+    }
+
+    .product-add-cart {
+      appearance: none;
+      font-family: inherit;
+      cursor: pointer;
+    }
+
+    .product-add-cart.is-primary {
+      color: #f6eddd;
+      background: linear-gradient(180deg, rgba(214, 168, 79, 0.18), rgba(214, 168, 79, 0.08));
+    }
+
+    .originals-cart-shell {
+      position: fixed;
+      inset: 0;
+      z-index: 3600;
+      pointer-events: none;
+    }
+
+    .originals-cart-shell.is-open {
+      pointer-events: auto;
+    }
+
+    .originals-cart-backdrop {
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.5);
+      opacity: 0;
+      transition: opacity 0.35s ease;
+    }
+
+    .originals-cart-shell.is-open .originals-cart-backdrop {
+      opacity: 1;
+    }
+
+    .originals-cart-drawer {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: min(440px, 92vw);
+      height: 100%;
+      padding: 22px 20px 30px;
+      background:
+        linear-gradient(180deg, rgba(10, 6, 4, 0.96), rgba(0, 0, 0, 0.98)),
+        rgba(0, 0, 0, 0.94);
+      border-left: 1px solid rgba(215, 171, 82, 0.14);
+      box-shadow: -20px 0 50px rgba(0, 0, 0, 0.42);
+      transform: translateX(100%);
+      opacity: 0;
+      overflow-y: auto;
+      transition: transform 0.45s cubic-bezier(.16,.9,.2,1), opacity 0.45s ease;
+    }
+
+    .originals-cart-shell.is-open .originals-cart-drawer {
+      transform: translateX(0);
+      opacity: 1;
+    }
+
+    .originals-cart-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: start;
+      gap: 16px;
+      margin-bottom: 22px;
+    }
+
+    .originals-cart-title {
+      margin: 0;
+      color: #f6e8d0;
+      font-family: "Courier New", monospace;
+      font-size: 1rem;
+      letter-spacing: 0.26em;
+      text-transform: uppercase;
+    }
+
+    .originals-cart-close {
+      border: 1px solid rgba(215, 171, 82, 0.14);
+      background: rgba(255, 255, 255, 0.02);
+      color: #f6e8d0;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      font-size: 18px;
+      line-height: 1;
+      cursor: pointer;
+      transition: transform 0.24s ease, border-color 0.24s ease, background 0.24s ease;
+    }
+
+    .originals-cart-close:hover {
+      transform: translateY(-1px);
+      border-color: rgba(215, 171, 82, 0.28);
+      background: rgba(215, 171, 82, 0.12);
+    }
+
+    .originals-cart-items {
+      display: grid;
+      gap: 14px;
+    }
+
+    .originals-cart-item {
+      display: grid;
+      grid-template-columns: 92px 1fr;
+      gap: 14px;
+      padding: 12px 0 16px;
+      border-bottom: 1px solid rgba(215, 171, 82, 0.12);
+    }
+
+    .originals-cart-item-preview {
+      display: contents;
+      cursor: pointer;
+    }
+
+    .originals-cart-item-image {
+      display: grid;
+      place-items: center;
+      min-height: 110px;
+      background: radial-gradient(circle at center, rgba(215, 171, 82, 0.1), transparent 68%);
+    }
+
+    .originals-cart-item-image img {
+      max-width: 100%;
+      max-height: 108px;
+      object-fit: contain;
+      filter:
+        drop-shadow(0 18px 26px rgba(0, 0, 0, 0.4))
+        drop-shadow(0 0 14px rgba(215, 171, 82, 0.1));
+    }
+
+    .originals-cart-item-name,
+    .originals-cart-item-meta,
+    .originals-cart-empty,
+    .originals-cart-field label,
+    .originals-cart-summary {
+      font-family: "Courier New", monospace;
+      text-transform: uppercase;
+    }
+
+    .originals-cart-item-name {
+      color: #f6e8d0;
+      font-size: 0.8rem;
+      letter-spacing: 0.16em;
+      line-height: 1.6;
+    }
+
+    .originals-cart-item-meta {
+      margin-top: 6px;
+      color: rgba(215, 171, 82, 0.76);
+      font-size: 0.68rem;
+      letter-spacing: 0.18em;
+      line-height: 1.9;
+    }
+
+    .originals-cart-item-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .originals-cart-item-actions button {
+      border: 0;
+      padding: 0;
+      background: transparent;
+      color: rgba(246, 230, 202, 0.78);
+      font-family: "Courier New", monospace;
+      font-size: 0.62rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      cursor: pointer;
+    }
+
+    .originals-cart-form {
+      display: grid;
+      gap: 12px;
+      margin-top: 22px;
+      padding-top: 18px;
+      border-top: 1px solid rgba(215, 171, 82, 0.12);
+    }
+
+    .originals-cart-field {
+      display: grid;
+      gap: 6px;
+    }
+
+    .originals-cart-field label {
+      color: rgba(215, 171, 82, 0.7);
+      font-size: 0.62rem;
+      letter-spacing: 0.22em;
+    }
+
+    .originals-cart-field input,
+    .originals-cart-field textarea {
+      width: 100%;
+      border: 1px solid rgba(215, 171, 82, 0.14);
+      background: rgba(10, 6, 4, 0.7);
+      color: #f6e8d0;
+      font-family: "Courier New", monospace;
+      font-size: 0.78rem;
+      letter-spacing: 0.08em;
+      padding: 12px 12px;
+      resize: vertical;
+    }
+
+    .originals-cart-summary {
+      margin-top: 10px;
+      color: rgba(246, 230, 202, 0.82);
+      font-size: 0.68rem;
+      letter-spacing: 0.16em;
+      line-height: 1.8;
+    }
+
+    .originals-cart-actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .originals-cart-action {
+      flex: 1 1 140px;
+      min-height: 42px;
+      border: 1px solid rgba(215, 171, 82, 0.16);
+      background: rgba(255, 255, 255, 0.02);
+      color: #f6e8d0;
+      font-family: "Courier New", monospace;
+      font-size: 0.68rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: transform 0.24s ease, border-color 0.24s ease, background 0.24s ease;
+    }
+
+    .originals-cart-action:hover {
+      transform: translateY(-1px);
+      border-color: rgba(215, 171, 82, 0.28);
+      background: rgba(215, 171, 82, 0.12);
+    }
+
+    .originals-cart-action.is-primary {
+      background: linear-gradient(180deg, rgba(214, 168, 79, 0.18), rgba(214, 168, 79, 0.08));
+    }
+
+    .originals-cart-empty {
+      color: rgba(246, 230, 202, 0.7);
+      font-size: 0.72rem;
+      letter-spacing: 0.18em;
+      line-height: 1.9;
+      padding: 6px 0 4px;
     }
 
     body.originals-page .header-inner {
@@ -2842,9 +3146,11 @@
     <img src="envy-cross.png" alt="Envy cross" />
   </a>
 
+  <div class="top-shadow-veil" aria-hidden="true"></div>
+
   <div class="shop-utility" aria-label="Shop utility">
     <div class="shop-utility-kicker">shop</div>
-    <a href="#buy" class="shop-utility-link is-primary">cart</a>
+    <button class="shop-utility-link is-primary" id="originalsCartToggle" type="button">cart <span class="shop-cart-count" id="originalsCartCount">0</span></button>
     <a href="#builder" class="shop-utility-link">builder</a>
     <a href="mailto:natesavard@outlook.com?subject=Jewelry%20Purchase%20Inquiry" class="shop-utility-link">contact</a>
   </div>
@@ -3464,6 +3770,45 @@
         <figcaption class="piece-lightbox-caption" id="pieceLightboxCaption"></figcaption>
       </figure>
     </div>
+  </div>
+
+  <div class="originals-cart-shell" id="originalsCartShell" aria-hidden="true">
+    <div class="originals-cart-backdrop" id="originalsCartBackdrop"></div>
+    <aside class="originals-cart-drawer" aria-label="Shopping cart">
+      <div class="originals-cart-header">
+        <div>
+          <div class="piece-lightbox-kicker">original collection / cart</div>
+          <h2 class="originals-cart-title">Collector Cart</h2>
+        </div>
+        <button class="originals-cart-close" id="originalsCartClose" type="button" aria-label="Close cart">×</button>
+      </div>
+      <div class="originals-cart-items" id="originalsCartItems">
+        <div class="originals-cart-empty">Your cart is empty. add a piece from the collection.</div>
+      </div>
+      <div class="originals-cart-form">
+        <div class="originals-cart-field">
+          <label for="originalsCartName">Name</label>
+          <input id="originalsCartName" type="text" placeholder="Collector name" />
+        </div>
+        <div class="originals-cart-field">
+          <label for="originalsCartEmail">Email</label>
+          <input id="originalsCartEmail" type="email" placeholder="collector@email.com" />
+        </div>
+        <div class="originals-cart-field">
+          <label for="originalsCartLocation">Shipping / location</label>
+          <textarea id="originalsCartLocation" rows="3" placeholder="City, country, delivery notes"></textarea>
+        </div>
+        <div class="originals-cart-field">
+          <label for="originalsCartNotes">Order notes</label>
+          <textarea id="originalsCartNotes" rows="4" placeholder="Size changes, center stone request, metal preference, timeline"></textarea>
+        </div>
+        <div class="originals-cart-summary">Checkout opens an email to natesavard@outlook.com with your selected pieces, quantities, and collector info.</div>
+        <div class="originals-cart-actions">
+          <button class="originals-cart-action" id="originalsClearCartButton" type="button">clear cart</button>
+          <button class="originals-cart-action is-primary" id="originalsCheckoutButton" type="button">checkout via email</button>
+        </div>
+      </div>
+    </aside>
   </div>
 
   <script>
