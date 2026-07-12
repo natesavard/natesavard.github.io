@@ -745,6 +745,20 @@
         drop-shadow(0 24px 40px rgba(0, 0, 0, 0.36));
     }
 
+    .hero-signature-mark {
+      display: block;
+      width: min(100%, 420px);
+      height: auto;
+      margin-top: -10px;
+      margin-bottom: -6px;
+      opacity: 0.92;
+      mix-blend-mode: screen;
+      filter:
+        drop-shadow(0 0 16px rgba(255, 255, 255, 0.22))
+        drop-shadow(0 0 38px rgba(255, 255, 255, 0.12));
+      pointer-events: none;
+    }
+
     .hero-feature-mark {
       display: block;
       width: min(100%, 260px);
@@ -2432,6 +2446,11 @@
         gap: 0;
       }
 
+      .hero-signature-mark {
+        width: min(82vw, 340px);
+        margin-top: -6px;
+      }
+
       .hero-card-main {
         width: min(72vw, 420px);
         flex-basis: auto;
@@ -2786,6 +2805,7 @@
             <img src="side-view-true-transparent-cropped.png" alt="Hero spinner side view pendant by Nate Savard" />
           </div>
         </div>
+        <img class="hero-signature-mark" src="envynomadix-logo-no-bg.png" alt="Envy Nomadix signature" />
         <img class="hero-feature-mark" src="nsavard-patch.png" alt="Nate Savard patch logo" />
       </div>
     </section>
