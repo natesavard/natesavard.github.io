@@ -2050,6 +2050,176 @@
       color: var(--ivory);
     }
 
+    .signature-recent-stage {
+      display: grid;
+      gap: 18px;
+      margin-top: 10px;
+      padding: 24px 0 12px;
+    }
+
+    .signature-recent-stage .recent-head {
+      display: grid;
+      gap: 12px;
+    }
+
+    .signature-recent-stage .stage-kicker,
+    .signature-recent-stage .stage-title,
+    .signature-recent-stage .stage-text,
+    .signature-recent-stage .recent-card-title,
+    .signature-recent-stage .recent-card-meta,
+    .signature-recent-stage .recent-nav button {
+      font-family: "Courier New", monospace;
+      text-transform: uppercase;
+    }
+
+    .signature-recent-stage .stage-kicker {
+      color: rgba(221, 176, 109, 0.72);
+      font-size: 0.58rem;
+      letter-spacing: 0.28em;
+    }
+
+    .signature-recent-stage .recent-toolbar {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 18px;
+      flex-wrap: wrap;
+    }
+
+    .signature-recent-stage .stage-title {
+      margin: 0;
+      color: var(--ivory);
+      font-size: 0.92rem;
+      letter-spacing: 0.22em;
+      font-weight: 400;
+      text-shadow: 0 0 18px rgba(255, 230, 194, 0.08);
+    }
+
+    .signature-recent-stage .stage-text {
+      margin: 0;
+      color: rgba(236, 217, 186, 0.72);
+      font-size: 0.68rem;
+      letter-spacing: 0.16em;
+      line-height: 1.72;
+    }
+
+    .signature-recent-stage .recent-nav {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .signature-recent-stage .recent-nav button {
+      border: 1px solid rgba(221, 176, 109, 0.22);
+      background: rgba(8, 5, 3, 0.46);
+      color: rgba(240, 221, 191, 0.94);
+      padding: 10px 14px;
+      font-size: 0.72rem;
+      letter-spacing: 0.16em;
+      cursor: pointer;
+      transition: transform 0.3s ease, border-color 0.3s ease, opacity 0.3s ease, background 0.3s ease;
+    }
+
+    .signature-recent-stage .recent-nav button:hover:not(:disabled) {
+      transform: translateY(-2px);
+      border-color: rgba(242, 211, 158, 0.48);
+      background: rgba(14, 10, 7, 0.64);
+    }
+
+    .signature-recent-stage .recent-nav button:disabled {
+      opacity: 0.34;
+      cursor: default;
+    }
+
+    .signature-recent-stage .recent-empty {
+      margin: 0;
+      color: rgba(232, 216, 191, 0.62);
+      font-family: "Courier New", monospace;
+      font-size: 0.72rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+
+    .signature-recent-stage .recent-rail {
+      position: relative;
+      overflow-x: auto;
+      overflow-y: visible;
+      padding: 4px 0 10px;
+      scrollbar-width: thin;
+      scrollbar-color: rgba(221, 176, 109, 0.35) rgba(0, 0, 0, 0.22);
+    }
+
+    .signature-recent-stage .recent-track {
+      display: flex;
+      gap: 18px;
+      width: max-content;
+      padding: 0 0 6px;
+    }
+
+    .signature-recent-stage .recent-card {
+      width: min(22vw, 220px);
+      min-width: 180px;
+      padding: 0;
+      border: 0;
+      background: transparent;
+      color: inherit;
+      text-align: left;
+      cursor: pointer;
+      overflow: visible;
+      box-shadow: none;
+      transition: transform 0.42s ease, filter 0.42s ease;
+    }
+
+    .signature-recent-stage .recent-card:hover {
+      transform: translateY(-6px);
+      filter: brightness(1.04);
+    }
+
+    .signature-recent-stage .recent-card-media {
+      min-height: 210px;
+      display: grid;
+      place-items: center;
+      padding: 10px 10px 8px;
+    }
+
+    .signature-recent-stage .recent-card-media img {
+      width: 100%;
+      max-width: 190px;
+      height: 190px;
+      object-fit: contain;
+      display: block;
+      filter:
+        drop-shadow(0 22px 36px rgba(0, 0, 0, 0.46))
+        drop-shadow(0 0 18px rgba(221, 176, 109, 0.08));
+      transition: transform 0.42s ease, filter 0.42s ease;
+    }
+
+    .signature-recent-stage .recent-card:hover .recent-card-media img {
+      transform: scale(1.05) translateY(-4px);
+      filter:
+        drop-shadow(0 26px 40px rgba(0, 0, 0, 0.48))
+        drop-shadow(0 0 22px rgba(221, 176, 109, 0.14));
+    }
+
+    .signature-recent-stage .recent-card-copy {
+      padding: 8px 6px 0;
+    }
+
+    .signature-recent-stage .recent-card-title {
+      margin: 0 0 6px;
+      color: var(--ivory);
+      font-size: 0.74rem;
+      letter-spacing: 0.16em;
+    }
+
+    .signature-recent-stage .recent-card-meta {
+      margin: 0;
+      color: rgba(221, 176, 109, 0.82);
+      font-size: 0.62rem;
+      letter-spacing: 0.16em;
+      line-height: 1.68;
+    }
+
     .catalogue-item {
       flex: 0 0 auto;
       width: min(12vw, 148px);
@@ -2231,9 +2401,7 @@
     .panel,
     .catalogue-section,
     .lane-section,
-    .footer-banner,
-    .shirt-viewer,
-    .cart-shell {
+    .footer-banner {
       position: relative;
       z-index: 5;
     }
@@ -2963,47 +3131,6 @@
       </div>
     </section>
 
-
-    <section class="catalogue-section" aria-labelledby="catalogueRowTitle">
-        <div class="catalogue-head">
-          <span>quick catalogue</span>
-          <strong class="lower-section-title" id="catalogueRowTitle">Expanded Selection</strong>
-        </div>
-        <div class="catalogue-strip product-scroll-row" aria-label="Catalogue">
-          <article class="catalogue-item product-card" data-shirt-viewer="envy-shirt-legacy-tee.png" data-product="Envy Shirt Legacy Tee" data-price="$145.00" data-description="Main house shirt. deep v legacy tee with crystal script in front and the envy cross carried across the back.">
-            <div class="catalogue-flip">
-              <div class="catalogue-image primary"><img src="envy-shirt-legacy-tee.png" alt="Envy Shirt Legacy Tee catalogue view" /></div>
-              <div class="catalogue-image alt"><img src="envy-cross.png" alt="Envy cross alternate view" /></div>
-            </div>
-            <div class="catalogue-label">legacy deep v</div>
-          </article>
-
-          <article class="catalogue-item product-card" data-shirt-viewer="envy-cross-hood-board.png" data-product="Distressed Vicuna Hood" data-price="$175.00" data-description="Heavy washed hood with the envy cross dropped oversized across the back and a scarred front statement.">
-            <div class="catalogue-flip">
-              <div class="catalogue-image primary"><img src="envy-cross-hood-board.png" alt="Distressed vicuna hood catalogue view" /></div>
-              <div class="catalogue-image alt"><img src="envy-cross-hood-lookbook.png" alt="Distressed vicuna hood alternate view" /></div>
-            </div>
-            <div class="catalogue-label">vicuna hood</div>
-          </article>
-
-          <article class="catalogue-item product-card" data-shirt-viewer="envy-cross-tee-board.png" data-product="Fuck Up Tee" data-price="$190.00" data-description="Luxury deep v tee carrying the envy cross on back with a scarred front statement and stripped-down finish.">
-            <div class="catalogue-flip">
-              <div class="catalogue-image primary"><img src="envy-cross-tee-board.png" alt="Fuck up tee catalogue view" /></div>
-              <div class="catalogue-image alt"><img src="envy-cross-tee-fuck-up-lookbook.png" alt="Fuck up tee alternate view" /></div>
-            </div>
-            <div class="catalogue-label">fuck up tee</div>
-          </article>
-
-          <article class="catalogue-item product-card" data-shirt-viewer="envy-cross-tee-lookbook.png" data-product="Crossback Deep V Tee" data-price="$160.00" data-description="Relaxed deep v tee with a stripped front and the envy cross blown large across the back.">
-            <div class="catalogue-flip">
-              <div class="catalogue-image primary"><img src="envy-cross-tee-lookbook.png" alt="Crossback deep v tee catalogue view" /></div>
-              <div class="catalogue-image alt"><img src="envy-cross.png" alt="Envy cross alternate view" /></div>
-            </div>
-            <div class="catalogue-label">crossback</div>
-          </article>
-        </div>
-      </section>
-
       <div class="section-break-brand" aria-hidden="true">
         <span>envynomadix</span>
         <strong>signature collection</strong>
@@ -3059,6 +3186,15 @@
                   <div class="panel-kicker">line / 05</div>
                   <div class="panel-title">Fuck Up Tee</div>
                   <div class="panel-note">Model pass / scarred front / house crossback</div>
+                </div>
+              </article>
+
+              <article class="panel garment-panel product-card" data-shirt-viewer="ns-gold-black-onyx-heirloom.png" data-product="Black Onyx Heirloom Ring" data-price="private quote" data-description="Heirloom-scale gold ring with black onyx side panels, carved shoulders, and a crown-set center stone built for private-collection weight." data-option-label="Select ring size" data-options="7,8,9,10,11">
+                <img src="ns-gold-black-onyx-heirloom.png" alt="Black Onyx Heirloom Ring" />
+                <div class="panel-copy">
+                  <div class="panel-kicker">line / 06</div>
+                  <div class="panel-title">Black Onyx Heirloom Ring</div>
+                  <div class="panel-note">collector jewel / black onyx / heirloom build</div>
                 </div>
               </article>
             </div>
@@ -3117,6 +3253,11 @@
           <img src="envy-cross-hood-board.png" alt="Distressed Vicuna Hood">
           <h3>Distressed Vicuna Hood</h3>
         </div>
+
+        <div class="product-card" data-shirt-viewer="ns-gold-black-onyx-heirloom.png" data-product="Black Onyx Heirloom Ring" data-price="private quote" data-description="Heirloom-scale gold ring with black onyx side panels, carved shoulders, and a crown-set center stone built for private-collection weight." data-option-label="Select ring size" data-options="7,8,9,10,11">
+          <img src="ns-gold-black-onyx-heirloom.png" alt="Black Onyx Heirloom Ring">
+          <h3>Black Onyx Heirloom Ring</h3>
+        </div>
       </div>
 
       <div class="lower-section-title">future line</div>
@@ -3132,6 +3273,24 @@
           <h3>Archive Piece</h3>
         </div>
       </div>
+
+      <section class="signature-recent-stage" id="signatureRecentPhase">
+        <div class="recent-head">
+          <div class="stage-kicker">collector memory / signature trail</div>
+          <div class="recent-toolbar">
+            <h2 class="stage-title">Recently Viewed Items</h2>
+            <div class="recent-nav" aria-label="Recently viewed controls">
+              <button id="signatureRecentPrev" type="button">Previous</button>
+              <button id="signatureRecentNext" type="button">Next</button>
+            </div>
+          </div>
+          <p class="stage-text">Pieces you open inside the signature viewer collect here so you can move back through them fast.</p>
+        </div>
+        <div class="recent-empty" id="signatureRecentEmpty">Open a piece and it will appear here.</div>
+        <div class="recent-rail" id="signatureRecentRail" aria-label="Recently viewed items">
+          <div class="recent-track" id="signatureRecentTrack"></div>
+        </div>
+      </section>
     </section>
 
 
@@ -3140,16 +3299,16 @@
       <div class="shirt-viewer-frame">
         <div class="shirt-viewer-visual">
           <button class="viewer-nav prev" id="shirtViewerPrev" type="button" aria-label="Previous product">&lt;</button>
-          <img id="shirtViewerImage" src="" alt="Signature shirt enlarged view" />
+          <img id="shirtViewerImage" src="" alt="Signature product enlarged view" />
           <button class="viewer-nav next" id="shirtViewerNext" type="button" aria-label="Next product">&gt;</button>
         </div>
         <div class="product-sheet">
           <div class="product-kicker">envynomadix / product sheet</div>
-          <h2 class="product-title" id="productTitle">Signature Shirt</h2>
+          <h2 class="product-title" id="productTitle">Signature Piece</h2>
           <div class="product-price" id="productPrice">$145.00</div>
           <div class="product-description" id="productDescription">Collector black jersey. oversized body. halo pressure. built for the chosen few.</div>
           <div class="product-group">
-            <div class="product-label">Select size</div>
+            <div class="product-label" id="productOptionLabel">Select size</div>
             <div class="size-grid" id="sizeGrid">
               <button class="size-chip" type="button" data-size="xs">XS</button>
               <button class="size-chip" type="button" data-size="s">S</button>
@@ -3196,7 +3355,7 @@
           </button>
         </div>
         <div class="cart-items" id="cartItems">
-          <div class="cart-empty">Your cart is empty. add a garment from the signature rail.</div>
+          <div class="cart-empty">Your cart is empty. add a piece from the signature rail.</div>
         </div>
         <div class="cart-form">
           <div class="cart-field">
@@ -3243,6 +3402,7 @@
       var productTitle = document.getElementById("productTitle");
       var productPrice = document.getElementById("productPrice");
       var productDescription = document.getElementById("productDescription");
+      var productOptionLabel = document.getElementById("productOptionLabel");
       var qtyMinus = document.getElementById("qtyMinus");
       var qtyPlus = document.getElementById("qtyPlus");
       var qtyValue = document.getElementById("qtyValue");
@@ -3260,17 +3420,25 @@
       var cartEmail = document.getElementById("cartEmail");
       var cartLocation = document.getElementById("cartLocation");
       var cartNotes = document.getElementById("cartNotes");
+      var signatureRecentRail = document.getElementById("signatureRecentRail");
+      var signatureRecentTrack = document.getElementById("signatureRecentTrack");
+      var signatureRecentEmpty = document.getElementById("signatureRecentEmpty");
+      var signatureRecentPrev = document.getElementById("signatureRecentPrev");
+      var signatureRecentNext = document.getElementById("signatureRecentNext");
       var shirtTriggers = Array.prototype.slice.call(document.querySelectorAll("[data-shirt-viewer]"));
       var sizeChips = Array.prototype.slice.call(document.querySelectorAll(".size-chip"));
       var root = document.documentElement;
       var ribbonIndex = 0;
       var storageKey = "envy-house-cart";
       var cartInfoKey = "envy-house-cart-info";
+      var signatureRecentKey = "envy-signature-recently-viewed";
+      var defaultProductOptions = ["xs", "s", "m", "l", "xl"];
       var selectedSize = "m";
       var selectedQuantity = 1;
       var activeProduct = null;
       var activeProductIndex = -1;
       var cart = [];
+      var signatureRecentItems = [];
       var ribbonLines = [
         "never replicated",
         "for the chosen few",
@@ -3292,6 +3460,116 @@
         } catch (error) {
           return;
         }
+      }
+
+      function loadSignatureRecent() {
+        try {
+          var stored = window.localStorage.getItem(signatureRecentKey);
+          var parsed = stored ? JSON.parse(stored) : [];
+          signatureRecentItems = Array.isArray(parsed) ? parsed : [];
+        } catch (error) {
+          signatureRecentItems = [];
+        }
+      }
+
+      function saveSignatureRecent() {
+        try {
+          window.localStorage.setItem(signatureRecentKey, JSON.stringify(signatureRecentItems));
+        } catch (error) {
+          return;
+        }
+      }
+
+      function getSignatureRecentId(product) {
+        return String(product && (product.name || product.image || "signature-item"))
+          .toLowerCase()
+          .replace(/[^a-z0-9]+/g, "-");
+      }
+
+      function updateSignatureRecentControls() {
+        if (!signatureRecentRail) return;
+
+        var maxScroll = Math.max(0, signatureRecentRail.scrollWidth - signatureRecentRail.clientWidth);
+        var canScroll = maxScroll > 8;
+
+        if (signatureRecentPrev) {
+          signatureRecentPrev.disabled = !canScroll || signatureRecentRail.scrollLeft <= 8;
+        }
+
+        if (signatureRecentNext) {
+          signatureRecentNext.disabled = !canScroll || signatureRecentRail.scrollLeft >= maxScroll - 8;
+        }
+      }
+
+      function renderSignatureRecent() {
+        if (!signatureRecentTrack) return;
+
+        if (!signatureRecentItems.length) {
+          signatureRecentTrack.innerHTML = "";
+          if (signatureRecentEmpty) {
+            signatureRecentEmpty.hidden = false;
+          }
+          if (signatureRecentPrev) signatureRecentPrev.disabled = true;
+          if (signatureRecentNext) signatureRecentNext.disabled = true;
+          return;
+        }
+
+        if (signatureRecentEmpty) {
+          signatureRecentEmpty.hidden = true;
+        }
+
+        signatureRecentTrack.innerHTML = signatureRecentItems.map(function (item, index) {
+          return '' +
+            '<button class="recent-card" type="button" data-signature-recent-index="' + index + '">' +
+              '<div class="recent-card-media"><img src="' + item.image + '" alt="' + item.name + '" /></div>' +
+              '<div class="recent-card-copy">' +
+                '<h3 class="recent-card-title">' + item.name + '</h3>' +
+                '<p class="recent-card-meta">' + item.price + '<br />tap to reopen</p>' +
+              '</div>' +
+            '</button>';
+        }).join("");
+
+        window.requestAnimationFrame(updateSignatureRecentControls);
+      }
+
+      function rememberSignatureProduct(product) {
+        if (!product || !product.name || !product.image) return;
+
+        var id = getSignatureRecentId(product);
+        var normalized = {
+          id: id,
+          name: product.name,
+          price: product.price,
+          description: product.description,
+          image: product.image,
+          optionLabel: product.optionLabel || "Select size",
+          options: product.options && product.options.length ? product.options : defaultProductOptions
+        };
+
+        signatureRecentItems = signatureRecentItems.filter(function (item) {
+          return item.id !== id;
+        });
+
+        signatureRecentItems.unshift(normalized);
+        signatureRecentItems = signatureRecentItems.slice(0, 12);
+        saveSignatureRecent();
+        renderSignatureRecent();
+      }
+
+      function openSignatureRecentItem(index) {
+        var item = signatureRecentItems[index];
+        if (!item) return;
+        openShirtViewer(item);
+      }
+
+      function scrollSignatureRecent(direction) {
+        if (!signatureRecentRail) return;
+
+        var distance = Math.max(signatureRecentRail.clientWidth * 0.82, 240);
+        signatureRecentRail.scrollBy({
+          left: distance * direction,
+          behavior: "smooth"
+        });
       }
 
       function loadCartInfo() {
@@ -3393,6 +3671,32 @@
         });
       }
 
+      function setProductOptions(label, options, preferred) {
+        var nextOptions = options && options.length ? options : defaultProductOptions;
+        if (productOptionLabel) {
+          productOptionLabel.textContent = label || "Select size";
+        }
+
+        sizeChips.forEach(function (chip, index) {
+          var optionValue = nextOptions[index];
+          if (!optionValue) {
+            chip.hidden = true;
+            chip.disabled = true;
+            chip.classList.remove("is-active");
+            chip.textContent = "";
+            chip.removeAttribute("data-size");
+            return;
+          }
+
+          chip.hidden = false;
+          chip.disabled = false;
+          chip.textContent = String(optionValue).toUpperCase();
+          chip.setAttribute("data-size", String(optionValue).toLowerCase());
+        });
+
+        setActiveSize(String(preferred || nextOptions[0] || "m").toLowerCase());
+      }
+
       function setQuantity(value) {
         selectedQuantity = Math.max(1, Math.min(12, value));
         if (qtyValue) {
@@ -3412,7 +3716,7 @@
         if (!cartItems) return;
 
         if (!cart.length) {
-          cartItems.innerHTML = '<div class="cart-empty">Your cart is empty. add a garment from the signature rail.</div>';
+          cartItems.innerHTML = '<div class="cart-empty">Your cart is empty. add a piece from the signature rail.</div>';
           updateCartCount();
           return;
         }
@@ -3451,11 +3755,18 @@
       }
 
       function getProductFromTrigger(trigger) {
+        var optionList = (trigger.getAttribute("data-options") || "")
+          .split(",")
+          .map(function (value) { return value.trim().toLowerCase(); })
+          .filter(Boolean);
+
         return {
-          name: trigger.getAttribute("data-product") || "Signature Shirt",
+          name: trigger.getAttribute("data-product") || "Signature Piece",
           price: trigger.getAttribute("data-price") || "$145.00",
           description: trigger.getAttribute("data-description") || "Collector black jersey. oversized body. halo pressure. built for the chosen few.",
-        image: trigger.getAttribute("data-shirt-viewer") || "envy-shirt-legacy-tee.png"
+          image: trigger.getAttribute("data-shirt-viewer") || "envy-shirt-legacy-tee.png",
+          optionLabel: trigger.getAttribute("data-option-label") || "Select size",
+          options: optionList.length ? optionList : defaultProductOptions
         };
       }
 
@@ -3492,11 +3803,12 @@
         if (!shirtViewer || !shirtViewerImage || !product || !product.image) return;
         activeProduct = product;
         syncActiveProductIndex(product);
+        rememberSignatureProduct(product);
         shirtViewerImage.src = product.image;
         if (productTitle) productTitle.textContent = product.name;
         if (productPrice) productPrice.textContent = product.price;
         if (productDescription) productDescription.textContent = product.description;
-        setActiveSize("m");
+        setProductOptions(product.optionLabel, product.options, product.options && product.options[0] ? product.options[0] : "m");
         setQuantity(1);
         shirtViewer.classList.add("is-open");
         shirtViewer.setAttribute("aria-hidden", "false");
@@ -3548,6 +3860,8 @@
             price: activeProduct.price,
             description: activeProduct.description,
             image: activeProduct.image,
+            optionLabel: activeProduct.optionLabel || "Select size",
+            options: activeProduct.options && activeProduct.options.length ? activeProduct.options : defaultProductOptions,
             size: selectedSize,
             quantity: selectedQuantity
           });
@@ -3601,7 +3915,9 @@
           name: item.name,
           price: item.price,
           description: item.description,
-          image: item.image
+          image: item.image,
+          optionLabel: item.optionLabel || "Select size",
+          options: item.options && item.options.length ? item.options : defaultProductOptions
         });
         setActiveSize(item.size);
         setQuantity(item.quantity);
@@ -3648,7 +3964,9 @@
       window.setInterval(rotateRibbon, 2400);
       loadCart();
       loadCartInfo();
+      loadSignatureRecent();
       renderCart();
+      renderSignatureRecent();
 
       shirtTriggers.forEach(function (trigger) {
         trigger.addEventListener("click", function () {
@@ -3774,6 +4092,30 @@
         });
       }
 
+      if (signatureRecentTrack) {
+        signatureRecentTrack.addEventListener("click", function (event) {
+          var target = event.target && event.target.closest ? event.target.closest("[data-signature-recent-index]") : null;
+          if (!target) return;
+          openSignatureRecentItem(Number(target.getAttribute("data-signature-recent-index")));
+        });
+      }
+
+      if (signatureRecentPrev) {
+        signatureRecentPrev.addEventListener("click", function () {
+          scrollSignatureRecent(-1);
+        });
+      }
+
+      if (signatureRecentNext) {
+        signatureRecentNext.addEventListener("click", function () {
+          scrollSignatureRecent(1);
+        });
+      }
+
+      if (signatureRecentRail) {
+        signatureRecentRail.addEventListener("scroll", updateSignatureRecentControls, { passive: true });
+      }
+
       window.addEventListener("storage", function (event) {
         if (!event || !event.key) return;
 
@@ -3784,6 +4126,11 @@
 
         if (event.key === cartInfoKey) {
           loadCartInfo();
+        }
+
+        if (event.key === signatureRecentKey) {
+          loadSignatureRecent();
+          renderSignatureRecent();
         }
       });
 

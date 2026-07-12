@@ -652,43 +652,49 @@
     }
 
     .hero-card {
-      width: min(100%, 520px);
-      aspect-ratio: 4 / 5;
-      overflow: hidden;
-      border: 1px solid var(--gold-line);
-      background:
-        radial-gradient(circle at 50% 22%, rgba(214,168,79,0.08), transparent 28%),
-        linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-      display: grid;
-      place-items: center;
+      width: min(100%, 620px);
+      overflow: visible;
+      border: 0;
+      background: transparent;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       position: relative;
-      backdrop-filter: blur(4px);
-      border-radius: var(--radius-lg);
-      box-shadow:
-        0 16px 40px rgba(0,0,0,0.45),
-        inset 0 0 18px rgba(255,255,255,0.02);
+      padding: 18px 0 8px;
       cursor: zoom-in;
     }
 
+    .hero-card::before {
+      content: "";
+      position: absolute;
+      inset: 12% 16% 18%;
+      background:
+        radial-gradient(circle at 50% 42%, rgba(255, 226, 174, 0.34), rgba(255, 214, 128, 0.16) 26%, rgba(255, 214, 128, 0) 62%);
+      filter: blur(26px);
+      opacity: 0.95;
+      pointer-events: none;
+      z-index: 0;
+    }
+
     .hero-card img {
-      width: auto;
+      position: relative;
+      z-index: 1;
+      width: min(100%, 560px);
       height: auto;
-      max-width: 76%;
-      max-height: 76%;
-      object-fit: contain;
-      object-position: center;
       filter:
-        drop-shadow(0 0 20px rgba(255, 196, 92, 0.10))
-        drop-shadow(0 0 42px rgba(255, 196, 92, 0.08));
+        drop-shadow(0 0 24px rgba(255, 214, 128, 0.22))
+        drop-shadow(0 0 64px rgba(255, 214, 128, 0.16))
+        drop-shadow(0 26px 48px rgba(0, 0, 0, 0.34));
       animation: heroFloat 8s ease-in-out infinite;
       transition: transform 0.28s ease, filter 0.28s ease;
     }
 
     .hero-card:hover img {
-      transform: scale(1.04);
+      transform: translateY(-4px) scale(1.03);
       filter:
-        drop-shadow(0 0 24px rgba(255, 196, 92, 0.16))
-        drop-shadow(0 0 50px rgba(255, 196, 92, 0.12));
+        drop-shadow(0 0 30px rgba(255, 214, 128, 0.28))
+        drop-shadow(0 0 76px rgba(255, 214, 128, 0.2))
+        drop-shadow(0 30px 56px rgba(0, 0, 0, 0.4));
     }
 
     .hero-feature-mark {
@@ -2672,13 +2678,12 @@
           <img src="14.png" alt="Nate Savard wordmark" class="hero-wordmark" />
         </div>
         <p>
-          <br><br>
           Underground luxury for the ones who build myth. For the Chosen Few.
-          Custom talismans, pendants, rings, cloaks, and symbolic objects forged for artists, outsiders, and icons. Statement pieces made from precious
+          Custom bold talismans, pendants, rings, cloaks, and symbolic objects forged for artists, outsiders, and icons. Statement pieces made from precious
           stone, silk, linen, calf skin, gator - A luxury house of custom work and
           signature pieces lead by the one the only the original - Nate Savard.
           <br><br>
-         
+          The jewelry world now moves directly beside Envynomadix, so the stones, symbols, garments, and house marks start speaking as one collector language.
         </p>
         <div class="hero-actions">
           <a href="#designs" class="btn primary">View Designs</a>
@@ -2688,8 +2693,8 @@
       </div>
 
       <div class="hero-visual">
-        <div class="hero-card piece-trigger" tabindex="0" role="button" aria-label="Open Royal Marquise Sapphire Ring image" data-piece-title="Royal Marquise Sapphire Ring" data-piece-image="nate ring 1.2.png">
-          <img src="nate ring 1.2.png" alt="Royal marquise sapphire ring by Nate Savard" />
+        <div class="hero-card piece-trigger" tabindex="0" role="button" aria-label="Open Hero Spinner image" data-piece-title="Hero Spinner" data-piece-image="nate-savard-hero-spinner.png">
+          <img src="nate-savard-hero-spinner.png" alt="Hero spinner pendant by Nate Savard" />
         </div>
         <img class="hero-feature-mark" src="nsavard-patch.png" alt="Nate Savard patch logo" />
       </div>
@@ -2706,19 +2711,6 @@
       </div>
 
       <div class="product-grid">
-        <article class="product-card">
-          <div class="product-image piece-trigger" tabindex="0" role="button" aria-label="Open Blue Oval Talisman image" data-piece-title="Blue Oval Talisman" data-piece-image="nate savard - nls 11.png">
-            <img src="nate savard - nls 11.png" alt="Blue Oval Talisman" />
-          </div>
-          <div class="product-info">
-            <div class="product-name">Blue Oval Talisman</div>
-            <div class="product-desc">
-              Long-form luxury pendant language with deep stone focus, black-and-gold contrast, and quiet authority.
-            </div>
-            <a href="mailto:natesavard@outlook.com?subject=Blue%20Oval%20Talisman" class="product-link">Inquire</a>
-          </div>
-        </article>
-
         <article class="product-card">
           <div class="product-image piece-trigger" tabindex="0" role="button" aria-label="Open Opal Sage Spinner image" data-piece-title="Opal Sage Spinner" data-piece-image="nate savard opal sage front.png">
             <img src="nate savard opal sage front.png" alt="Opal Sage Spinner" />
@@ -2746,6 +2738,19 @@
         </article>
 
         <article class="product-card">
+          <div class="product-image piece-trigger" tabindex="0" role="button" aria-label="Open Blue Oval Talisman image" data-piece-title="Blue Oval Talisman" data-piece-image="nate savard - nls 11.png">
+            <img src="nate savard - nls 11.png" alt="Blue Oval Talisman" />
+          </div>
+          <div class="product-info">
+            <div class="product-name">Blue Oval Talisman</div>
+            <div class="product-desc">
+              Long-form luxury pendant language with deep stone focus, black-and-gold contrast, and quiet authority.
+            </div>
+            <a href="mailto:natesavard@outlook.com?subject=Blue%20Oval%20Talisman" class="product-link">Inquire</a>
+          </div>
+        </article>
+
+        <article class="product-card">
           <div class="product-image piece-trigger" tabindex="0" role="button" aria-label="Open NLS Ring 2000 image" data-piece-title="NLS Ring 2000" data-piece-image="nls ring 2000.png">
             <img src="nls ring 2000.png" alt="NLS Ring 2000 multi-angle study by Nate Savard" />
           </div>
@@ -2755,6 +2760,19 @@
               Full chassis study showing black inlay, diamond collar, engraved side panels, and the NS signet language from every angle.
             </div>
             <a href="mailto:natesavard@outlook.com?subject=NLS%20Ring%202000" class="product-link">Inquire</a>
+          </div>
+        </article>
+
+        <article class="product-card">
+          <div class="product-image piece-trigger" tabindex="0" role="button" aria-label="Open Black Onyx Heirloom Ring image" data-piece-title="Black Onyx Heirloom Ring" data-piece-image="ns-gold-black-onyx-heirloom.png">
+            <img src="ns-gold-black-onyx-heirloom.png" alt="Black onyx heirloom ring by Nate Savard" />
+          </div>
+          <div class="product-info">
+            <div class="product-name">Black Onyx Heirloom Ring</div>
+            <div class="product-desc">
+              Heirloom-scale gold ring with black onyx side panels, carved shoulders, and a crown-set center stone built for private-collection weight.
+            </div>
+            <a href="mailto:natesavard@outlook.com?subject=Black%20Onyx%20Heirloom%20Ring" class="product-link">Inquire</a>
           </div>
         </article>
 
@@ -2912,6 +2930,19 @@
               Sculpted black-and-gold ring body with carved inner gallery and a hard luxury setting platform built for a true statement stone.
             </div>
             <a href="mailto:natesavard@outlook.com?subject=Black%20Gold%20NS%20Ring" class="product-link">Inquire</a>
+          </div>
+        </article>
+
+        <article class="product-card">
+          <div class="product-image piece-trigger" tabindex="0" role="button" aria-label="Open Black Onyx Heirloom Ring image" data-piece-title="Black Onyx Heirloom Ring" data-piece-image="ns-gold-black-onyx-heirloom.png">
+            <img src="ns-gold-black-onyx-heirloom.png" alt="Black onyx heirloom ring by Nate Savard" />
+          </div>
+          <div class="product-info">
+            <div class="product-name">Black Onyx Heirloom Ring</div>
+            <div class="product-desc">
+              Black onyx panel work, pavé edge detail, and engraved gold shoulders turn this heavy heirloom build into a collector centerpiece.
+            </div>
+            <a href="mailto:natesavard@outlook.com?subject=Black%20Onyx%20Heirloom%20Ring" class="product-link">Inquire</a>
           </div>
         </article>
 
@@ -3533,6 +3564,14 @@
           name: 'Black Gold NS Ring',
           image: 'nate savard - nls 8.png',
           desc: 'Black-and-gold ring body with carved inner gallery and a sharper statement-platform silhouette.',
+          stone: 'mixed',
+          silhouette: 'signet',
+          metal: 'black'
+        },
+        {
+          name: 'Black Onyx Heirloom Ring',
+          image: 'ns-gold-black-onyx-heirloom.png',
+          desc: 'Heirloom-scale gold ring with black onyx panels, engraved shoulders, and a crown-set center stone built for collector weight.',
           stone: 'mixed',
           silhouette: 'signet',
           metal: 'black'

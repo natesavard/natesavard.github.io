@@ -209,7 +209,7 @@
       '  <div class="siteflow-brand">',
       '    <span class="siteflow-badge" aria-hidden="true"></span>',
       '    <div class="siteflow-brand-copy">',
-      '      <span class="siteflow-label">site flow active</span>',
+      '      <span class="siteflow-label">NLSM Schematics</span>',
       '      <span class="siteflow-page">' + escapeHtml(currentPage.title) + ' / ' + escapeHtml(currentPage.section) + '</span>',
       '      <span class="siteflow-clearance">' + escapeHtml(currentPage.clearance) + '</span>',
       '    </div>',
@@ -228,7 +228,7 @@
       '  <div class="siteflow-controls">',
       '    <button class="siteflow-control" id="siteflowVipToggle" type="button">' + (vipMode ? 'vip mode on' : 'vip mode off') + '</button>',
       '    <button class="siteflow-control" id="siteflowSoundToggle" type="button">' + (soundOn ? 'sound on' : 'sound off') + '</button>',
-      '    <button class="siteflow-control siteflow-min-toggle" id="siteflowMinToggle" type="button" aria-expanded="' + (!collapsed ? "true" : "false") + '" aria-label="' + (collapsed ? "Open site flow" : "Minimize site flow") + '" title="' + (collapsed ? "Open site flow" : "Minimize site flow") + '">' + (collapsed ? "flow" : "min") + '</button>',
+      '    <button class="siteflow-control siteflow-min-toggle" id="siteflowMinToggle" type="button" aria-expanded="' + (!collapsed ? "true" : "false") + '" aria-label="' + (collapsed ? "Open X Y Z" : "Minimize X Y Z") + '" title="' + (collapsed ? "Open X Y Z" : "Minimize X Y Z") + '">' + (collapsed ? "X Y Z" : "min") + '</button>',
       '  </div>',
       '</div>'
     ].join("");
@@ -561,10 +561,10 @@
       shell.classList.toggle("is-collapsed", collapsed);
     }
     if (toggle) {
-      toggle.textContent = collapsed ? "flow" : "min";
+      toggle.textContent = collapsed ? "X Y Z" : "min";
       toggle.setAttribute("aria-expanded", collapsed ? "false" : "true");
-      toggle.setAttribute("aria-label", collapsed ? "Open site flow" : "Minimize site flow");
-      toggle.title = collapsed ? "Open site flow" : "Minimize site flow";
+      toggle.setAttribute("aria-label", collapsed ? "Open X Y Z" : "Minimize X Y Z");
+      toggle.title = collapsed ? "Open X Y Z" : "Minimize X Y Z";
     }
   }
 
