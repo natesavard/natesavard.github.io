@@ -12,6 +12,7 @@
       --sand: #dec39a;
       --gold: #d7ab52;
       --line: rgba(255, 232, 188, 0.22);
+      --entry-portrait-image: url("nate-savard-forever.png");
       --entry-storefront-image: url("envy-nomadix-world-store.png");
       --orb-travel: clamp(110px, 15vh, 170px);
       --mono: "Courier New", monospace;
@@ -49,7 +50,7 @@
     }
 
     html::before {
-      background: url("nate savard forever.png") 38% center / cover no-repeat;
+      background: var(--entry-portrait-image) 38% center / cover no-repeat;
       transform: scale(1.04);
       filter: saturate(0.96) contrast(1.02) brightness(0.98);
       opacity: 0.6;
@@ -297,6 +298,7 @@
       filter:
         drop-shadow(0 12px 28px rgba(0, 0, 0, 0.36))
         drop-shadow(0 0 10px rgba(255, 255, 255, 0.04));
+      animation: wordmarkBaseSwap 18s ease-in-out infinite;
     }
 
     .path-wordmark.angel {
@@ -304,9 +306,11 @@
       inset: 0;
       z-index: 2;
       opacity: 0;
+      mix-blend-mode: screen;
       filter:
-        drop-shadow(0 0 14px rgba(255, 255, 255, 0.12))
-        drop-shadow(0 0 34px rgba(255, 241, 210, 0.10))
+        brightness(1.08)
+        drop-shadow(0 0 14px rgba(255, 255, 255, 0.18))
+        drop-shadow(0 0 34px rgba(255, 241, 210, 0.16))
         drop-shadow(0 12px 28px rgba(0, 0, 0, 0.24));
       animation: wordmarkAngelSwap 18s ease-in-out infinite;
     }
@@ -426,6 +430,20 @@
       }
     }
 
+    @keyframes wordmarkBaseSwap {
+      0%,
+      42% {
+        opacity: 0.88;
+      }
+      50%,
+      92% {
+        opacity: 0.16;
+      }
+      100% {
+        opacity: 0.88;
+      }
+    }
+
     @keyframes wordmarkAngelSwap {
       0%,
       42% {
@@ -433,7 +451,7 @@
       }
       50%,
       92% {
-        opacity: 0.98;
+        opacity: 1;
       }
       100% {
         opacity: 0;
@@ -677,6 +695,13 @@
         "envy-nomadix-angels.png",
         "ENVY NOMADIX ANGELS (1).png"
       ]);
+
+      tryImageSources([
+        "nate-savard-forever.png",
+        "nate savard forever.png"
+      ], function (src) {
+        document.documentElement.style.setProperty("--entry-portrait-image", 'url("' + src + '")');
+      });
 
       tryImageSources([
         "envy-nomadix-world-store.png",

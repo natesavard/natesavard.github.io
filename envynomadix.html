@@ -737,11 +737,11 @@
       order: 1;
     }
 
-    .after-enter-world > .collection-stage {
+    .after-enter-world > .jewelry-stage {
       order: 2;
     }
 
-    .after-enter-world > .merge-stage {
+    .after-enter-world > .collection-stage {
       order: 3;
     }
 
@@ -749,7 +749,7 @@
       order: 4;
     }
 
-    .after-enter-world > .jewelry-stage {
+    .after-enter-world > .recent-stage {
       order: 5;
     }
 
@@ -762,6 +762,7 @@
     .catalogue-stage,
     .merge-stage,
     .jewelry-stage,
+    .recent-stage,
     .contact-stage {
       width: min(1180px, calc(100vw - 36px));
       margin: 0 auto;
@@ -779,6 +780,7 @@
     .catalogue-stage.is-visible,
     .merge-stage.is-visible,
     .jewelry-stage.is-visible,
+    .recent-stage.is-visible,
     .contact-stage.is-visible {
       opacity: 1;
       transform: translateY(0);
@@ -1136,9 +1138,185 @@
       padding-bottom: 32px;
     }
 
+    .recent-stage {
+      padding-top: 8px;
+      padding-bottom: 28px;
+    }
+
+    .recent-head {
+      display: grid;
+      gap: 16px;
+      margin: 0 0 22px;
+      max-width: 860px;
+    }
+
+    .recent-toolbar {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 18px;
+      flex-wrap: wrap;
+    }
+
+    .recent-nav {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .recent-nav button {
+      border: 1px solid rgba(221, 176, 109, 0.22);
+      background: rgba(8, 5, 3, 0.54);
+      color: rgba(240, 221, 191, 0.94);
+      padding: 12px 16px;
+      font-family: "Courier New", monospace;
+      font-size: 0.78rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: transform 0.3s ease, border-color 0.3s ease, opacity 0.3s ease, background 0.3s ease;
+    }
+
+    .recent-nav button:hover:not(:disabled) {
+      transform: translateY(-2px);
+      border-color: rgba(242, 211, 158, 0.5);
+      background: rgba(14, 10, 7, 0.72);
+    }
+
+    .recent-nav button:disabled {
+      opacity: 0.34;
+      cursor: default;
+    }
+
+    .recent-empty {
+      margin: 0 0 18px;
+      color: rgba(232, 216, 191, 0.66);
+      font-family: "Courier New", monospace;
+      font-size: 0.76rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+
+    .recent-rail {
+      position: relative;
+      margin: 0 calc(50% - 50vw);
+      padding: 6px 0 14px;
+      overflow-x: auto;
+      overflow-y: visible;
+      scrollbar-width: thin;
+      scrollbar-color: rgba(221, 176, 109, 0.35) rgba(0, 0, 0, 0.22);
+    }
+
+    .recent-track {
+      display: flex;
+      gap: 18px;
+      width: max-content;
+      padding: 0 max(18px, calc(50vw - 590px)) 6px;
+    }
+
+    .recent-card {
+      width: min(30vw, 300px);
+      min-width: 220px;
+      border: 1px solid rgba(221, 176, 109, 0.12);
+      background:
+        radial-gradient(circle at 50% 20%, rgba(255, 236, 205, 0.08), transparent 30%),
+        linear-gradient(180deg, rgba(10, 6, 4, 0.56), rgba(2, 1, 1, 0.22));
+      padding: 0;
+      color: inherit;
+      text-align: left;
+      cursor: pointer;
+      overflow: hidden;
+      transition: transform 0.42s ease, border-color 0.42s ease, filter 0.42s ease;
+    }
+
+    .recent-card:hover {
+      transform: translateY(-8px);
+      border-color: rgba(242, 211, 158, 0.26);
+      filter: brightness(1.04);
+    }
+
+    .recent-card-media {
+      min-height: 240px;
+      display: grid;
+      place-items: center;
+      padding: 20px 18px 10px;
+    }
+
+    .recent-card-media img {
+      width: 100%;
+      max-width: 240px;
+      height: 220px;
+      object-fit: contain;
+      display: block;
+      filter:
+        drop-shadow(0 22px 36px rgba(0, 0, 0, 0.42))
+        drop-shadow(0 0 18px rgba(221, 176, 109, 0.08));
+      transition: transform 0.42s ease, filter 0.42s ease;
+    }
+
+    .recent-card:hover .recent-card-media img {
+      transform: scale(1.05) translateY(-4px);
+      filter:
+        drop-shadow(0 26px 40px rgba(0, 0, 0, 0.46))
+        drop-shadow(0 0 22px rgba(221, 176, 109, 0.14));
+    }
+
+    .recent-card-copy {
+      padding: 16px 16px 18px;
+      background: linear-gradient(180deg, transparent, rgba(0, 0, 0, 0.62));
+    }
+
+    .recent-card-title {
+      margin: 0 0 8px;
+      color: #f0ddbf;
+      font-family: "Courier New", monospace;
+      font-size: 0.86rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+
+    .recent-card-meta {
+      margin: 0;
+      color: rgba(221, 176, 109, 0.84);
+      font-family: "Courier New", monospace;
+      font-size: 0.74rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      line-height: 1.8;
+    }
+
     .catalogue-head {
       max-width: 720px;
       margin: 0 0 22px;
+    }
+
+    .catalogue-head.is-editorial {
+      max-width: 760px;
+    }
+
+    .catalogue-head.is-editorial .stage-kicker,
+    .catalogue-head.is-editorial .stage-title,
+    .catalogue-head.is-editorial .stage-text {
+      font-family: var(--alien-tech-font), "Courier New", monospace;
+    }
+
+    .catalogue-head.is-editorial .stage-title {
+      font-size: 9px;
+      line-height: 1.5;
+      letter-spacing: 0.18em;
+      color: rgba(243, 222, 192, 0.94);
+      text-shadow:
+        0 0 14px rgba(221, 176, 109, 0.06),
+        0 0 24px rgba(112, 186, 213, 0.04);
+    }
+
+    .catalogue-head.is-editorial .stage-text {
+      margin-top: 14px;
+      max-width: 700px;
+      font-size: 9px;
+      line-height: 1.9;
+      letter-spacing: 0.18em;
+      color: rgba(236, 217, 186, 0.88);
     }
 
     .jewelry-head {
@@ -1433,6 +1611,17 @@
 
     .contact-copy {
       max-width: 460px;
+    }
+
+    .contact-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-top: 28px;
+    }
+
+    .contact-actions .stage-button {
+      margin-top: 0;
     }
 
     .contact-copy .stage-text {
@@ -2502,6 +2691,7 @@
       .catalogue-stage,
       .merge-stage,
       .jewelry-stage,
+      .recent-stage,
       .contact-stage {
         grid-template-columns: 1fr;
       }
@@ -2622,6 +2812,7 @@
       .catalogue-stage,
       .merge-stage,
       .jewelry-stage,
+      .recent-stage,
       .contact-stage,
       .section-mark {
         width: min(100vw - 16px, 100%);
@@ -2651,6 +2842,15 @@
         min-height: 420px;
       }
 
+      .recent-toolbar {
+        align-items: flex-start;
+      }
+
+      .recent-nav button {
+        flex: 1 1 0;
+        min-width: 120px;
+      }
+
       .collection-orbit {
         width: 82px;
         height: 82px;
@@ -2677,6 +2877,11 @@
         width: min(42vw, 300px);
         min-height: 360px;
         padding: 20px 18px 18px;
+      }
+
+      .recent-card {
+        width: 76vw;
+        min-width: 220px;
       }
 
       .jewelry-card-media {
@@ -2844,9 +3049,6 @@
     <main class="shell">
       <section class="portal">
         <div class="visual">
-          <span class="accent-logo left" aria-hidden="true"></span>
-          <span class="accent-logo top" aria-hidden="true"></span>
-          <span class="accent-logo right" aria-hidden="true"></span>
           <img src="ANGELL ENTER.png" alt="Angel enter artwork" id="angelToggle" />
           <span class="fused-logo" aria-hidden="true"></span>
         </div>
@@ -2869,7 +3071,6 @@
           <nav class="lux-nav" aria-label="Envy navigation">
             <a href="#cataloguePhase" id="enterCollectionLink">enter collection</a>
             <a href="envynomadix-signature-collection.html">signature collection</a>
-            <a href="#sageMerge">house merge</a>
             <a href="#jewelryPhase">jewelry lane</a>
             <a href="originals.html">the original collection</a>
             <a href="#contactPhase">contact</a>
@@ -2886,7 +3087,7 @@
           <p class="collection-stance">
             ✠ N̷. the composition of waters, movement, growth, embodying and disembodying, drawing the spirits from bodies and bonding the spirits within bodies
           </p>
-          <a class="collection-button" href="#sageMerge">continue through house</a>
+          <a class="collection-button" href="#cataloguePhase">continue through house</a>
         </div>
 
         <div class="collection-visual">
@@ -2897,14 +3098,10 @@
       </section>
 
       <section class="catalogue-stage" id="cataloguePhase">
-        <div class="catalogue-head">
-          <div class="stage-kicker">side catalogue</div>
+        <div class="catalogue-head is-editorial">
           <h2 class="stage-title">Signature Collection</h2>
           <p class="stage-text">
-            more to move through. garment pressure, campaign relics, and a sideways catalogue cut into the main house.
-          </p>
-          <p class="stage-text">
-            This is the garment side of the Nate Savard house.
+            ✠ N̷. the composition of waters, distressed vintage classics, movement, diesel engines, yacht club supper club, growth, embodying and disembodying, dripping in jewels and gold, drawing the spirits from bodies and bonding the spirits within bodies
           </p>
         </div>
 
@@ -2961,43 +3158,10 @@
         </div>
       </section>
 
-      <section class="merge-stage" id="sageMerge">
-        <div class="merge-visual">
-          <img src="nate savard opal sage front.png" alt="Opal Sage Spinner jewelry piece" />
-        </div>
-
-        <div class="merge-copy">
-          <div class="stage-kicker">envynomadix / nate savard</div>
-          <h2 class="stage-title">One Designer. Two Worlds.</h2>
-          <p class="stage-text">
-            ENVYNOMADIX is the garment house. Nate Savard is the jewelry language behind it. Together they form one collector world: runway streetwear, gold chains, pendants, rings, gemstones, custom talismans, and symbolic objects designed to be worn as a full uniform.
-          </p>
-
-          <div class="merge-points">
-            <div class="merge-point">
-              <strong>Jewelry-level streetwear</strong>
-              <span>Garments are styled with the weight of fine jewelry: deep blacks, chrome marks, gold pressure, heavy crosses, pendants, rings, and chain placement.</span>
-            </div>
-            <div class="merge-point">
-              <strong>Collector route</strong>
-              <span>one client can now move between custom jewelry, signature garments, and private-order relic work.</span>
-            </div>
-            <div class="merge-point">
-              <strong>Designer-led house</strong>
-              <span>Every piece moves through Nate Savard's eye - clothing, jewelry, symbols, stones, and custom relics.</span>
-            </div>
-          </div>
-
-          <div class="merge-actions">
-            <a class="stage-button" href="originals.html">enter the original collection</a>
-            <a class="stage-button" href="#jewelryPhase">open jewelry lane</a>
-          </div>
-        </div>
-      </section>
 
       <section class="archives-stage" id="archivesPhase">
         <div class="archives-head">
-          <div class="stage-kicker">featured pressure</div>
+          <div class="stage-kicker">flagship</div>
           <h2 class="stage-title">Our flagship retail destination in the Jewel of Nicaragua SJDS</h2>
           <p class="stage-text">
             Store Opening Hours:<br />
@@ -3181,6 +3345,24 @@
         </div>
       </section>
 
+      <section class="recent-stage" id="recentPhase">
+        <div class="recent-head">
+          <div class="stage-kicker">collector memory / shop trail</div>
+          <div class="recent-toolbar">
+            <h2 class="stage-title">Recently Viewed Items</h2>
+            <div class="recent-nav" aria-label="Recently viewed controls">
+              <button id="houseRecentPrev" type="button">Previous</button>
+              <button id="houseRecentNext" type="button">Next</button>
+            </div>
+          </div>
+          <p class="stage-text">Pieces you open inside the house viewer collect here so you can move back through them fast.</p>
+        </div>
+        <div class="recent-empty" id="houseRecentEmpty">Open a piece and it will appear here.</div>
+        <div class="recent-rail" id="houseRecentRail" aria-label="Recently viewed items">
+          <div class="recent-track" id="houseRecentTrack"></div>
+        </div>
+      </section>
+
       <section class="contact-stage" id="contactPhase">
         <div class="contact-image">
           <img src="envy-cross.png" alt="Envy cross collection vault mark" />
@@ -3188,11 +3370,14 @@
 
         <div class="contact-copy">
           <div class="stage-kicker">private commissions / collector route</div>
-          <h2 class="stage-title">Build the Full Uniform</h2>
+          <h2 class="stage-title">Angels Live Forever NLSM</h2>
           <p class="stage-text">
             For custom gold chains, pendants, rings, stone-set talismans, symbolic jewelry, garment placements, or full ENVYNOMADIX styling, contact the house directly. Designed by Nate Savard for collectors who want pieces with weight, presence, and myth.
           </p>
-          <a class="stage-button" href="#luxReveal">return to header</a>
+          <div class="contact-actions">
+            <a class="stage-button" href="#cataloguePhase">return to catalogue</a>
+            <a class="stage-button" href="originals.html">enter the original collection</a>
+          </div>
           <div class="contact-route">private inquiries / jewelry commissions / garment orders / collector styling</div>
         </div>
       </section>
@@ -3333,9 +3518,14 @@
       var houseCartEmail = document.getElementById("houseCartEmail");
       var houseCartLocation = document.getElementById("houseCartLocation");
       var houseCartNotes = document.getElementById("houseCartNotes");
+      var houseRecentRail = document.getElementById("houseRecentRail");
+      var houseRecentTrack = document.getElementById("houseRecentTrack");
+      var houseRecentEmpty = document.getElementById("houseRecentEmpty");
+      var houseRecentPrev = document.getElementById("houseRecentPrev");
+      var houseRecentNext = document.getElementById("houseRecentNext");
       var logoCursor = document.getElementById("envyLogoCursor");
       var backgroundMusic = document.getElementById("backgroundMusic");
-      var stagedSections = Array.prototype.slice.call(document.querySelectorAll(".collection-stage, .archives-stage, .catalogue-stage, .merge-stage, .jewelry-stage, .contact-stage"));
+      var stagedSections = Array.prototype.slice.call(document.querySelectorAll(".collection-stage, .archives-stage, .catalogue-stage, .jewelry-stage, .recent-stage, .contact-stage"));
       var hasEntered = false;
       var scrollFrame = 0;
       var activeRail = null;
@@ -3345,11 +3535,13 @@
       var railDragging = false;
       var houseStorageKey = "envy-house-cart";
       var houseInfoKey = "envy-house-cart-info";
+      var houseRecentKey = "envy-house-recently-viewed";
       var houseSelectedSize = "m";
       var houseSelectedQuantity = 1;
       var houseActiveProduct = null;
       var houseActiveProductIndex = -1;
       var houseCart = [];
+      var houseRecentItems = [];
       var lines = [
         "never replicated",
         "for the chosen few",
@@ -3359,7 +3551,7 @@
       var interfaceAudio = null;
       var backgroundMusicStarted = false;
       var defaultHouseOptions = ["xs", "s", "m", "l", "xl"];
-      var cursorHoverSelector = 'a, button, input, textarea, select, summary, [role="button"], .catalogue-card, .jewelry-card, .house-size-chip, .house-qty-button, .house-product-action, .house-cart-action';
+      var cursorHoverSelector = 'a, button, input, textarea, select, summary, [role="button"], .catalogue-card, .jewelry-card, .recent-card, .house-size-chip, .house-qty-button, .house-product-action, .house-cart-action';
 
       function initLogoCursor() {
         if (!logoCursor || !window.matchMedia || !window.matchMedia("(pointer: fine)").matches) return;
@@ -3579,7 +3771,7 @@
         }
         if (!(node instanceof Element)) return null;
         return node.closest(
-          'a, button, [role="button"], input, textarea, select, summary, .catalogue-card, .house-size-chip, .house-qty-button, .house-product-action, .house-cart-action'
+          'a, button, [role="button"], input, textarea, select, summary, .catalogue-card, .jewelry-card, .recent-card, .house-size-chip, .house-qty-button, .house-product-action, .house-cart-action'
         );
       }
 
@@ -3667,6 +3859,116 @@
         } catch (error) {
           return;
         }
+      }
+
+      function loadHouseRecent() {
+        try {
+          var stored = window.localStorage.getItem(houseRecentKey);
+          var parsed = stored ? JSON.parse(stored) : [];
+          houseRecentItems = Array.isArray(parsed) ? parsed : [];
+        } catch (error) {
+          houseRecentItems = [];
+        }
+      }
+
+      function saveHouseRecent() {
+        try {
+          window.localStorage.setItem(houseRecentKey, JSON.stringify(houseRecentItems));
+        } catch (error) {
+          return;
+        }
+      }
+
+      function getHouseRecentId(product) {
+        return String(product && (product.name || product.image || "house-item"))
+          .toLowerCase()
+          .replace(/[^a-z0-9]+/g, "-");
+      }
+
+      function updateHouseRecentControls() {
+        if (!houseRecentRail) return;
+
+        var maxScroll = Math.max(0, houseRecentRail.scrollWidth - houseRecentRail.clientWidth);
+        var canScroll = maxScroll > 8;
+
+        if (houseRecentPrev) {
+          houseRecentPrev.disabled = !canScroll || houseRecentRail.scrollLeft <= 8;
+        }
+
+        if (houseRecentNext) {
+          houseRecentNext.disabled = !canScroll || houseRecentRail.scrollLeft >= maxScroll - 8;
+        }
+      }
+
+      function renderHouseRecent() {
+        if (!houseRecentTrack) return;
+
+        if (!houseRecentItems.length) {
+          houseRecentTrack.innerHTML = "";
+          if (houseRecentEmpty) {
+            houseRecentEmpty.hidden = false;
+          }
+          if (houseRecentPrev) houseRecentPrev.disabled = true;
+          if (houseRecentNext) houseRecentNext.disabled = true;
+          return;
+        }
+
+        if (houseRecentEmpty) {
+          houseRecentEmpty.hidden = true;
+        }
+
+        houseRecentTrack.innerHTML = houseRecentItems.map(function (item, index) {
+          return '' +
+            '<button class="recent-card" type="button" data-house-recent-index="' + index + '">' +
+              '<div class="recent-card-media"><img src="' + item.image + '" alt="' + item.name + '" /></div>' +
+              '<div class="recent-card-copy">' +
+                '<h3 class="recent-card-title">' + item.name + '</h3>' +
+                '<p class="recent-card-meta">' + item.price + '<br />tap to reopen</p>' +
+              '</div>' +
+            '</button>';
+        }).join("");
+
+        window.requestAnimationFrame(updateHouseRecentControls);
+      }
+
+      function rememberHouseProduct(product) {
+        if (!product || !product.name || !product.image) return;
+
+        var id = getHouseRecentId(product);
+        var normalized = {
+          id: id,
+          name: product.name,
+          price: product.price,
+          description: product.description,
+          image: product.image,
+          optionLabel: product.optionLabel,
+          options: Array.isArray(product.options) ? product.options.slice() : defaultHouseOptions.slice()
+        };
+
+        houseRecentItems = houseRecentItems.filter(function (item) {
+          return item.id !== id;
+        });
+
+        houseRecentItems.unshift(normalized);
+        houseRecentItems = houseRecentItems.slice(0, 12);
+        saveHouseRecent();
+        renderHouseRecent();
+      }
+
+      function openHouseRecentItem(index) {
+        var item = houseRecentItems[index];
+        if (!item) return;
+        openHouseViewer(item);
+      }
+
+      function scrollHouseRecent(direction) {
+        if (!houseRecentRail) return;
+
+        var distance = Math.max(houseRecentRail.clientWidth * 0.82, 260);
+        houseRecentRail.scrollBy({
+          left: distance * direction,
+          behavior: "smooth"
+        });
       }
 
       function setHouseSize(size) {
@@ -3807,6 +4109,7 @@
         if (!houseViewer || !houseViewerImage || !product || !product.image) return;
         houseActiveProduct = product;
         syncHouseActiveProductIndex(product);
+        rememberHouseProduct(product);
         houseViewerImage.src = product.image;
         if (houseProductTitle) houseProductTitle.textContent = product.name;
         if (houseProductPrice) houseProductPrice.textContent = product.price;
@@ -4146,12 +4449,15 @@
 
       window.addEventListener("scroll", queueHeroDepth, { passive: true });
       window.addEventListener("resize", queueHeroDepth);
+      window.addEventListener("resize", updateHouseRecentControls);
       updateHeroDepth();
       initLogoCursor();
       installInteractionAudio();
       loadHouseCart();
       loadHouseInfo();
+      loadHouseRecent();
       renderHouseCart();
+      renderHouseRecent();
 
       window.setInterval(rotateLine, 2400);
 
@@ -4247,6 +4553,30 @@
         houseCartBackdrop.addEventListener("click", closeHouseCart);
       }
 
+      if (houseRecentTrack) {
+        houseRecentTrack.addEventListener("click", function (event) {
+          var target = event.target && event.target.closest ? event.target.closest("[data-house-recent-index]") : null;
+          if (!target) return;
+          openHouseRecentItem(Number(target.getAttribute("data-house-recent-index")));
+        });
+      }
+
+      if (houseRecentPrev) {
+        houseRecentPrev.addEventListener("click", function () {
+          scrollHouseRecent(-1);
+        });
+      }
+
+      if (houseRecentNext) {
+        houseRecentNext.addEventListener("click", function () {
+          scrollHouseRecent(1);
+        });
+      }
+
+      if (houseRecentRail) {
+        houseRecentRail.addEventListener("scroll", updateHouseRecentControls, { passive: true });
+      }
+
       if (houseCartItems) {
         houseCartItems.addEventListener("click", function (event) {
           var target = event.target;
@@ -4294,6 +4624,11 @@
 
         if (event.key === houseInfoKey) {
           loadHouseInfo();
+        }
+
+        if (event.key === houseRecentKey) {
+          loadHouseRecent();
+          renderHouseRecent();
         }
       });
     }());

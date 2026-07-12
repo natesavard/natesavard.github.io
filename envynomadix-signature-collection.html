@@ -2028,6 +2028,10 @@
       text-align: center;
     }
 
+    .product-card[data-shirt-viewer] {
+      cursor: pointer;
+    }
+
     .product-card img {
       width: 100%;
       height: 320px;
@@ -2618,11 +2622,15 @@
     }
 
     /* Floating garment cleanup */
+    .rail-shell,
+    .panel,
     .panel.garment-panel,
     .catalogue-item,
     .product-card,
     .catalogue-flip,
-    .catalogue-image {
+    .catalogue-image,
+    .catalogue-section,
+    .lane-section {
       background: transparent !important;
       border: 0 !important;
       box-shadow: none !important;
@@ -2630,11 +2638,17 @@
       isolation: isolate;
     }
 
-    .panel.garment-panel::after {
+    .rail-shell,
+    .catalogue-section,
+    .lane-section {
+      padding-top: 0 !important;
+    }
+
+    .panel::after {
       display: none !important;
     }
 
-    .panel.garment-panel .panel-copy {
+    .panel .panel-copy {
       background: transparent !important;
       backdrop-filter: none !important;
     }
@@ -2889,12 +2903,12 @@
               </div>
             </article>
 
-            <article class="panel garment-panel" data-shirt-viewer="envy-cross-tee-board.png" data-product="Fuck Up Tee" data-price="$190.00" data-description="Luxury deep v tee carrying the envy cross on back with a scarred front statement and stripped-down finish.">
-              <img src="envy-cross-tee-board.png" alt="Fuck up tee board" />
+            <article class="panel garment-panel" data-shirt-viewer="envy-cross-tee-fuck-up-lookbook.png" data-product="Fuck Up Tee" data-price="$190.00" data-description="Luxury deep v tee carrying the envy cross on back with a scarred front statement and stripped-down finish.">
+              <img src="envy-cross-tee-fuck-up-lookbook.png" alt="Fuck up tee lookbook" />
               <div class="panel-copy">
                 <div class="panel-kicker">signature / 06</div>
                 <div class="panel-title">Fuck Up Tee</div>
-                <div class="panel-note">Scarred front / chrome crossback</div>
+                <div class="panel-note">lookbook view / scarred front / chrome crossback</div>
               </div>
             </article>
           </div>
@@ -3084,37 +3098,37 @@
       <div class="lower-section-title">signature pieces</div>
 
       <div class="product-scroll-row">
-        <div class="product-card">
-          <img src="ENVY LEGACY TEE.png" alt="ENVY Legacy Tee">
-          <h3>ENVY Legacy Tee</h3>
+        <div class="product-card" data-shirt-viewer="envy-shirt-legacy-tee.png" data-product="Envy Shirt Legacy Tee" data-price="$145.00" data-description="Main house shirt. deep v legacy tee with crystal script in front and the envy cross carried across the back.">
+          <img src="envy-shirt-legacy-tee.png" alt="Envy Shirt Legacy Tee">
+          <h3>Envy Shirt Legacy Tee</h3>
         </div>
 
-        <div class="product-card">
-          <img src="signature-shirt-01.png" alt="Signature Tee">
+        <div class="product-card" data-shirt-viewer="envy-signature-tee-board.png" data-product="Signature Tee" data-price="$165.00" data-description="Signature tee board study. dark collector treatment built into the main house line.">
+          <img src="envy-signature-tee-board.png" alt="Signature Tee">
           <h3>Signature Tee</h3>
         </div>
 
-        <div class="product-card">
-          <img src="signature-shirt-02.png" alt="Chosen Few Tee">
-          <h3>Chosen Few Tee</h3>
+        <div class="product-card" data-shirt-viewer="envy-cross-tee-board.png" data-product="Fuck Up Tee" data-price="$190.00" data-description="Luxury deep v tee carrying the envy cross on back with a scarred front statement and stripped-down finish.">
+          <img src="envy-cross-tee-board.png" alt="Fuck Up Tee">
+          <h3>Fuck Up Tee</h3>
         </div>
 
-        <div class="product-card">
-          <img src="signature-shirt-03.png" alt="Silent Edition">
-          <h3>Silent Edition</h3>
+        <div class="product-card" data-shirt-viewer="envy-cross-hood-board.png" data-product="Distressed Vicuna Hood" data-price="$175.00" data-description="Heavy washed hood with the envy cross dropped oversized across the back and a scarred front statement.">
+          <img src="envy-cross-hood-board.png" alt="Distressed Vicuna Hood">
+          <h3>Distressed Vicuna Hood</h3>
         </div>
       </div>
 
       <div class="lower-section-title">future line</div>
 
       <div class="product-scroll-row">
-        <div class="product-card">
-          <img src="placeholder-shirt.png" alt="Future Drop">
+        <div class="product-card" data-shirt-viewer="nomadix shirt 1.png" data-product="Future Drop" data-price="$0.00" data-description="Future line preview. early garment direction held in the Envynomadix archive.">
+          <img src="nomadix shirt 1.png" alt="Future Drop">
           <h3>Future Drop</h3>
         </div>
 
-        <div class="product-card">
-          <img src="placeholder-shirt.png" alt="Archive Piece">
+        <div class="product-card" data-shirt-viewer="nomadix shirt 2.png" data-product="Archive Piece" data-price="$0.00" data-description="Archive line preview. collector study held for future garment pressure.">
+          <img src="nomadix shirt 2.png" alt="Archive Piece">
           <h3>Archive Piece</h3>
         </div>
       </div>
