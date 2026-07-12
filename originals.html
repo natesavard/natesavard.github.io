@@ -2531,15 +2531,15 @@
 
     body.originals-page .top-shadow-veil {
       position: fixed;
-      top: -12px;
+      top: 0;
       left: 0;
       right: 0;
-      height: 92px;
+      height: 74px;
       z-index: 2200;
       pointer-events: none;
       background:
-        linear-gradient(180deg, rgba(6, 4, 3, 0.96) 0%, rgba(6, 4, 3, 0.74) 26%, rgba(6, 4, 3, 0.24) 68%, rgba(6, 4, 3, 0) 100%);
-      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.28);
+        linear-gradient(180deg, rgba(6, 4, 3, 0.98) 0%, rgba(6, 4, 3, 0.82) 22%, rgba(6, 4, 3, 0.36) 58%, rgba(6, 4, 3, 0) 100%);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.24);
       opacity: 1;
     }
 
@@ -2621,6 +2621,20 @@
 
     body.originals-page .shop-utility-link.is-bumped {
       animation: utilityCartPulse 0.42s ease;
+    }
+
+    @keyframes utilityCartPulse {
+      0% {
+        transform: translateY(0) scale(1);
+      }
+
+      40% {
+        transform: translateY(-1px) scale(1.05);
+      }
+
+      100% {
+        transform: translateY(0) scale(1);
+      }
     }
 
     .product-actions {
@@ -3083,12 +3097,13 @@
     }
 
     @media (max-width: 640px) {
-      body.originals-page .site-shell::before {
-        height: 92px;
+      body.originals-page .top-shadow-veil {
+        top: 0;
+        height: 66px;
       }
 
       body.originals-page .shop-utility {
-        top: 12px;
+        top: 8px;
         right: 14px;
         gap: 6px;
         padding: 8px;
@@ -3989,6 +4004,398 @@
       lightbox.addEventListener('click', (event) => {
         if (event.target === lightbox) closePiece();
       });
+    })();
+
+    (() => {
+      const cartShell = document.getElementById('originalsCartShell');
+      const cartBackdrop = document.getElementById('originalsCartBackdrop');
+      const cartToggle = document.getElementById('originalsCartToggle');
+      const cartClose = document.getElementById('originalsCartClose');
+      const cartCount = document.getElementById('originalsCartCount');
+      const cartItems = document.getElementById('originalsCartItems');
+      const cartName = document.getElementById('originalsCartName');
+      const cartEmail = document.getElementById('originalsCartEmail');
+      const cartLocation = document.getElementById('originalsCartLocation');
+      const cartNotes = document.getElementById('originalsCartNotes');
+      const clearCartButton = document.getElementById('originalsClearCartButton');
+      const checkoutButton = document.getElementById('originalsCheckoutButton');
+      const productCards = Array.from(document.querySelectorAll('.product-card'));
+      const lightbox = document.getElementById('pieceLightbox');
+      const lightboxImage = document.getElementById('pieceLightboxImage');
+      const lightboxCaption = document.getElementById('pieceLightboxCaption');
+
+      if (!cartShell || !cartToggle || !cartCount || !cartItems || !productCards.length) return;
+
+      const cartStorageKey = 'originals-collector-cart';
+      const cartInfoKey = 'originals-collector-cart-info';
+      let cart = [];
+      let bumpTimer = null;
+
+      function escapeHtml(value = '') {
+        return String(value)
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;')
+          .replace(/'/g, '&#39;');
+      }
+
+      function slugify(value = '') {
+        return String(value)
+          .toLowerCase()
+          .trim()
+          .replace(/[^a-z0-9]+/g, '-')
+          .replace(/^-+|-+$/g, '');
+      }
+
+      function inferProductSpec(name, description) {
+        const normalized = `${name} ${description}`.toLowerCase();
+
+        if (normalized.includes('spinner')) {
+          return {
+            optionLabel: 'center stone',
+            optionValue: normalized.includes('opal') ? 'opal' : normalized.includes('sapphire') ? 'sapphire' : 'sapphire / opal'
+          };
+        }
+
+        if (normalized.includes('chain')) {
+          return {
+            optionLabel: 'finish',
+            optionValue: normalized.includes('silver') ? 'sterling silver' : 'collector metal'
+          };
+        }
+
+        if (normalized.includes('pendant') || normalized.includes('talisman')) {
+          return {
+            optionLabel: 'gold',
+            optionValue: normalized.includes('black') ? 'black gold' : '18k yellow gold'
+          };
+        }
+
+        if (normalized.includes('ring') || normalized.includes('signet') || normalized.includes('frame')) {
+          return {
+            optionLabel: 'size reference',
+            optionValue: 'size 9'
+          };
+        }
+
+        return {
+          optionLabel: 'build',
+          optionValue: 'collector build'
+        };
+      }
+
+      function getProductFromCard(card) {
+        const nameNode = card.querySelector('.product-name');
+        const descNode = card.querySelector('.product-desc');
+        const imageTrigger = card.querySelector('.piece-trigger');
+        const imageNode = card.querySelector('img');
+        const name = nameNode ? nameNode.textContent.trim() : 'Original Collection Piece';
+        const description = descNode ? descNode.textContent.trim() : 'Private collector piece from the Original Collection.';
+        const image = imageTrigger ? imageTrigger.getAttribute('data-piece-image') || '' : imageNode ? imageNode.getAttribute('src') || '' : '';
+        const alt = imageNode ? imageNode.getAttribute('alt') || name : name;
+        const spec = inferProductSpec(name, description);
+
+        return {
+          idBase: slugify(name),
+          name,
+          description,
+          image,
+          alt,
+          price: 'private quote',
+          optionLabel: spec.optionLabel,
+          optionValue: spec.optionValue
+        };
+      }
+
+      function loadCart() {
+        try {
+          const stored = window.localStorage.getItem(cartStorageKey);
+          const parsed = stored ? JSON.parse(stored) : [];
+          cart = Array.isArray(parsed) ? parsed : [];
+        } catch (error) {
+          cart = [];
+        }
+      }
+
+      function saveCart() {
+        try {
+          window.localStorage.setItem(cartStorageKey, JSON.stringify(cart));
+        } catch (error) {
+          return;
+        }
+      }
+
+      function loadCartInfo() {
+        try {
+          const stored = window.localStorage.getItem(cartInfoKey);
+          if (!stored) return;
+          const info = JSON.parse(stored);
+          if (cartName) cartName.value = info.name || '';
+          if (cartEmail) cartEmail.value = info.email || '';
+          if (cartLocation) cartLocation.value = info.location || '';
+          if (cartNotes) cartNotes.value = info.notes || '';
+        } catch (error) {
+          return;
+        }
+      }
+
+      function saveCartInfo() {
+        try {
+          window.localStorage.setItem(cartInfoKey, JSON.stringify({
+            name: cartName ? cartName.value : '',
+            email: cartEmail ? cartEmail.value : '',
+            location: cartLocation ? cartLocation.value : '',
+            notes: cartNotes ? cartNotes.value : ''
+          }));
+        } catch (error) {
+          return;
+        }
+      }
+
+      function updateCartCount() {
+        const total = cart.reduce((sum, item) => sum + (Number(item.quantity) || 0), 0);
+        cartCount.textContent = String(total);
+        cartToggle.setAttribute('aria-label', total ? `Open cart with ${total} selected pieces` : 'Open cart');
+      }
+
+      function bumpCartToggle() {
+        cartToggle.classList.remove('is-bumped');
+        void cartToggle.offsetWidth;
+        cartToggle.classList.add('is-bumped');
+        if (bumpTimer) window.clearTimeout(bumpTimer);
+        bumpTimer = window.setTimeout(() => {
+          cartToggle.classList.remove('is-bumped');
+        }, 450);
+      }
+
+      function renderCart() {
+        if (!cart.length) {
+          cartItems.innerHTML = '<div class="originals-cart-empty">Your cart is empty. add a piece from the collection.</div>';
+          updateCartCount();
+          return;
+        }
+
+        cartItems.innerHTML = cart.map((item) => `
+          <div class="originals-cart-item">
+            <button type="button" class="originals-cart-item-preview" data-originals-cart-preview="${escapeHtml(item.id)}">
+              <div class="originals-cart-item-image"><img src="${escapeHtml(item.image)}" alt="${escapeHtml(item.alt || item.name)}" /></div>
+              <div>
+                <div class="originals-cart-item-name">${escapeHtml(item.name)}</div>
+                <div class="originals-cart-item-meta">${escapeHtml(item.optionLabel)}: ${escapeHtml(item.optionValue)} / qty ${escapeHtml(item.quantity)}<br />${escapeHtml(item.price)}</div>
+              </div>
+            </button>
+            <div class="originals-cart-item-actions">
+              <button type="button" data-originals-cart-action="decrease" data-originals-cart-id="${escapeHtml(item.id)}">less</button>
+              <button type="button" data-originals-cart-action="increase" data-originals-cart-id="${escapeHtml(item.id)}">more</button>
+              <button type="button" data-originals-cart-action="remove" data-originals-cart-id="${escapeHtml(item.id)}">remove</button>
+            </div>
+          </div>
+        `).join('');
+
+        updateCartCount();
+      }
+
+      function openCart() {
+        cartShell.classList.add('is-open');
+        cartShell.setAttribute('aria-hidden', 'false');
+        cartToggle.setAttribute('aria-expanded', 'true');
+      }
+
+      function closeCart() {
+        cartShell.classList.remove('is-open');
+        cartShell.setAttribute('aria-hidden', 'true');
+        cartToggle.setAttribute('aria-expanded', 'false');
+      }
+
+      function openPiecePreview(item) {
+        if (!item || !lightbox || !lightboxImage || !lightboxCaption) return;
+        closeCart();
+        lightboxImage.src = item.image;
+        lightboxImage.alt = item.alt || item.name;
+        lightboxCaption.textContent = item.name;
+        lightbox.classList.add('is-open');
+        lightbox.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
+      }
+
+      function addProductToCart(product) {
+        if (!product || !product.name) return;
+
+        const existing = cart.find((item) => item.name === product.name && item.optionValue === product.optionValue);
+
+        if (existing) {
+          existing.quantity += 1;
+        } else {
+          cart.push({
+            id: `${product.idBase}--${slugify(product.optionValue) || 'collector-build'}`,
+            name: product.name,
+            description: product.description,
+            image: product.image,
+            alt: product.alt,
+            price: product.price,
+            optionLabel: product.optionLabel,
+            optionValue: product.optionValue,
+            quantity: 1
+          });
+        }
+
+        saveCart();
+        renderCart();
+        bumpCartToggle();
+        openCart();
+      }
+
+      function updateCartItem(id, action) {
+        cart = cart.reduce((items, item) => {
+          if (item.id !== id) {
+            items.push(item);
+            return items;
+          }
+
+          if (action === 'remove') {
+            return items;
+          }
+
+          if (action === 'increase') {
+            item.quantity += 1;
+          }
+
+          if (action === 'decrease') {
+            item.quantity -= 1;
+          }
+
+          if (item.quantity > 0) {
+            items.push(item);
+          }
+
+          return items;
+        }, []);
+
+        saveCart();
+        renderCart();
+      }
+
+      function previewCartItem(id) {
+        const item = cart.find((entry) => entry.id === id);
+        if (!item) return;
+        openPiecePreview(item);
+      }
+
+      function buildCheckoutMailto() {
+        if (!cart.length) return null;
+
+        saveCartInfo();
+
+        const linesForMail = [
+          'ORIGINAL COLLECTION ORDER REQUEST',
+          '',
+          `Name: ${cartName && cartName.value ? cartName.value : ''}`,
+          `Email: ${cartEmail && cartEmail.value ? cartEmail.value : ''}`,
+          `Shipping / Location: ${cartLocation && cartLocation.value ? cartLocation.value : ''}`,
+          '',
+          'Items:'
+        ];
+
+        cart.forEach((item, index) => {
+          linesForMail.push(
+            `${index + 1}. ${item.name} | ${item.optionLabel}: ${item.optionValue} | Qty: ${item.quantity} | Price: ${item.price}`
+          );
+        });
+
+        linesForMail.push('');
+        linesForMail.push(`Notes: ${cartNotes && cartNotes.value ? cartNotes.value : ''}`);
+
+        const subjectName = cartName && cartName.value ? cartName.value : 'Collector';
+        return `mailto:natesavard@outlook.com?subject=${encodeURIComponent(`Original Collection Order Request - ${subjectName}`)}&body=${encodeURIComponent(linesForMail.join('\n'))}`;
+      }
+
+      function enhanceProductCard(card) {
+        const info = card.querySelector('.product-info');
+        const inquireLink = card.querySelector('.product-link');
+        if (!info || !inquireLink || info.querySelector('.product-add-cart')) return;
+
+        const actions = document.createElement('div');
+        actions.className = 'product-actions';
+        info.appendChild(actions);
+        actions.appendChild(inquireLink);
+
+        const addButton = document.createElement('button');
+        addButton.type = 'button';
+        addButton.className = 'product-add-cart is-primary';
+        addButton.textContent = 'add to cart';
+        addButton.addEventListener('click', () => {
+          addProductToCart(getProductFromCard(card));
+        });
+
+        actions.appendChild(addButton);
+      }
+
+      productCards.forEach(enhanceProductCard);
+
+      cartToggle.setAttribute('aria-expanded', 'false');
+      cartToggle.addEventListener('click', () => {
+        if (cartShell.classList.contains('is-open')) {
+          closeCart();
+          return;
+        }
+        openCart();
+      });
+
+      if (cartClose) {
+        cartClose.addEventListener('click', closeCart);
+      }
+
+      if (cartBackdrop) {
+        cartBackdrop.addEventListener('click', closeCart);
+      }
+
+      cartItems.addEventListener('click', (event) => {
+        const target = event.target;
+        if (!(target instanceof HTMLElement)) return;
+
+        const previewTarget = target.closest('[data-originals-cart-preview]');
+        if (previewTarget) {
+          previewCartItem(previewTarget.getAttribute('data-originals-cart-preview'));
+          return;
+        }
+
+        const action = target.getAttribute('data-originals-cart-action');
+        const id = target.getAttribute('data-originals-cart-id');
+        if (!action || !id) return;
+        updateCartItem(id, action);
+      });
+
+      [cartName, cartEmail, cartLocation, cartNotes].forEach((field) => {
+        if (!field) return;
+        field.addEventListener('input', saveCartInfo);
+      });
+
+      if (clearCartButton) {
+        clearCartButton.addEventListener('click', () => {
+          cart = [];
+          saveCart();
+          renderCart();
+        });
+      }
+
+      if (checkoutButton) {
+        checkoutButton.addEventListener('click', () => {
+          const mailto = buildCheckoutMailto();
+          if (!mailto) return;
+          window.location.href = mailto;
+        });
+      }
+
+      document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape' && cartShell.classList.contains('is-open')) {
+          closeCart();
+        }
+      });
+
+      loadCart();
+      loadCartInfo();
+      renderCart();
     })();
 
     (() => {
