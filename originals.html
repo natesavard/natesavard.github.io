@@ -502,7 +502,7 @@
       position: relative;
       max-width: 1220px;
       margin: 0 auto;
-      padding: 170px 24px 54px;
+      padding: 124px 24px 54px;
       display: grid;
       grid-template-columns: 1.18fr 1fr;
       gap: 42px;
@@ -575,6 +575,7 @@
     .hero-sigil {
       width: clamp(68px, 9vw, 110px);
       height: auto;
+      cursor: pointer;
       opacity: 0.82;
       filter:
         drop-shadow(0 0 10px rgba(255, 194, 84, 0.20))
@@ -854,29 +855,6 @@
       flex-wrap: wrap;
       gap: 14px;
       margin-top: 24px;
-    }
-
-    .doctrine-note {
-      margin: 0 0 26px;
-      padding: 18px 20px;
-      border: 1px solid rgba(215, 171, 82, 0.18);
-      border-radius: 20px;
-      background:
-        radial-gradient(circle at top left, rgba(214,168,79,0.08), transparent 26%),
-        linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.015));
-      box-shadow:
-        0 14px 40px rgba(0,0,0,0.28),
-        inset 0 0 18px rgba(255,255,255,0.02);
-      color: #f0e6d2;
-    }
-
-    .doctrine-note-label {
-      display: block;
-      margin-bottom: 8px;
-      color: var(--gold);
-      font-size: 10px;
-      letter-spacing: 0.26em;
-      text-transform: uppercase;
     }
 
     .archive-shell {
@@ -2350,7 +2328,7 @@
       }
 
       .hero {
-        padding-top: 190px;
+        padding-top: 138px;
       }
 
       .hero::before {
@@ -2424,7 +2402,7 @@
       }
 
       .hero {
-        padding: 190px 18px 54px;
+        padding: 124px 18px 54px;
       }
 
       .hero-wordmark {
@@ -2517,10 +2495,19 @@
       --siteflow-shadow: 0 22px 54px rgba(0, 0, 0, 0.44);
     }
 
-    body.originals-page header {
-      background: rgba(6, 4, 3, 0.9);
-      border-bottom: 1px solid rgba(215, 171, 82, 0.14);
+    body.originals-page .site-shell::before {
+      content: "";
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 118px;
+      z-index: 2200;
+      pointer-events: none;
+      background:
+        linear-gradient(180deg, rgba(6, 4, 3, 0.88) 0%, rgba(6, 4, 3, 0.58) 34%, rgba(6, 4, 3, 0.14) 72%, rgba(6, 4, 3, 0) 100%);
       box-shadow: 0 18px 40px rgba(0, 0, 0, 0.32);
+      opacity: 0.96;
     }
 
     body.originals-page .header-inner {
@@ -2704,6 +2691,10 @@
     }
 
     @media (max-width: 640px) {
+      body.originals-page .site-shell::before {
+        height: 92px;
+      }
+
       body.originals-page nav {
         gap: 8px;
         padding: 8px;
@@ -2722,7 +2713,7 @@
     }
   </style>
 </head>
-<body class="originals-page">
+<body class="originals-page" data-no-shared-topbar="true">
 
   <div class="enter-screen" id="enterScreen">
     <div class="enter-dust"></div>
@@ -2747,42 +2738,24 @@
   </a>
 
   <div class="site-shell" id="siteShell">
-    <header>
-      <div class="header-inner">
-        <div class="brand">
-          <div class="brand-logo-slot" id="logoTarget" role="button" tabindex="0" aria-label="Reload intro screen">
-            <img src="ns-logo-chrome.png" alt="Nate Savard chrome logo" class="rebel-flag-header-logo" id="headerLogo" />
-          </div>
-          <div>
-            <div class="brand-title">Nate Savard / The Original Collection</div>
-            <div class="brand-sub">runway streetwear jewel encrusted garments hand made original gemstone pendants and rings</div>
-          </div>
-        </div>
-
-        <nav>
-          <a href="#about">Jewelry World</a>
-          <a href="#designs">Originals</a>
-          <a href="envynomadix.html">Fashion House</a>
-          <a href="#buy">Commissions</a>
-          <a href="mailto:natesavard@outlook.com">Private Contact</a>
-        </nav>
-      </div>
-    </header>
-
     <section class="hero" id="about">
       <div class="hero-copy">
         <div class="eyebrow">THE ORIGINAL COLLECTION</div>
         <div class="hero-title-row">
-          <img src="ns-logo-chrome.png" alt="Nate Savard chrome logo" class="hero-sigil" />
+          <img src="ns-logo-chrome.png" alt="Nate Savard chrome logo" class="hero-sigil" id="logoTarget" role="button" tabindex="0" aria-label="Reload intro screen" />
           <img src="14.png" alt="Nate Savard wordmark" class="hero-wordmark" />
         </div>
         <p>
           Underground luxury for the ones who build myth. For the Chosen Few.
-          Custom bold talismans, pendants, rings, cloaks, and symbolic objects forged for artists, outsiders, and icons. Statement pieces made from precious
-          stone, silk, linen, calf skin, gator - A luxury house of custom work and
-          signature pieces lead by the one the only the original - Nate Savard.
+          Custom bold talismans, pendants, rings, cloaks, and symbolic objects
+          forged for artists, outsiders, and icons. Statement pieces made from
+          precious stone, silk, linen, calf skin, gator - A luxury house of
+          custom work and signature pieces lead by the one the only the
+          original - Nate Savard.
           <br><br>
-          The jewelry world now moves directly beside Envynomadix, so the stones, symbols, garments, and house marks start speaking as one collector language.
+          The jewelry world now moves directly beside Envynomadix, so the
+          stones, symbols, garments, and house marks start speaking as one
+          collector language.
         </p>
         <div class="hero-actions">
           <a href="#designs" class="btn primary">View Designs</a>
@@ -3301,15 +3274,17 @@
     <section class="section gemstone-doctrine-section" id="doctrine">
       <div class="section-head">
         <div class="section-title">Nate Savard Gemstones</div>
-        <div class="section-copy"></div>
+        <div class="section-copy">
+          Nate Savard travels the world and sources stones with real power,
+          energy, and presence. He is Master Creator and connected to the
+          highest. Every piece carries soul, presence, and intention, and is
+          created and forged by master artist and designer Nate Savard himself
+          under the Original Collection from beginning to end. Nate Savard
+          Forever.
+        </div>
       </div>
 
       <div class="gemstone-power-box">
-        <div class="doctrine-note">
-          <span class="doctrine-note-label">source note</span>
-          Nate Savard travels the world and sources stones with real power, energy, and presence. He does not create just to create. Every piece carries soul, presence, and intention, and is created and forged by master artist and designer Nate Savard under the Original Collection from beginning to end.
-        </div>
-
         <div class="power-box-label">core identity</div>
 
         <p class="power-line strong" data-order="1">we are the most original and classic collection you will find.</p>
@@ -3387,7 +3362,6 @@
     const enterText = document.getElementById('enterText');
     const flyingLogo = document.getElementById('flyingLogo');
     const logoTarget = document.getElementById('logoTarget');
-    const headerLogo = document.getElementById('headerLogo');
     const floatingTopCross = document.getElementById('floatingTopCross');
     const footerScrollTop = document.getElementById('footerScrollTop');
     const logoShell = document.querySelector('.logo-shell');
@@ -3411,7 +3385,7 @@
       entered = true;
 
       const start = rect(centerLogo);
-      const target = rect(logoTarget);
+      const target = logoTarget ? rect(logoTarget) : start;
 
       flyingLogo.style.display = 'block';
       flyingLogo.style.opacity = '1';
@@ -3426,8 +3400,8 @@
 
       requestAnimationFrame(() => {
         requestAnimationFrame(() => {
-          const targetWidth = window.innerWidth <= 640 ? 46 : 56;
-          const targetHeight = window.innerWidth <= 640 ? 46 : 56;
+          const targetWidth = logoTarget ? target.width : start.width;
+          const targetHeight = logoTarget ? target.height : start.height;
           flyingLogo.style.left = `${target.left + (target.width - targetWidth) / 2}px`;
           flyingLogo.style.top = `${target.top + (target.height - targetHeight) / 2}px`;
           flyingLogo.style.width = `${targetWidth}px`;
@@ -3436,7 +3410,6 @@
 
       setTimeout(() => {
         enterScreen.classList.add('hidden');
-        headerLogo.classList.add('visible');
       }, 920);
 
       setTimeout(() => {

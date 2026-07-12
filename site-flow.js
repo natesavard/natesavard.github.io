@@ -238,6 +238,7 @@
 
   function injectSignalTopbar() {
     if (!sharedTopbarPages.includes(currentPage.key)) return;
+    if (document.body && document.body.hasAttribute("data-no-shared-topbar")) return;
     if (document.querySelector(".nlx-topbar") || document.querySelector(".nlx-shared-topbar")) return;
 
     const topbar = document.createElement("div");
