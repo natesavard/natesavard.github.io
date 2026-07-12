@@ -12,6 +12,7 @@
       --sand: #dec39a;
       --gold: #d7ab52;
       --line: rgba(255, 232, 188, 0.22);
+      --entry-storefront-image: url("envy-nomadix-world-store.png");
       --orb-travel: clamp(110px, 15vh, 170px);
       --mono: "Courier New", monospace;
       --serif: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", Georgia, serif;
@@ -56,7 +57,7 @@
     }
 
     html::after {
-      background: url("envy nomadix world store.png") center center / cover no-repeat;
+      background: var(--entry-storefront-image) center center / cover no-repeat;
       transform: scale(1.06);
       filter: grayscale(0.06) contrast(1.04) brightness(0.76);
       opacity: 0;
@@ -618,18 +619,73 @@
 
     <a class="path right" href="envynomadix.html" aria-label="Enter Envynomadix fashion house">
       <span class="path-official-logo-stack" aria-hidden="true">
-        <img class="path-official-logo shadow" src="Envy Original Logo.png" alt="" />
-        <img class="path-official-logo base" src="Envy Original Logo.png" alt="" />
-        <img class="path-official-logo white" src="Envy Original Logo.png" alt="" />
+        <img class="path-official-logo shadow" src="envy-official-logo.png" alt="" />
+        <img class="path-official-logo base" src="envy-official-logo.png" alt="" />
+        <img class="path-official-logo white" src="envy-official-logo.png" alt="" />
       </span>
       <div class="path-kicker">Fashion House</div>
       <img class="path-logo" src="envy-cross.png" alt="Envy cross emblem" />
       <span class="path-wordmark-stack">
-        <img class="path-wordmark base" src="ENVY NOMADIX.png" alt="Envy Nomadix" />
-        <img class="path-wordmark angel" src="ENVY NOMADIX ANGELS (1).png" alt="" aria-hidden="true" />
+        <img class="path-wordmark base" src="envy-nomadix-logo.png" alt="Envy Nomadix" />
+        <img class="path-wordmark angel" src="envy-nomadix-angels.png" alt="" aria-hidden="true" />
       </span>
       <div class="path-route">Enter Fashion</div>
     </a>
   </main>
+  <script>
+    (function () {
+      function tryImageSources(candidates, onSuccess) {
+        var index = 0;
+
+        function attemptNext() {
+          if (index >= candidates.length) return;
+
+          var src = candidates[index++];
+          var probe = new Image();
+
+          probe.onload = function () {
+            onSuccess(src);
+          };
+
+          probe.onerror = attemptNext;
+          probe.src = src;
+        }
+
+        attemptNext();
+      }
+
+      function applyImageCandidate(selector, candidates) {
+        tryImageSources(candidates, function (src) {
+          document.querySelectorAll(selector).forEach(function (element) {
+            element.setAttribute("src", src);
+          });
+        });
+      }
+
+      applyImageCandidate(".path-official-logo", [
+        "envy-official-logo.png",
+        "Envy Original Logo.png"
+      ]);
+
+      applyImageCandidate(".path-wordmark.base", [
+        "envy-nomadix-logo.png",
+        "ENVY NOMADIX.png",
+        "envy-nomadix-wordmark.png"
+      ]);
+
+      applyImageCandidate(".path-wordmark.angel", [
+        "envy-nomadix-angels.png",
+        "ENVY NOMADIX ANGELS (1).png"
+      ]);
+
+      tryImageSources([
+        "envy-nomadix-world-store.png",
+        "envy nomadix world store.png",
+        "envy-nomadix-noise.png"
+      ], function (src) {
+        document.documentElement.style.setProperty("--entry-storefront-image", 'url("' + src + '")');
+      });
+    })();
+  </script>
 </body>
 </html>
