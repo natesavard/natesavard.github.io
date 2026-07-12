@@ -97,6 +97,14 @@
     { label: "Horus", href: "horus.html", key: "horus" }
   ];
 
+  const hiddenFlowKeys = new Set(["transmissions", "timeline", "starboy", "reader", "horus"]);
+  const visiblePages = pages.filter(function (page) {
+    return !hiddenFlowKeys.has(page.key);
+  });
+  const visibleKeyLinks = keyLinks.filter(function (link) {
+    return !hiddenFlowKeys.has(link.key);
+  });
+
   const sharedTopbarPages = ["starboy", "timeline", "transmissions", "reader", "field-notes", "legend-file", "envynomadix", "intake"];
 
   const sharedTopbarMessages = [
@@ -115,9 +123,10 @@
   const path = normalizePath(window.location.pathname);
   const currentFile = aliasToFile[path] || decodeFileName(path) || "index.html";
   const currentIndex = pages.findIndex((page) => page.file.toLowerCase() === currentFile.toLowerCase());
-  const currentPage = currentIndex >= 0 ? pages[currentIndex] : pages[0];
-  const prevPage = currentIndex > 0 ? pages[currentIndex - 1] : pages[pages.length - 1];
-  const nextPage = currentIndex >= 0 && currentIndex < pages.length - 1 ? pages[currentIndex + 1] : pages[0];
+  const safeCurrentIndex = currentIndex >= 0 ? currentIndex : 0;
+  const currentPage = pages[safeCurrentIndex] || pages[0];
+  const prevPage = findAdjacentVisiblePage(safeCurrentIndex, -1);
+  const nextPage = findAdjacentVisiblePage(safeCurrentIndex, 1);
   const activeFragment = getActiveFragment();
   let soundEngine = null;
 
@@ -157,6 +166,21 @@
   function decodeFileName(value) {
     const cleaned = (value || "").split("/").pop() || "";
     return cleaned ? decodeURIComponent(cleaned) : "";
+  }
+
+  function findAdjacentVisiblePage(startIndex, direction) {
+    const fallbackPage = visiblePages[0] || pages[0];
+    if (!pages.length) return fallbackPage;
+
+    for (let step = 1; step <= pages.length; step += 1) {
+      const index = (startIndex + (step * direction) + pages.length) % pages.length;
+      const candidate = pages[index];
+      if (candidate && !hiddenFlowKeys.has(candidate.key)) {
+        return candidate;
+      }
+    }
+
+    return fallbackPage;
   }
 
   function rewriteLocalLinks() {
@@ -222,7 +246,7 @@
       '  </div>',
       '  <div class="siteflow-jump">' +
         '<a class="siteflow-link siteflow-secondary" href="' + escapeHtml(prevPage.file) + '">Back</a>' +
-        keyLinks.map(renderNavLink).join("") +
+        visibleKeyLinks.map(renderNavLink).join("") +
         '<a class="siteflow-link siteflow-secondary" href="' + escapeHtml(nextPage.file) + '">Next</a>' +
       '</div>',
       '  <div class="siteflow-controls">',
@@ -314,7 +338,7 @@
       ].join(""),
       renderCard("Next node", nextPage, "keep moving through the connected pages", ""),
       '</div>',
-      '<div class="siteflow-directory">' + pages.map(renderDirectoryLink).join("") + '</div>'
+      '<div class="siteflow-directory">' + visiblePages.map(renderDirectoryLink).join("") + '</div>'
     ].join("");
     document.body.appendChild(pager);
   }

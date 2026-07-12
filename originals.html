@@ -2567,12 +2567,21 @@
     }
 
     body.originals-page .shop-utility-kicker {
+      display: inline-flex;
+      align-items: center;
       color: rgba(229, 211, 183, 0.62);
       font-size: 9px;
       letter-spacing: 0.28em;
       text-transform: uppercase;
       padding-right: 2px;
       white-space: nowrap;
+      text-decoration: none;
+      transition: color 0.25s ease, transform 0.25s ease;
+    }
+
+    body.originals-page .shop-utility-kicker:hover {
+      color: #f6eddd;
+      transform: translateY(-1px);
     }
 
     body.originals-page .shop-utility-link {
@@ -2642,6 +2651,10 @@
       flex-wrap: wrap;
       align-items: center;
       gap: 10px;
+    }
+
+    body.originals-page #designs {
+      scroll-margin-top: 92px;
     }
 
     .product-actions .product-link,
@@ -3164,7 +3177,7 @@
   <div class="top-shadow-veil" aria-hidden="true"></div>
 
   <div class="shop-utility" aria-label="Shop utility">
-    <div class="shop-utility-kicker">shop</div>
+    <a href="#designs" class="shop-utility-kicker">shop</a>
     <button class="shop-utility-link is-primary" id="originalsCartToggle" type="button">cart <span class="shop-cart-count" id="originalsCartCount">0</span></button>
     <a href="#builder" class="shop-utility-link">builder</a>
     <a href="mailto:natesavard@outlook.com?subject=Jewelry%20Purchase%20Inquiry" class="shop-utility-link">contact</a>
