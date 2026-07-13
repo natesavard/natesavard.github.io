@@ -14,6 +14,7 @@
       --line: rgba(255, 232, 188, 0.22);
       --entry-portrait-image: url("nate-savard-forever.png");
       --entry-storefront-image: url("envy-nomadix-world-store.png");
+      --entry-third-image: url("nate-savard-bg-3.png");
       --orb-travel: clamp(110px, 15vh, 170px);
       --mono: "Courier New", monospace;
       --serif: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", Georgia, serif;
@@ -54,7 +55,7 @@
       transform: scale(1.04);
       filter: saturate(0.96) contrast(1.02) brightness(0.98);
       opacity: 0.6;
-      animation: portraitFloat 13s ease-in-out infinite, backgroundSwapPortrait 18s ease-in-out infinite;
+      animation: portraitFloat 13s ease-in-out infinite, backgroundSwapPortrait 27s ease-in-out infinite;
     }
 
     html::after {
@@ -62,7 +63,20 @@
       transform: scale(1.06);
       filter: grayscale(0.06) contrast(1.04) brightness(0.76);
       opacity: 0;
-      animation: storefrontFloat 15s ease-in-out infinite, backgroundSwapStorefront 18s ease-in-out infinite;
+      animation: storefrontFloat 15s ease-in-out infinite, backgroundSwapStorefront 27s ease-in-out infinite;
+    }
+
+    .entry-third-backdrop {
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      pointer-events: none;
+      transform-origin: center center;
+      background: var(--entry-third-image) center center / cover no-repeat;
+      transform: scale(1.05);
+      filter: saturate(0.9) contrast(1.02) brightness(0.84);
+      opacity: 0;
+      animation: thirdFloat 14.5s ease-in-out infinite, backgroundSwapThird 27s ease-in-out infinite;
     }
 
     body {
@@ -402,13 +416,23 @@
       }
     }
 
+    @keyframes thirdFloat {
+      0%,
+      100% {
+        transform: scale(1.05) translate3d(0, 0, 0);
+      }
+      50% {
+        transform: scale(1.08) translate3d(0, -10px, 0);
+      }
+    }
+
     @keyframes backgroundSwapPortrait {
       0%,
-      42% {
+      27% {
         opacity: 0.6;
       }
-      50%,
-      92% {
+      33%,
+      93% {
         opacity: 0;
       }
       100% {
@@ -418,12 +442,27 @@
 
     @keyframes backgroundSwapStorefront {
       0%,
-      42% {
+      27% {
         opacity: 0;
       }
-      50%,
-      92% {
+      33%,
+      60% {
         opacity: 0.56;
+      }
+      66%,
+      100% {
+        opacity: 0;
+      }
+    }
+
+    @keyframes backgroundSwapThird {
+      0%,
+      60% {
+        opacity: 0;
+      }
+      66%,
+      93% {
+        opacity: 0.58;
       }
       100% {
         opacity: 0;
@@ -623,6 +662,7 @@
   </style>
 </head>
 <body>
+  <div class="entry-third-backdrop" aria-hidden="true"></div>
   <main class="entry-gate" aria-label="Choose your path">
     <a class="path left" href="originals.html" aria-label="Enter The Original Collection jewelry house">
       <div class="path-kicker">Jewelry House</div>
@@ -709,6 +749,13 @@
         "envy-nomadix-noise.png"
       ], function (src) {
         document.documentElement.style.setProperty("--entry-storefront-image", 'url("' + src + '")');
+      });
+
+      tryImageSources([
+        "nate-savard-bg-3.png",
+        "nate savard bg 3.png"
+      ], function (src) {
+        document.documentElement.style.setProperty("--entry-third-image", 'url("' + src + '")');
       });
     })();
   </script>

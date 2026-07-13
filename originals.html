@@ -5046,6 +5046,10 @@
       loadCart();
       loadCartInfo();
       renderCart();
+
+      if (window.location.hash === '#cart') {
+        openCart();
+      }
     })();
 
     (() => {
