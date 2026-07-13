@@ -2529,20 +2529,6 @@
       --siteflow-shadow: 0 22px 54px rgba(0, 0, 0, 0.44);
     }
 
-    body.originals-page .top-shadow-veil {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 74px;
-      z-index: 2200;
-      pointer-events: none;
-      background:
-        linear-gradient(180deg, rgba(6, 4, 3, 0.98) 0%, rgba(6, 4, 3, 0.82) 22%, rgba(6, 4, 3, 0.36) 58%, rgba(6, 4, 3, 0) 100%);
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.24);
-      opacity: 1;
-    }
-
     body.originals-page .site-shell::before {
       display: none;
     }
@@ -3110,11 +3096,6 @@
     }
 
     @media (max-width: 640px) {
-      body.originals-page .top-shadow-veil {
-        top: 0;
-        height: 66px;
-      }
-
       body.originals-page .shop-utility {
         top: 8px;
         right: 14px;
@@ -3173,8 +3154,6 @@
   <a href="#" class="floating-envy-cross" id="floatingTopCross" aria-label="Return to top">
     <img src="envy-cross.png" alt="Envy cross" />
   </a>
-
-  <div class="top-shadow-veil" aria-hidden="true"></div>
 
   <div class="shop-utility" aria-label="Shop utility">
     <a href="#designs" class="shop-utility-kicker">shop</a>
