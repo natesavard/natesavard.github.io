@@ -9,6 +9,7 @@
     { file: "timeline.html", key: "timeline", title: "Timeline", short: "Timeline", section: "Archive chronology", summary: "Long-view chronology for the site, lore, jewelry, and signal evolution.", clearance: "archive line", dossier: "Chronology node mapping the build, story, and collector path over time.", hum: "soft" },
     { file: "field-notes.html", key: "field-notes", title: "Field Notes", short: "Field Notes", section: "Travel archive", summary: "Travel logs, land memories, port signals, and world-built fragments from the road.", clearance: "travel log", dossier: "Private notes from coastlines, ports, cities, estates, and moving years.", hum: "soft" },
     { file: "legend-file.html", key: "legend-file", title: "Legend File", short: "Legend", section: "Identity file", summary: "Myth-forward dossier on Nate as operator, jeweler, traveler, builder, and private strategist.", clearance: "legend file", dossier: "Identity archive for the operator behind the network.", hum: "signal" },
+    { file: "scrapbook.html", key: "scrapbook", title: "Scrapbook", short: "Scrapbook", section: "Forever collage node", summary: "A long-running image collage built to keep growing through simple visual drops over time.", clearance: "memory wall", dossier: "Permanent scrapbook page for images, references, screenshots, renders, memories, and visual fragments.", hum: "soft" },
     { file: "starboy.html", key: "starboy", title: "NLX Starboy", short: "Starboy", section: "Story hub", summary: "Enter the comic archive, lore, and active entities inside the Starboy system.", clearance: "restricted archive", dossier: "Signal-heavy story node tied to the oracle line.", hum: "signal" },
     { file: "Chapter-one.html", key: "chapter-one", title: "Chapter One", short: "Chapter 1", section: "Comic issue", summary: "The first fracture point in the Starboy timeline.", clearance: "story file", dossier: "Initial fracture log recovered from the archive stream.", hum: "signal" },
     { file: "Chapter-two.html", key: "chapter-two", title: "Chapter Two", short: "Chapter 2", section: "Comic issue", summary: "The next signal in the Starboy story flow.", clearance: "oracle file", dossier: "Oracle chamber record naming the Anchor event.", hum: "signal" },
@@ -59,6 +60,8 @@
     "/field-notes.html": "field-notes.html",
     "/legend-file": "legend-file.html",
     "/legend-file.html": "legend-file.html",
+    "/scrapbook": "scrapbook.html",
+    "/scrapbook.html": "scrapbook.html",
     "/envynomadix": "envynomadix.html",
     "/envynomadix.html": "envynomadix.html",
     "/envynomadix-worldwide": "envynomadix-worldwide.html",
@@ -90,6 +93,7 @@
     { label: "Envynomadix", href: "envynomadix.html", key: "envynomadix" },
     { label: "Portal", href: "main.html", key: "home" },
     { label: "Gemstone", href: "gemstone-field-distortion-paradox.html", key: "gemstone" },
+    { label: "Scrapbook", href: "scrapbook.html", key: "scrapbook" },
     { label: "Transmissions", href: "transmissions.html", key: "transmissions" },
     { label: "Timeline", href: "timeline.html", key: "timeline" },
     { label: "Starboy", href: "starboy.html", key: "starboy" },
@@ -211,6 +215,7 @@
       if (rawHref === "/timeline.html") anchor.setAttribute("href", "timeline.html");
       if (rawHref === "/field-notes.html") anchor.setAttribute("href", "field-notes.html");
       if (rawHref === "/legend-file.html") anchor.setAttribute("href", "legend-file.html");
+      if (rawHref === "/scrapbook.html") anchor.setAttribute("href", "scrapbook.html");
       if (rawHref === "/envynomadix.html") anchor.setAttribute("href", "envynomadix.html");
       if (rawHref === "/envynomadix-worldwide.html") anchor.setAttribute("href", "envynomadix-worldwide.html");
       if (rawHref === "/gemstone-field-distortion-paradox.html") anchor.setAttribute("href", "gemstone-field-distortion-paradox.html");
