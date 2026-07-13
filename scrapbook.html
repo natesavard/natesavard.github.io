@@ -488,6 +488,14 @@
           .replace(/'/g, '&#39;');
       }
 
+      function resolveAssetPath(value = '') {
+        const raw = String(value || '').trim();
+        if (!raw) return '';
+        if (/^(https?:|data:|blob:|\/)/i.test(raw)) return raw;
+        if (window.location.protocol === 'file:') return raw;
+        return `/${raw.replace(/^\.?\//, '')}`;
+      }
+
       function renderEmptyState() {
         wall.innerHTML = `
           <article class="empty-card">
@@ -509,7 +517,7 @@
         wall.innerHTML = items.map((item, index) => `
           <article class="scrap-card">
             <button class="scrap-media" type="button" data-scrap-index="${index}" aria-label="Open ${escapeHtml(item.title || 'scrapbook image')}">
-              <img src="${escapeHtml(item.src || '')}" alt="${escapeHtml(item.alt || item.title || 'Scrapbook image')}" loading="lazy" />
+              <img src="${escapeHtml(resolveAssetPath(item.src || ''))}" alt="${escapeHtml(item.alt || item.title || 'Scrapbook image')}" loading="lazy" />
             </button>
           </article>
         `).join('');
@@ -519,7 +527,7 @@
         const item = items[index];
         if (!item) return;
 
-        lightboxImage.src = item.src || '';
+        lightboxImage.src = resolveAssetPath(item.src || '');
         lightboxImage.alt = item.alt || item.title || 'Scrapbook image';
         lightboxDate.textContent = item.added || 'open';
         lightboxTitle.textContent = item.title || 'Untitled Scrap';
