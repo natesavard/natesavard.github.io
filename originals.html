@@ -2533,6 +2533,69 @@
       display: none;
     }
 
+    body.originals-page .corner-signature {
+      position: fixed;
+      top: 18px;
+      left: 20px;
+      z-index: 2302;
+      width: clamp(118px, 11vw, 188px);
+      opacity: 0;
+      transform: translateY(-8px);
+      pointer-events: none;
+      transition: opacity 1.8s ease 0.45s, transform 1.8s ease 0.45s;
+    }
+
+    body.originals-page .corner-signature img {
+      display: block;
+      width: 100%;
+      height: auto;
+      filter:
+        grayscale(1)
+        invert(1)
+        brightness(1.08)
+        drop-shadow(0 0 10px rgba(255, 255, 255, 0.08));
+    }
+
+    body.originals-page.originals-entered .corner-signature {
+      opacity: 0.54;
+      transform: translateY(0);
+      animation: cornerSignaturePulse 8.8s ease-in-out 1.1s infinite;
+    }
+
+    @keyframes cornerSignaturePulse {
+      0%, 100% {
+        opacity: 0.22;
+      }
+
+      50% {
+        opacity: 0.72;
+      }
+    }
+
+    @keyframes cornerSignatureTone {
+      0%, 100% {
+        filter:
+          grayscale(1)
+          invert(0.12)
+          brightness(0.46)
+          contrast(1.04)
+          drop-shadow(0 0 8px rgba(255, 255, 255, 0));
+      }
+
+      50% {
+        filter:
+          grayscale(1)
+          invert(1)
+          brightness(1.12)
+          contrast(1.02)
+          drop-shadow(0 0 12px rgba(255, 255, 255, 0.12));
+      }
+    }
+
+    body.originals-page.originals-entered .corner-signature img {
+      animation: cornerSignatureTone 8.8s ease-in-out 1.1s infinite;
+    }
+
     body.originals-page .shop-utility {
       position: fixed;
       top: 10px;
@@ -3096,6 +3159,12 @@
     }
 
     @media (max-width: 640px) {
+      body.originals-page .corner-signature {
+        top: 14px;
+        left: 14px;
+        width: clamp(94px, 28vw, 132px);
+      }
+
       body.originals-page .shop-utility {
         top: 8px;
         right: 14px;
@@ -3154,6 +3223,10 @@
   <a href="#" class="floating-envy-cross" id="floatingTopCross" aria-label="Return to top">
     <img src="envy-cross.png" alt="Envy cross" />
   </a>
+
+  <div class="corner-signature" aria-hidden="true">
+    <img src="nate-savard-signature-corner.png" alt="Nate Savard signature" />
+  </div>
 
   <div class="shop-utility" aria-label="Shop utility">
     <a href="#designs" class="shop-utility-kicker">shop</a>
@@ -3859,6 +3932,7 @@
       flyingLogo.style.transform = 'rotate(0deg) scale(1.08)';
 
       siteShell.classList.add('revealed');
+      document.body.classList.add('originals-entered');
 
       centerLogo.style.opacity = '0';
       enterText.style.opacity = '0';
