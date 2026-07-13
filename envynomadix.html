@@ -1053,6 +1053,46 @@
       padding-bottom: 26px;
     }
 
+    .catalogue-stage::before,
+    .archives-stage::before {
+      content: "";
+      position: absolute;
+      right: -4%;
+      pointer-events: none;
+      z-index: 0;
+      border-radius: 34px;
+      background:
+        linear-gradient(180deg, rgba(8, 5, 3, 0.18), rgba(0, 0, 0, 0.72)),
+        linear-gradient(90deg, rgba(4, 2, 1, 0.94) 0%, rgba(4, 2, 1, 0.6) 28%, rgba(4, 2, 1, 0.18) 62%, rgba(4, 2, 1, 0.82) 100%),
+        url("turkey-nate-savard.png") center 34% / cover no-repeat;
+      filter: saturate(0.76) brightness(0.74) contrast(1.02);
+      box-shadow: 0 24px 48px rgba(0, 0, 0, 0.18);
+    }
+
+    .catalogue-stage::before {
+      top: -8px;
+      width: min(56vw, 640px);
+      height: 320px;
+      opacity: 0.17;
+    }
+
+    .archives-stage::before {
+      top: 18px;
+      width: min(50vw, 580px);
+      height: 360px;
+      opacity: 0.12;
+      background:
+        linear-gradient(180deg, rgba(8, 5, 3, 0.24), rgba(0, 0, 0, 0.8)),
+        linear-gradient(90deg, rgba(4, 2, 1, 0.96) 0%, rgba(4, 2, 1, 0.58) 34%, rgba(4, 2, 1, 0.2) 72%, rgba(4, 2, 1, 0.84) 100%),
+        url("turkey-nate-savard.png") center 36% / cover no-repeat;
+    }
+
+    .catalogue-stage > *,
+    .archives-stage > * {
+      position: relative;
+      z-index: 1;
+    }
+
     .merge-stage {
       display: grid;
       grid-template-columns: minmax(320px, 0.94fr) minmax(320px, 1.06fr);
@@ -1406,6 +1446,20 @@
       object-fit: cover;
       opacity: 0.82;
       filter: saturate(0.84) contrast(1.04);
+    }
+
+    .catalogue-card.is-lookbook-wide {
+      width: min(48vw, 560px);
+      min-width: 360px;
+    }
+
+    .catalogue-card.is-lookbook-wide img {
+      object-position: 52% 34%;
+      filter:
+        saturate(0.86)
+        contrast(1.03)
+        brightness(0.92)
+        drop-shadow(0 20px 34px rgba(0, 0, 0, 0.28));
     }
 
     .catalogue-card-copy {
@@ -2710,6 +2764,19 @@
         width: min(42vw, 300px);
       }
 
+      .catalogue-card.is-lookbook-wide {
+        width: min(62vw, 440px);
+        min-width: 320px;
+      }
+
+      .catalogue-stage::before,
+      .archives-stage::before {
+        right: -2%;
+        width: min(72vw, 520px);
+        height: 250px;
+        opacity: 0.12;
+      }
+
       .house-viewer-frame {
         width: min(92vw, 820px);
         grid-template-columns: 1fr;
@@ -2871,6 +2938,20 @@
         width: 76vw;
         min-width: 220px;
         min-height: 320px;
+      }
+
+      .catalogue-card.is-lookbook-wide {
+        width: 88vw;
+        min-width: 260px;
+      }
+
+      .catalogue-stage::before,
+      .archives-stage::before {
+        right: 0;
+        width: 86vw;
+        height: 190px;
+        border-radius: 24px;
+        opacity: 0.1;
       }
 
       .jewelry-card {
@@ -3152,6 +3233,14 @@
               <div class="catalogue-card-copy">
                 <h3 class="catalogue-card-title">House Motion</h3>
                 <p class="catalogue-card-note">cross carried through the line</p>
+              </div>
+            </article>
+
+            <article class="catalogue-card is-art is-lookbook-wide">
+              <img src="turkey-nate-savard.png" alt="Nate Savard private motorsport house lookbook in Turkey" />
+              <div class="catalogue-card-copy">
+                <h3 class="catalogue-card-title">Private Motorsport House</h3>
+                <p class="catalogue-card-note">mediterranean dusk / yacht club pressure / stitched house language</p>
               </div>
             </article>
           </div>
