@@ -11,7 +11,6 @@ window.NATE_SCRAPBOOK_ITEMS = [
     alt: "Single S Savard logo",
     title: "Single S Savard",
     collection: "Identity Marks",
-    added: "2026-07-12",
     note: "Single-letter Savard mark with that star-cut sweep and a cleaner lone-symbol signature feel."
   },
   {
@@ -19,7 +18,6 @@ window.NATE_SCRAPBOOK_ITEMS = [
     alt: "Savard Racing patch crest",
     title: "Savard Racing",
     collection: "Identity Marks",
-    added: "2026-07-12",
     note: "Race-club patch language with flags, compass-star direction, rope borders, and a stitched Nate Savard crest built like a private motorsport house emblem."
   },
   {
@@ -27,7 +25,6 @@ window.NATE_SCRAPBOOK_ITEMS = [
     alt: "Envy Nomadix chrome signature logo",
     title: "Envy Nomadix Chrome Signature",
     collection: "Envynomadix",
-    added: "2026-07-12",
     note: "Chrome script signature version of Envynomadix, clean enough to float as a mark and strong enough to anchor a full visual."
   },
   {
@@ -35,7 +32,6 @@ window.NATE_SCRAPBOOK_ITEMS = [
     alt: "Envy Nomadix Angels university white wordmark",
     title: "Angels University Wordmark",
     collection: "Envynomadix",
-    added: "2026-07-12",
     note: "Big collegiate arch lettering for the Angels direction, clean and direct enough to work across garments and story-world pieces."
   },
   {
@@ -43,7 +39,6 @@ window.NATE_SCRAPBOOK_ITEMS = [
     alt: "Nate Savard signature script",
     title: "Nate Savard Signature",
     collection: "Identity Marks",
-    added: "2026-07-12",
     note: "The signature script itself, clean and personal enough to stand as a house mark on its own."
   },
   {
@@ -51,7 +46,6 @@ window.NATE_SCRAPBOOK_ITEMS = [
     alt: "Angels Live Forever NS crest",
     title: "Angels Live Forever",
     collection: "Identity Marks",
-    added: "2026-07-13",
     note: "Winged NS crest with the red skull core and a blank banner base, reading like a harsher Angels patch variant built for future lettering or league treatment."
   },
   {
@@ -59,7 +53,6 @@ window.NATE_SCRAPBOOK_ITEMS = [
     alt: "The Nate Savard League winged NS mark",
     title: "The Nate Savard League",
     collection: "Identity Marks",
-    added: "2026-07-13",
     note: "Winged NS league mark with embroidered cathedral lettering and bat-wing framing, pushing the house into a darker league-emblem direction."
   },
   {
@@ -67,7 +60,6 @@ window.NATE_SCRAPBOOK_ITEMS = [
     alt: "Envynomadix cutout script logo",
     title: "Envynomadix Cutout",
     collection: "Envynomadix",
-    added: "2026-07-13",
     note: "Rough-cut Envynomadix script mark with a more distressed hand-drawn feel, stripped back into a raw house-signature graphic."
   },
   {
@@ -75,7 +67,6 @@ window.NATE_SCRAPBOOK_ITEMS = [
     alt: "ANGELS Nate Savard crest",
     title: "ANGELS",
     collection: "Identity Marks",
-    added: "2026-07-13",
     note: "A winged NS crest with a red skull core and banner base, pushing the Nate Savard world into a harsher angels-and-fire patch direction."
   },
   {
@@ -83,7 +74,6 @@ window.NATE_SCRAPBOOK_ITEMS = [
     alt: "Envy ribbon banner study",
     title: "Envy Ribbon",
     collection: "Envynomadix",
-    added: "2026-07-13",
     note: "A more torn and dramatic Envy ribbon study with aged banner texture, curled ends, and stronger old-world house energy."
   },
   {
@@ -91,23 +81,13 @@ window.NATE_SCRAPBOOK_ITEMS = [
     alt: "Nate Savard chrome NS logo",
     title: "NS Chrome Crest",
     collection: "Identity Marks",
-    added: "2026-07-13",
     note: "The chrome NS monogram in its pure crest form, sharpened into a direct house mark with that hard reflective pressure."
-  },
-  {
-    src: "scrapbook-assets/nate-savard-resilience-flag.png",
-    alt: "Nate Savard resilience flag",
-    title: "Resilience Flag",
-    collection: "Identity Marks",
-    added: "2026-07-13",
-    note: "A dark resilience flag piece carrying the Nate Savard world through a more solemn, weathered, and symbolic flag-language direction."
   },
   {
     src: "scrapbook-assets/envy-cross-logo.png",
     alt: "Envy cross chrome logo",
     title: "Envy Cross",
     collection: "Envynomadix",
-    added: "2026-07-13",
     note: "Chrome four-point house sigil with that floating liquid-metal pressure, built to read like a pure Envynomadix emblem."
   },
   {
@@ -115,7 +95,6 @@ window.NATE_SCRAPBOOK_ITEMS = [
     alt: "Til The Death Nate Savard crest",
     title: "Til The Death",
     collection: "Identity Marks",
-    added: "2026-07-12",
     note: "Chrome NS crestwork locked inside the circular seal with Nate above and Til The Death below, reading like a forever oath mark."
   },
   {
@@ -123,7 +102,6 @@ window.NATE_SCRAPBOOK_ITEMS = [
     alt: "Envy Nomadix world store exterior",
     title: "Envy Nomadix World Store",
     collection: "Envynomadix",
-    added: "2026-07-12",
     note: "A flagship-world storefront vision with the NS monogram, clean architecture, and full luxury-house presence."
   },
   {
@@ -131,7 +109,6 @@ window.NATE_SCRAPBOOK_ITEMS = [
     alt: "Nate Savard main ribbon patch 2026",
     title: "Main Ribbon 2026",
     collection: "Original Collection",
-    added: "2026-07-12",
     note: "The embroidered Nate Savard ribbon patch with house-coded texture and that relic-piece energy."
   },
   {
@@ -139,7 +116,6 @@ window.NATE_SCRAPBOOK_ITEMS = [
     alt: "Envy Nomadix outline wordmark",
     title: "Angels Outline Wordmark",
     collection: "Envynomadix",
-    added: "2026-07-12",
     note: "A sharper outline treatment for the Envy Nomadix name that feels fast, graphic, and ready for race or touring language."
   },
   {
@@ -147,7 +123,6 @@ window.NATE_SCRAPBOOK_ITEMS = [
     alt: "Til The Death original script crest",
     title: "Til The Death Script Crest",
     collection: "Identity Marks",
-    added: "2026-07-12",
     note: "The earlier script-led Til The Death crest with the handwritten Nate sweep cutting across the chrome NS seal."
   },
   {
@@ -155,7 +130,6 @@ window.NATE_SCRAPBOOK_ITEMS = [
     alt: "Envy Nomadix Grand Touring Club artwork",
     title: "Grand Touring Club",
     collection: "Envynomadix",
-    added: "2026-07-12",
     note: "Grand Touring Club crest work with the NS chrome monogram, hands, skull pressure, and full dark-luxury poster energy."
   },
   {
@@ -163,7 +137,6 @@ window.NATE_SCRAPBOOK_ITEMS = [
     alt: "Envy ribbon banner study",
     title: "Ribbon 2 Envy",
     collection: "Envynomadix",
-    added: "2026-07-13",
     note: "A weathered banner study with old-house texture and enough open space to feel like a title card, patch, or future crest base."
   },
   {
@@ -171,7 +144,6 @@ window.NATE_SCRAPBOOK_ITEMS = [
     alt: "Hero spinner pendant by Nate Savard",
     title: "Hero Spinner",
     collection: "Original Collection",
-    added: "2026-07-12",
     note: "Centerpiece spinner energy, ceremonial structure, and full collector tone."
   },
   {
@@ -179,7 +151,6 @@ window.NATE_SCRAPBOOK_ITEMS = [
     alt: "Opal Sage Spinner by Nate Savard",
     title: "Opal Sage Spinner",
     collection: "Original Collection",
-    added: "2026-07-12",
     note: "Jelly opal fire, diamond field, and one of the strongest medallion directions in the house."
   },
   {
@@ -187,7 +158,6 @@ window.NATE_SCRAPBOOK_ITEMS = [
     alt: "Sapphire spinner reverse by Nate Savard",
     title: "Sapphire Spinner Reverse",
     collection: "Original Collection",
-    added: "2026-07-12",
     note: "The reverse side with sapphire authority and that richer million-dollar blue."
   },
   {
@@ -195,7 +165,6 @@ window.NATE_SCRAPBOOK_ITEMS = [
     alt: "NS monogram chain by Nate Savard",
     title: "NS Monogram Chain",
     collection: "Original Collection",
-    added: "2026-07-12",
     note: "A house-identity chain piece that reads like symbol language instead of ordinary jewelry."
   }
 ];

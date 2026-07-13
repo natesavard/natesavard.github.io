@@ -432,7 +432,7 @@
             <div class="stat-value" id="scrapCount">0</div>
           </div>
           <div class="stat-card">
-            <div class="stat-label">latest drop</div>
+            <div class="stat-label">latest piece</div>
             <div class="stat-value" id="scrapLatest">open</div>
           </div>
         </div>
@@ -451,7 +451,6 @@
           <img src="" alt="" id="scrapLightboxImage" />
         </figure>
         <div class="lightbox-copy">
-          <div class="lightbox-date" id="scrapLightboxDate">open</div>
           <h2 class="lightbox-title" id="scrapLightboxTitle">Scrapbook Image</h2>
           <div class="lightbox-chip" id="scrapLightboxCollection">Collection</div>
           <p class="lightbox-note" id="scrapLightboxNote">Scrapbook note.</p>
@@ -470,12 +469,11 @@
       const lightbox = document.getElementById('scrapLightbox');
       const lightboxClose = document.getElementById('scrapLightboxClose');
       const lightboxImage = document.getElementById('scrapLightboxImage');
-      const lightboxDate = document.getElementById('scrapLightboxDate');
       const lightboxTitle = document.getElementById('scrapLightboxTitle');
       const lightboxCollection = document.getElementById('scrapLightboxCollection');
       const lightboxNote = document.getElementById('scrapLightboxNote');
 
-      if (!wall || !countNode || !latestNode || !lightbox || !lightboxClose || !lightboxImage || !lightboxDate || !lightboxTitle || !lightboxCollection || !lightboxNote) {
+      if (!wall || !countNode || !latestNode || !lightbox || !lightboxClose || !lightboxImage || !lightboxTitle || !lightboxCollection || !lightboxNote) {
         return;
       }
 
@@ -507,7 +505,7 @@
 
       function renderWall() {
         countNode.textContent = String(items.length);
-        latestNode.textContent = items[0] && items[0].added ? escapeHtml(items[0].added) : 'open';
+        latestNode.textContent = items[0] && items[0].title ? escapeHtml(items[0].title) : 'open';
 
         if (!items.length) {
           renderEmptyState();
@@ -529,7 +527,6 @@
 
         lightboxImage.src = resolveAssetPath(item.src || '');
         lightboxImage.alt = item.alt || item.title || 'Scrapbook image';
-        lightboxDate.textContent = item.added || 'open';
         lightboxTitle.textContent = item.title || 'Untitled Scrap';
         lightboxCollection.textContent = item.collection || 'Scrapbook';
         lightboxNote.textContent = item.note || 'Visual fragment added to the scrapbook wall.';
