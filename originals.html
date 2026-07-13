@@ -1076,8 +1076,9 @@
 
     .piece-lightbox-panel {
       position: relative;
-      width: min(960px, 100%);
-      max-height: min(88vh, 920px);
+      width: min(1100px, 100%);
+      max-height: min(90vh, 940px);
+      overflow-y: auto;
       padding: 22px 22px 18px;
       border: 1px solid rgba(215, 171, 82, 0.18);
       border-radius: 24px;
@@ -1087,6 +1088,13 @@
       box-shadow:
         0 22px 70px rgba(0,0,0,0.58),
         inset 0 0 20px rgba(255,255,255,0.02);
+    }
+
+    .piece-lightbox-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1.04fr) minmax(300px, 360px);
+      gap: 24px;
+      align-items: start;
     }
 
     .piece-lightbox-close {
@@ -1124,14 +1132,20 @@
       display: grid;
       gap: 14px;
       justify-items: center;
+      padding: 12px 14px 16px;
+      border: 1px solid rgba(215, 171, 82, 0.14);
+      border-radius: 22px;
+      background:
+        radial-gradient(circle at 50% 16%, rgba(214,168,79,0.08), transparent 30%),
+        rgba(255,255,255,0.02);
     }
 
     .piece-lightbox-image {
       display: block;
-      width: auto;
+      width: min(100%, 760px);
       height: auto;
       max-width: min(100%, 760px);
-      max-height: 66vh;
+      max-height: 58vh;
       object-fit: contain;
       filter:
         drop-shadow(0 0 26px rgba(255, 196, 92, 0.12))
@@ -1144,6 +1158,131 @@
       letter-spacing: 0.16em;
       text-transform: uppercase;
       text-align: center;
+      line-height: 1.7;
+    }
+
+    .piece-lightbox-config {
+      display: grid;
+      gap: 16px;
+      align-content: start;
+      padding: 10px 6px 8px;
+    }
+
+    .piece-lightbox-title {
+      margin: 0;
+      color: var(--text);
+      font-size: clamp(24px, 2.4vw, 34px);
+      line-height: 1.1;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .piece-lightbox-description {
+      margin: 0;
+      color: rgba(245, 239, 230, 0.86);
+      font-size: 14px;
+      line-height: 1.8;
+    }
+
+    .piece-lightbox-purchase-note {
+      padding: 14px 16px;
+      border: 1px solid rgba(215, 171, 82, 0.14);
+      border-radius: 18px;
+      background:
+        radial-gradient(circle at top left, rgba(214,168,79,0.07), transparent 30%),
+        rgba(255,255,255,0.02);
+      color: rgba(245, 239, 230, 0.76);
+      font-size: 12px;
+      line-height: 1.8;
+    }
+
+    .piece-lightbox-deposit-note {
+      color: var(--gold);
+      font-size: 10px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      opacity: 0.92;
+    }
+
+    .piece-lightbox-form {
+      display: grid;
+      gap: 12px;
+    }
+
+    .piece-lightbox-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .piece-lightbox-field {
+      display: grid;
+      gap: 6px;
+    }
+
+    .piece-lightbox-field label {
+      color: var(--gold);
+      font-size: 10px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+    }
+
+    .piece-lightbox-field select,
+    .piece-lightbox-field textarea {
+      width: 100%;
+      border: 1px solid rgba(215, 171, 82, 0.16);
+      border-radius: 16px;
+      background: rgba(10, 6, 4, 0.72);
+      color: var(--text);
+      padding: 12px 14px;
+      font-family: inherit;
+      font-size: 13px;
+      line-height: 1.5;
+      resize: vertical;
+      transition: border-color 0.22s ease, background 0.22s ease;
+    }
+
+    .piece-lightbox-field select:focus,
+    .piece-lightbox-field textarea:focus {
+      outline: none;
+      border-color: rgba(255, 220, 150, 0.42);
+      background: rgba(14, 10, 7, 0.92);
+    }
+
+    .piece-lightbox-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      padding-top: 4px;
+    }
+
+    .piece-lightbox-purchase,
+    .piece-lightbox-direct {
+      flex: 1 1 180px;
+      min-height: 42px;
+      justify-content: center;
+      text-align: center;
+    }
+
+    .piece-lightbox-direct {
+      display: inline-flex;
+      align-items: center;
+      border: 1px solid rgba(215, 171, 82, 0.18);
+      border-radius: 999px;
+      color: var(--gold);
+      font-size: 10px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      background: rgba(255,255,255,0.01);
+      transition: transform 0.24s ease, border-color 0.24s ease, background 0.24s ease, color 0.24s ease;
+    }
+
+    .piece-lightbox-direct:hover {
+      transform: translateY(-1px);
+      color: #fff2dc;
+      border-color: rgba(215, 171, 82, 0.28);
+      background: rgba(215, 171, 82, 0.11);
+    }
     }
 
     .builder-shell,
@@ -2549,11 +2688,31 @@
       display: block;
       width: 100%;
       height: auto;
+    }
+
+    body.originals-page .corner-signature-base {
       filter:
         grayscale(1)
         invert(1)
         brightness(1.08)
         drop-shadow(0 0 10px rgba(255, 255, 255, 0.08));
+    }
+
+    body.originals-page .corner-signature-pass {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      clip-path: inset(0 100% 0 0);
+      mix-blend-mode: screen;
+      filter:
+        grayscale(1)
+        invert(1)
+        brightness(1.38)
+        contrast(1.06)
+        drop-shadow(0 0 14px rgba(255, 255, 255, 0.22))
+        drop-shadow(0 0 28px rgba(255, 255, 255, 0.12));
+      transform: translateX(-1px) scale(1.01);
+      transform-origin: left center;
     }
 
     body.originals-page.originals-entered .corner-signature {
@@ -2592,8 +2751,56 @@
       }
     }
 
-    body.originals-page.originals-entered .corner-signature img {
+    body.originals-page.originals-entered .corner-signature-base {
       animation: cornerSignatureTone 8.8s ease-in-out 1.1s infinite;
+    }
+
+    @keyframes cornerSignatureWriteOn {
+      0%, 46% {
+        opacity: 0;
+        clip-path: inset(0 100% 0 0);
+        transform: translateX(-2px) scale(1.01);
+      }
+
+      49% {
+        opacity: 0;
+        clip-path: inset(0 100% 0 0);
+        transform: translateX(-2px) scale(1.01);
+      }
+
+      54% {
+        opacity: 0.84;
+        clip-path: inset(0 74% 0 0);
+        transform: translateX(-1px) scale(1.01);
+      }
+
+      61% {
+        opacity: 0.96;
+        clip-path: inset(0 34% 0 0);
+        transform: translateX(0) scale(1.005);
+      }
+
+      68% {
+        opacity: 0.9;
+        clip-path: inset(0 0 0 0);
+        transform: translateX(0) scale(1);
+      }
+
+      73% {
+        opacity: 0;
+        clip-path: inset(0 0 0 0);
+        transform: translateX(0) scale(1);
+      }
+
+      100% {
+        opacity: 0;
+        clip-path: inset(0 0 0 0);
+        transform: translateX(0) scale(1);
+      }
+    }
+
+    body.originals-page.originals-entered .corner-signature-pass {
+      animation: cornerSignatureWriteOn 17.6s cubic-bezier(.2,.72,.18,1) 1.4s infinite;
     }
 
     body.originals-page .shop-utility {
@@ -2882,6 +3089,15 @@
       line-height: 1.9;
     }
 
+    .originals-cart-item-idea {
+      margin-top: 8px;
+      color: rgba(246, 230, 202, 0.76);
+      font-size: 0.76rem;
+      line-height: 1.65;
+      text-transform: none;
+      letter-spacing: 0.01em;
+    }
+
     .originals-cart-item-actions {
       display: flex;
       align-items: center;
@@ -3156,9 +3372,29 @@
         width: 100%;
         border-radius: 24px;
       }
+
+      .piece-lightbox-layout {
+        grid-template-columns: 1fr;
+      }
+
+      .piece-lightbox-image {
+        max-height: 46vh;
+      }
     }
 
     @media (max-width: 640px) {
+      .piece-lightbox-panel {
+        padding: 18px 18px 16px;
+      }
+
+      .piece-lightbox-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .piece-lightbox-figure {
+        padding: 10px 10px 14px;
+      }
+
       body.originals-page .corner-signature {
         top: 14px;
         left: 14px;
@@ -3225,7 +3461,8 @@
   </a>
 
   <div class="corner-signature" aria-hidden="true">
-    <img src="nate-savard-signature-corner.png" alt="Nate Savard signature" />
+    <img src="nate-savard-signature-corner.png" alt="Nate Savard signature" class="corner-signature-base" />
+    <img src="nate-savard-signature-write-on.png" alt="" class="corner-signature-pass" />
   </div>
 
   <div class="shop-utility" aria-label="Shop utility">
@@ -3843,12 +4080,48 @@
 
   <div class="piece-lightbox" id="pieceLightbox" aria-hidden="true">
     <div class="piece-lightbox-panel">
-      <button class="piece-lightbox-close" id="pieceLightboxClose" type="button" aria-label="Close enlarged image">×</button>
-      <div class="piece-lightbox-kicker">collector preview</div>
-      <figure class="piece-lightbox-figure">
-        <img src="" alt="" class="piece-lightbox-image" id="pieceLightboxImage" />
-        <figcaption class="piece-lightbox-caption" id="pieceLightboxCaption"></figcaption>
-      </figure>
+      <button class="piece-lightbox-close" id="pieceLightboxClose" type="button" aria-label="Close piece purchase panel">×</button>
+      <div class="piece-lightbox-kicker" id="pieceLightboxKicker">collector preview / purchase</div>
+      <div class="piece-lightbox-layout">
+        <figure class="piece-lightbox-figure">
+          <img src="" alt="" class="piece-lightbox-image" id="pieceLightboxImage" />
+          <figcaption class="piece-lightbox-caption" id="pieceLightboxCaption"></figcaption>
+        </figure>
+        <div class="piece-lightbox-config">
+          <h3 class="piece-lightbox-title" id="pieceLightboxTitle">Collector Piece</h3>
+          <p class="piece-lightbox-description" id="pieceLightboxDescription">Choose your stone, your size, and your idea for the build.</p>
+          <div class="piece-lightbox-purchase-note">
+            Build your version here. Size, stone choice, and your idea for the piece all travel into the collector cart and checkout email.
+          </div>
+          <div class="piece-lightbox-deposit-note">20% down starts your custom piece.</div>
+          <div class="piece-lightbox-form">
+            <div class="piece-lightbox-grid">
+              <div class="piece-lightbox-field">
+                <label for="pieceLightboxSizeSelect" id="pieceLightboxSizeLabel">ring size</label>
+                <select id="pieceLightboxSizeSelect"></select>
+              </div>
+              <div class="piece-lightbox-field">
+                <label for="pieceLightboxStoneSelect">center stone</label>
+                <select id="pieceLightboxStoneSelect"></select>
+              </div>
+            </div>
+            <div class="piece-lightbox-grid">
+              <div class="piece-lightbox-field">
+                <label for="pieceLightboxQuantitySelect">quantity</label>
+                <select id="pieceLightboxQuantitySelect"></select>
+              </div>
+            </div>
+            <div class="piece-lightbox-field">
+              <label for="pieceLightboxIdea">idea for the piece</label>
+              <textarea id="pieceLightboxIdea" rows="5" placeholder="Stone energy, family idea, custom engraving, symbolism, colors, what you want it to feel like"></textarea>
+            </div>
+            <div class="piece-lightbox-actions">
+              <button class="product-add-cart is-primary piece-lightbox-purchase" id="pieceLightboxAddToCart" type="button">add to cart</button>
+              <a class="piece-lightbox-direct" id="pieceLightboxInquire" href="mailto:natesavard@outlook.com?subject=Original%20Collection%20Purchase%20Inquiry">inquire direct</a>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -3882,7 +4155,7 @@
           <label for="originalsCartNotes">Order notes</label>
           <textarea id="originalsCartNotes" rows="4" placeholder="Size changes, center stone request, metal preference, timeline"></textarea>
         </div>
-        <div class="originals-cart-summary">Checkout opens an email to natesavard@outlook.com with your selected pieces, quantities, and collector info.</div>
+        <div class="originals-cart-summary">Checkout opens an email to natesavard@outlook.com with your selected pieces, quantities, collector info, and the note that custom work begins with 20% down.</div>
         <div class="originals-cart-actions">
           <button class="originals-cart-action" id="originalsClearCartButton" type="button">clear cart</button>
           <button class="originals-cart-action is-primary" id="originalsCheckoutButton" type="button">checkout via email</button>
@@ -4021,58 +4294,19 @@
 
     (() => {
       const lightbox = document.getElementById('pieceLightbox');
+      const lightboxKicker = document.getElementById('pieceLightboxKicker');
       const lightboxImage = document.getElementById('pieceLightboxImage');
       const lightboxCaption = document.getElementById('pieceLightboxCaption');
+      const lightboxTitle = document.getElementById('pieceLightboxTitle');
+      const lightboxDescription = document.getElementById('pieceLightboxDescription');
+      const lightboxSizeLabel = document.getElementById('pieceLightboxSizeLabel');
+      const lightboxSizeSelect = document.getElementById('pieceLightboxSizeSelect');
+      const lightboxStoneSelect = document.getElementById('pieceLightboxStoneSelect');
+      const lightboxQuantitySelect = document.getElementById('pieceLightboxQuantitySelect');
+      const lightboxIdea = document.getElementById('pieceLightboxIdea');
+      const lightboxAddToCart = document.getElementById('pieceLightboxAddToCart');
+      const lightboxInquire = document.getElementById('pieceLightboxInquire');
       const lightboxClose = document.getElementById('pieceLightboxClose');
-
-      if (!lightbox || !lightboxImage || !lightboxCaption || !lightboxClose) return;
-
-      function openPiece(trigger) {
-        const image = trigger.getAttribute('data-piece-image');
-        const title = trigger.getAttribute('data-piece-title') || 'Collector piece';
-        const altText = trigger.querySelector('img') ? trigger.querySelector('img').getAttribute('alt') : title;
-
-        lightboxImage.src = image;
-        lightboxImage.alt = altText || title;
-        lightboxCaption.textContent = title;
-        lightbox.classList.add('is-open');
-        lightbox.setAttribute('aria-hidden', 'false');
-        document.body.style.overflow = 'hidden';
-      }
-
-      function closePiece() {
-        lightbox.classList.remove('is-open');
-        lightbox.setAttribute('aria-hidden', 'true');
-        document.body.style.overflow = '';
-      }
-
-      document.addEventListener('click', (event) => {
-        const trigger = event.target.closest('.piece-trigger');
-        if (!trigger) return;
-        if (lightbox.contains(trigger)) return;
-        openPiece(trigger);
-      });
-
-      document.addEventListener('keydown', (event) => {
-        const trigger = document.activeElement && document.activeElement.closest ? document.activeElement.closest('.piece-trigger') : null;
-        if (trigger && (event.key === 'Enter' || event.key === ' ')) {
-          event.preventDefault();
-          openPiece(trigger);
-          return;
-        }
-
-        if (event.key === 'Escape' && lightbox.classList.contains('is-open')) {
-          closePiece();
-        }
-      });
-
-      lightboxClose.addEventListener('click', closePiece);
-      lightbox.addEventListener('click', (event) => {
-        if (event.target === lightbox) closePiece();
-      });
-    })();
-
-    (() => {
       const cartShell = document.getElementById('originalsCartShell');
       const cartBackdrop = document.getElementById('originalsCartBackdrop');
       const cartToggle = document.getElementById('originalsCartToggle');
@@ -4086,16 +4320,39 @@
       const clearCartButton = document.getElementById('originalsClearCartButton');
       const checkoutButton = document.getElementById('originalsCheckoutButton');
       const productCards = Array.from(document.querySelectorAll('.product-card'));
-      const lightbox = document.getElementById('pieceLightbox');
-      const lightboxImage = document.getElementById('pieceLightboxImage');
-      const lightboxCaption = document.getElementById('pieceLightboxCaption');
 
-      if (!cartShell || !cartToggle || !cartCount || !cartItems || !productCards.length) return;
+      if (
+        !lightbox || !lightboxImage || !lightboxCaption || !lightboxTitle || !lightboxDescription ||
+        !lightboxSizeLabel || !lightboxSizeSelect || !lightboxStoneSelect || !lightboxQuantitySelect ||
+        !lightboxIdea || !lightboxAddToCart || !lightboxInquire || !lightboxClose ||
+        !cartShell || !cartToggle || !cartCount || !cartItems
+      ) return;
 
       const cartStorageKey = 'originals-collector-cart';
       const cartInfoKey = 'originals-collector-cart-info';
+      const stoneCatalog = [
+        'Diamond',
+        'Ruby',
+        'Sapphire',
+        'Emerald',
+        'Opal',
+        'Onyx',
+        'Black Diamond',
+        'Alexandrite',
+        'Amethyst',
+        'Aquamarine',
+        'Citrine',
+        'Garnet',
+        'Morganite',
+        'Spinel',
+        'Tourmaline',
+        'Topaz',
+        'Custom / other stone'
+      ];
+      const quantityChoices = ['1', '2', '3', '4', '5', '6'];
       let cart = [];
       let bumpTimer = null;
+      let activePiece = null;
 
       function escapeHtml(value = '') {
         return String(value)
@@ -4114,63 +4371,273 @@
           .replace(/^-+|-+$/g, '');
       }
 
-      function inferProductSpec(name, description) {
+      function clampQuantity(value, max = 12) {
+        const amount = Number(value) || 1;
+        return Math.max(1, Math.min(max, amount));
+      }
+
+      function truncateText(value = '', max = 120) {
+        return value.length > max ? `${value.slice(0, max - 1)}…` : value;
+      }
+
+      function inferPieceKind(name, description) {
         const normalized = `${name} ${description}`.toLowerCase();
 
-        if (normalized.includes('spinner')) {
+        if (normalized.includes('bracelet')) return 'bracelet';
+        if (normalized.includes('chain')) return 'chain';
+        if (normalized.includes('ring') || normalized.includes('signet') || normalized.includes('frame') || normalized.includes('heirloom') || normalized.includes('cathedral')) return 'ring';
+        if (normalized.includes('spinner') || normalized.includes('pendant') || normalized.includes('talisman') || normalized.includes('medallion')) return 'pendant';
+        return 'object';
+      }
+
+      function getStoneOptions(kind) {
+        if (kind === 'chain' || kind === 'bracelet') {
+          return ['No center stone / metal only', ...stoneCatalog];
+        }
+
+        return stoneCatalog.slice();
+      }
+
+      function getSizeConfig(kind) {
+        if (kind === 'ring') {
           return {
-            optionLabel: 'center stone',
-            optionValue: normalized.includes('opal') ? 'opal' : normalized.includes('sapphire') ? 'sapphire' : 'sapphire / opal'
+            label: 'ring size',
+            options: ['5', '5.5', '6', '6.5', '7', '7.5', '8', '8.5', '9', '9.5', '10', '10.5', '11', '11.5', '12', '12.5', '13', '14', '15'],
+            defaultValue: '9'
           };
         }
 
-        if (normalized.includes('chain')) {
+        if (kind === 'chain') {
           return {
-            optionLabel: 'finish',
-            optionValue: normalized.includes('silver') ? 'sterling silver' : 'collector metal'
+            label: 'chain length',
+            options: ['18"', '20"', '22"', '24"', '26"', '28"'],
+            defaultValue: '22"'
           };
         }
 
-        if (normalized.includes('pendant') || normalized.includes('talisman')) {
+        if (kind === 'bracelet') {
           return {
-            optionLabel: 'gold',
-            optionValue: normalized.includes('black') ? 'black gold' : '18k yellow gold'
-          };
-        }
-
-        if (normalized.includes('ring') || normalized.includes('signet') || normalized.includes('frame')) {
-          return {
-            optionLabel: 'size reference',
-            optionValue: 'size 9'
+            label: 'bracelet size',
+            options: ['7"', '7.5"', '8"', '8.5"', '9"'],
+            defaultValue: '8"'
           };
         }
 
         return {
-          optionLabel: 'build',
-          optionValue: 'collector build'
+          label: 'piece scale',
+          options: ['petite', 'standard', 'large', 'heavy'],
+          defaultValue: 'standard'
+        };
+      }
+
+      function inferDefaultStone(name, description, options) {
+        const normalized = `${name} ${description}`.toLowerCase();
+        const matches = [
+          ['black diamond', 'Black Diamond'],
+          ['diamond', 'Diamond'],
+          ['ruby', 'Ruby'],
+          ['sapphire', 'Sapphire'],
+          ['emerald', 'Emerald'],
+          ['opal', 'Opal'],
+          ['onyx', 'Onyx'],
+          ['alexandrite', 'Alexandrite'],
+          ['amethyst', 'Amethyst'],
+          ['aquamarine', 'Aquamarine'],
+          ['citrine', 'Citrine'],
+          ['garnet', 'Garnet'],
+          ['morganite', 'Morganite'],
+          ['spinel', 'Spinel'],
+          ['tourmaline', 'Tourmaline'],
+          ['topaz', 'Topaz']
+        ];
+
+        for (const [needle, label] of matches) {
+          if (normalized.includes(needle) && options.includes(label)) {
+            return label;
+          }
+        }
+
+        if (options.includes('No center stone / metal only')) {
+          return 'No center stone / metal only';
+        }
+
+        return options[0] || 'Custom / other stone';
+      }
+
+      function normalizeSelection(value, options, fallback) {
+        const normalizedOptions = options.map((option) => String(option));
+        const candidate = value == null ? '' : String(value);
+        return normalizedOptions.includes(candidate) ? candidate : String(fallback);
+      }
+
+      function findScopedText(container, selectors) {
+        if (!container) return '';
+
+        for (const selector of selectors) {
+          const node = container.querySelector(selector);
+          if (node && node.textContent && node.textContent.trim()) {
+            return node.textContent.trim();
+          }
+        }
+
+        return '';
+      }
+
+      function defaultDescriptionFor(name, kind) {
+        if (kind === 'ring') {
+          return `${name} from the Original Collection, ready for your ring size, stone direction, and custom idea.`;
+        }
+
+        if (kind === 'chain' || kind === 'bracelet') {
+          return `${name} from the Original Collection, ready for your fit, stone direction, and private collector notes.`;
+        }
+
+        return `${name} from the Original Collection, ready for your stone selection, piece scale, and custom idea.`;
+      }
+
+      function defaultMailHref(name) {
+        const safeName = name || 'Original Collection Piece';
+        return `mailto:natesavard@outlook.com?subject=${encodeURIComponent(`${safeName} Purchase Inquiry`)}`;
+      }
+
+      function buildPurchaseMailto(product) {
+        const lines = [
+          'ORIGINAL COLLECTION PIECE REQUEST',
+          '',
+          `Piece: ${product.name}`,
+          `${product.sizeLabel}: ${product.sizeValue}`,
+          `Stone: ${product.stoneValue}`,
+          `Quantity: ${product.quantity}`,
+          `Idea for the piece: ${product.idea || ''}`,
+          'Deposit: 20% down to begin custom work',
+          '',
+          'Please send pricing direction, next steps, and stone availability for this build.'
+        ];
+
+        return `mailto:natesavard@outlook.com?subject=${encodeURIComponent(`${product.name} Purchase Inquiry`)}&body=${encodeURIComponent(lines.join('\n'))}`;
+      }
+
+      function populateSelect(select, options, selectedValue) {
+        select.innerHTML = options.map((option) => {
+          const label = String(option);
+          const selected = label === String(selectedValue) ? ' selected' : '';
+          return `<option value="${escapeHtml(label)}"${selected}>${escapeHtml(label)}</option>`;
+        }).join('');
+      }
+
+      function buildBaseProduct(raw = {}) {
+        const name = raw.name || 'Original Collection Piece';
+        const description = raw.description || defaultDescriptionFor(name, raw.pieceKind || inferPieceKind(name, ''));
+        const pieceKind = raw.pieceKind || inferPieceKind(name, description);
+        const sizeConfig = getSizeConfig(pieceKind);
+        const stoneOptions = Array.isArray(raw.stoneOptions) && raw.stoneOptions.length ? raw.stoneOptions.slice() : getStoneOptions(pieceKind);
+        const sizeValue = normalizeSelection(raw.sizeValue, sizeConfig.options, raw.sizeValue || sizeConfig.defaultValue);
+        const stoneValue = normalizeSelection(raw.stoneValue, stoneOptions, inferDefaultStone(name, description, stoneOptions));
+
+        return {
+          idBase: raw.idBase || slugify(name),
+          name,
+          description,
+          image: raw.image || '',
+          alt: raw.alt || name,
+          price: raw.price || 'private quote',
+          mailHref: raw.mailHref || defaultMailHref(name),
+          pieceKind,
+          sizeLabel: raw.sizeLabel || sizeConfig.label,
+          sizeOptions: sizeConfig.options.slice(),
+          sizeValue,
+          stoneOptions: stoneOptions.slice(),
+          stoneValue,
+          idea: typeof raw.idea === 'string' ? raw.idea.trim() : '',
+          quantity: clampQuantity(raw.quantity || 1)
         };
       }
 
       function getProductFromCard(card) {
-        const nameNode = card.querySelector('.product-name');
-        const descNode = card.querySelector('.product-desc');
-        const imageTrigger = card.querySelector('.piece-trigger');
+        const trigger = card.querySelector('.piece-trigger');
         const imageNode = card.querySelector('img');
-        const name = nameNode ? nameNode.textContent.trim() : 'Original Collection Piece';
-        const description = descNode ? descNode.textContent.trim() : 'Private collector piece from the Original Collection.';
-        const image = imageTrigger ? imageTrigger.getAttribute('data-piece-image') || '' : imageNode ? imageNode.getAttribute('src') || '' : '';
-        const alt = imageNode ? imageNode.getAttribute('alt') || name : name;
-        const spec = inferProductSpec(name, description);
+        const name = findScopedText(card, ['.product-name']) || 'Original Collection Piece';
+        const description = findScopedText(card, ['.product-desc']) || defaultDescriptionFor(name, inferPieceKind(name, ''));
+        const productLink = card.querySelector('.product-link');
 
-        return {
+        return buildBaseProduct({
           idBase: slugify(name),
           name,
           description,
+          image: trigger ? trigger.getAttribute('data-piece-image') || '' : imageNode ? imageNode.getAttribute('src') || '' : '',
+          alt: imageNode ? imageNode.getAttribute('alt') || name : name,
+          mailHref: productLink ? productLink.getAttribute('href') || defaultMailHref(name) : defaultMailHref(name)
+        });
+      }
+
+      function getProductFromTrigger(trigger) {
+        const title = trigger.getAttribute('data-piece-title') || 'Collector piece';
+        const imageNode = trigger.querySelector('img');
+        const image = trigger.getAttribute('data-piece-image') || (imageNode ? imageNode.getAttribute('src') || '' : '');
+        const alt = imageNode ? imageNode.getAttribute('alt') || title : title;
+        const productCard = trigger.closest('.product-card');
+        const builderCard = trigger.closest('.builder-match-card');
+        const storyCard = trigger.closest('.story-card');
+        const heroVisual = trigger.closest('.hero-visual');
+
+        const description =
+          findScopedText(productCard, ['.product-desc']) ||
+          findScopedText(builderCard, ['.builder-match-desc']) ||
+          findScopedText(storyCard, ['.story-copy']) ||
+          findScopedText(heroVisual, ['.hero-copy p']) ||
+          defaultDescriptionFor(title, inferPieceKind(title, ''));
+
+        const mailHref =
+          (productCard && productCard.querySelector('.product-link') && productCard.querySelector('.product-link').getAttribute('href')) ||
+          (builderCard && builderCard.querySelector('.story-link') && builderCard.querySelector('.story-link').getAttribute('href')) ||
+          (storyCard && storyCard.querySelector('.story-link') && storyCard.querySelector('.story-link').getAttribute('href')) ||
+          defaultMailHref(title);
+
+        return buildBaseProduct({
+          idBase: slugify(title),
+          name: title,
+          description,
           image,
           alt,
-          price: 'private quote',
-          optionLabel: spec.optionLabel,
-          optionValue: spec.optionValue
+          mailHref
+        });
+      }
+
+      function composeCartId(product) {
+        const ideaKey = slugify((product.idea || '').slice(0, 48)) || 'no-idea';
+        return `${product.idBase}--${slugify(product.sizeValue)}--${slugify(product.stoneValue)}--${ideaKey}`;
+      }
+
+      function normalizeCartItem(item) {
+        if (!item || typeof item !== 'object') return null;
+
+        const legacyLabel = typeof item.optionLabel === 'string' ? item.optionLabel.toLowerCase() : '';
+        const legacyValue = typeof item.optionValue === 'string' ? item.optionValue : '';
+        const legacyIdea = !item.idea && legacyLabel && legacyValue && !legacyLabel.includes('size') && !legacyLabel.includes('stone')
+          ? `${item.optionLabel}: ${legacyValue}`
+          : '';
+
+        const normalized = buildBaseProduct({
+          idBase: item.idBase || slugify(item.name || 'original-collection-piece'),
+          name: item.name || 'Original Collection Piece',
+          description: item.description || '',
+          image: item.image || '',
+          alt: item.alt || item.name || 'Original Collection Piece',
+          price: item.price || 'private quote',
+          mailHref: item.mailHref || defaultMailHref(item.name || 'Original Collection Piece'),
+          pieceKind: item.pieceKind,
+          sizeLabel: item.sizeLabel,
+          sizeValue: item.sizeValue || (legacyLabel.includes('size') ? legacyValue : ''),
+          stoneOptions: item.stoneOptions,
+          stoneValue: item.stoneValue || (legacyLabel.includes('stone') ? legacyValue : ''),
+          idea: item.idea || legacyIdea,
+          quantity: item.quantity || 1
+        });
+
+        return {
+          ...normalized,
+          id: item.id || composeCartId(normalized),
+          quantity: clampQuantity(item.quantity || normalized.quantity)
         };
       }
 
@@ -4178,7 +4645,9 @@
         try {
           const stored = window.localStorage.getItem(cartStorageKey);
           const parsed = stored ? JSON.parse(stored) : [];
-          cart = Array.isArray(parsed) ? parsed : [];
+          cart = Array.isArray(parsed)
+            ? parsed.map(normalizeCartItem).filter(Boolean)
+            : [];
         } catch (error) {
           cart = [];
         }
@@ -4220,7 +4689,7 @@
       }
 
       function updateCartCount() {
-        const total = cart.reduce((sum, item) => sum + (Number(item.quantity) || 0), 0);
+        const total = cart.reduce((sum, item) => sum + clampQuantity(item.quantity), 0);
         cartCount.textContent = String(total);
         cartToggle.setAttribute('aria-label', total ? `Open cart with ${total} selected pieces` : 'Open cart');
       }
@@ -4235,6 +4704,30 @@
         }, 450);
       }
 
+      function closePiece(preserveLock = false) {
+        lightbox.classList.remove('is-open');
+        lightbox.setAttribute('aria-hidden', 'true');
+        if (!preserveLock && !cartShell.classList.contains('is-open')) {
+          document.body.style.overflow = '';
+        }
+      }
+
+      function openCart() {
+        cartShell.classList.add('is-open');
+        cartShell.setAttribute('aria-hidden', 'false');
+        cartToggle.setAttribute('aria-expanded', 'true');
+        document.body.style.overflow = 'hidden';
+      }
+
+      function closeCart(preserveLock = false) {
+        cartShell.classList.remove('is-open');
+        cartShell.setAttribute('aria-hidden', 'true');
+        cartToggle.setAttribute('aria-expanded', 'false');
+        if (!preserveLock && !lightbox.classList.contains('is-open')) {
+          document.body.style.overflow = '';
+        }
+      }
+
       function renderCart() {
         if (!cart.length) {
           cartItems.innerHTML = '<div class="originals-cart-empty">Your cart is empty. add a piece from the collection.</div>';
@@ -4242,74 +4735,107 @@
           return;
         }
 
-        cartItems.innerHTML = cart.map((item) => `
-          <div class="originals-cart-item">
-            <button type="button" class="originals-cart-item-preview" data-originals-cart-preview="${escapeHtml(item.id)}">
-              <div class="originals-cart-item-image"><img src="${escapeHtml(item.image)}" alt="${escapeHtml(item.alt || item.name)}" /></div>
-              <div>
-                <div class="originals-cart-item-name">${escapeHtml(item.name)}</div>
-                <div class="originals-cart-item-meta">${escapeHtml(item.optionLabel)}: ${escapeHtml(item.optionValue)} / qty ${escapeHtml(item.quantity)}<br />${escapeHtml(item.price)}</div>
+        cartItems.innerHTML = cart.map((item) => {
+          const ideaHtml = item.idea
+            ? `<div class="originals-cart-item-idea">idea: ${escapeHtml(truncateText(item.idea, 110))}</div>`
+            : '';
+
+          return `
+            <div class="originals-cart-item">
+              <button type="button" class="originals-cart-item-preview" data-originals-cart-preview="${escapeHtml(item.id)}">
+                <div class="originals-cart-item-image"><img src="${escapeHtml(item.image)}" alt="${escapeHtml(item.alt || item.name)}" /></div>
+                <div>
+                  <div class="originals-cart-item-name">${escapeHtml(item.name)}</div>
+                  <div class="originals-cart-item-meta">${escapeHtml(item.sizeLabel)}: ${escapeHtml(item.sizeValue)}<br />stone: ${escapeHtml(item.stoneValue)} / qty ${escapeHtml(item.quantity)}<br />${escapeHtml(item.price)}</div>
+                  ${ideaHtml}
+                </div>
+              </button>
+              <div class="originals-cart-item-actions">
+                <button type="button" data-originals-cart-action="decrease" data-originals-cart-id="${escapeHtml(item.id)}">less</button>
+                <button type="button" data-originals-cart-action="increase" data-originals-cart-id="${escapeHtml(item.id)}">more</button>
+                <button type="button" data-originals-cart-action="remove" data-originals-cart-id="${escapeHtml(item.id)}">remove</button>
               </div>
-            </button>
-            <div class="originals-cart-item-actions">
-              <button type="button" data-originals-cart-action="decrease" data-originals-cart-id="${escapeHtml(item.id)}">less</button>
-              <button type="button" data-originals-cart-action="increase" data-originals-cart-id="${escapeHtml(item.id)}">more</button>
-              <button type="button" data-originals-cart-action="remove" data-originals-cart-id="${escapeHtml(item.id)}">remove</button>
             </div>
-          </div>
-        `).join('');
+          `;
+        }).join('');
 
         updateCartCount();
       }
 
-      function openCart() {
-        cartShell.classList.add('is-open');
-        cartShell.setAttribute('aria-hidden', 'false');
-        cartToggle.setAttribute('aria-expanded', 'true');
+      function syncDirectInquiry() {
+        const product = collectConfiguredProduct();
+        if (!product) return;
+        lightboxInquire.href = buildPurchaseMailto(product);
       }
 
-      function closeCart() {
-        cartShell.classList.remove('is-open');
-        cartShell.setAttribute('aria-hidden', 'true');
-        cartToggle.setAttribute('aria-expanded', 'false');
+      function syncLightbox(product) {
+        activePiece = buildBaseProduct(product);
+        if (lightboxKicker) {
+          lightboxKicker.textContent = 'collector purchase / original collection';
+        }
+        lightboxImage.src = activePiece.image;
+        lightboxImage.alt = activePiece.alt || activePiece.name;
+        lightboxCaption.textContent = `${activePiece.name} / private quote / original collection`;
+        lightboxTitle.textContent = activePiece.name;
+        lightboxDescription.textContent = activePiece.description;
+        lightboxSizeLabel.textContent = activePiece.sizeLabel;
+        populateSelect(lightboxSizeSelect, activePiece.sizeOptions, activePiece.sizeValue);
+        populateSelect(lightboxStoneSelect, activePiece.stoneOptions, activePiece.stoneValue);
+        populateSelect(lightboxQuantitySelect, quantityChoices, String(activePiece.quantity));
+        lightboxIdea.value = activePiece.idea || '';
+        syncDirectInquiry();
       }
 
-      function openPiecePreview(item) {
-        if (!item || !lightbox || !lightboxImage || !lightboxCaption) return;
-        closeCart();
-        lightboxImage.src = item.image;
-        lightboxImage.alt = item.alt || item.name;
-        lightboxCaption.textContent = item.name;
+      function openPieceConfigurator(product) {
+        if (!product) return;
+        closeCart(true);
+        syncLightbox(product);
         lightbox.classList.add('is-open');
         lightbox.setAttribute('aria-hidden', 'false');
         document.body.style.overflow = 'hidden';
       }
 
+      function collectConfiguredProduct() {
+        if (!activePiece) return null;
+
+        return buildBaseProduct({
+          ...activePiece,
+          sizeValue: lightboxSizeSelect.value,
+          stoneValue: lightboxStoneSelect.value,
+          quantity: Number(lightboxQuantitySelect.value || 1),
+          idea: lightboxIdea.value || ''
+        });
+      }
+
+      function sameConfiguration(currentItem, nextItem) {
+        return (
+          currentItem.name === nextItem.name &&
+          currentItem.sizeValue === nextItem.sizeValue &&
+          currentItem.stoneValue === nextItem.stoneValue &&
+          (currentItem.idea || '').trim().toLowerCase() === (nextItem.idea || '').trim().toLowerCase()
+        );
+      }
+
       function addProductToCart(product) {
         if (!product || !product.name) return;
 
-        const existing = cart.find((item) => item.name === product.name && item.optionValue === product.optionValue);
+        const prepared = normalizeCartItem(product);
+        if (!prepared) return;
+
+        const existing = cart.find((item) => sameConfiguration(item, prepared));
 
         if (existing) {
-          existing.quantity += 1;
+          existing.quantity = clampQuantity(existing.quantity + prepared.quantity);
         } else {
           cart.push({
-            id: `${product.idBase}--${slugify(product.optionValue) || 'collector-build'}`,
-            name: product.name,
-            description: product.description,
-            image: product.image,
-            alt: product.alt,
-            price: product.price,
-            optionLabel: product.optionLabel,
-            optionValue: product.optionValue,
-            quantity: 1
+            ...prepared,
+            id: composeCartId(prepared)
           });
         }
 
         saveCart();
         renderCart();
         bumpCartToggle();
-        openCart();
       }
 
       function updateCartItem(id, action) {
@@ -4324,7 +4850,7 @@
           }
 
           if (action === 'increase') {
-            item.quantity += 1;
+            item.quantity = clampQuantity(item.quantity + 1);
           }
 
           if (action === 'decrease') {
@@ -4345,7 +4871,7 @@
       function previewCartItem(id) {
         const item = cart.find((entry) => entry.id === id);
         if (!item) return;
-        openPiecePreview(item);
+        openPieceConfigurator(item);
       }
 
       function buildCheckoutMailto() {
@@ -4359,14 +4885,18 @@
           `Name: ${cartName && cartName.value ? cartName.value : ''}`,
           `Email: ${cartEmail && cartEmail.value ? cartEmail.value : ''}`,
           `Shipping / Location: ${cartLocation && cartLocation.value ? cartLocation.value : ''}`,
+          'Deposit: 20% down to begin custom work',
           '',
           'Items:'
         ];
 
         cart.forEach((item, index) => {
-          linesForMail.push(
-            `${index + 1}. ${item.name} | ${item.optionLabel}: ${item.optionValue} | Qty: ${item.quantity} | Price: ${item.price}`
-          );
+          linesForMail.push(`${index + 1}. ${item.name}`);
+          linesForMail.push(`   ${item.sizeLabel}: ${item.sizeValue}`);
+          linesForMail.push(`   Stone: ${item.stoneValue}`);
+          linesForMail.push(`   Qty: ${item.quantity}`);
+          linesForMail.push(`   Price: ${item.price}`);
+          linesForMail.push(`   Idea: ${item.idea || ''}`);
         });
 
         linesForMail.push('');
@@ -4386,15 +4916,15 @@
         info.appendChild(actions);
         actions.appendChild(inquireLink);
 
-        const addButton = document.createElement('button');
-        addButton.type = 'button';
-        addButton.className = 'product-add-cart is-primary';
-        addButton.textContent = 'add to cart';
-        addButton.addEventListener('click', () => {
-          addProductToCart(getProductFromCard(card));
+        const purchaseButton = document.createElement('button');
+        purchaseButton.type = 'button';
+        purchaseButton.className = 'product-add-cart is-primary';
+        purchaseButton.textContent = 'purchase';
+        purchaseButton.addEventListener('click', () => {
+          openPieceConfigurator(getProductFromCard(card));
         });
 
-        actions.appendChild(addButton);
+        actions.appendChild(purchaseButton);
       }
 
       productCards.forEach(enhanceProductCard);
@@ -4409,12 +4939,59 @@
       });
 
       if (cartClose) {
-        cartClose.addEventListener('click', closeCart);
+        cartClose.addEventListener('click', () => closeCart());
       }
 
       if (cartBackdrop) {
-        cartBackdrop.addEventListener('click', closeCart);
+        cartBackdrop.addEventListener('click', () => closeCart());
       }
+
+      if (lightboxClose) {
+        lightboxClose.addEventListener('click', () => closePiece());
+      }
+
+      lightbox.addEventListener('click', (event) => {
+        if (event.target === lightbox) closePiece();
+      });
+
+      document.addEventListener('click', (event) => {
+        const trigger = event.target.closest('.piece-trigger');
+        if (!trigger) return;
+        if (lightbox.contains(trigger)) return;
+        openPieceConfigurator(getProductFromTrigger(trigger));
+      });
+
+      document.addEventListener('keydown', (event) => {
+        const trigger = document.activeElement && document.activeElement.closest ? document.activeElement.closest('.piece-trigger') : null;
+        if (trigger && (event.key === 'Enter' || event.key === ' ')) {
+          event.preventDefault();
+          openPieceConfigurator(getProductFromTrigger(trigger));
+          return;
+        }
+
+        if (event.key === 'Escape' && lightbox.classList.contains('is-open')) {
+          closePiece();
+          return;
+        }
+
+        if (event.key === 'Escape' && cartShell.classList.contains('is-open')) {
+          closeCart();
+        }
+      });
+
+      [lightboxSizeSelect, lightboxStoneSelect, lightboxQuantitySelect].forEach((field) => {
+        field.addEventListener('change', syncDirectInquiry);
+      });
+
+      lightboxIdea.addEventListener('input', syncDirectInquiry);
+
+      lightboxAddToCart.addEventListener('click', () => {
+        const product = collectConfiguredProduct();
+        if (!product) return;
+        addProductToCart(product);
+        closePiece(true);
+        openCart();
+      });
 
       cartItems.addEventListener('click', (event) => {
         const target = event.target;
@@ -4452,12 +5029,6 @@
           window.location.href = mailto;
         });
       }
-
-      document.addEventListener('keydown', (event) => {
-        if (event.key === 'Escape' && cartShell.classList.contains('is-open')) {
-          closeCart();
-        }
-      });
 
       loadCart();
       loadCartInfo();
