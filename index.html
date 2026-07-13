@@ -54,7 +54,7 @@
       background: var(--entry-portrait-image) 38% center / cover no-repeat;
       transform: scale(1.04);
       filter: saturate(0.96) contrast(1.02) brightness(0.98);
-      opacity: 0.6;
+      opacity: 0;
       animation: portraitFloat 13s ease-in-out infinite, backgroundSwapPortrait 27s ease-in-out infinite;
     }
 
@@ -75,7 +75,7 @@
       background: var(--entry-third-image) center center / cover no-repeat;
       transform: scale(1.05);
       filter: saturate(0.9) contrast(1.02) brightness(0.84);
-      opacity: 0;
+      opacity: 0.58;
       animation: thirdFloat 14.5s ease-in-out infinite, backgroundSwapThird 27s ease-in-out infinite;
     }
 
@@ -429,27 +429,27 @@
     @keyframes backgroundSwapPortrait {
       0%,
       27% {
-        opacity: 0.6;
-      }
-      33%,
-      93% {
         opacity: 0;
       }
-      100% {
+      33%,
+      60% {
         opacity: 0.6;
+      }
+      66%,
+      100% {
+        opacity: 0;
       }
     }
 
     @keyframes backgroundSwapStorefront {
       0%,
-      27% {
+      60% {
         opacity: 0;
       }
-      33%,
-      60% {
+      66%,
+      93% {
         opacity: 0.56;
       }
-      66%,
       100% {
         opacity: 0;
       }
@@ -457,13 +457,10 @@
 
     @keyframes backgroundSwapThird {
       0%,
-      60% {
-        opacity: 0;
-      }
-      66%,
-      93% {
+      27% {
         opacity: 0.58;
       }
+      33%,
       100% {
         opacity: 0;
       }

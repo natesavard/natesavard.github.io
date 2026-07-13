@@ -18,7 +18,7 @@ window.NATE_SCRAPBOOK_ITEMS = [
     alt: "Savard Racing patch crest",
     title: "Savard Racing",
     collection: "Identity Marks",
-    note: "Race-club patch language with flags, compass-star direction, rope borders, and a stitched Nate Savard crest built like a private motorsport house emblem."
+    note: "Race-club patch language with signal flags, compass-star direction, rope borders, and a stitched Nate Savard house crest forged for the NS Private Motorsport House."
   },
   {
     src: "scrapbook-assets/envynomadix-logo-no-bg.png",
