@@ -226,10 +226,11 @@
     .path-official-logo.base {
       position: relative;
       z-index: 2;
-      opacity: 0.76;
+      opacity: 0.72;
       filter:
-        invert(0.24)
-        brightness(0.76)
+        grayscale(1)
+        brightness(0.64)
+        contrast(1.04)
         drop-shadow(0 8px 18px rgba(0, 0, 0, 0.34));
       animation: envyBaseFade 14s ease-in-out infinite;
     }
@@ -238,12 +239,13 @@
       position: absolute;
       inset: 0;
       z-index: 3;
-      opacity: 0.18;
+      opacity: 0.12;
       filter:
-        invert(0.98)
-        brightness(0.98)
-        drop-shadow(0 0 10px rgba(255, 243, 217, 0.08))
-        drop-shadow(0 0 26px rgba(255, 243, 217, 0.08));
+        brightness(1.18)
+        saturate(0)
+        contrast(1.08)
+        drop-shadow(0 0 10px rgba(255, 243, 217, 0.12))
+        drop-shadow(0 0 28px rgba(255, 243, 217, 0.12));
       animation: envyWhiteFade 14s ease-in-out infinite;
     }
 
@@ -586,20 +588,20 @@
     @keyframes envyBaseFade {
       0%,
       100% {
-        opacity: 0.8;
+        opacity: 0.76;
       }
       50% {
-        opacity: 0.22;
+        opacity: 0.18;
       }
     }
 
     @keyframes envyWhiteFade {
       0%,
       100% {
-        opacity: 0.16;
+        opacity: 0.1;
       }
       50% {
-        opacity: 0.96;
+        opacity: 1;
       }
     }
 
@@ -714,9 +716,9 @@
 
     <a class="path right" href="envynomadix.html" aria-label="Enter Envynomadix fashion house">
       <span class="path-official-logo-stack" aria-hidden="true">
-        <img class="path-official-logo shadow" src="envy-official-logo.png" alt="" />
-        <img class="path-official-logo base" src="envy-official-logo.png" alt="" />
-        <img class="path-official-logo white" src="envy-official-logo.png" alt="" />
+        <img class="path-official-logo shadow" src="envy-nomadix-chrome-signature-cutout.png" alt="" />
+        <img class="path-official-logo base" src="envy-nomadix-chrome-signature-cutout.png" alt="" />
+        <img class="path-official-logo white" src="envy-nomadix-chrome-signature-cutout.png" alt="" />
       </span>
       <div class="path-kicker">Fashion House</div>
       <img class="path-logo" src="envy-cross.png" alt="Envy cross emblem" />
@@ -758,8 +760,9 @@
       }
 
       applyImageCandidate(".path-official-logo", [
-        "envy-official-logo.png",
-        "Envy Original Logo.png"
+        "envy-nomadix-chrome-signature-cutout.png",
+        "envynomadix-logo-no-bg.png",
+        "envy-nomadix-worldwide-signature.png"
       ]);
 
       applyImageCandidate(".path-wordmark.base", [
