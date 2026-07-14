@@ -4192,8 +4192,16 @@
     const floatingTopCross = document.getElementById('floatingTopCross');
     const footerScrollTop = document.getElementById('footerScrollTop');
     const logoShell = document.querySelector('.logo-shell');
+    const scrapbookEntrySourceKey = 'nate-originals-entry-source';
 
     let entered = false;
+    let scrapbookCornerEntry = false;
+
+    try {
+      scrapbookCornerEntry = window.sessionStorage.getItem(scrapbookEntrySourceKey) === 'scrapbook-corner-signature';
+    } catch (error) {
+      scrapbookCornerEntry = false;
+    }
 
     function rect(el) {
       return el.getBoundingClientRect();
@@ -4207,7 +4215,7 @@
       window.location.assign(window.location.pathname + window.location.search);
     }
 
-    enterButton.addEventListener('click', () => {
+    function triggerOriginalsEnter() {
       if (entered) return;
       entered = true;
 
@@ -4250,7 +4258,23 @@
         flyingLogo.style.display = 'none';
         flyingLogo.style.transform = '';
       }, 1480);
-    });
+    }
+
+    enterButton.addEventListener('click', triggerOriginalsEnter);
+
+    if (scrapbookCornerEntry) {
+      try {
+        window.sessionStorage.removeItem(scrapbookEntrySourceKey);
+      } catch (error) {
+        // ignore storage failures
+      }
+
+      window.requestAnimationFrame(() => {
+        window.requestAnimationFrame(() => {
+          triggerOriginalsEnter();
+        });
+      });
+    }
 
     if (floatingTopCross) {
       floatingTopCross.addEventListener('click', (e) => {

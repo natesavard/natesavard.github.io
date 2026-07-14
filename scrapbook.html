@@ -368,7 +368,12 @@
       width: clamp(118px, 11vw, 188px);
       opacity: 0;
       transform: translateY(-8px);
-      pointer-events: none;
+      pointer-events: auto;
+      border: 0;
+      padding: 0;
+      margin: 0;
+      background: transparent;
+      cursor: pointer;
       transition: opacity 1.8s ease 0.45s, transform 1.8s ease 0.45s;
     }
 
@@ -489,6 +494,49 @@
 
     body.scrapbook-page.scrapbook-entered .corner-signature-pass {
       animation: cornerSignatureWriteOn 17.6s cubic-bezier(.2,.72,.18,1) 1.4s infinite;
+    }
+
+    body.scrapbook-page.is-transitioning-originals .corner-signature {
+      z-index: 12020;
+      opacity: 1;
+      transform: translate(calc(50vw - 50% - 20px), calc(38vh - 18px)) scale(4.2);
+      transition:
+        transform 0.82s cubic-bezier(.18,.8,.18,1),
+        opacity 0.72s ease,
+        filter 0.72s ease;
+      animation: none;
+    }
+
+    body.scrapbook-page.is-transitioning-originals .corner-signature-base,
+    body.scrapbook-page.is-transitioning-originals .corner-signature-pass {
+      animation: none !important;
+    }
+
+    body.scrapbook-page.is-transitioning-originals .corner-signature-base {
+      filter:
+        grayscale(1)
+        invert(1)
+        brightness(1.18)
+        contrast(1.02)
+        drop-shadow(0 0 18px rgba(255, 255, 255, 0.24))
+        drop-shadow(0 0 42px rgba(255, 255, 255, 0.12));
+    }
+
+    body.scrapbook-page.is-transitioning-originals .corner-signature-pass {
+      opacity: 0.92;
+      clip-path: inset(0 0 0 0);
+    }
+
+    body.scrapbook-page.is-transitioning-originals .page,
+    body.scrapbook-page.is-transitioning-originals .shop-utility,
+    body.scrapbook-page.is-transitioning-originals .siteflow-shell,
+    body.scrapbook-page.is-transitioning-originals .siteflow-chat,
+    body.scrapbook-page.is-transitioning-originals .siteflow-pager,
+    body.scrapbook-page.is-transitioning-originals .siteflow-fragment {
+      opacity: 0;
+      transform: translateY(8px) scale(0.988);
+      transition: opacity 0.42s ease, transform 0.58s ease;
+      pointer-events: none;
     }
 
     body.scrapbook-page .shop-utility {
@@ -938,10 +986,10 @@
   </style>
 </head>
 <body class="scrapbook-page">
-  <div class="corner-signature" aria-hidden="true">
+  <button class="corner-signature" id="cornerSignatureLink" type="button" aria-label="Enter The Original Collection">
     <img src="nate-savard-signature-corner.png" alt="Nate Savard signature" class="corner-signature-base" />
     <img src="nate-savard-signature-write-on.png" alt="" class="corner-signature-pass" />
-  </div>
+  </button>
   <div class="shop-utility" aria-label="Shop utility">
     <a href="originals.html#designs" class="shop-utility-kicker">shop</a>
     <button class="shop-utility-link is-primary" id="scrapbookCartToggle" type="button">cart <span class="shop-cart-count" id="scrapbookCartCount">0</span></button>
@@ -1037,6 +1085,7 @@
       const cartNotes = document.getElementById('scrapbookCartNotes');
       const clearCartButton = document.getElementById('scrapbookClearCartButton');
       const checkoutButton = document.getElementById('scrapbookCheckoutButton');
+      const cornerSignatureLink = document.getElementById('cornerSignatureLink');
       const cartStorageKey = 'originals-collector-cart';
       const cartInfoKey = 'originals-collector-cart-info';
       let currentLightboxIndex = -1;
@@ -1464,6 +1513,26 @@
           loadCartInfo();
         }
       });
+
+      function openOriginalsFromCornerSignature() {
+        if (document.body.classList.contains('is-transitioning-originals')) return;
+
+        try {
+          window.sessionStorage.setItem('nate-originals-entry-source', 'scrapbook-corner-signature');
+        } catch (error) {
+          // ignore storage failures and continue
+        }
+
+        document.body.classList.add('is-transitioning-originals');
+
+        window.setTimeout(() => {
+          window.location.href = 'originals.html';
+        }, 760);
+      }
+
+      if (cornerSignatureLink) {
+        cornerSignatureLink.addEventListener('click', openOriginalsFromCornerSignature);
+      }
 
       renderWall();
       loadCart();

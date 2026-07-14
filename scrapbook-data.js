@@ -7,13 +7,6 @@
 
 window.NATE_SCRAPBOOK_ITEMS = [
   {
-    src: "scrapbook-assets/Nomadix PSD logo Infinie.png",
-    alt: "Nomadix script logo Infinie",
-    title: "Nomadix Infinie",
-    collection: "Envynomadix",
-    note: "A stripped script-forward Nomadix mark with that long low sweep and clean house-signature pressure."
-  },
-  {
     src: "scrapbook-assets/s-savard-single-s-logo.png",
     alt: "Single S Savard logo",
     title: "Single S Savard",
@@ -173,5 +166,12 @@ window.NATE_SCRAPBOOK_ITEMS = [
     title: "NS Monogram Chain",
     collection: "Original Collection",
     note: "A house-identity chain piece that reads like symbol language instead of ordinary jewelry."
+  },
+  {
+    src: "scrapbook-assets/Nomadix PSD logo Infinie.png",
+    alt: "Nomadix script logo Infinie",
+    title: "Nomadix Infinie",
+    collection: "Envynomadix",
+    note: "A stripped script-forward Nomadix mark with that long low sweep and clean house-signature pressure."
   }
 ];
