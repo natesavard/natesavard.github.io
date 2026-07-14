@@ -3127,9 +3127,7 @@
     <div class="envy-logo-cursor" id="envyLogoCursor" aria-hidden="true"></div>
     <audio id="backgroundMusic" preload="auto" loop playsinline>
       <source src="Song%203%20FULLLL.mp3" type="audio/mpeg" />
-      <source src="nate%20savard%20-%20chosen%20few%20song%203.mp3" type="audio/mpeg" />
       <source src="https://raw.githubusercontent.com/natesavard/natesavard.github.io/main/Song%203%20FULLLL.mp3" type="audio/mpeg" />
-      <source src="https://raw.githubusercontent.com/natesavard/natesavard.github.io/main/nate%20savard%20-%20chosen%20few%20song%203.mp3" type="audio/mpeg" />
     </audio>
     <div class="screen">
       <div class="bg"></div>
@@ -3673,6 +3671,8 @@
       var lineIndex = 0;
       var interfaceAudio = null;
       var backgroundMusicStarted = false;
+      var backgroundMusicTimeKey = "siteflow_music_time";
+      var backgroundMusicLastSavedAt = 0;
       var defaultHouseOptions = ["xs", "s", "m", "l", "xl"];
       var cursorHoverSelector = 'a, button, input, textarea, select, summary, [role="button"], .catalogue-card, .jewelry-card, .recent-card, .house-size-chip, .house-qty-button, .house-product-action, .house-cart-action';
 
@@ -3720,9 +3720,52 @@
         });
       }
 
+      function bindBackgroundMusicPersistence() {
+        if (!backgroundMusic || backgroundMusic.dataset.musicStateBound === "true") return;
+
+        backgroundMusic.dataset.musicStateBound = "true";
+
+        function restoreBackgroundMusicPosition() {
+          var stored = Number(window.localStorage.getItem(backgroundMusicTimeKey) || "0");
+          var duration = Number(backgroundMusic.duration || 0);
+          if (!Number.isFinite(stored) || stored <= 0.5) return;
+          if (duration && stored >= duration - 0.5) return;
+
+          try {
+            backgroundMusic.currentTime = stored;
+          } catch (error) {
+            return;
+          }
+        }
+
+        backgroundMusic.addEventListener("loadedmetadata", restoreBackgroundMusicPosition);
+        backgroundMusic.addEventListener("timeupdate", function () {
+          var current = Number(backgroundMusic.currentTime || 0);
+          if (!Number.isFinite(current) || Math.abs(current - backgroundMusicLastSavedAt) < 1.5) return;
+          backgroundMusicLastSavedAt = current;
+
+          try {
+            window.localStorage.setItem(backgroundMusicTimeKey, String(current));
+          } catch (error) {
+            return;
+          }
+        });
+        backgroundMusic.addEventListener("ended", function () {
+          try {
+            window.localStorage.setItem(backgroundMusicTimeKey, "0");
+          } catch (error) {
+            return;
+          }
+        });
+
+        restoreBackgroundMusicPosition();
+      }
+
       function startBackgroundMusic() {
         if (!backgroundMusic) return;
 
+        bindBackgroundMusicPersistence();
+        if (window.localStorage.getItem("siteflow_sound_on") === "false") return;
         backgroundMusic.volume = 0.9;
 
         var playAttempt = backgroundMusic.play();

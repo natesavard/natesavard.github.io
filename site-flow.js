@@ -37,6 +37,7 @@
   const storageKeys = {
     vip: "siteflow_vip_mode",
     sound: "siteflow_sound_on",
+    musicTime: "siteflow_music_time",
     fragment: "siteflow_fragment_seen",
     fragmentCollapsed: "siteflow_fragment_collapsed",
     chatCollapsed: "siteflow_chat_collapsed",
@@ -155,6 +156,7 @@
     if (!document.body.classList.contains("siteflow-no-pager")) {
       injectBottomPager();
     }
+    bindPageAudio();
     installTransitions();
     installAudioIdentity();
     startTransmissions();
@@ -572,6 +574,7 @@
           soundEngine.click();
         }
         syncYouTubePlayback(nextState);
+        syncPageAudioPlayback(nextState);
       });
     }
   }
@@ -742,6 +745,9 @@
       if (soundEngine) soundEngine.arm();
       if (getSoundEnabled()) {
         syncYouTubePlayback(true);
+        syncPageAudioPlayback(true);
+      } else {
+        syncPageAudioPlayback(false);
       }
       document.removeEventListener("pointerdown", arm);
       document.removeEventListener("keydown", arm);
@@ -930,6 +936,64 @@
         console.warn("siteflow: could not sync youtube playback", error);
       }
     });
+  }
+
+  function bindPageAudio() {
+    const audio = document.getElementById("backgroundMusic");
+    if (!audio || audio.dataset.siteflowMusicBound === "true") return audio;
+
+    audio.dataset.siteflowMusicBound = "true";
+
+    const restorePlaybackPosition = function () {
+      const stored = Number(window.localStorage.getItem(storageKeys.musicTime) || "0");
+      const duration = Number(audio.duration || 0);
+      if (!Number.isFinite(stored) || stored <= 0.5) return;
+      if (duration && stored >= duration - 0.5) return;
+
+      try {
+        audio.currentTime = stored;
+      } catch (error) {
+        console.warn("siteflow: could not restore page audio position", error);
+      }
+    };
+
+    audio.addEventListener("loadedmetadata", restorePlaybackPosition);
+    audio.addEventListener("timeupdate", function () {
+      try {
+        window.localStorage.setItem(storageKeys.musicTime, String(audio.currentTime || 0));
+      } catch (error) {
+        console.warn("siteflow: could not persist page audio position", error);
+      }
+    });
+    audio.addEventListener("ended", function () {
+      try {
+        window.localStorage.setItem(storageKeys.musicTime, "0");
+      } catch (error) {
+        console.warn("siteflow: could not reset page audio position", error);
+      }
+    });
+
+    restorePlaybackPosition();
+    return audio;
+  }
+
+  function syncPageAudioPlayback(shouldPlay) {
+    const audio = bindPageAudio();
+    if (!audio) return;
+
+    audio.volume = 0.9;
+
+    if (!shouldPlay) {
+      audio.pause();
+      return;
+    }
+
+    const playAttempt = audio.play();
+    if (playAttempt && typeof playAttempt.catch === "function") {
+      playAttempt.catch(function () {
+        return null;
+      });
+    }
   }
 
   function hashString(value) {
