@@ -14,6 +14,13 @@ window.NATE_SCRAPBOOK_ITEMS = [
     note: "Single-letter Savard mark with that star-cut sweep and a cleaner lone-symbol signature feel."
   },
   {
+    src: "scrapbook-assets/nate savard grand race.png",
+    alt: "Nate Savard grand race patch",
+    title: "Grand Race Patch",
+    collection: "Identity Marks",
+    note: "Crossed race flags with the Nate Savard banner, built like a private motorsport-house patch with clean old-world race authority."
+  },
+  {
     src: "scrapbook-assets/savard-racing.png",
     alt: "Savard Racing patch crest",
     title: "Savard Racing",
@@ -56,11 +63,11 @@ window.NATE_SCRAPBOOK_ITEMS = [
     note: "Winged NS league mark with embroidered cathedral lettering and bat-wing framing, pushing the house into a darker league-emblem direction."
   },
   {
-    src: "scrapbook-assets/envynomadix-logo-cutout.png",
-    alt: "Envynomadix cutout script logo",
-    title: "Envynomadix Cutout",
+    src: "scrapbook-assets/Envy Original Logo.png",
+    alt: "Envy original logo",
+    title: "Envy Original Logo",
     collection: "Envynomadix",
-    note: "Rough-cut Envynomadix script mark with a more distressed hand-drawn feel, stripped back into a raw house-signature graphic."
+    note: "The rough original Envy mark inverted bright so it can actually read inside the scrapbook wall without disappearing into the page."
   },
   {
     src: "scrapbook-assets/angels.png",
@@ -110,6 +117,20 @@ window.NATE_SCRAPBOOK_ITEMS = [
     title: "Main Ribbon 2026",
     collection: "Original Collection",
     note: "The embroidered Nate Savard ribbon patch with house-coded texture and that relic-piece energy."
+  },
+  {
+    src: "scrapbook-assets/nate savard ribbon 2009 patch flames.png",
+    alt: "Nate Savard ribbon 2009 patch with flames",
+    title: "Flame Ribbon 2009",
+    collection: "Identity Marks",
+    note: "A hotter ribbon variant with flame pressure under the Nate Savard name, reading like a sharper early patch-house emblem."
+  },
+  {
+    src: "scrapbook-assets/nate savard california fires.png",
+    alt: "Nate Savard California Fires NS ribbon patch",
+    title: "California Fires",
+    collection: "Identity Marks",
+    note: "An NS ribbon hit with red flame pressure pushing through the black-and-gold patch language, darker and more aggressive than the cleaner house ribbons."
   },
   {
     src: "scrapbook-assets/envy-nomadix-angels-outline.png",
@@ -166,6 +187,20 @@ window.NATE_SCRAPBOOK_ITEMS = [
     title: "NS Monogram Chain",
     collection: "Original Collection",
     note: "A house-identity chain piece that reads like symbol language instead of ordinary jewelry."
+  },
+  {
+    src: "scrapbook-assets/nate savard vietnam.png",
+    alt: "Nate Savard Vietnam ribbon patch",
+    title: "Vietnam Ribbon",
+    collection: "Identity Marks",
+    note: "A stripped-back embroidered Nate Savard ribbon with that straight old-house patch language and enough restraint to mix anywhere in the wall."
+  },
+  {
+    src: "scrapbook-assets/nate savard hiroshima ns.png",
+    alt: "Nate Savard Hiroshima NS ribbon patch",
+    title: "Hiroshima NS",
+    collection: "Identity Marks",
+    note: "A bare NS banner with that tighter old-world patch shape, reduced enough to read like a clean insignia among the heavier house marks."
   },
   {
     src: "scrapbook-assets/Nomadix PSD logo Infinie.png",
