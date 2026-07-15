@@ -3619,6 +3619,19 @@
         </article>
 
         <article class="product-card">
+          <div class="product-image piece-trigger" tabindex="0" role="button" aria-label="Open N Cross SL Chain 18-inch image" data-piece-title="N Cross SL Chain 18&quot;" data-piece-image="N Cross SL Chain 18''.png" data-piece-kind="chain" data-piece-size-label="chain length" data-piece-size-value="18&quot;">
+            <img src="N Cross SL Chain 18''.png" alt="N Cross SL Chain 18-inch by Nate Savard" />
+          </div>
+          <div class="product-info">
+            <div class="product-name">N Cross SL Chain 18"</div>
+            <div class="product-desc">
+              18-inch yellow gold signature link chain built from repeated N cross monograms for a cleaner full-neck collector statement.
+            </div>
+            <a href="mailto:natesavard@outlook.com?subject=N%20Cross%20SL%20Chain%2018%22" class="product-link">Inquire</a>
+          </div>
+        </article>
+
+        <article class="product-card">
           <div class="product-image piece-trigger" tabindex="0" role="button" aria-label="Open Envy Script Chain image" data-piece-title="Envy Script Chain" data-piece-image="envy-script-chain-dark.png">
             <img src="envy-script-chain-dark.png" alt="Envy script silver chain by Nate Savard" />
           </div>
@@ -4524,6 +4537,27 @@
         return '';
       }
 
+      function parseOptionAttribute(value) {
+        return String(value || '')
+          .split(',')
+          .map((option) => option.trim())
+          .filter(Boolean);
+      }
+
+      function readPieceConfig(source) {
+        if (!source || !source.getAttribute) return {};
+
+        return {
+          price: source.getAttribute('data-piece-price') || '',
+          pieceKind: source.getAttribute('data-piece-kind') || '',
+          sizeLabel: source.getAttribute('data-piece-size-label') || '',
+          sizeOptions: parseOptionAttribute(source.getAttribute('data-piece-size-options')),
+          sizeValue: source.getAttribute('data-piece-size-value') || '',
+          stoneOptions: parseOptionAttribute(source.getAttribute('data-piece-stone-options')),
+          stoneValue: source.getAttribute('data-piece-stone-value') || ''
+        };
+      }
+
       function defaultDescriptionFor(name, kind) {
         if (kind === 'ring') {
           return `${name} from the Original Collection, ready for your ring size, stone direction, and custom idea.`;
@@ -4571,8 +4605,9 @@
         const description = raw.description || defaultDescriptionFor(name, raw.pieceKind || inferPieceKind(name, ''));
         const pieceKind = raw.pieceKind || inferPieceKind(name, description);
         const sizeConfig = getSizeConfig(pieceKind);
+        const sizeOptions = Array.isArray(raw.sizeOptions) && raw.sizeOptions.length ? raw.sizeOptions.slice() : sizeConfig.options.slice();
         const stoneOptions = Array.isArray(raw.stoneOptions) && raw.stoneOptions.length ? raw.stoneOptions.slice() : getStoneOptions(pieceKind);
-        const sizeValue = normalizeSelection(raw.sizeValue, sizeConfig.options, raw.sizeValue || sizeConfig.defaultValue);
+        const sizeValue = normalizeSelection(raw.sizeValue, sizeOptions, raw.sizeValue || sizeConfig.defaultValue || sizeOptions[0] || '');
         const stoneValue = normalizeSelection(raw.stoneValue, stoneOptions, inferDefaultStone(name, description, stoneOptions));
 
         return {
@@ -4585,7 +4620,7 @@
           mailHref: raw.mailHref || defaultMailHref(name),
           pieceKind,
           sizeLabel: raw.sizeLabel || sizeConfig.label,
-          sizeOptions: sizeConfig.options.slice(),
+          sizeOptions: sizeOptions.slice(),
           sizeValue,
           stoneOptions: stoneOptions.slice(),
           stoneValue,
@@ -4600,8 +4635,10 @@
         const name = findScopedText(card, ['.product-name']) || 'Original Collection Piece';
         const description = findScopedText(card, ['.product-desc']) || defaultDescriptionFor(name, inferPieceKind(name, ''));
         const productLink = card.querySelector('.product-link');
+        const pieceConfig = trigger ? readPieceConfig(trigger) : readPieceConfig(card);
 
         return buildBaseProduct({
+          ...pieceConfig,
           idBase: slugify(name),
           name,
           description,
@@ -4616,6 +4653,7 @@
         const imageNode = trigger.querySelector('img');
         const image = trigger.getAttribute('data-piece-image') || (imageNode ? imageNode.getAttribute('src') || '' : '');
         const alt = imageNode ? imageNode.getAttribute('alt') || title : title;
+        const pieceConfig = readPieceConfig(trigger);
         const productCard = trigger.closest('.product-card');
         const builderCard = trigger.closest('.builder-match-card');
         const storyCard = trigger.closest('.story-card');
@@ -4635,6 +4673,7 @@
           defaultMailHref(title);
 
         return buildBaseProduct({
+          ...pieceConfig,
           idBase: slugify(title),
           name: title,
           description,

@@ -28,11 +28,32 @@ window.NATE_SCRAPBOOK_ITEMS = [
     note: "A fuller race-house crest with the crossed flags, EST. and RACE framing, and a heavier embroidered heritage feel around the Nate Savard banner."
   },
   {
+    src: "scrapbook-assets/natesavard speedway 85 berlin.png",
+    alt: "Nate Savard Speedway 85 Berlin mark",
+    title: "Speedway 85 Berlin",
+    collection: "Identity Marks",
+    note: "A stripped Speedway 85 signature mark with the Berlin tag built into the speedline, cleaner and more direct like a touring-race house graphic."
+  },
+  {
+    src: "scrapbook-assets/natesavard speedway 85.png",
+    alt: "Nate Savard Speedway 85 mark",
+    title: "Speedway 85",
+    collection: "Identity Marks",
+    note: "The purer Speedway 85 direction with the Nate Savard signature stretched over the speedline shape, reading like a fast house insignia."
+  },
+  {
     src: "scrapbook-assets/savard-racing.png",
     alt: "Savard Racing patch crest",
     title: "Savard Racing",
     collection: "Identity Marks",
     note: "Race-club patch language with signal flags, compass-star direction, rope borders, and a stitched Nate Savard house crest forged for the NS Private Motorsport House."
+  },
+  {
+    src: "scrapbook-assets/envy 1985 nate savard.png",
+    alt: "Envy 1985 Nate Savard Speedway mark",
+    title: "Envy 1985",
+    collection: "Envynomadix",
+    note: "A fuller Envy-linked Speedway 85 mark with the crossed flags, EST. 1985, and Nate Savard signature stacked into one stronger house-race identity."
   },
   {
     src: "scrapbook-assets/envynomadix-logo-no-bg.png",
@@ -75,13 +96,6 @@ window.NATE_SCRAPBOOK_ITEMS = [
     title: "Envy Original Logo",
     collection: "Envynomadix",
     note: "The rough original Envy mark inverted to a lighter read so it still keeps its raw shape but can actually show up on the scrapbook wall."
-  },
-  {
-    src: "scrapbook-assets/envynomadix-logo-cutout.png?v=20260714b",
-    alt: "Envy original logo bright cutout",
-    title: "Envy Original Cutout",
-    collection: "Envynomadix",
-    note: "The brighter cutout version of the original Envy mark, kept in the scrapbook too so both moods can live together on the wall."
   },
   {
     src: "scrapbook-assets/angels.png",
@@ -155,8 +169,8 @@ window.NATE_SCRAPBOOK_ITEMS = [
   },
   {
     src: "scrapbook-assets/nate savard california fires.png",
-    alt: "Nate Savard California Fires NS ribbon patch",
-    title: "California Fires",
+    alt: "Nate Savard Truth and Mercy NS ribbon patch",
+    title: "Truth and Mercy",
     collection: "Identity Marks",
     note: "An NS ribbon hit with red flame pressure pushing through the black-and-gold patch language, darker and more aggressive than the cleaner house ribbons."
   },
