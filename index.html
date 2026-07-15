@@ -873,6 +873,8 @@
       var backgroundMusicStarted = false;
       var backgroundMusicTimeKey = "siteflow_music_time";
       var backgroundMusicLastSavedAt = 0;
+      var backgroundMusicBootTimer = null;
+      var backgroundMusicBootAttempts = 0;
 
       function saveBackgroundMusicPosition(force) {
         if (!backgroundMusic) return;
@@ -908,8 +910,15 @@
         }
 
         backgroundMusic.addEventListener("loadedmetadata", restoreBackgroundMusicPosition);
+        backgroundMusic.addEventListener("loadeddata", ensureBackgroundMusic);
+        backgroundMusic.addEventListener("canplay", ensureBackgroundMusic);
+        backgroundMusic.addEventListener("canplaythrough", ensureBackgroundMusic);
         backgroundMusic.addEventListener("timeupdate", function () {
           saveBackgroundMusicPosition(false);
+        });
+        backgroundMusic.addEventListener("play", function () {
+          backgroundMusicStarted = true;
+          stopBackgroundMusicBootCycle();
         });
         backgroundMusic.addEventListener("ended", function () {
           try {
@@ -930,6 +939,32 @@
         restoreBackgroundMusicPosition();
       }
 
+      function stopBackgroundMusicBootCycle() {
+        if (backgroundMusicBootTimer) {
+          window.clearInterval(backgroundMusicBootTimer);
+          backgroundMusicBootTimer = null;
+        }
+      }
+
+      function startBackgroundMusicBootCycle() {
+        if (!backgroundMusic || backgroundMusicStarted || backgroundMusicBootTimer) return;
+
+        backgroundMusicBootAttempts = 0;
+        backgroundMusicBootTimer = window.setInterval(function () {
+          if (!backgroundMusic || backgroundMusicStarted) {
+            stopBackgroundMusicBootCycle();
+            return;
+          }
+
+          backgroundMusicBootAttempts += 1;
+          ensureBackgroundMusic();
+
+          if (backgroundMusicBootAttempts >= 24) {
+            stopBackgroundMusicBootCycle();
+          }
+        }, 650);
+      }
+
       function startBackgroundMusic() {
         if (!backgroundMusic) return;
 
@@ -941,19 +976,27 @@
           // Ignore storage failures and still attempt playback.
         }
 
+        backgroundMusic.autoplay = true;
+        backgroundMusic.defaultMuted = false;
+        backgroundMusic.muted = false;
+        backgroundMusic.loop = true;
+        backgroundMusic.playsInline = true;
         backgroundMusic.volume = 0.9;
 
         var playAttempt = backgroundMusic.play();
         if (playAttempt && typeof playAttempt.then === "function") {
           playAttempt.then(function () {
             backgroundMusicStarted = true;
+            stopBackgroundMusicBootCycle();
           }).catch(function () {
             backgroundMusicStarted = false;
+            startBackgroundMusicBootCycle();
           });
           return;
         }
 
         backgroundMusicStarted = true;
+        stopBackgroundMusicBootCycle();
       }
 
       function ensureBackgroundMusic() {
@@ -1005,6 +1048,14 @@
         window.addEventListener(eventName, ensureBackgroundMusic, { passive: true, capture: true });
       });
 
+      ["load", "pageshow", "focus"].forEach(function (eventName) {
+        window.addEventListener(eventName, ensureBackgroundMusic, { passive: true });
+      });
+
+      document.addEventListener("visibilitychange", function () {
+        if (!document.hidden) ensureBackgroundMusic();
+      });
+
       document.querySelectorAll(".path").forEach(function (link) {
         link.addEventListener("click", function () {
           ensureBackgroundMusic();
@@ -1012,6 +1063,11 @@
         }, { capture: true });
       });
 
+      if (backgroundMusic && typeof backgroundMusic.load === "function") {
+        backgroundMusic.load();
+      }
+
+      startBackgroundMusicBootCycle();
       ensureBackgroundMusic();
     })();
   </script>
