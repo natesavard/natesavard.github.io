@@ -21,6 +21,13 @@ window.NATE_SCRAPBOOK_ITEMS = [
     note: "Crossed race flags with the Nate Savard banner, built like a private motorsport-house patch with clean old-world race authority."
   },
   {
+    src: "scrapbook-assets/est rave nate savard heritage.png",
+    alt: "Nate Savard race heritage crest",
+    title: "Race Heritage",
+    collection: "Identity Marks",
+    note: "A fuller race-house crest with the crossed flags, EST. and RACE framing, and a heavier embroidered heritage feel around the Nate Savard banner."
+  },
+  {
     src: "scrapbook-assets/savard-racing.png",
     alt: "Savard Racing patch crest",
     title: "Savard Racing",
@@ -63,11 +70,18 @@ window.NATE_SCRAPBOOK_ITEMS = [
     note: "Winged NS league mark with embroidered cathedral lettering and bat-wing framing, pushing the house into a darker league-emblem direction."
   },
   {
-    src: "scrapbook-assets/Envy Original Logo.png",
+    src: "scrapbook-assets/Envy Original Logo.png?v=20260714c",
     alt: "Envy original logo",
     title: "Envy Original Logo",
     collection: "Envynomadix",
-    note: "The rough original Envy mark inverted bright so it can actually read inside the scrapbook wall without disappearing into the page."
+    note: "The rough original Envy mark inverted to a lighter read so it still keeps its raw shape but can actually show up on the scrapbook wall."
+  },
+  {
+    src: "scrapbook-assets/envynomadix-logo-cutout.png?v=20260714b",
+    alt: "Envy original logo bright cutout",
+    title: "Envy Original Cutout",
+    collection: "Envynomadix",
+    note: "The brighter cutout version of the original Envy mark, kept in the scrapbook too so both moods can live together on the wall."
   },
   {
     src: "scrapbook-assets/angels.png",
@@ -75,6 +89,13 @@ window.NATE_SCRAPBOOK_ITEMS = [
     title: "ANGELS",
     collection: "Identity Marks",
     note: "A winged NS crest with a red skull core and banner base, pushing the Nate Savard world into a harsher angels-and-fire patch direction."
+  },
+  {
+    src: "scrapbook-assets/nate savard tough life.png",
+    alt: "Nate Savard Tough Life crest",
+    title: "Tough Life",
+    collection: "Identity Marks",
+    note: "A darker NS crest with the resting angel over the skull and blank banner base, pushing the scrapbook into a more mournful house-emblem direction."
   },
   {
     src: "scrapbook-assets/envy-ribbon.png",
@@ -119,6 +140,13 @@ window.NATE_SCRAPBOOK_ITEMS = [
     note: "The embroidered Nate Savard ribbon patch with house-coded texture and that relic-piece energy."
   },
   {
+    src: "scrapbook-assets/ChatGPT Image Jul 14, 2026, 03_06_51 PM.png",
+    alt: "Nate Savard banner patch",
+    title: "Nate Savard Banner",
+    collection: "Identity Marks",
+    note: "A clean arrow-ended Nate Savard banner stripped down to pure old-house patch language, easy to float among the heavier crest pieces."
+  },
+  {
     src: "scrapbook-assets/nate savard ribbon 2009 patch flames.png",
     alt: "Nate Savard ribbon 2009 patch with flames",
     title: "Flame Ribbon 2009",
@@ -131,6 +159,13 @@ window.NATE_SCRAPBOOK_ITEMS = [
     title: "California Fires",
     collection: "Identity Marks",
     note: "An NS ribbon hit with red flame pressure pushing through the black-and-gold patch language, darker and more aggressive than the cleaner house ribbons."
+  },
+  {
+    src: "scrapbook-assets/natre savard platoon 7.png",
+    alt: "Nate Savard Platoon 7 ribbon patch",
+    title: "Platoon 7",
+    collection: "Identity Marks",
+    note: "A Nate Savard name ribbon riding over that flame-backed base again, reading like another harder military-house or unit-patch variation in the race-club language."
   },
   {
     src: "scrapbook-assets/envy-nomadix-angels-outline.png",
@@ -201,6 +236,13 @@ window.NATE_SCRAPBOOK_ITEMS = [
     title: "Hiroshima NS",
     collection: "Identity Marks",
     note: "A bare NS banner with that tighter old-world patch shape, reduced enough to read like a clean insignia among the heavier house marks."
+  },
+  {
+    src: "scrapbook-assets/natesavard japan.png",
+    alt: "Nate Savard Japan ribbon patch",
+    title: "Japan Banner",
+    collection: "Identity Marks",
+    note: "A cleaner long-form Nate Savard banner with a broader arc and restrained patch language, sitting nicely beside the tighter ribbon insignias."
   },
   {
     src: "scrapbook-assets/Nomadix PSD logo Infinie.png",
