@@ -1,0 +1,5324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="color-scheme" content="dark" />
+  <title>Envynomadix Rebirth // Enter</title>
+  <style>
+    @import url("https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700&display=swap");
+
+    :root {
+      --bg: #050302;
+      --gold: #ddb06d;
+      --gold-soft: rgba(221, 176, 109, 0.68);
+      --text: #f5e7ce;
+      --muted: #b99460;
+      --line: rgba(221, 176, 109, 0.22);
+      --alien-tech-font: "Orbitron", "Eurostile", "Bank Gothic", sans-serif;
+      --rebirth-image-one: url("nate-savard-forever.png");
+      --rebirth-image-two: url("turkey-nate-savard-1.png");
+      --rebirth-image-three: url("nate-savard-bg-3.png");
+      --rebirth-image-four: url("nate savard speedway (1).png");
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      margin: 0;
+      min-height: 100%;
+      background: #000;
+      overflow-x: hidden;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: Georgia, "Times New Roman", serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at center, rgba(221, 176, 109, 0.08), transparent 36%),
+        linear-gradient(180deg, rgba(4, 2, 1, 0.96), rgba(0, 0, 0, 1));
+    }
+
+    @media (pointer: fine) {
+      body.has-logo-cursor,
+      body.has-logo-cursor a,
+      body.has-logo-cursor button,
+      body.has-logo-cursor input,
+      body.has-logo-cursor textarea,
+      body.has-logo-cursor select,
+      body.has-logo-cursor summary,
+      body.has-logo-cursor [role="button"] {
+        cursor: none !important;
+      }
+    }
+
+    .envy-logo-cursor {
+      position: fixed;
+      left: 0;
+      top: 0;
+      width: 56px;
+      height: 24px;
+      pointer-events: none;
+      z-index: 12000;
+      opacity: 0;
+      background: url("envynomadix-logo-cutout.png") center center / contain no-repeat;
+      transform: translate(-50%, -50%);
+      mix-blend-mode: screen;
+      filter:
+        drop-shadow(0 0 8px rgba(255, 236, 205, 0.18))
+        drop-shadow(0 0 18px rgba(221, 176, 109, 0.18));
+      will-change: left, top, transform, opacity, filter;
+      transition: opacity 0.08s ease, filter 0.12s ease;
+    }
+
+    .envy-logo-cursor.is-visible {
+      opacity: 0.96;
+    }
+
+    .envy-logo-cursor.is-hovering {
+      filter:
+        drop-shadow(0 0 10px rgba(255, 241, 214, 0.24))
+        drop-shadow(0 0 26px rgba(221, 176, 109, 0.24));
+    }
+
+    .envy-logo-cursor.is-pressed {
+      transform: translate(-50%, -50%) scale(0.94);
+    }
+
+    @media (pointer: coarse) {
+      .envy-logo-cursor {
+        display: none;
+      }
+    }
+
+    body:not(.is-entered) {
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    .screen {
+      position: relative;
+      min-height: 100vh;
+      overflow: clip;
+      isolation: isolate;
+      background: #000;
+      transition: background 1.2s ease;
+      --hero-shift-x: 0vw;
+      --hero-shift-y: 0vh;
+      --hero-scale: 1.02;
+      --hero-opacity: 1;
+      --hero-blur: 0px;
+      --hero-saturate: 1;
+      --hero-brightness: 1;
+      --hero-parallax: 0px;
+    }
+
+    .bg,
+    .bg::before,
+    .bg::after,
+    .static,
+    .scanlines,
+    .flash,
+    .vignette {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+    }
+
+    .bg {
+      background:
+        linear-gradient(180deg, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.84)),
+        url("nate-savard-bg-3.png") center 18% / cover no-repeat;
+      transform: scale(1.1);
+      filter: blur(18px) saturate(0.76) brightness(0.68) contrast(1.08);
+      opacity: 0.52;
+      animation: bgDrift 10s ease-in-out infinite alternate, flicker 6s linear infinite;
+    }
+
+    .bg::before,
+    .bg::after {
+      content: "";
+      background:
+        url("nate-savard-forever.png") center 28% / cover no-repeat;
+      mix-blend-mode: screen;
+      opacity: 0.08;
+    }
+
+    .bg::before {
+      transform: translateX(-12px) scale(1.18);
+      filter: blur(18px);
+    }
+
+    .bg::after {
+      transform: translateX(12px) scale(1.18);
+      filter: blur(18px);
+    }
+
+    .static {
+      background-image:
+        radial-gradient(circle at 20% 20%, rgba(255, 255, 255, 0.08) 0 1px, transparent 1px),
+        radial-gradient(circle at 80% 34%, rgba(255, 255, 255, 0.05) 0 1px, transparent 1px),
+        radial-gradient(circle at 42% 75%, rgba(255, 255, 255, 0.06) 0 1px, transparent 1px);
+      background-size: 120px 120px, 140px 140px, 100px 100px;
+      mix-blend-mode: screen;
+      opacity: 0.12;
+      animation: noiseShift 0.25s steps(2) infinite;
+    }
+
+    .scanlines {
+      background:
+        repeating-linear-gradient(
+          to bottom,
+          rgba(255, 255, 255, 0) 0,
+          rgba(255, 255, 255, 0) 2px,
+          rgba(255, 228, 188, 0.05) 3px,
+          rgba(255, 255, 255, 0) 4px
+        );
+      mix-blend-mode: screen;
+      opacity: 0.22;
+      animation: flicker 4s linear infinite;
+    }
+
+    .flash {
+      background:
+        radial-gradient(circle at 50% 50%, rgba(255, 242, 217, 0.12), transparent 26%);
+      opacity: 0;
+      transition: opacity 0.18s ease;
+    }
+
+    .vignette {
+      background:
+        radial-gradient(circle at center, transparent 26%, rgba(0, 0, 0, 0.82) 100%);
+    }
+
+    .shell {
+      position: relative;
+      z-index: 2;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 28px 28px 96px;
+      transition: min-height 1.1s ease, padding 1.1s ease;
+    }
+
+    .portal {
+      width: min(1180px, calc(100vw - 32px));
+      display: grid;
+      justify-items: center;
+      gap: 8px;
+      align-items: center;
+      padding: 0;
+      border: 0;
+      border-radius: 0;
+      background: transparent;
+      box-shadow: none;
+      backdrop-filter: none;
+      transform: scale(0.985);
+      animation: portalPulse 5.2s ease-in-out infinite, flicker 7s linear infinite;
+      transition: transform 1.2s cubic-bezier(.2,.82,.2,1), opacity 0.9s ease, filter 1.1s ease, min-height 1.1s ease;
+    }
+
+    .visual {
+      position: relative;
+      width: min(100%, 1120px);
+      min-height: 62vh;
+      overflow: visible;
+      background: transparent;
+      border: 0;
+      box-shadow: none;
+      transform: translateZ(0);
+      display: grid;
+      place-items: center;
+    }
+
+    .corner-signature {
+      position: fixed;
+      top: 18px;
+      left: 20px;
+      z-index: 2306;
+      width: clamp(118px, 11vw, 188px);
+      border: 0;
+      padding: 0;
+      margin: 0;
+      background: transparent;
+      cursor: pointer;
+      opacity: 0.54;
+      transform: translateY(0);
+      animation: cornerSignaturePulse 8.8s ease-in-out infinite;
+    }
+
+    .corner-signature img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+    .corner-signature-base {
+      filter:
+        grayscale(1)
+        invert(1)
+        brightness(1.08)
+        drop-shadow(0 0 10px rgba(255, 255, 255, 0.08));
+      animation: cornerSignatureTone 8.8s ease-in-out infinite;
+    }
+
+    .corner-signature-pass {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      clip-path: inset(0 100% 0 0);
+      mix-blend-mode: screen;
+      filter:
+        grayscale(1)
+        invert(1)
+        brightness(1.38)
+        contrast(1.06)
+        drop-shadow(0 0 14px rgba(255, 255, 255, 0.22))
+        drop-shadow(0 0 28px rgba(255, 255, 255, 0.12));
+      transform: translateX(-1px) scale(1.01);
+      transform-origin: left center;
+      animation: cornerSignatureWriteOn 17.6s cubic-bezier(.2,.72,.18,1) infinite;
+    }
+
+    .corner-signature:hover {
+      opacity: 0.82;
+    }
+
+    .rebirth-stack {
+      position: relative;
+      width: min(92vw, 1100px);
+      min-height: min(72vh, 760px);
+      cursor: pointer;
+      transition: opacity 0.6s ease, filter 0.6s ease, transform 1.3s cubic-bezier(.16,.9,.2,1);
+      z-index: 2;
+    }
+
+    .rebirth-stack.is-hidden {
+      opacity: 0.08;
+      filter: blur(3px);
+    }
+
+    .visual .rebirth-stack img {
+      position: absolute;
+      display: block;
+      height: auto;
+      object-fit: cover;
+      border-radius: 28px;
+      opacity: 1;
+      transform: none;
+      filter:
+        saturate(0.94)
+        brightness(0.96)
+        drop-shadow(0 28px 46px rgba(0, 0, 0, 0.42))
+        drop-shadow(0 0 26px rgba(255, 235, 205, 0.08));
+      animation: none;
+      transition: transform 0.7s ease, filter 0.7s ease, opacity 0.7s ease;
+    }
+
+    .visual .rebirth-photo-main {
+      width: min(29vw, 350px);
+      left: 8%;
+      top: 11%;
+      transform: rotate(-7deg);
+      animation: rebirthCardFloatA 9.4s ease-in-out infinite alternate;
+      z-index: 4;
+    }
+
+    .visual .rebirth-photo-second {
+      width: min(44vw, 560px);
+      right: 4%;
+      top: 3%;
+      transform: rotate(5deg);
+      animation: rebirthCardFloatB 10.6s ease-in-out infinite alternate;
+      z-index: 2;
+    }
+
+    .visual .rebirth-photo-third {
+      width: min(40vw, 500px);
+      left: 21%;
+      bottom: 7%;
+      transform: rotate(-4deg);
+      animation: rebirthCardFloatC 11.2s ease-in-out infinite alternate;
+      z-index: 3;
+    }
+
+    .visual .rebirth-photo-fourth {
+      width: min(24vw, 290px);
+      right: 14%;
+      bottom: 1%;
+      transform: rotate(6deg);
+      animation: rebirthCardFloatD 8.8s ease-in-out infinite alternate;
+      z-index: 5;
+    }
+
+    .visual .rebirth-stamp {
+      position: absolute;
+      pointer-events: none;
+      background-position: center center;
+      background-repeat: no-repeat;
+      background-size: contain;
+      mix-blend-mode: screen;
+      filter:
+        drop-shadow(0 0 12px rgba(255, 238, 210, 0.1))
+        drop-shadow(0 0 24px rgba(221, 176, 109, 0.12));
+      opacity: 0.54;
+      z-index: 6;
+    }
+
+    .visual .rebirth-stamp-speedway {
+      width: min(22vw, 260px);
+      height: min(10vw, 120px);
+      top: 6%;
+      right: 0;
+      background-image: url("scrapbook-assets/natesavard speedway 85 berlin.png");
+      animation: rebirthStampPulse 8.6s ease-in-out infinite;
+    }
+
+    .visual .rebirth-stamp-nomadix {
+      width: min(24vw, 300px);
+      height: min(10vw, 120px);
+      left: 14%;
+      bottom: -1%;
+      opacity: 0.38;
+      background-image: url("scrapbook-assets/Nomadix PSD logo Infinie.png");
+      animation: rebirthStampPulse 11.4s ease-in-out infinite reverse;
+    }
+
+    .visual img,
+    .visual::before,
+    .visual::after,
+    .visual .accent-logo {
+      position: absolute;
+    }
+
+    .visual img {
+      position: relative;
+      width: min(66vw, 860px);
+      height: auto;
+      object-fit: contain;
+      display: block;
+      cursor: pointer;
+      opacity: var(--hero-opacity);
+      filter:
+        blur(var(--hero-blur))
+        saturate(var(--hero-saturate))
+        brightness(var(--hero-brightness))
+        drop-shadow(0 0 34px rgba(221, 176, 109, 0.1));
+      transform: translate3d(var(--hero-shift-x), calc(var(--hero-shift-y) + var(--hero-parallax)), 0) scale(var(--hero-scale));
+      animation: heroFloat 7.5s ease-in-out infinite alternate, angelGlitchPulse 3.1s linear infinite;
+      transition: transform 1.4s cubic-bezier(.16,.9,.2,1), filter 0.9s ease, opacity 1s ease;
+      z-index: 2;
+    }
+
+    .visual img.is-hidden {
+      opacity: 0.04;
+      filter: blur(3px) drop-shadow(0 0 12px rgba(221, 176, 109, 0.04));
+    }
+
+    .visual .fused-logo {
+      position: absolute;
+      width: min(54vw, 700px);
+      height: min(20vw, 240px);
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -46%) rotate(-2deg);
+      background: url("envynomadix-logo-cutout.png") center center / contain no-repeat;
+      mix-blend-mode: screen;
+      opacity: 0.16;
+      filter: blur(0.5px) drop-shadow(0 0 16px rgba(221, 176, 109, 0.1));
+      z-index: 3;
+      pointer-events: none;
+      animation: fusedLogoFlicker 2.6s linear infinite, fusedLogoShift 6.5s ease-in-out infinite alternate;
+      transition: opacity 0.9s ease, transform 1.2s ease;
+    }
+
+    .visual .fused-logo::before,
+    .visual .fused-logo::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: url("envynomadix-logo-cutout.png") center center / contain no-repeat;
+      mix-blend-mode: screen;
+      pointer-events: none;
+    }
+
+    .visual .fused-logo::before {
+      opacity: 0.12;
+      transform: translate(-8px, 2px);
+      filter: blur(1.2px);
+    }
+
+    .visual .fused-logo::after {
+      opacity: 0.08;
+      transform: translate(8px, -2px);
+      filter: blur(1.8px);
+    }
+
+    .visual::before,
+    .visual::after {
+      content: "";
+      pointer-events: none;
+      mix-blend-mode: screen;
+      inset: -12%;
+      width: auto;
+      height: auto;
+    }
+
+    .visual::before {
+      background:
+        linear-gradient(120deg, transparent 0%, rgba(255, 241, 214, 0.16) 46%, transparent 54%);
+      transform: translateX(-120%);
+      animation: sweep 4.6s linear infinite, angelLayerFlicker 2.8s linear infinite;
+    }
+
+    .visual::after {
+      background:
+        radial-gradient(circle at 50% 14%, rgba(255, 234, 199, 0.14), transparent 24%),
+        linear-gradient(180deg, rgba(255, 255, 255, 0.03), rgba(0, 0, 0, 0.18));
+      opacity: 0.9;
+      animation: angelLayerFlicker 3.4s linear infinite reverse;
+    }
+
+    .accent-logo {
+      pointer-events: none;
+      background: url("envynomadix-logo-cutout.png") center center / contain no-repeat;
+      mix-blend-mode: screen;
+      opacity: 0.05;
+      filter: blur(0.8px);
+      z-index: 0;
+      animation: accentFloat 7.2s ease-in-out infinite alternate, flicker 5.8s linear infinite;
+      transition:
+        width 1.9s cubic-bezier(.16,.88,.2,1),
+        height 1.9s cubic-bezier(.16,.88,.2,1),
+        left 1.9s cubic-bezier(.16,.88,.2,1),
+        right 1.9s cubic-bezier(.16,.88,.2,1),
+        top 1.9s cubic-bezier(.16,.88,.2,1),
+        bottom 1.9s cubic-bezier(.16,.88,.2,1),
+        opacity 1.5s ease,
+        filter 1.5s ease;
+    }
+
+    .accent-logo.left {
+      width: min(16vw, 180px);
+      height: min(8vw, 90px);
+      left: 3.2%;
+      top: 11.25%;
+      transform: rotate(-10deg);
+      opacity: 0.11;
+    }
+
+    .accent-logo.right {
+      width: min(13vw, 140px);
+      height: min(7vw, 70px);
+      right: 7.5%;
+      bottom: 13%;
+      transform: rotate(9deg);
+      animation-duration: 8.5s;
+      opacity: 0.11;
+    }
+
+    .accent-logo.top {
+      width: min(22vw, 260px);
+      height: min(10vw, 120px);
+      right: 17%;
+      top: 2%;
+      transform: rotate(-4deg);
+      animation-duration: 6.8s;
+      opacity: 0.11;
+    }
+
+    .copy {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: auto;
+      padding: 0;
+      background: transparent;
+      border: 0;
+      box-shadow: none;
+      width: 100%;
+      position: relative;
+      z-index: 3;
+    }
+
+    .copy-inner {
+      position: fixed;
+      left: 50%;
+      top: calc(100vh - 210px);
+      width: min(540px, 92%);
+      text-align: center;
+      padding: 0 12px 0;
+      transform: translateX(-50%);
+      z-index: 10;
+      transition: top 2.2s cubic-bezier(.16,.88,.2,1), width 1.2s ease, opacity 0.9s ease, transform 2.2s cubic-bezier(.16,.88,.2,1);
+    }
+
+    .hint {
+      letter-spacing: 0.34em;
+      text-transform: uppercase;
+    }
+
+    .rotating-line {
+      position: relative;
+      margin-top: 14px;
+      min-height: 82px;
+      width: min(38vw, 460px);
+      min-width: 280px;
+      margin-inline: auto;
+      display: grid;
+      place-items: center;
+      padding: 24px 46px 22px;
+      font-size: 11px;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: rgba(246, 226, 190, 0.96);
+      text-align: center;
+      transition: opacity 0.28s ease, transform 0.28s ease;
+      animation: rotatingLineFlicker 3.2s linear infinite;
+      background: transparent;
+      border: 0;
+      box-shadow: none;
+      text-shadow:
+        0 0 10px rgba(255, 233, 199, 0.2),
+        0 1px 0 rgba(0, 0, 0, 0.45);
+    }
+
+    .rotating-line.is-fading {
+      opacity: 0;
+      transform: translateY(4px);
+    }
+
+    .rotating-line::before {
+      content: "";
+      position: absolute;
+      left: 50%;
+      top: 58%;
+      width: min(40vw, 500px);
+      min-width: 320px;
+      height: 128px;
+      transform: translate(-50%, -50%);
+      background:
+        url("ENVY RIBBON.png") center center / contain no-repeat;
+      opacity: 0.92;
+      filter:
+        drop-shadow(0 0 8px rgba(255, 235, 202, 0.08))
+        drop-shadow(0 0 22px rgba(221, 176, 109, 0.1));
+      pointer-events: none;
+      z-index: -1;
+      animation: rotatingLineFlash 2.6s ease-in-out infinite;
+    }
+
+    .rotating-line::after {
+      content: "";
+      position: absolute;
+      left: 50%;
+      top: 62%;
+      width: min(30vw, 360px);
+      min-width: 220px;
+      height: 42px;
+      transform: translate(-50%, -50%);
+      background: radial-gradient(circle at center, rgba(17, 10, 6, 0.52), transparent 74%);
+      filter: blur(10px);
+      z-index: -1;
+      pointer-events: none;
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 0;
+      justify-content: center;
+    }
+
+    .enter-logo {
+      appearance: none;
+      border: 0;
+      padding: 0;
+      background: transparent;
+      cursor: pointer;
+      line-height: 0;
+      transition: transform 0.25s ease, filter 0.25s ease, opacity 0.25s ease;
+    }
+
+    .enter-logo img {
+      width: min(16vw, 112px);
+      min-width: 86px;
+      height: auto;
+      display: block;
+      filter:
+        drop-shadow(0 0 10px rgba(255, 225, 168, 0.46))
+        drop-shadow(0 0 24px rgba(221, 176, 109, 0.32))
+        drop-shadow(0 0 42px rgba(221, 176, 109, 0.16))
+        drop-shadow(0 14px 24px rgba(0, 0, 0, 0.32));
+      animation: angelEnterDrift 4.8s ease-in-out infinite;
+    }
+
+    .enter-logo:hover {
+      transform: translateY(-2px);
+      filter: brightness(1.06);
+    }
+
+    .enter-logo:focus,
+    .enter-logo:focus-visible {
+      outline: none;
+      box-shadow: none;
+    }
+
+    .hint {
+      font-size: 9px;
+      color: rgba(221, 176, 109, 0.74);
+      margin-top: 10px;
+      text-align: center;
+      transition: opacity 0.6s ease;
+    }
+
+    .lux-reveal {
+      width: min(980px, calc(100vw - 36px));
+      margin: 0 auto;
+      padding: 24px 0 80px;
+      position: relative;
+      z-index: 4;
+      opacity: 0;
+      transform: translateY(42px);
+      filter: blur(12px);
+      pointer-events: none;
+      transition: opacity 1s ease, transform 1.15s cubic-bezier(.16,.9,.2,1), filter 1s ease;
+    }
+
+    .brand-header {
+      max-width: 620px;
+      margin: 0 auto 26px;
+      text-align: center;
+    }
+
+    .brand-writeup {
+      margin: 18px auto 0;
+      max-width: 460px;
+      font-size: 0.9rem;
+      line-height: 2.05;
+      color: #e8d8bf;
+      text-wrap: balance;
+      font-family: "Courier New", monospace;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+
+    .bottom-marquee {
+      position: fixed;
+      left: 0;
+      right: 0;
+      bottom: 16px;
+      z-index: 9;
+      overflow: hidden;
+      pointer-events: none;
+      mix-blend-mode: screen;
+    }
+
+    .bottom-marquee-track {
+      display: flex;
+      width: max-content;
+      gap: 40px;
+      padding: 6px 0;
+      color: rgba(221, 176, 109, 0.9);
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 12px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      white-space: nowrap;
+      animation: envyBottomMarquee 28s linear infinite;
+      text-shadow: 0 0 14px rgba(221, 176, 109, 0.12);
+    }
+
+    .lux-nav {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 18px;
+      margin-top: 26px;
+    }
+
+    .lux-nav a {
+      position: relative;
+      min-width: 220px;
+      padding: 20px 24px 18px;
+      color: #f6e8d0;
+      text-decoration: none;
+      text-transform: lowercase;
+      letter-spacing: 0.18em;
+      text-align: center;
+      font-family: "Courier New", monospace;
+      font-size: 0.84rem;
+      background: transparent;
+      border: 0;
+      isolation: isolate;
+      text-shadow: 0 0 12px rgba(0, 0, 0, 0.42);
+      transition: transform 0.45s ease, opacity 0.45s ease, color 0.45s ease, filter 0.45s ease;
+    }
+
+    .lux-nav a::before {
+      content: "";
+      position: absolute;
+      inset: -8px -10px;
+      background: url("ENVY RIBBON.png") center center / contain no-repeat;
+      opacity: 0.68;
+      filter:
+        drop-shadow(0 0 8px rgba(255, 235, 202, 0.08))
+        drop-shadow(0 0 18px rgba(221, 176, 109, 0.1));
+      transform: scale(0.98);
+      transition: transform 0.45s ease, opacity 0.45s ease, filter 0.45s ease;
+      z-index: -1;
+    }
+
+    .lux-nav a:hover {
+      transform: translateY(-2px);
+      color: #fff4df;
+      filter: brightness(1.04);
+    }
+
+    .lux-nav a:hover::before {
+      transform: scale(1.03);
+      opacity: 0.92;
+      filter:
+        drop-shadow(0 0 10px rgba(255, 236, 205, 0.12))
+        drop-shadow(0 0 22px rgba(221, 176, 109, 0.16));
+    }
+
+    .lux-cart-toggle {
+      position: relative;
+      min-width: 220px;
+      padding: 20px 24px 18px;
+      border: 0;
+      background: transparent;
+      color: #f6e8d0;
+      text-transform: lowercase;
+      letter-spacing: 0.18em;
+      text-align: center;
+      font-family: "Courier New", monospace;
+      font-size: 0.84rem;
+      isolation: isolate;
+      text-shadow: 0 0 12px rgba(0, 0, 0, 0.42);
+      cursor: pointer;
+      transition: transform 0.45s ease, opacity 0.45s ease, color 0.45s ease, filter 0.45s ease;
+    }
+
+    .lux-cart-toggle::before {
+      content: "";
+      position: absolute;
+      inset: -8px -10px;
+      background: url("ENVY RIBBON.png") center center / contain no-repeat;
+      opacity: 0.68;
+      filter:
+        drop-shadow(0 0 8px rgba(255, 235, 202, 0.08))
+        drop-shadow(0 0 18px rgba(221, 176, 109, 0.1));
+      transform: scale(0.98);
+      transition: transform 0.45s ease, opacity 0.45s ease, filter 0.45s ease;
+      z-index: -1;
+    }
+
+    .lux-cart-toggle:hover {
+      transform: translateY(-2px);
+      color: #fff4df;
+      filter: brightness(1.04);
+    }
+
+    .lux-cart-toggle:hover::before {
+      transform: scale(1.03);
+      opacity: 0.92;
+      filter:
+        drop-shadow(0 0 10px rgba(255, 236, 205, 0.12))
+        drop-shadow(0 0 22px rgba(221, 176, 109, 0.16));
+    }
+
+    .lux-cart-count {
+      display: inline-grid;
+      place-items: center;
+      min-width: 22px;
+      height: 22px;
+      margin-left: 6px;
+      padding: 0 6px;
+      border-radius: 999px;
+      background: rgba(221, 176, 109, 0.18);
+      color: #f6e8d0;
+      font-size: 9px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+
+    .section-mark {
+      position: relative;
+      width: min(1180px, calc(100vw - 36px));
+      margin: 54px auto 18px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: rgba(221, 176, 109, 0.72);
+      font-family: "Courier New", monospace;
+      font-size: 11px;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+    }
+
+    .section-mark::before,
+    .section-mark::after {
+      content: "";
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(221, 176, 109, 0.22), transparent);
+    }
+
+    .section-mark span {
+      padding: 0 16px;
+    }
+
+    .after-enter-world {
+      display: flex;
+      flex-direction: column;
+      opacity: 0;
+      max-height: 0;
+      overflow: hidden;
+      filter: blur(18px);
+      transition:
+        opacity 1.15s ease,
+        filter 1.15s ease,
+        max-height 0s linear 1.15s;
+    }
+
+    .after-enter-world > .catalogue-stage {
+      order: 1;
+    }
+
+    .after-enter-world > .jewelry-stage {
+      order: 2;
+    }
+
+    .after-enter-world > .collection-stage {
+      order: 3;
+    }
+
+    .after-enter-world > .archives-stage {
+      order: 4;
+    }
+
+    .after-enter-world > .recent-stage {
+      order: 5;
+    }
+
+    .after-enter-world > .contact-stage {
+      order: 6;
+    }
+
+    .collection-stage,
+    .archives-stage,
+    .catalogue-stage,
+    .merge-stage,
+    .jewelry-stage,
+    .recent-stage,
+    .contact-stage {
+      width: min(1180px, calc(100vw - 36px));
+      margin: 0 auto;
+      position: relative;
+      z-index: 4;
+      padding: 30px 0 38px;
+      opacity: 0;
+      transform: translateY(40px);
+      filter: blur(14px);
+      transition: opacity 1.05s ease, transform 1.2s cubic-bezier(.16,.9,.2,1), filter 1.05s ease;
+    }
+
+    .collection-stage.is-visible,
+    .archives-stage.is-visible,
+    .catalogue-stage.is-visible,
+    .merge-stage.is-visible,
+    .jewelry-stage.is-visible,
+    .recent-stage.is-visible,
+    .contact-stage.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+      filter: blur(0);
+    }
+
+    .collection-stage {
+      display: grid;
+      grid-template-columns: minmax(280px, 0.9fr) minmax(340px, 1.1fr);
+      gap: 34px;
+      align-items: center;
+      min-height: 88vh;
+      padding-top: 56px;
+    }
+
+    .collection-copy {
+      max-width: 430px;
+      padding: 20px 0 20px 2px;
+    }
+
+    .collection-kicker,
+    .stage-kicker {
+      font-size: 10px;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: rgba(221, 176, 109, 0.8);
+      margin-bottom: 16px;
+      font-family: "Courier New", monospace;
+    }
+
+    .collection-title,
+    .stage-title {
+      margin: 0;
+      font-family: "Courier New", monospace;
+      font-size: clamp(2.4rem, 5vw, 4.8rem);
+      line-height: 0.94;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #f3dec0;
+      text-shadow: 0 0 18px rgba(221, 176, 109, 0.08);
+    }
+
+    .collection-stage .collection-title {
+      font-size: clamp(1.9rem, 3.8vw, 3.3rem);
+    }
+
+    .collection-stance,
+    .stage-text {
+      margin: 26px 0 0;
+      max-width: 360px;
+      color: #ecd9ba;
+      font-family: "Courier New", monospace;
+      font-size: 1rem;
+      letter-spacing: 0.14em;
+      line-height: 1.95;
+      text-transform: uppercase;
+    }
+
+    .archives-head .stage-kicker,
+    .archives-head .stage-title,
+    .archives-head .stage-text {
+      font-family: var(--alien-tech-font);
+    }
+
+    .archives-head .stage-kicker {
+      margin-bottom: 12px;
+      font-size: 9px;
+      letter-spacing: 0.42em;
+      color: rgba(221, 176, 109, 0.62);
+    }
+
+    .archives-head .stage-title {
+      max-width: 720px;
+      font-size: clamp(1.15rem, 2vw, 1.85rem);
+      line-height: 1.34;
+      letter-spacing: 0.34em;
+      color: rgba(243, 222, 192, 0.92);
+      text-shadow:
+        0 0 16px rgba(221, 176, 109, 0.08),
+        0 0 30px rgba(112, 186, 213, 0.06);
+    }
+
+    .archives-head .stage-text {
+      max-width: 500px;
+      margin-top: 18px;
+      font-size: 0.68rem;
+      line-height: 1.82;
+      letter-spacing: 0.24em;
+      color: rgba(205, 225, 223, 0.86);
+      text-shadow: 0 0 18px rgba(116, 209, 224, 0.06);
+    }
+
+    .collection-button,
+    .stage-button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 214px;
+      margin-top: 28px;
+      padding: 16px 22px;
+      border: 1px solid rgba(221, 176, 109, 0.34);
+      color: #f2e0c1;
+      text-decoration: none;
+      font-family: "Courier New", monospace;
+      font-size: 0.84rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      background: rgba(10, 6, 4, 0.42);
+      box-shadow: inset 0 0 0 1px rgba(221, 176, 109, 0.05);
+      transition: transform 0.45s ease, border-color 0.45s ease, box-shadow 0.45s ease;
+    }
+
+    .collection-button:hover,
+    .stage-button:hover {
+      transform: translateY(-2px);
+      border-color: rgba(242, 211, 158, 0.54);
+      box-shadow:
+        0 18px 40px rgba(0, 0, 0, 0.24),
+        inset 0 0 24px rgba(221, 176, 109, 0.08);
+    }
+
+    .collection-visual {
+      position: relative;
+      min-height: 680px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .collection-visual::before {
+      content: "";
+      position: absolute;
+      inset: 8% 4% 12%;
+      background: none;
+      filter: none;
+      opacity: 0;
+    }
+
+    .collection-orbit {
+      position: absolute;
+      top: -14px;
+      left: 50%;
+      width: 98px;
+      height: 98px;
+      border: 1px solid rgba(221, 176, 109, 0.18);
+      border-radius: 50%;
+      transform: translateX(-50%);
+      color: rgba(221, 176, 109, 0.72);
+      font-family: "Courier New", monospace;
+      font-size: 11px;
+      letter-spacing: 0.26em;
+      text-transform: uppercase;
+      display: grid;
+      place-items: center;
+      backdrop-filter: blur(6px);
+      background: rgba(6, 4, 3, 0.36);
+      box-shadow: 0 0 30px rgba(0, 0, 0, 0.2);
+      z-index: 3;
+    }
+
+    .collection-angel-wrap {
+      position: sticky;
+      top: 94px;
+      width: min(100%, 720px);
+      padding: 34px 10px 20px;
+      transform:
+        translate3d(
+          calc((1 - var(--ascension-progress, 0)) * 150px),
+          calc(((1 - var(--ascension-progress, 0)) * -240px) + 18px),
+          0
+        )
+        scale(calc(0.88 + (var(--ascension-progress, 0) * 0.12)));
+      opacity: 1;
+      filter: none;
+      will-change: transform, opacity, filter;
+    }
+
+    .collection-stage.is-visible .collection-angel-wrap {
+      opacity: 1;
+    }
+
+    .collection-angel-wrap img {
+      width: 100%;
+      height: auto;
+      display: block;
+      object-fit: contain;
+      filter: drop-shadow(0 40px 64px rgba(0, 0, 0, 0.38));
+      animation: ascensionFloat 8.5s ease-in-out infinite alternate;
+      transform: scale(1.08);
+      transform-origin: center 18%;
+      opacity: 0.92;
+    }
+
+    .collection-angel-wrap::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: none;
+      mix-blend-mode: normal;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .stage-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+      align-items: stretch;
+    }
+
+    .stage-card {
+      position: relative;
+      min-height: 280px;
+      border: 1px solid rgba(221, 176, 109, 0.16);
+      background:
+        linear-gradient(180deg, rgba(12, 8, 5, 0.86), rgba(5, 3, 2, 0.96));
+      overflow: hidden;
+      box-shadow: 0 24px 48px rgba(0, 0, 0, 0.22);
+    }
+
+    .stage-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      opacity: 0.78;
+      transition: transform 1.1s ease, opacity 0.9s ease, filter 0.9s ease;
+      filter: saturate(0.8) contrast(1.05);
+    }
+
+    .stage-card:hover img {
+      transform: scale(1.04);
+      opacity: 0.92;
+      filter: saturate(0.92) contrast(1.08);
+    }
+
+    .stage-card-copy {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      padding: 18px 16px 16px;
+      background: linear-gradient(180deg, transparent, rgba(0, 0, 0, 0.82));
+    }
+
+    .stage-card-title {
+      margin: 0 0 6px;
+      color: #f0ddbf;
+      font-family: "Courier New", monospace;
+      font-size: 0.92rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+
+    .stage-card-note {
+      margin: 0;
+      color: rgba(221, 176, 109, 0.82);
+      font-family: "Courier New", monospace;
+      font-size: 0.84rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+
+    .archives-stage {
+      padding-top: 18px;
+    }
+
+    .catalogue-stage {
+      padding-top: 22px;
+      padding-bottom: 26px;
+    }
+
+    .catalogue-stage::before,
+    .archives-stage::before {
+      content: "";
+      position: absolute;
+      right: -4%;
+      pointer-events: none;
+      z-index: 0;
+      border-radius: 34px;
+      background:
+        linear-gradient(180deg, rgba(8, 5, 3, 0.18), rgba(0, 0, 0, 0.72)),
+        linear-gradient(90deg, rgba(4, 2, 1, 0.94) 0%, rgba(4, 2, 1, 0.6) 28%, rgba(4, 2, 1, 0.18) 62%, rgba(4, 2, 1, 0.82) 100%),
+        url("turkey-nate-savard-1.png") center 34% / cover no-repeat;
+      filter: saturate(0.76) brightness(0.74) contrast(1.02);
+      box-shadow: 0 24px 48px rgba(0, 0, 0, 0.18);
+    }
+
+    .catalogue-stage::before {
+      top: -8px;
+      width: min(56vw, 640px);
+      height: 320px;
+      opacity: 0.17;
+    }
+
+    .archives-stage::before {
+      top: 18px;
+      width: min(50vw, 580px);
+      height: 360px;
+      opacity: 0.12;
+      background:
+        linear-gradient(180deg, rgba(8, 5, 3, 0.24), rgba(0, 0, 0, 0.8)),
+        linear-gradient(90deg, rgba(4, 2, 1, 0.96) 0%, rgba(4, 2, 1, 0.58) 34%, rgba(4, 2, 1, 0.2) 72%, rgba(4, 2, 1, 0.84) 100%),
+        url("turkey-nate-savard-1.png") center 36% / cover no-repeat;
+    }
+
+    .catalogue-stage > *,
+    .archives-stage > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    .merge-stage {
+      display: grid;
+      grid-template-columns: minmax(320px, 0.94fr) minmax(320px, 1.06fr);
+      gap: 28px;
+      align-items: center;
+      padding-top: 12px;
+      padding-bottom: 24px;
+    }
+
+    .merge-visual {
+      position: relative;
+      min-height: 520px;
+      border: 1px solid rgba(221, 176, 109, 0.14);
+      background:
+        radial-gradient(circle at 50% 28%, rgba(255, 236, 205, 0.08), transparent 30%),
+        linear-gradient(180deg, rgba(10, 6, 4, 0.68), rgba(4, 2, 1, 0.94));
+      box-shadow: 0 24px 48px rgba(0, 0, 0, 0.24);
+      display: grid;
+      place-items: center;
+      overflow: hidden;
+    }
+
+    .merge-visual img {
+      width: min(100%, 420px);
+      max-height: 420px;
+      object-fit: contain;
+      display: block;
+      filter:
+        drop-shadow(0 30px 42px rgba(0, 0, 0, 0.5))
+        drop-shadow(0 0 22px rgba(255, 255, 255, 0.10));
+    }
+
+    .merge-copy {
+      max-width: 520px;
+    }
+
+    .merge-copy .stage-text {
+      max-width: 500px;
+    }
+
+    .merge-points {
+      display: grid;
+      gap: 12px;
+      margin-top: 24px;
+    }
+
+    .merge-point {
+      padding: 16px 18px;
+      border: 1px solid rgba(221, 176, 109, 0.14);
+      background: rgba(8, 5, 3, 0.52);
+    }
+
+    .merge-point strong,
+    .merge-point span {
+      display: block;
+      font-family: "Courier New", monospace;
+      text-transform: uppercase;
+    }
+
+    .merge-point strong {
+      margin-bottom: 8px;
+      color: #f0ddbf;
+      font-size: 0.78rem;
+      letter-spacing: 0.18em;
+    }
+
+    .merge-point span {
+      color: rgba(232, 216, 191, 0.78);
+      font-size: 0.72rem;
+      letter-spacing: 0.12em;
+      line-height: 1.8;
+    }
+
+    .merge-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 26px;
+    }
+
+    .jewelry-stage {
+      padding-top: 12px;
+      padding-bottom: 32px;
+    }
+
+    .recent-stage {
+      padding-top: 8px;
+      padding-bottom: 28px;
+    }
+
+    .recent-head {
+      display: grid;
+      gap: 16px;
+      margin: 0 0 22px;
+      max-width: 860px;
+    }
+
+    .recent-toolbar {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 18px;
+      flex-wrap: wrap;
+    }
+
+    .recent-nav {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .recent-nav button {
+      border: 1px solid rgba(221, 176, 109, 0.22);
+      background: rgba(8, 5, 3, 0.54);
+      color: rgba(240, 221, 191, 0.94);
+      padding: 12px 16px;
+      font-family: "Courier New", monospace;
+      font-size: 0.78rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: transform 0.3s ease, border-color 0.3s ease, opacity 0.3s ease, background 0.3s ease;
+    }
+
+    .recent-nav button:hover:not(:disabled) {
+      transform: translateY(-2px);
+      border-color: rgba(242, 211, 158, 0.5);
+      background: rgba(14, 10, 7, 0.72);
+    }
+
+    .recent-nav button:disabled {
+      opacity: 0.34;
+      cursor: default;
+    }
+
+    .recent-empty {
+      margin: 0 0 18px;
+      color: rgba(232, 216, 191, 0.66);
+      font-family: "Courier New", monospace;
+      font-size: 0.76rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+
+    .recent-rail {
+      position: relative;
+      margin: 0 calc(50% - 50vw);
+      padding: 6px 0 14px;
+      overflow-x: auto;
+      overflow-y: visible;
+      scrollbar-width: thin;
+      scrollbar-color: rgba(221, 176, 109, 0.35) rgba(0, 0, 0, 0.22);
+    }
+
+    .recent-track {
+      display: flex;
+      gap: 18px;
+      width: max-content;
+      padding: 0 max(18px, calc(50vw - 590px)) 6px;
+    }
+
+    .recent-card {
+      width: min(30vw, 300px);
+      min-width: 220px;
+      border: 1px solid rgba(221, 176, 109, 0.12);
+      background:
+        radial-gradient(circle at 50% 20%, rgba(255, 236, 205, 0.08), transparent 30%),
+        linear-gradient(180deg, rgba(10, 6, 4, 0.56), rgba(2, 1, 1, 0.22));
+      padding: 0;
+      color: inherit;
+      text-align: left;
+      cursor: pointer;
+      overflow: hidden;
+      transition: transform 0.42s ease, border-color 0.42s ease, filter 0.42s ease;
+    }
+
+    .recent-card:hover {
+      transform: translateY(-8px);
+      border-color: rgba(242, 211, 158, 0.26);
+      filter: brightness(1.04);
+    }
+
+    .recent-card-media {
+      min-height: 240px;
+      display: grid;
+      place-items: center;
+      padding: 20px 18px 10px;
+    }
+
+    .recent-card-media img {
+      width: 100%;
+      max-width: 240px;
+      height: 220px;
+      object-fit: contain;
+      display: block;
+      filter:
+        drop-shadow(0 22px 36px rgba(0, 0, 0, 0.42))
+        drop-shadow(0 0 18px rgba(221, 176, 109, 0.08));
+      transition: transform 0.42s ease, filter 0.42s ease;
+    }
+
+    .recent-card:hover .recent-card-media img {
+      transform: scale(1.05) translateY(-4px);
+      filter:
+        drop-shadow(0 26px 40px rgba(0, 0, 0, 0.46))
+        drop-shadow(0 0 22px rgba(221, 176, 109, 0.14));
+    }
+
+    .recent-card-copy {
+      padding: 16px 16px 18px;
+      background: linear-gradient(180deg, transparent, rgba(0, 0, 0, 0.62));
+    }
+
+    .recent-card-title {
+      margin: 0 0 8px;
+      color: #f0ddbf;
+      font-family: "Courier New", monospace;
+      font-size: 0.86rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+
+    .recent-card-meta {
+      margin: 0;
+      color: rgba(221, 176, 109, 0.84);
+      font-family: "Courier New", monospace;
+      font-size: 0.74rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      line-height: 1.8;
+    }
+
+    .rebirth-recent-stage {
+      display: grid;
+      gap: 18px;
+      margin-top: 10px;
+      padding-top: 18px;
+    }
+
+    .rebirth-recent-stage .recent-head {
+      display: grid;
+      gap: 12px;
+      margin-bottom: 0;
+      max-width: none;
+    }
+
+    .rebirth-recent-stage .stage-kicker,
+    .rebirth-recent-stage .stage-title,
+    .rebirth-recent-stage .stage-text,
+    .rebirth-recent-stage .recent-card-title,
+    .rebirth-recent-stage .recent-card-meta,
+    .rebirth-recent-stage .recent-nav button {
+      font-family: "Courier New", monospace;
+      text-transform: uppercase;
+    }
+
+    .rebirth-recent-stage .stage-kicker {
+      margin-bottom: 0;
+      color: rgba(221, 176, 109, 0.72);
+      font-size: 0.58rem;
+      letter-spacing: 0.28em;
+    }
+
+    .rebirth-recent-stage .recent-toolbar {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 18px;
+      flex-wrap: wrap;
+    }
+
+    .rebirth-recent-stage .stage-title {
+      margin: 0;
+      color: #f5e7ce;
+      font-size: 0.92rem;
+      letter-spacing: 0.22em;
+      font-weight: 400;
+      line-height: 1.4;
+      text-shadow: 0 0 18px rgba(255, 230, 194, 0.08);
+    }
+
+    .rebirth-recent-stage .stage-text {
+      margin: 0;
+      max-width: 720px;
+      color: rgba(236, 217, 186, 0.72);
+      font-size: 0.68rem;
+      letter-spacing: 0.16em;
+      line-height: 1.72;
+    }
+
+    .rebirth-recent-stage .recent-nav {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .rebirth-recent-stage .recent-nav button {
+      border: 1px solid rgba(221, 176, 109, 0.22);
+      background: rgba(8, 5, 3, 0.46);
+      color: rgba(240, 221, 191, 0.94);
+      padding: 10px 14px;
+      font-size: 0.72rem;
+      letter-spacing: 0.16em;
+      cursor: pointer;
+      transition: transform 0.3s ease, border-color 0.3s ease, opacity 0.3s ease, background 0.3s ease;
+    }
+
+    .rebirth-recent-stage .recent-nav button:hover:not(:disabled) {
+      transform: translateY(-2px);
+      border-color: rgba(242, 211, 158, 0.48);
+      background: rgba(14, 10, 7, 0.64);
+    }
+
+    .rebirth-recent-stage .recent-nav button:disabled {
+      opacity: 0.34;
+      cursor: default;
+    }
+
+    .rebirth-recent-stage .recent-empty {
+      margin: 0;
+      color: rgba(232, 216, 191, 0.62);
+      font-family: "Courier New", monospace;
+      font-size: 0.72rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+
+    .rebirth-recent-stage .recent-rail {
+      margin: 0;
+      padding: 4px 0 10px;
+      overflow-x: auto;
+      overflow-y: visible;
+      scrollbar-width: thin;
+      scrollbar-color: rgba(221, 176, 109, 0.35) rgba(0, 0, 0, 0.22);
+    }
+
+    .rebirth-recent-stage .recent-track {
+      display: flex;
+      gap: 18px;
+      width: max-content;
+      padding: 0 0 6px;
+    }
+
+    .rebirth-recent-stage .recent-card {
+      width: min(22vw, 220px);
+      min-width: 180px;
+      padding: 0;
+      border: 0;
+      background: transparent;
+      color: inherit;
+      text-align: left;
+      cursor: pointer;
+      overflow: visible;
+      box-shadow: none;
+      transition: transform 0.42s ease, filter 0.42s ease;
+    }
+
+    .rebirth-recent-stage .recent-card:hover {
+      transform: translateY(-6px);
+      filter: brightness(1.04);
+    }
+
+    .rebirth-recent-stage .recent-card-media {
+      min-height: 210px;
+      display: grid;
+      place-items: center;
+      padding: 10px 10px 8px;
+    }
+
+    .rebirth-recent-stage .recent-card-media img {
+      width: 100%;
+      max-width: 190px;
+      height: 190px;
+      object-fit: contain;
+      display: block;
+      filter:
+        drop-shadow(0 22px 36px rgba(0, 0, 0, 0.46))
+        drop-shadow(0 0 18px rgba(221, 176, 109, 0.08));
+      transition: transform 0.42s ease, filter 0.42s ease;
+    }
+
+    .rebirth-recent-stage .recent-card:hover .recent-card-media img {
+      transform: scale(1.05) translateY(-4px);
+      filter:
+        drop-shadow(0 26px 40px rgba(0, 0, 0, 0.48))
+        drop-shadow(0 0 22px rgba(221, 176, 109, 0.14));
+    }
+
+    .rebirth-recent-stage .recent-card-copy {
+      padding: 8px 6px 0;
+    }
+
+    .rebirth-recent-stage .recent-card-title {
+      margin: 0 0 6px;
+      color: #f5e7ce;
+      font-size: 0.74rem;
+      letter-spacing: 0.16em;
+    }
+
+    .rebirth-recent-stage .recent-card-meta {
+      margin: 0;
+      color: rgba(221, 176, 109, 0.82);
+      font-size: 0.62rem;
+      letter-spacing: 0.16em;
+      line-height: 1.68;
+    }
+
+    .catalogue-head {
+      max-width: 720px;
+      margin: 0 0 22px;
+    }
+
+    .catalogue-head.is-editorial {
+      max-width: 760px;
+    }
+
+    .catalogue-head.is-editorial .stage-kicker,
+    .catalogue-head.is-editorial .stage-title,
+    .catalogue-head.is-editorial .stage-text {
+      font-family: var(--alien-tech-font), "Courier New", monospace;
+    }
+
+    .catalogue-head.is-editorial .stage-title {
+      font-size: 9px;
+      line-height: 1.5;
+      letter-spacing: 0.18em;
+      color: rgba(243, 222, 192, 0.94);
+      text-shadow:
+        0 0 14px rgba(221, 176, 109, 0.06),
+        0 0 24px rgba(112, 186, 213, 0.04);
+    }
+
+    .catalogue-head.is-editorial .stage-text {
+      margin-top: 14px;
+      max-width: 700px;
+      font-size: 9px;
+      line-height: 1.9;
+      letter-spacing: 0.18em;
+      color: rgba(236, 217, 186, 0.88);
+    }
+
+    .jewelry-head {
+      max-width: 760px;
+      margin: 0 0 24px;
+    }
+
+    .jewelry-title-lockup {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 14px;
+    }
+
+    .jewelry-cross-mark {
+      width: clamp(72px, 9vw, 116px);
+      height: auto;
+      display: block;
+      opacity: 0.94;
+      filter:
+        drop-shadow(0 18px 28px rgba(0, 0, 0, 0.34))
+        drop-shadow(0 0 22px rgba(255, 255, 255, 0.12));
+    }
+
+    .jewelry-title-brand {
+      margin: 0;
+      width: min(100%, clamp(320px, 58vw, 780px));
+      font-size: 0;
+      line-height: 0;
+      letter-spacing: 0;
+      text-transform: none;
+      text-shadow: none;
+    }
+
+    .jewelry-title-mark {
+      display: block;
+      width: 100%;
+      height: auto;
+      filter:
+        drop-shadow(0 20px 34px rgba(0, 0, 0, 0.34))
+        drop-shadow(0 0 18px rgba(255, 244, 222, 0.08));
+    }
+
+    .catalogue-rail {
+      position: relative;
+      margin: 0 calc(50% - 50vw);
+      padding: 6px 0 14px;
+      overflow-x: auto;
+      overflow-y: visible;
+      cursor: grab;
+      user-select: none;
+      -webkit-user-select: none;
+      scrollbar-width: thin;
+      scrollbar-color: rgba(221, 176, 109, 0.35) rgba(0, 0, 0, 0.22);
+    }
+
+    .catalogue-rail.is-dragging {
+      cursor: grabbing;
+    }
+
+    .catalogue-track {
+      display: flex;
+      gap: 18px;
+      width: max-content;
+      padding: 0 max(18px, calc(50vw - 590px)) 6px;
+      pointer-events: none;
+    }
+
+    .catalogue-card {
+      position: relative;
+      width: min(32vw, 340px);
+      min-width: 240px;
+      min-height: 360px;
+      border: 0;
+      background:
+        radial-gradient(circle at 50% 24%, rgba(255, 236, 205, 0.08), transparent 30%),
+        linear-gradient(180deg, rgba(10, 6, 4, 0.42), rgba(2, 1, 1, 0.1));
+      overflow: hidden;
+      box-shadow: none;
+      pointer-events: auto;
+    }
+
+    .catalogue-card:not(.is-art) {
+      background: transparent;
+      cursor: pointer;
+      transition: transform 0.45s ease, filter 0.45s ease;
+    }
+
+    .catalogue-card:not(.is-art):hover {
+      transform: translateY(-8px) scale(1.04);
+      filter: brightness(1.05);
+    }
+
+    .catalogue-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
+      opacity: 0.96;
+      filter:
+        drop-shadow(0 22px 38px rgba(0, 0, 0, 0.42))
+        drop-shadow(0 0 18px rgba(221, 176, 109, 0.08));
+    }
+
+    .catalogue-card.is-art img {
+      object-fit: cover;
+      opacity: 0.82;
+      filter: saturate(0.84) contrast(1.04);
+    }
+
+    .catalogue-card.is-lookbook-wide {
+      width: min(48vw, 560px);
+      min-width: 360px;
+    }
+
+    .catalogue-card.is-lookbook-wide img {
+      object-position: 52% 34%;
+      filter:
+        saturate(0.86)
+        contrast(1.03)
+        brightness(0.92)
+        drop-shadow(0 20px 34px rgba(0, 0, 0, 0.28));
+    }
+
+    .catalogue-card-copy {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      padding: 16px 16px 18px;
+      background: linear-gradient(180deg, transparent, rgba(0, 0, 0, 0.82));
+    }
+
+    .catalogue-card:not(.is-art) .catalogue-card-copy {
+      background: transparent;
+    }
+
+    .catalogue-card:not(.is-art):hover img {
+      transform: scale(1.08) translateY(-8px);
+      filter:
+        drop-shadow(0 28px 42px rgba(0, 0, 0, 0.46))
+        drop-shadow(0 0 24px rgba(221, 176, 109, 0.14));
+    }
+
+    .catalogue-card-title {
+      margin: 0 0 6px;
+      color: #f0ddbf;
+      font-family: "Courier New", monospace;
+      font-size: 0.92rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+
+    .catalogue-card-note {
+      margin: 0;
+      color: rgba(221, 176, 109, 0.82);
+      font-family: "Courier New", monospace;
+      font-size: 0.78rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+
+    .jewelry-rail {
+      position: relative;
+      margin: 0 calc(50% - 50vw);
+      padding: 6px 0 14px;
+      overflow-x: auto;
+      overflow-y: visible;
+      cursor: grab;
+      user-select: none;
+      -webkit-user-select: none;
+      scrollbar-width: thin;
+      scrollbar-color: rgba(221, 176, 109, 0.35) rgba(0, 0, 0, 0.22);
+    }
+
+    .jewelry-rail.is-dragging {
+      cursor: grabbing;
+    }
+
+    .jewelry-track {
+      display: flex;
+      gap: 18px;
+      width: max-content;
+      padding: 0 max(18px, calc(50vw - 590px)) 6px;
+      pointer-events: none;
+    }
+
+    .jewelry-card {
+      position: relative;
+      width: min(32vw, 340px);
+      min-width: 240px;
+      min-height: 420px;
+      padding: 26px 24px 20px;
+      overflow: visible;
+      background: transparent;
+      border: 0;
+      box-shadow: none;
+      pointer-events: auto;
+      cursor: pointer;
+      transition: transform 0.45s ease, filter 0.45s ease;
+    }
+
+    .jewelry-card:hover {
+      transform: translateY(-8px) scale(1.04);
+      filter: brightness(1.05);
+    }
+
+    .jewelry-card::before {
+      content: none;
+    }
+
+    .jewelry-card-media {
+      position: relative;
+      min-height: 320px;
+      display: grid;
+      place-items: center;
+      margin-bottom: 14px;
+    }
+
+    .jewelry-card-media img {
+      width: min(100%, 380px);
+      max-height: 320px;
+      object-fit: contain;
+      display: block;
+      filter:
+        drop-shadow(0 26px 38px rgba(0, 0, 0, 0.46))
+        drop-shadow(0 0 16px rgba(255, 255, 255, 0.08));
+      transition: transform 0.45s ease, filter 0.45s ease;
+    }
+
+    .jewelry-card:hover .jewelry-card-media img {
+      transform: scale(1.08) translateY(-8px);
+      filter:
+        drop-shadow(0 30px 44px rgba(0, 0, 0, 0.5))
+        drop-shadow(0 0 22px rgba(255, 255, 255, 0.12));
+    }
+
+    .jewelry-card-copy {
+      position: relative;
+      z-index: 1;
+    }
+
+    .jewelry-card-title {
+      margin: 0 0 8px;
+      color: #f0ddbf;
+      font-family: "Courier New", monospace;
+      font-size: 0.94rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+
+    .jewelry-card-note,
+    .jewelry-card-text {
+      margin: 0;
+      font-family: "Courier New", monospace;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .jewelry-card-note {
+      color: rgba(221, 176, 109, 0.82);
+      font-size: 0.76rem;
+    }
+
+    .jewelry-card-text {
+      margin-top: 10px;
+      color: rgba(232, 216, 191, 0.78);
+      font-size: 0.72rem;
+      line-height: 1.8;
+    }
+
+    .archives-head,
+    .contact-head {
+      max-width: 620px;
+      margin: 0 0 24px;
+    }
+
+    .contact-stage {
+      display: grid;
+      grid-template-columns: minmax(280px, 0.86fr) minmax(320px, 1.14fr);
+      gap: 22px;
+      align-items: center;
+      padding-bottom: 110px;
+    }
+
+    .contact-stage::before {
+      content: "";
+      position: absolute;
+      inset: 10% -6% -2%;
+      background:
+        radial-gradient(circle at 76% 46%, rgba(221, 176, 109, 0.07), transparent 24%);
+      pointer-events: none;
+    }
+
+    .contact-image {
+      position: relative;
+      min-height: 520px;
+      display: grid;
+      place-items: center;
+      border: 0;
+      overflow: visible;
+      background: transparent;
+      box-shadow: none;
+    }
+
+    .contact-image img {
+      width: min(100%, 520px);
+      height: auto;
+      max-height: 520px;
+      object-fit: contain;
+      display: block;
+      opacity: 0.92;
+      filter:
+        saturate(0.9)
+        contrast(1.04)
+        drop-shadow(0 24px 42px rgba(0, 0, 0, 0.34))
+        drop-shadow(0 0 22px rgba(221, 176, 109, 0.12));
+      animation: vaultCrossSpin 18s linear infinite;
+      transform-origin: center;
+    }
+
+    .contact-image:hover img {
+      animation-play-state: paused;
+    }
+
+    .contact-copy {
+      max-width: 460px;
+    }
+
+    .contact-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-top: 28px;
+    }
+
+    .contact-actions .stage-button {
+      margin-top: 0;
+    }
+
+    .contact-copy .stage-text {
+      max-width: 430px;
+    }
+
+    .contact-route {
+      margin-top: 26px;
+      color: rgba(221, 176, 109, 0.9);
+      font-family: "Courier New", monospace;
+      font-size: 0.84rem;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+    }
+
+    .contact-route a {
+      color: inherit;
+      text-decoration: none;
+      border-bottom: 1px solid rgba(221, 176, 109, 0.3);
+      padding-bottom: 4px;
+    }
+
+    .contact-route a:hover {
+      border-color: rgba(242, 211, 158, 0.64);
+    }
+
+    @keyframes vaultCrossSpin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(-360deg); }
+    }
+
+    .house-viewer {
+      position: fixed;
+      inset: 0;
+      z-index: 16;
+      display: grid;
+      place-items: center;
+      padding: 28px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.45s ease;
+    }
+
+    .house-viewer.is-open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .house-viewer-backdrop {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at center, rgba(221, 176, 109, 0.08), transparent 28%),
+        rgba(0, 0, 0, 0.84);
+      backdrop-filter: blur(18px);
+    }
+
+    .house-viewer-frame {
+      position: relative;
+      z-index: 1;
+      width: min(94vw, 1380px);
+      max-height: min(92vh, 1200px);
+      display: grid;
+      grid-template-columns: minmax(420px, 1.35fr) minmax(300px, 0.82fr);
+      gap: clamp(22px, 3.4vw, 42px);
+      align-items: center;
+      padding: 36px 36px 112px;
+      background:
+        radial-gradient(circle at 50% 28%, rgba(255, 237, 205, 0.08), transparent 28%),
+        linear-gradient(180deg, rgba(10, 6, 4, 0.56), rgba(2, 1, 1, 0.2));
+      border: 1px solid rgba(221, 176, 109, 0.12);
+      box-shadow: 0 28px 72px rgba(0, 0, 0, 0.42);
+      overflow: hidden;
+    }
+
+    .house-viewer-visual {
+      position: relative;
+      min-height: clamp(460px, 72vh, 820px);
+      display: grid;
+      place-items: center;
+      align-self: stretch;
+      padding: 24px 26px 58px;
+    }
+
+    .house-viewer-nav {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 2;
+      width: 52px;
+      height: 52px;
+      border: 1px solid rgba(221, 176, 109, 0.26);
+      background: rgba(8, 5, 3, 0.68);
+      color: rgba(246, 230, 202, 0.94);
+      font-family: "Courier New", monospace;
+      font-size: 1.2rem;
+      line-height: 1;
+      display: grid;
+      place-items: center;
+      cursor: pointer;
+      transition: transform 0.3s ease, border-color 0.3s ease, background 0.3s ease;
+    }
+
+    .house-viewer-nav:hover {
+      transform: translateY(-50%) scale(1.04);
+      border-color: rgba(242, 211, 158, 0.52);
+      background: rgba(18, 11, 8, 0.84);
+    }
+
+    .house-viewer-nav.prev {
+      left: 10px;
+    }
+
+    .house-viewer-nav.next {
+      right: 10px;
+    }
+
+    .house-viewer-visual::before {
+      content: "";
+      position: absolute;
+      inset: 12% 6% 14%;
+      background: radial-gradient(circle at center, rgba(221, 176, 109, 0.12), transparent 66%);
+      filter: blur(18px);
+    }
+
+    .house-viewer-visual::after {
+      content: "click garment to inspect full detail";
+      position: absolute;
+      left: 50%;
+      bottom: 12px;
+      transform: translateX(-50%);
+      padding: 10px 14px;
+      border: 1px solid rgba(221, 176, 109, 0.18);
+      background: rgba(7, 4, 3, 0.64);
+      color: rgba(246, 230, 202, 0.72);
+      font-family: "Courier New", monospace;
+      font-size: 9px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      white-space: nowrap;
+      pointer-events: none;
+    }
+
+    .house-viewer-image {
+      position: relative;
+      z-index: 1;
+      max-width: min(100%, 860px);
+      max-height: min(82vh, 960px);
+      width: min(100%, 860px);
+      height: auto;
+      object-fit: contain;
+      display: block;
+      filter:
+        drop-shadow(0 28px 48px rgba(0, 0, 0, 0.44))
+        drop-shadow(0 0 24px rgba(221, 176, 109, 0.08));
+      cursor: zoom-in;
+    }
+
+    .house-image-zoom {
+      position: fixed;
+      inset: 0;
+      z-index: 18;
+      display: grid;
+      place-items: center;
+      padding: 28px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.35s ease;
+    }
+
+    .house-image-zoom.is-open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .house-image-zoom-backdrop {
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.9);
+      backdrop-filter: blur(16px);
+    }
+
+    .house-image-zoom img {
+      position: relative;
+      z-index: 1;
+      max-width: min(97vw, 1800px);
+      max-height: 94vh;
+      width: auto;
+      height: auto;
+      object-fit: contain;
+      display: block;
+      filter:
+        drop-shadow(0 24px 42px rgba(0, 0, 0, 0.46))
+        drop-shadow(0 0 28px rgba(255, 236, 208, 0.12));
+      cursor: zoom-out;
+    }
+
+    .house-product-sheet {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      gap: 16px;
+      align-content: start;
+      max-height: calc(92vh - 160px);
+      overflow-y: auto;
+      padding-right: 8px;
+    }
+
+    .house-product-sheet::-webkit-scrollbar,
+    .house-cart-drawer::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    .house-product-sheet::-webkit-scrollbar-thumb,
+    .house-cart-drawer::-webkit-scrollbar-thumb {
+      background: rgba(221, 176, 109, 0.32);
+    }
+
+    .house-product-kicker,
+    .house-product-label,
+    .house-cart-item-name,
+    .house-cart-item-meta,
+    .house-cart-empty,
+    .house-cart-field label,
+    .house-cart-summary {
+      font-family: "Courier New", monospace;
+      text-transform: uppercase;
+    }
+
+    .house-product-kicker {
+      color: rgba(221, 176, 109, 0.74);
+      font-size: 10px;
+      letter-spacing: 0.28em;
+    }
+
+    .house-product-title {
+      margin: 0;
+      color: #f6e8d0;
+      font-family: "Courier New", monospace;
+      font-size: clamp(1.24rem, 2.1vw, 1.8rem);
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      line-height: 1.2;
+    }
+
+    .house-product-price {
+      color: rgba(221, 176, 109, 0.92);
+      font-family: "Courier New", monospace;
+      font-size: 0.92rem;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+    }
+
+    .house-product-description {
+      color: rgba(246, 230, 202, 0.84);
+      font-family: "Courier New", monospace;
+      font-size: 0.84rem;
+      line-height: 1.8;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .house-product-group {
+      display: grid;
+      gap: 10px;
+    }
+
+    .house-product-label {
+      color: rgba(221, 176, 109, 0.78);
+      font-size: 9px;
+      letter-spacing: 0.28em;
+    }
+
+    .house-size-grid,
+    .house-cart-actions,
+    .house-product-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .house-size-grid {
+      gap: 10px;
+    }
+
+    .house-size-chip,
+    .house-qty-button,
+    .house-product-action,
+    .house-cart-action {
+      border: 1px solid rgba(221, 176, 109, 0.18);
+      background: rgba(8, 5, 3, 0.54);
+      color: #f6e8d0;
+      font-family: "Courier New", monospace;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      cursor: pointer;
+      transition: transform 0.35s ease, border-color 0.35s ease, background 0.35s ease, color 0.35s ease, opacity 0.35s ease;
+    }
+
+    .house-size-chip {
+      min-width: 62px;
+      padding: 11px 12px;
+      font-size: 0.74rem;
+      text-align: center;
+    }
+
+    .house-size-chip.is-active,
+    .house-size-chip:hover,
+    .house-qty-button:hover,
+    .house-product-action:hover,
+    .house-cart-action:hover {
+      border-color: rgba(242, 211, 158, 0.42);
+      background: rgba(22, 14, 9, 0.72);
+      transform: translateY(-1px);
+    }
+
+    .house-quantity-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .house-qty-button {
+      width: 42px;
+      height: 42px;
+      padding: 0;
+      font-size: 0.88rem;
+    }
+
+    .house-qty-value {
+      min-width: 28px;
+      text-align: center;
+      color: rgba(246, 230, 202, 0.92);
+      font-family: "Courier New", monospace;
+      font-size: 0.92rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+    }
+
+    .house-product-action,
+    .house-cart-action {
+      padding: 14px 18px;
+      font-size: 0.76rem;
+    }
+
+    .house-product-action.is-primary,
+    .house-cart-action.is-primary {
+      background: rgba(221, 176, 109, 0.12);
+    }
+
+    .house-product-note {
+      color: rgba(221, 176, 109, 0.68);
+      font-family: "Courier New", monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.16em;
+      line-height: 1.7;
+      text-transform: uppercase;
+    }
+
+    .house-viewer-close {
+      position: absolute;
+      right: 18px;
+      bottom: 18px;
+      width: min(22vw, 180px);
+      min-width: 120px;
+      height: 72px;
+      border: 0;
+      padding: 0;
+      background: transparent;
+      cursor: pointer;
+      transition: transform 0.35s ease, filter 0.35s ease;
+    }
+
+    .house-viewer-close::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: url("ENVY RIBBON.png") center center / contain no-repeat;
+      opacity: 0.86;
+      filter:
+        drop-shadow(0 0 10px rgba(255, 229, 189, 0.08))
+        drop-shadow(0 0 20px rgba(221, 176, 109, 0.12));
+    }
+
+    .house-viewer-close img {
+      position: absolute;
+      left: 50%;
+      top: 8px;
+      width: min(12vw, 108px);
+      min-width: 72px;
+      transform: translateX(-50%);
+      filter:
+        drop-shadow(0 0 8px rgba(255, 233, 199, 0.16))
+        drop-shadow(0 0 18px rgba(221, 176, 109, 0.14));
+    }
+
+    .house-viewer-close:hover {
+      transform: translateY(-2px);
+      filter: brightness(1.06);
+    }
+
+    .house-cart-shell {
+      position: fixed;
+      inset: 0;
+      z-index: 15;
+      pointer-events: none;
+    }
+
+    .house-cart-shell.is-open {
+      pointer-events: auto;
+    }
+
+    .house-cart-backdrop {
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.48);
+      opacity: 0;
+      transition: opacity 0.35s ease;
+    }
+
+    .house-cart-shell.is-open .house-cart-backdrop {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .house-cart-drawer {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: min(440px, 92vw);
+      height: 100%;
+      padding: 22px 20px 30px;
+      background:
+        linear-gradient(180deg, rgba(10, 6, 4, 0.96), rgba(0, 0, 0, 0.98)),
+        rgba(0, 0, 0, 0.94);
+      border-left: 1px solid rgba(221, 176, 109, 0.14);
+      box-shadow: -20px 0 50px rgba(0, 0, 0, 0.42);
+      transform: translateX(100%);
+      opacity: 0;
+      overflow-y: auto;
+      pointer-events: auto;
+      transition: transform 0.45s cubic-bezier(.16,.9,.2,1), opacity 0.45s ease;
+    }
+
+    .house-cart-shell.is-open .house-cart-drawer {
+      transform: translateX(0);
+      opacity: 1;
+    }
+
+    .house-cart-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: start;
+      gap: 16px;
+      margin-bottom: 22px;
+    }
+
+    .house-cart-title {
+      margin: 0;
+      color: #f6e8d0;
+      font-family: "Courier New", monospace;
+      font-size: 1rem;
+      letter-spacing: 0.26em;
+      text-transform: uppercase;
+    }
+
+    .house-cart-close {
+      position: relative;
+      border: 0;
+      padding: 0;
+      background: transparent;
+      width: min(18vw, 150px);
+      min-width: 104px;
+      height: 62px;
+      cursor: pointer;
+      transition: transform 0.35s ease, filter 0.35s ease;
+    }
+
+    .house-cart-close::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: url("ENVY RIBBON.png") center center / contain no-repeat;
+      opacity: 0.84;
+      filter:
+        drop-shadow(0 0 10px rgba(255, 229, 189, 0.08))
+        drop-shadow(0 0 20px rgba(221, 176, 109, 0.12));
+    }
+
+    .house-cart-close img {
+      position: absolute;
+      left: 50%;
+      top: 7px;
+      width: min(10vw, 92px);
+      min-width: 62px;
+      transform: translateX(-50%);
+      filter:
+        drop-shadow(0 0 8px rgba(255, 233, 199, 0.16))
+        drop-shadow(0 0 18px rgba(221, 176, 109, 0.14));
+    }
+
+    .house-cart-close:hover {
+      transform: translateY(-2px);
+      filter: brightness(1.06);
+    }
+
+    .house-cart-items {
+      display: grid;
+      gap: 14px;
+    }
+
+    .house-cart-item {
+      display: grid;
+      grid-template-columns: 92px 1fr;
+      gap: 14px;
+      padding: 12px 0 16px;
+      border-bottom: 1px solid rgba(221, 176, 109, 0.12);
+    }
+
+    .house-cart-item-preview {
+      display: contents;
+      cursor: pointer;
+    }
+
+    .house-cart-item-image {
+      display: grid;
+      place-items: center;
+      min-height: 110px;
+      background: radial-gradient(circle at center, rgba(221, 176, 109, 0.1), transparent 68%);
+    }
+
+    .house-cart-item-image img {
+      max-width: 100%;
+      max-height: 108px;
+      object-fit: contain;
+      filter:
+        drop-shadow(0 18px 26px rgba(0, 0, 0, 0.4))
+        drop-shadow(0 0 14px rgba(221, 176, 109, 0.1));
+    }
+
+    .house-cart-item-name {
+      color: #f6e8d0;
+      font-size: 0.8rem;
+      letter-spacing: 0.16em;
+      line-height: 1.6;
+    }
+
+    .house-cart-item-meta {
+      margin-top: 6px;
+      color: rgba(221, 176, 109, 0.76);
+      font-size: 0.68rem;
+      letter-spacing: 0.18em;
+      line-height: 1.9;
+    }
+
+    .house-cart-item-preview:hover .house-cart-item-name,
+    .house-cart-item-preview:hover .house-cart-item-meta {
+      color: #f6e8d0;
+    }
+
+    .house-cart-item-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .house-cart-item-actions button {
+      border: 0;
+      padding: 0;
+      background: transparent;
+      color: rgba(246, 230, 202, 0.78);
+      font-family: "Courier New", monospace;
+      font-size: 0.62rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      cursor: pointer;
+    }
+
+    .house-cart-form {
+      display: grid;
+      gap: 12px;
+      margin-top: 22px;
+      padding-top: 18px;
+      border-top: 1px solid rgba(221, 176, 109, 0.12);
+    }
+
+    .house-cart-field {
+      display: grid;
+      gap: 6px;
+    }
+
+    .house-cart-field label {
+      color: rgba(221, 176, 109, 0.7);
+      font-size: 0.62rem;
+      letter-spacing: 0.22em;
+    }
+
+    .house-cart-field input,
+    .house-cart-field textarea {
+      width: 100%;
+      border: 1px solid rgba(221, 176, 109, 0.14);
+      background: rgba(10, 6, 4, 0.7);
+      color: #f6e8d0;
+      font-family: "Courier New", monospace;
+      font-size: 0.78rem;
+      letter-spacing: 0.08em;
+      padding: 12px 12px;
+      resize: vertical;
+    }
+
+    .house-cart-summary {
+      margin-top: 10px;
+      color: rgba(246, 230, 202, 0.82);
+      font-size: 0.68rem;
+      letter-spacing: 0.16em;
+      line-height: 1.8;
+    }
+
+    .house-cart-empty {
+      color: rgba(246, 230, 202, 0.7);
+      font-size: 0.72rem;
+      letter-spacing: 0.18em;
+      line-height: 1.9;
+      padding: 6px 0 4px;
+    }
+
+    body.is-entered {
+      overflow-y: auto;
+    }
+
+    body.is-entered .screen {
+      background:
+        linear-gradient(180deg, rgba(4, 2, 1, 0.98), rgba(0, 0, 0, 1));
+      --hero-shift-x: -38vw;
+      --hero-shift-y: 4vh;
+      --hero-scale: 1.08;
+      --hero-opacity: 0.28;
+      --hero-blur: 1.4px;
+      --hero-saturate: 0.76;
+      --hero-brightness: 0.66;
+    }
+
+    body.is-entered .after-enter-world {
+      opacity: 1;
+      max-height: 9000px;
+      overflow: visible;
+      filter: blur(0);
+      transition:
+        opacity 1.15s ease 0.18s,
+        filter 1.15s ease 0.18s,
+        max-height 0s linear 0s;
+    }
+
+    body.is-entered .shell {
+      min-height: 72vh;
+      justify-content: flex-start;
+      padding-top: 26px;
+      padding-bottom: 28px;
+    }
+
+    body.is-entered .portal {
+      width: min(1320px, calc(100vw - 30px));
+      min-height: 420px;
+      transform: none;
+      filter: none;
+      animation-duration: 9s;
+    }
+
+    body.is-entered .visual {
+      min-height: 520px;
+    }
+
+    body.is-entered .visual img {
+      animation-duration: 12s;
+    }
+
+    body.is-entered .rebirth-stack {
+      transform: translateY(-14px) scale(0.97);
+    }
+
+    body.is-entered .visual .rebirth-photo-main {
+      left: 1%;
+      top: 12%;
+    }
+
+    body.is-entered .visual .rebirth-photo-second {
+      right: 2%;
+      top: 1%;
+    }
+
+    body.is-entered .visual .rebirth-photo-third {
+      left: 24%;
+      bottom: 5%;
+    }
+
+    body.is-entered .visual .rebirth-photo-fourth {
+      right: 10%;
+      bottom: -1%;
+    }
+
+    body.is-collection-open .screen {
+      --hero-shift-x: -44vw;
+      --hero-shift-y: 11vh;
+      --hero-scale: 0.84;
+      --hero-opacity: 0.16;
+      --hero-blur: 2px;
+      --hero-saturate: 0.68;
+      --hero-brightness: 0.58;
+    }
+
+    body.is-entered .visual .fused-logo {
+      opacity: 0.05;
+      transform: translate(-66%, -50%) scale(0.96);
+    }
+
+    body.is-entered .accent-logo {
+      opacity: 0.025;
+      filter: blur(1.2px);
+      animation: accentFloat 7.2s ease-in-out infinite alternate, enteredAccentFlicker 2.1s linear infinite;
+    }
+
+    body.is-entered .accent-logo.left {
+      width: min(32vw, 420px);
+      height: min(14vw, 180px);
+      left: -12%;
+      top: 0;
+    }
+
+    body.is-entered .accent-logo.right {
+      width: min(28vw, 360px);
+      height: min(12vw, 150px);
+      right: -4%;
+      bottom: 8%;
+      opacity: 0.04;
+    }
+
+    body.is-entered .accent-logo.top {
+      width: min(22vw, 260px);
+      height: min(10vw, 120px);
+      right: 6%;
+      top: -8%;
+      opacity: 0.03;
+      animation: accentFloat 9s ease-in-out infinite alternate, enteredAccentTopFlicker 4.8s linear infinite;
+    }
+
+    body.is-entered .copy-inner {
+      top: 20px;
+      left: 50%;
+      width: min(540px, calc(100vw - 30px));
+      transform: translateX(-50%);
+      padding-top: 0;
+    }
+
+    body.is-entered .enter-logo {
+      pointer-events: auto;
+    }
+
+    body.is-entered .enter-logo img {
+      width: min(18vw, 180px);
+      min-width: 138px;
+      animation: none;
+      filter:
+        drop-shadow(0 0 8px rgba(255, 225, 168, 0.28))
+        drop-shadow(0 0 18px rgba(221, 176, 109, 0.18));
+    }
+
+    body.is-entered .hint {
+      opacity: 0;
+    }
+
+    body.is-entered .rotating-line {
+      margin-top: 18px;
+      width: min(36vw, 400px);
+      min-width: 250px;
+      min-height: 72px;
+      padding-top: 20px;
+      padding-bottom: 18px;
+    }
+
+    body.is-entered .flash {
+      opacity: 0.36;
+      transition: opacity 0.9s ease;
+    }
+
+    .top-ribbon {
+      position: fixed;
+      left: 50%;
+      bottom: 38px;
+      z-index: 10;
+      width: min(36vw, 420px);
+      min-width: 280px;
+      height: 132px;
+      padding: 0;
+      border: 0;
+      background: transparent;
+      transform: translate(-50%, 20px);
+      opacity: 0;
+      pointer-events: none;
+      cursor: pointer;
+      transition: opacity 0.8s ease, transform 0.9s cubic-bezier(.16,.9,.2,1), filter 0.5s ease;
+    }
+
+    .top-ribbon::before {
+      content: "";
+      position: absolute;
+      left: 50%;
+      bottom: 0;
+      width: 100%;
+      height: 96px;
+      transform: translateX(-50%);
+      background: url("ENVY RIBBON.png") center center / contain no-repeat;
+      opacity: 0.88;
+      filter:
+        drop-shadow(0 0 12px rgba(255, 230, 192, 0.08))
+        drop-shadow(0 0 22px rgba(221, 176, 109, 0.12));
+    }
+
+    .top-ribbon img {
+      position: absolute;
+      left: 50%;
+      top: 8px;
+      width: min(14vw, 140px);
+      min-width: 98px;
+      height: auto;
+      transform: translateX(-50%);
+      filter:
+        drop-shadow(0 0 8px rgba(255, 230, 192, 0.18))
+        drop-shadow(0 0 18px rgba(221, 176, 109, 0.16));
+    }
+
+    .top-ribbon:hover {
+      filter: brightness(1.06);
+      transform: translate(-50%, 16px);
+    }
+
+    body.is-entered .top-ribbon {
+      opacity: 0.96;
+      pointer-events: auto;
+      transform: translate(-50%, 0);
+    }
+
+    body.is-entered .lux-reveal {
+      opacity: 1;
+      transform: translateY(0);
+      filter: blur(0);
+      pointer-events: auto;
+    }
+
+    body.is-entered .static,
+    body.is-entered .scanlines {
+      opacity: 0.22;
+    }
+
+    @keyframes heroFloat {
+      from { transform: scale(1.02) translateY(0); }
+      to { transform: scale(1.07) translateY(-8px); }
+    }
+
+    @keyframes angelGlitchPulse {
+      0%, 11%, 13%, 31%, 34%, 58%, 61%, 100% {
+        opacity: 1;
+        filter:
+          drop-shadow(0 0 34px rgba(221, 176, 109, 0.1));
+      }
+      12% {
+        opacity: 0.74;
+        filter:
+          drop-shadow(-5px 0 0 rgba(255, 220, 160, 0.18))
+          drop-shadow(5px 0 0 rgba(163, 109, 43, 0.18))
+          drop-shadow(0 0 24px rgba(221, 176, 109, 0.12));
+      }
+      32% {
+        opacity: 0.68;
+        filter:
+          drop-shadow(-8px 0 0 rgba(255, 230, 180, 0.14))
+          drop-shadow(8px 0 0 rgba(120, 70, 28, 0.14))
+          drop-shadow(0 0 18px rgba(221, 176, 109, 0.1));
+      }
+      59% {
+        opacity: 0.76;
+        filter:
+          drop-shadow(-3px 0 0 rgba(255, 228, 188, 0.12))
+          drop-shadow(3px 0 0 rgba(128, 78, 36, 0.12))
+          drop-shadow(0 0 28px rgba(221, 176, 109, 0.14));
+      }
+    }
+
+    @keyframes angelLayerFlicker {
+      0%, 22%, 24%, 44%, 46%, 69%, 71%, 100% { opacity: 0.9; }
+      23%, 45%, 70% { opacity: 0.28; }
+      82% { opacity: 0.55; }
+    }
+
+    @keyframes cornerSignaturePulse {
+      0%, 100% { opacity: 0.22; }
+      50% { opacity: 0.72; }
+    }
+
+    @keyframes cornerSignatureTone {
+      0%, 100% {
+        filter:
+          grayscale(1)
+          invert(0.12)
+          brightness(0.46)
+          contrast(1.04)
+          drop-shadow(0 0 8px rgba(255, 255, 255, 0));
+      }
+
+      50% {
+        filter:
+          grayscale(1)
+          invert(1)
+          brightness(1.12)
+          contrast(1.02)
+          drop-shadow(0 0 12px rgba(255, 255, 255, 0.12));
+      }
+    }
+
+    @keyframes cornerSignatureWriteOn {
+      0%, 46% {
+        opacity: 0;
+        clip-path: inset(0 100% 0 0);
+        transform: translateX(-2px) scale(1.01);
+      }
+
+      49% {
+        opacity: 0;
+        clip-path: inset(0 100% 0 0);
+        transform: translateX(-2px) scale(1.01);
+      }
+
+      54% {
+        opacity: 0.84;
+        clip-path: inset(0 74% 0 0);
+        transform: translateX(-1px) scale(1.01);
+      }
+
+      61% {
+        opacity: 0.96;
+        clip-path: inset(0 34% 0 0);
+        transform: translateX(0) scale(1.005);
+      }
+
+      68% {
+        opacity: 0.9;
+        clip-path: inset(0 0 0 0);
+        transform: translateX(0) scale(1);
+      }
+
+      73%, 100% {
+        opacity: 0;
+        clip-path: inset(0 0 0 0);
+        transform: translateX(0) scale(1);
+      }
+    }
+
+    @keyframes rebirthCardFloatA {
+      0% { transform: rotate(-7deg) translate3d(0, 0, 0); }
+      100% { transform: rotate(-4deg) translate3d(8px, -16px, 0); }
+    }
+
+    @keyframes rebirthCardFloatB {
+      0% { transform: rotate(5deg) translate3d(0, 0, 0); }
+      100% { transform: rotate(2deg) translate3d(-10px, 18px, 0); }
+    }
+
+    @keyframes rebirthCardFloatC {
+      0% { transform: rotate(-4deg) translate3d(0, 0, 0); }
+      100% { transform: rotate(-1deg) translate3d(12px, -12px, 0); }
+    }
+
+    @keyframes rebirthCardFloatD {
+      0% { transform: rotate(6deg) translate3d(0, 0, 0); }
+      100% { transform: rotate(2deg) translate3d(-8px, -18px, 0); }
+    }
+
+    @keyframes rebirthStampPulse {
+      0%, 100% {
+        opacity: 0.32;
+        transform: translateY(0);
+      }
+
+      50% {
+        opacity: 0.68;
+        transform: translateY(-4px);
+      }
+    }
+
+    @keyframes bgDrift {
+      from { transform: scale(1.1) translate3d(0, 0, 0); }
+      to { transform: scale(1.16) translate3d(0, -10px, 0); }
+    }
+
+    @keyframes accentFloat {
+      from { translate: 0 0; }
+      to { translate: 0 -12px; }
+    }
+
+    @keyframes fusedLogoFlicker {
+      0%, 13%, 16%, 34%, 36%, 62%, 100% { opacity: 0.14; }
+      14%, 15% { opacity: 0.03; }
+      35% { opacity: 0.22; }
+      63% { opacity: 0.06; }
+      78% { opacity: 0.2; }
+    }
+
+    @keyframes fusedLogoShift {
+      from { transform: translate(-50%, -46%) rotate(-2deg) scale(1); }
+      to { transform: translate(-50%, -49%) rotate(1deg) scale(1.03); }
+    }
+
+    @keyframes sweep {
+      to { transform: translateX(120%); }
+    }
+
+    @keyframes noiseShift {
+      0% { transform: translate(0, 0); }
+      25% { transform: translate(-1%, 1%); }
+      50% { transform: translate(1%, -1%); }
+      75% { transform: translate(0.5%, 1%); }
+      100% { transform: translate(-0.5%, -1%); }
+    }
+
+    @keyframes portalPulse {
+      0%, 100% { box-shadow: 0 30px 90px rgba(0, 0, 0, 0.6), inset 0 0 40px rgba(221, 176, 109, 0.04); }
+      50% { box-shadow: 0 34px 100px rgba(0, 0, 0, 0.72), inset 0 0 58px rgba(221, 176, 109, 0.08); }
+    }
+
+    @keyframes flicker {
+      0%, 19%, 21%, 23%, 80%, 100% { opacity: 1; }
+      20%, 22%, 79% { opacity: 0.92; }
+    }
+
+    @keyframes angelEnterDrift {
+      0% {
+        transform: translateY(-10px);
+      }
+      50% {
+        transform: translateY(14px);
+      }
+      100% {
+        transform: translateY(-10px);
+      }
+    }
+
+    @keyframes rotatingLineFlicker {
+      0%, 16%, 18%, 54%, 56%, 100% { opacity: 1; }
+      17%, 55% { opacity: 0.72; }
+      72% { opacity: 0.84; }
+    }
+
+    @keyframes rotatingLineFlash {
+      0%, 100% { opacity: 0.12; transform: translate(-50%, -50%) scale(0.92); }
+      14% { opacity: 0.34; transform: translate(-50%, -50%) scale(1.02); }
+      15% { opacity: 0.14; }
+      48% { opacity: 0.26; transform: translate(-50%, -50%) scale(1.04); }
+      50% { opacity: 0.1; }
+      78% { opacity: 0.3; transform: translate(-50%, -50%) scale(1.06); }
+    }
+
+    @keyframes envyBottomMarquee {
+      from { transform: translateX(0); }
+      to { transform: translateX(-50%); }
+    }
+
+    @keyframes enteredAccentFlicker {
+      0%, 10%, 13%, 31%, 34%, 52%, 56%, 100% {
+        opacity: 0.03;
+        filter: blur(1.2px);
+      }
+      11%, 32% {
+        opacity: 0.11;
+        filter:
+          blur(0.4px)
+          drop-shadow(-8px 0 0 rgba(255, 233, 186, 0.08))
+          drop-shadow(8px 0 0 rgba(130, 76, 30, 0.08));
+      }
+      53% {
+        opacity: 0.09;
+        filter:
+          blur(0.7px)
+          drop-shadow(-4px 0 0 rgba(255, 233, 186, 0.06))
+          drop-shadow(4px 0 0 rgba(130, 76, 30, 0.06));
+      }
+      78% {
+        opacity: 0.07;
+        filter: blur(0.8px);
+      }
+    }
+
+    @keyframes enteredAccentTopFlicker {
+      0%, 26%, 28%, 62%, 64%, 100% {
+        opacity: 0.03;
+        filter: blur(1.2px);
+      }
+      27% {
+        opacity: 0.05;
+        filter:
+          blur(0.9px)
+          drop-shadow(-2px 0 0 rgba(255, 233, 186, 0.03))
+          drop-shadow(2px 0 0 rgba(130, 76, 30, 0.03));
+      }
+      63% {
+        opacity: 0.045;
+        filter: blur(1px);
+      }
+    }
+
+    @keyframes ascensionFloat {
+      0% { transform: translateY(0) scale(1); }
+      100% { transform: translateY(-16px) scale(1.018); }
+    }
+
+    @media (max-width: 980px) {
+      .portal {
+        width: min(760px, calc(100vw - 22px));
+      }
+
+      .copy {
+        min-height: auto;
+        padding: 4px 4px 14px;
+      }
+
+      .copy-inner {
+        top: calc(100vh - 178px);
+      }
+
+      .visual {
+        min-height: 44vh;
+      }
+
+      .visual img {
+        width: min(76vw, 620px);
+      }
+
+      .visual .fused-logo {
+        width: min(58vw, 420px);
+        height: 120px;
+      }
+
+      .accent-logo.left {
+        width: 120px;
+        height: 60px;
+        left: 6%;
+        top: 10%;
+      }
+
+      .accent-logo.right {
+        width: 88px;
+        height: 44px;
+        right: 6%;
+        bottom: 14%;
+      }
+
+      body.is-entered .visual {
+        min-height: 400px;
+      }
+
+      body.is-entered .screen {
+        --hero-shift-x: -28vw;
+        --hero-shift-y: 6vh;
+        --hero-scale: 0.94;
+      }
+
+      body.is-collection-open .screen {
+        --hero-shift-x: -32vw;
+        --hero-shift-y: 12vh;
+        --hero-scale: 0.78;
+      }
+
+      body.is-entered .accent-logo.left {
+        width: 220px;
+        height: 94px;
+        left: -14%;
+        top: -2%;
+      }
+
+      body.is-entered .accent-logo.right {
+        width: 180px;
+        height: 76px;
+        right: -8%;
+        bottom: 10%;
+      }
+
+      .collection-stage,
+      .catalogue-stage,
+      .merge-stage,
+      .jewelry-stage,
+      .recent-stage,
+      .contact-stage {
+        grid-template-columns: 1fr;
+      }
+
+      .collection-visual,
+      .merge-visual,
+      .contact-image {
+        min-height: 540px;
+      }
+
+      .stage-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .catalogue-card {
+        width: min(42vw, 300px);
+      }
+
+      .catalogue-card.is-lookbook-wide {
+        width: min(62vw, 440px);
+        min-width: 320px;
+      }
+
+      .catalogue-stage::before,
+      .archives-stage::before {
+        right: -2%;
+        width: min(72vw, 520px);
+        height: 250px;
+        opacity: 0.12;
+      }
+
+      .house-viewer-frame {
+        width: min(92vw, 820px);
+        grid-template-columns: 1fr;
+        max-height: 92vh;
+      }
+
+      .house-viewer-visual {
+        min-height: clamp(380px, 58vh, 620px);
+        padding: 18px 18px 52px;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .shell {
+        padding: 12px;
+      }
+
+      .portal {
+        padding: 0;
+        border-radius: 0;
+      }
+
+      .visual {
+        min-height: 38vh;
+      }
+
+      .visual img {
+        width: min(82vw, 360px);
+      }
+
+      .enter-logo img {
+        width: 88px;
+        min-width: 88px;
+      }
+
+      .rotating-line {
+        width: min(74vw, 340px);
+        min-width: 0;
+        min-height: 68px;
+        margin-top: 12px;
+        padding: 20px 28px 18px;
+        font-size: 9px;
+      }
+
+      .rotating-line::before {
+        width: min(86vw, 360px);
+        min-width: 0;
+        height: 104px;
+        top: 60%;
+        transform: translate(-50%, -50%);
+      }
+
+      .rotating-line::after {
+        top: 64%;
+        width: min(62vw, 220px);
+        min-width: 0;
+      }
+
+      .top-ribbon {
+        width: min(82vw, 360px);
+        min-width: 0;
+        height: 118px;
+        bottom: 40px;
+      }
+
+      .top-ribbon img {
+        width: min(30vw, 116px);
+        min-width: 84px;
+        top: 6px;
+      }
+
+      .visual .fused-logo {
+        width: min(64vw, 260px);
+        height: 82px;
+      }
+
+      .corner-signature {
+        top: 14px;
+        left: 14px;
+        width: clamp(98px, 28vw, 146px);
+      }
+
+      .rebirth-stack {
+        width: min(100%, 96vw);
+        min-height: min(58vh, 520px);
+      }
+
+      .visual .rebirth-photo-main {
+        width: min(42vw, 210px);
+        left: 0;
+        top: 18%;
+      }
+
+      .visual .rebirth-photo-second {
+        width: min(64vw, 300px);
+        right: 0;
+        top: 8%;
+      }
+
+      .visual .rebirth-photo-third {
+        width: min(58vw, 280px);
+        left: 18%;
+        bottom: 12%;
+      }
+
+      .visual .rebirth-photo-fourth {
+        width: min(34vw, 168px);
+        right: 6%;
+        bottom: 5%;
+      }
+
+      .visual .rebirth-stamp-speedway {
+        width: min(34vw, 170px);
+        height: 60px;
+        top: 2%;
+      }
+
+      .visual .rebirth-stamp-nomadix {
+        width: min(40vw, 180px);
+        height: 68px;
+        left: 4%;
+        bottom: 3%;
+      }
+
+      .copy-inner {
+        top: calc(100vh - 154px);
+      }
+
+      .accent-logo.top {
+        display: none;
+      }
+
+      .lux-reveal {
+        width: min(100vw - 16px, 100%);
+        padding-bottom: 52px;
+      }
+
+      .lux-nav a {
+        min-width: 100%;
+      }
+
+      .lux-cart-toggle {
+        min-width: 100%;
+      }
+
+      .collection-stage,
+      .archives-stage,
+      .catalogue-stage,
+      .merge-stage,
+      .jewelry-stage,
+      .recent-stage,
+      .contact-stage,
+      .section-mark {
+        width: min(100vw - 16px, 100%);
+      }
+
+      .collection-stage {
+        min-height: auto;
+        gap: 20px;
+      }
+
+      .collection-copy {
+        max-width: none;
+      }
+
+      .collection-title,
+      .stage-title {
+        font-size: 2rem;
+      }
+
+      .collection-stage .collection-title {
+        font-size: 1.55rem;
+      }
+
+      .collection-visual,
+      .merge-visual,
+      .contact-image {
+        min-height: 420px;
+      }
+
+      .recent-toolbar {
+        align-items: flex-start;
+      }
+
+      .recent-nav button {
+        flex: 1 1 0;
+        min-width: 120px;
+      }
+
+      .collection-orbit {
+        width: 82px;
+        height: 82px;
+        top: -6px;
+      }
+
+      .collection-angel-wrap {
+        position: relative;
+        top: auto;
+        padding-top: 24px;
+      }
+
+      .stage-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .catalogue-card {
+        width: 76vw;
+        min-width: 220px;
+        min-height: 320px;
+      }
+
+      .catalogue-card.is-lookbook-wide {
+        width: 88vw;
+        min-width: 260px;
+      }
+
+      .catalogue-stage::before,
+      .archives-stage::before {
+        right: 0;
+        width: 86vw;
+        height: 190px;
+        border-radius: 24px;
+        opacity: 0.1;
+      }
+
+      .jewelry-card {
+        width: min(42vw, 300px);
+        min-height: 360px;
+        padding: 20px 18px 18px;
+      }
+
+      .recent-card {
+        width: 76vw;
+        min-width: 220px;
+      }
+
+      .jewelry-card-media {
+        min-height: 250px;
+      }
+
+      .house-viewer {
+        padding: 14px;
+      }
+
+      .house-viewer-frame {
+        width: min(94vw, 100%);
+        grid-template-columns: 1fr;
+        gap: 14px;
+        padding: 18px 18px 92px;
+      }
+
+      .house-viewer-visual {
+        min-height: 320px;
+        padding: 14px 10px 48px;
+      }
+
+      .house-viewer-visual::after {
+        white-space: normal;
+        width: min(78vw, 250px);
+        text-align: center;
+        line-height: 1.5;
+      }
+
+      .house-viewer-image {
+        max-height: min(62vh, 560px);
+        width: min(100%, 420px);
+      }
+
+      .house-product-sheet {
+        max-height: none;
+        overflow: visible;
+        padding-right: 0;
+      }
+
+      .house-viewer-close {
+        width: 132px;
+        min-width: 0;
+        height: 62px;
+      }
+
+      .house-viewer-close img {
+        width: 74px;
+        min-width: 0;
+      }
+
+      body.is-entered .copy-inner {
+        top: 14px;
+      }
+
+      body.is-entered .enter-logo img {
+        min-width: 112px;
+        width: 112px;
+      }
+
+      body.is-entered .screen {
+        --hero-shift-x: -20vw;
+        --hero-shift-y: 8vh;
+        --hero-scale: 0.82;
+      }
+
+      body.is-collection-open .screen {
+        --hero-shift-x: -22vw;
+        --hero-shift-y: 12vh;
+        --hero-scale: 0.72;
+      }
+
+    }
+
+    /* Floating garment cleanup */
+    .catalogue-card,
+    .catalogue-card.is-art {
+      background: transparent !important;
+      border: 0 !important;
+      box-shadow: none !important;
+      overflow: visible !important;
+      isolation: isolate;
+    }
+
+    .catalogue-card-copy {
+      background: transparent !important;
+      backdrop-filter: none !important;
+    }
+
+    .catalogue-card img {
+      transition: transform 0.45s ease, filter 0.45s ease;
+    }
+
+    .house-viewer-frame {
+      background: transparent !important;
+      border: 0 !important;
+      box-shadow: none !important;
+      overflow: visible !important;
+    }
+
+    .house-viewer-visual {
+      overflow: hidden;
+    }
+
+    .house-viewer-visual::after {
+      border: 0 !important;
+      background: transparent !important;
+      box-shadow: none !important;
+      text-shadow: 0 0 14px rgba(0, 0, 0, 0.82);
+    }
+
+    .catalogue-card img[src$="envy-cross-tee-board.png"],
+    .catalogue-card img[src$="envy-cross-hood-board.png"],
+    .house-cart-item-image img[src$="envy-cross-tee-board.png"],
+    .house-cart-item-image img[src$="envy-cross-hood-board.png"],
+    #houseViewerImage[src$="envy-cross-tee-board.png"],
+    #houseViewerImage[src$="envy-cross-hood-board.png"],
+    #houseImageZoomImg[src$="envy-cross-tee-board.png"],
+    #houseImageZoomImg[src$="envy-cross-hood-board.png"] {
+      width: 100%;
+      height: 100%;
+      max-width: none;
+      max-height: none;
+      object-fit: cover;
+    }
+
+    .catalogue-card img[src$="envy-cross-tee-board.png"],
+    .house-cart-item-image img[src$="envy-cross-tee-board.png"],
+    #houseViewerImage[src$="envy-cross-tee-board.png"],
+    #houseImageZoomImg[src$="envy-cross-tee-board.png"] {
+      object-position: 18% 22%;
+    }
+
+    .catalogue-card img[src$="envy-cross-hood-board.png"],
+    .house-cart-item-image img[src$="envy-cross-hood-board.png"],
+    #houseViewerImage[src$="envy-cross-hood-board.png"],
+    #houseImageZoomImg[src$="envy-cross-hood-board.png"] {
+      object-position: 16% 24%;
+    }
+  </style>
+</head>
+<body class="rebirth-page">
+    <div class="envy-logo-cursor" id="envyLogoCursor" aria-hidden="true"></div>
+    <audio id="backgroundMusic" preload="auto" loop playsinline>
+      <source src="nate%20savard%20-%20chosen%20few%20song%203.mp3" type="audio/mpeg" />
+      <source src="https://raw.githubusercontent.com/natesavard/natesavard.github.io/main/nate%20savard%20-%20chosen%20few%20song%203.mp3" type="audio/mpeg" />
+    </audio>
+    <a class="corner-signature" href="originals.html" aria-label="Enter The Original Collection">
+      <img src="nate-savard-signature-corner.png" alt="Nate Savard signature" class="corner-signature-base" />
+      <img src="nate-savard-signature-write-on.png" alt="" class="corner-signature-pass" />
+    </a>
+    <div class="screen">
+      <div class="bg"></div>
+      <div class="static"></div>
+      <div class="scanlines"></div>
+      <div class="flash"></div>
+      <div class="vignette"></div>
+      <div class="bottom-marquee" aria-hidden="true">
+        <div class="bottom-marquee-track">
+          <span>ENVY is built for the ones who move different. Never replicated. for the chosen few. earned in silence.</span>
+          <span>ENVY is built for the ones who move different. Never replicated. for the chosen few. earned in silence.</span>
+          <span>ENVY is built for the ones who move different. Never replicated. for the chosen few. earned in silence.</span>
+        </div>
+      </div>
+      <button class="top-ribbon" id="topRibbon" type="button" aria-label="Scroll to top">
+        <img src="envynomadix-logo-cutout.png" alt="Envy scroll to top" />
+      </button>
+
+    <main class="shell">
+      <section class="portal">
+        <div class="visual">
+          <div class="rebirth-stack" id="angelToggle" aria-label="Envynomadix rebirth campaign image stack" role="img">
+            <img class="rebirth-photo-main" src="nate-savard-forever.png" alt="Nate Savard portrait from the rebirth campaign" />
+            <img class="rebirth-photo-second" src="turkey-nate-savard-1.png" alt="" />
+            <img class="rebirth-photo-third" src="nate-savard-bg-3.png" alt="" />
+            <img class="rebirth-photo-fourth" src="nate savard speedway (1).png" alt="" />
+            <span class="rebirth-stamp rebirth-stamp-speedway" aria-hidden="true"></span>
+            <span class="rebirth-stamp rebirth-stamp-nomadix" aria-hidden="true"></span>
+          </div>
+          <span class="fused-logo" aria-hidden="true"></span>
+        </div>
+
+        <div class="copy">
+          <div class="copy-inner">
+            <div class="actions">
+              <button class="enter-logo" id="enterPortal" type="button" aria-label="Enter the house">
+                <img src="envynomadix-logo-cutout.png" alt="Enter with Envy logo" />
+              </button>
+            </div>
+
+            <div class="rotating-line" id="rotatingLine">never replicated</div>
+          </div>
+        </div>
+      </section>
+
+      <section class="lux-reveal" id="luxReveal">
+        <div class="brand-header">
+          <nav class="lux-nav" aria-label="Envy navigation">
+            <a href="#cataloguePhase" id="enterCollectionLink">enter collection</a>
+            <a href="envynomadix-signature-collection.html">signature collection</a>
+            <a href="#jewelryPhase">The Savard Jewels</a>
+            <a href="originals.html">the original collection</a>
+            <a href="#contactPhase">contact</a>
+            <button class="lux-cart-toggle" id="houseCartToggle" type="button">cart <span class="lux-cart-count" id="houseCartCount">0</span></button>
+          </nav>
+        </div>
+      </section>
+
+      <div class="after-enter-world">
+      <section class="collection-stage" id="collectionPhase">
+        <div class="collection-copy">
+          <div class="collection-kicker">envynomadix rebirth</div>
+          <h2 class="collection-title">Rebirth</h2>
+          <p class="collection-stance">
+            ✠ N̷. the composition of waters, movement, growth, embodying and disembodying, drawing the spirits from bodies and bonding the spirits within bodies
+          </p>
+          <a class="collection-button" href="#cataloguePhase">continue through house</a>
+        </div>
+
+        <div class="collection-visual">
+          <div class="collection-angel-wrap">
+            <img src="nate-savard-bg-3.png" alt="Envynomadix rebirth campaign portrait" />
+          </div>
+        </div>
+      </section>
+
+      <section class="catalogue-stage" id="cataloguePhase">
+        <div class="catalogue-head is-editorial">
+          <h2 class="stage-title">Signature Collection</h2>
+          <p class="stage-text">
+            ✠ N̷. the composition of waters, distressed vintage classics, movement, diesel engines, yacht club supper club, growth, embodying and disembodying, dripping in jewels and gold, drawing the spirits from bodies and bonding the spirits within bodies
+          </p>
+        </div>
+
+        <div class="catalogue-rail" aria-label="Sideways catalogue">
+          <div class="catalogue-track">
+            <article class="catalogue-card" data-house-product="Envy Shirt Legacy Tee" data-house-price="$145.00" data-house-description="Main house shirt. deep v legacy tee with crystal script in front and the envy cross carried across the back." data-house-image="envy-shirt-legacy-tee.png">
+              <img src="envy-shirt-legacy-tee.png" alt="Envy Shirt Legacy Tee product cutout" />
+              <div class="catalogue-card-copy">
+                <h3 class="catalogue-card-title">Envy Shirt Legacy Tee</h3>
+                <p class="catalogue-card-note">main shirt / legacy deep v / crossback</p>
+              </div>
+            </article>
+
+            <article class="catalogue-card" data-house-product="Fuck Up Tee" data-house-price="$190.00" data-house-description="Luxury deep v tee carrying the envy cross on back with a scarred front statement and stripped-down finish." data-house-image="envy-cross-tee-board.png">
+              <img src="envy-cross-tee-board.png" alt="Fuck up tee board" />
+              <div class="catalogue-card-copy">
+                <h3 class="catalogue-card-title">Fuck Up Tee</h3>
+                <p class="catalogue-card-note">scarred front / chrome crossback</p>
+              </div>
+            </article>
+
+            <article class="catalogue-card is-art">
+              <img src="envy-cross.png" alt="Envy cross brand mark" />
+              <div class="catalogue-card-copy">
+                <h3 class="catalogue-card-title">Envy Cross</h3>
+                <p class="catalogue-card-note">main house symbol / chrome signal</p>
+              </div>
+            </article>
+
+            <article class="catalogue-card" data-house-product="Distressed Vicuna Hood" data-house-price="$190.00" data-house-description="Heavy distressed hood with the envy cross stamped oversized across the back in cold chrome." data-house-image="envy-cross-hood-board.png">
+              <img src="envy-cross-hood-board.png" alt="Envy cross hood board" />
+              <div class="catalogue-card-copy">
+                <h3 class="catalogue-card-title">Distressed Vicuna Hood</h3>
+                <p class="catalogue-card-note">washed black / oversized / crossback</p>
+              </div>
+            </article>
+
+            <article class="catalogue-card is-art">
+              <img src="nate-savard-forever.png" alt="Nate Savard portrait from the rebirth campaign" />
+              <div class="catalogue-card-copy">
+                <h3 class="catalogue-card-title">Forever Signal</h3>
+                <p class="catalogue-card-note">portrait pressure / opening state / private house</p>
+              </div>
+            </article>
+
+            <article class="catalogue-card is-art">
+              <img src="nate savard speedway (1).png" alt="Nate Savard Speedway resort lookbook" />
+              <div class="catalogue-card-copy">
+                <h3 class="catalogue-card-title">Speedway Signal</h3>
+                <p class="catalogue-card-note">resort black / motorsport house / summer line</p>
+              </div>
+            </article>
+
+            <article class="catalogue-card is-art is-lookbook-wide">
+              <img src="turkey-nate-savard-1.png" alt="Nate Savard private motorsport house lookbook in Turkey" />
+              <div class="catalogue-card-copy">
+                <h3 class="catalogue-card-title">Private Motorsport House</h3>
+                <p class="catalogue-card-note">mediterranean dusk / yacht club pressure / stitched house language</p>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+
+      <section class="archives-stage" id="archivesPhase">
+        <div class="archives-head">
+          <div class="stage-kicker">flagship</div>
+          <h2 class="stage-title">Our flagship retail destination in the Jewel of Nicaragua SJDS</h2>
+          <p class="stage-text">
+            Store Opening Hours:<br />
+            Monday – 10:00am to 4:00pm<br />
+            Tuesday – 10:00am to 4:00pm<br />
+            Wednesday – 10:00am to 4:00pm<br />
+            Thursday – 10:00am to 4:00pm<br />
+            Friday – 10:00am to 4:00pm<br />
+            Saturday – 10:00am to 4:00pm<br />
+            Sunday – 12:00pm to 6:00pm<br /><br />
+            Cafe Opening Hours:<br />
+            Monday – 10:00am to 10:00pm<br />
+            Tuesday – 10:00am to 10:00pm<br />
+            Wednesday – 10:00am to 10:00pm<br />
+            Thursday – 10:00am to 10:00pm<br />
+            Friday – 10:00am to 10:00pm<br />
+            Saturday – 10:00am to 10:00pm<br />
+            Sunday – 12:00pm to 10:00pm
+          </p>
+        </div>
+
+      </section>
+
+      <section class="jewelry-stage" id="jewelryPhase">
+        <div class="jewelry-head">
+          <div class="stage-kicker">The Savard Jewels</div>
+          <div class="jewelry-title-lockup">
+            <img class="jewelry-cross-mark" src="envy-cross.png" alt="Envy cross logo" />
+            <h2 class="stage-title jewelry-title-brand">
+              <img class="jewelry-title-mark" src="New Project.png" alt="The Original Collection by Nate Savard" />
+            </h2>
+          </div>
+          <p class="stage-text">
+            private pieces from nate savard moving directly into the envy house: chain language, bracelets, pendants, and placement studies built to sit with the garments.
+          </p>
+        </div>
+
+        <div class="jewelry-rail" id="jewelryRail" aria-label="Sideways Savard Jewels catalogue">
+          <div class="jewelry-track">
+            <article class="jewelry-card" data-house-product="N Cross Chain" data-house-price="$245.00" data-house-description="N cross chain study. silver monogram repeat with a sharper cathedral edge." data-house-image="n cross chain.png" data-house-option-label="Select finish" data-house-options="silver,gold">
+              <div class="jewelry-card-media">
+                <img src="n cross chain.png" alt="N cross chain jewelry piece" />
+              </div>
+              <div class="jewelry-card-copy">
+                <h3 class="jewelry-card-title">N Cross Chain</h3>
+                <p class="jewelry-card-note">floating 3d / monogram repeat / tap to view</p>
+                <p class="jewelry-card-text">crossed monogram chain placed first in the lane to lead the jewelry line with a sharper symbol language.</p>
+              </div>
+            </article>
+
+            <article class="jewelry-card" data-house-product="N Cross SL Chain 18&quot;" data-house-price="private quote" data-house-description="18-inch yellow gold signature link chain built from repeated N cross monograms for a cleaner full-neck collector statement." data-house-image="N Cross SL Chain 18''.png" data-house-option-label="Select chain length" data-house-options="18&quot;,20&quot;,22&quot;,24&quot;,26&quot;,28&quot;">
+              <div class="jewelry-card-media">
+                <img src="N Cross SL Chain 18''.png" alt="N Cross SL Chain 18-inch by Nate Savard" />
+              </div>
+              <div class="jewelry-card-copy">
+                <h3 class="jewelry-card-title">N Cross SL Chain 18"</h3>
+                <p class="jewelry-card-note">yellow gold / 18 inch / tap to view</p>
+                <p class="jewelry-card-text">signature gold chain built from repeating N cross links so the Savard Jewels moves from study into full house-grade weight.</p>
+              </div>
+            </article>
+
+            <article class="jewelry-card" data-house-product="Chrome Envy" data-house-price="$230.00" data-house-description="Chrome envy sculptural script piece with a brighter mirrored finish and floating 3d energy." data-house-image="chrome envy.png" data-house-option-label="Select finish" data-house-options="silver,gold">
+              <div class="jewelry-card-media">
+                <img src="chrome envy.png" alt="Chrome Envy jewelry piece" />
+              </div>
+              <div class="jewelry-card-copy">
+                <h3 class="jewelry-card-title">Chrome Envy</h3>
+                <p class="jewelry-card-note">floating 3d / chrome script / tap to view</p>
+                <p class="jewelry-card-text">bright chrome script piece added second in line so the Savard Jewels opens with two strong signature forms.</p>
+              </div>
+            </article>
+
+            <article class="jewelry-card" data-house-product="Envy Script Chain" data-house-price="$260.00" data-house-description="Dark silver script chain treatment with a heavier floating 3d attitude." data-house-image="envy-script-chain-dark.png" data-house-option-label="Select finish" data-house-options="silver,gold">
+              <div class="jewelry-card-media">
+                <img src="envy-script-chain-dark.png" alt="Envy script chain dark jewelry piece" />
+              </div>
+              <div class="jewelry-card-copy">
+                <h3 class="jewelry-card-title">Envy Script Chain</h3>
+                <p class="jewelry-card-note">floating 3d / dark silver pressure / tap to view</p>
+                <p class="jewelry-card-text">script chain treatment pushed darker and cleaner so it floats harder inside the Savard Jewels.</p>
+              </div>
+            </article>
+
+            <article class="jewelry-card" data-house-product="Envy Monogram Bracelet" data-house-price="$210.00" data-house-description="Monogram bracelet built from linked envy marks and a floating silver finish." data-house-image="envy-monogram-bracelet.png" data-house-option-label="Select finish" data-house-options="silver,gold">
+              <div class="jewelry-card-media">
+                <img src="envy-monogram-bracelet.png" alt="Envy monogram bracelet jewelry piece" />
+              </div>
+              <div class="jewelry-card-copy">
+                <h3 class="jewelry-card-title">Envy Monogram Bracelet</h3>
+                <p class="jewelry-card-note">floating 3d / monogram link / tap to view</p>
+                <p class="jewelry-card-text">monogram bracelet study added into the sideways catalog so the jewelry world starts feeling like its own line.</p>
+              </div>
+            </article>
+
+            <article class="jewelry-card" data-house-product="Royal Sapphire Signet" data-house-price="private quote" data-house-description="Custom Nate Savard signet with carved gold texture, side sapphires, and a dominant blue center stone built with old-world weight." data-house-image="nate savard - nls 2.jpg" data-house-option-label="Select ring size" data-house-options="7,8,9,10,11">
+              <div class="jewelry-card-media">
+                <img src="nate savard - nls 2.jpg" alt="Royal Sapphire Signet ring by Nate Savard" />
+              </div>
+              <div class="jewelry-card-copy">
+                <h3 class="jewelry-card-title">Royal Sapphire Signet</h3>
+                <p class="jewelry-card-note">yellow gold / sapphire crown / tap to view</p>
+                <p class="jewelry-card-text">the gold side begins with full authority: carved texture, hard sapphire presence, and a signet body built to wear like a house relic.</p>
+              </div>
+            </article>
+
+            <article class="jewelry-card" data-house-product="Imperial Blue Sapphire Ring" data-house-price="private quote" data-house-description="Clean heavy-gold ring built around a rich royal sapphire, drawn for direct power, restraint, and permanent luxury." data-house-image="nate savard - nls 3.jpg" data-house-option-label="Select ring size" data-house-options="7,8,9,10,11">
+              <div class="jewelry-card-media">
+                <img src="nate savard - nls 3.jpg" alt="Imperial Blue Sapphire Ring by Nate Savard" />
+              </div>
+              <div class="jewelry-card-copy">
+                <h3 class="jewelry-card-title">Imperial Blue Sapphire Ring</h3>
+                <p class="jewelry-card-note">heavy gold / royal sapphire / tap to view</p>
+                <p class="jewelry-card-text">cleaner and more severe, this ring carries deep blue force inside a bold gold body with no wasted movement.</p>
+              </div>
+            </article>
+
+            <article class="jewelry-card" data-house-product="White Fire Scroll Ring" data-house-price="private quote" data-house-description="Diamond-forward scrollwork ring with cathedral lift and luminous center stone energy built for heirloom-level presence." data-house-image="nate savard - nls 4.png" data-house-option-label="Select ring size" data-house-options="7,8,9,10,11">
+              <div class="jewelry-card-media">
+                <img src="nate savard - nls 4.png" alt="White Fire Scroll Ring by Nate Savard" />
+              </div>
+              <div class="jewelry-card-copy">
+                <h3 class="jewelry-card-title">White Fire Scroll Ring</h3>
+                <p class="jewelry-card-note">diamond lift / scrollwork / tap to view</p>
+                <p class="jewelry-card-text">cathedral scrollwork and white-fire brilliance push this one into heirloom territory the second it catches light.</p>
+              </div>
+            </article>
+
+            <article class="jewelry-card" data-house-product="Royal Marquise Sapphire Ring" data-house-price="private quote" data-house-description="Multi-angle ring study with blue marquise sapphire, ornate galleries, and diamond rails drawn as a full custom signet." data-house-image="nate ring 1.2.png" data-house-option-label="Select ring size" data-house-options="7,8,9,10,11">
+              <div class="jewelry-card-media">
+                <img src="nate ring 1.2.png" alt="Royal Marquise Sapphire Ring by Nate Savard" />
+              </div>
+              <div class="jewelry-card-copy">
+                <h3 class="jewelry-card-title">Royal Marquise Sapphire Ring</h3>
+                <p class="jewelry-card-note">marquise sapphire / ornate rails / tap to view</p>
+                <p class="jewelry-card-text">blue marquise energy, full custom galleries, and diamond edgework make this one feel like a final-form Nate Savard signature ring.</p>
+              </div>
+            </article>
+
+            <article class="jewelry-card" data-house-product="Black Onyx Heirloom Ring" data-house-price="private quote" data-house-description="Heirloom-scale gold ring with black onyx side panels, carved shoulders, and a crown-set center stone built for private-collection weight." data-house-image="ns-gold-black-onyx-heirloom.png" data-house-option-label="Select ring size" data-house-options="7,8,9,10,11">
+              <div class="jewelry-card-media">
+                <img src="ns-gold-black-onyx-heirloom.png" alt="Black Onyx Heirloom Ring by Nate Savard" />
+              </div>
+              <div class="jewelry-card-copy">
+                <h3 class="jewelry-card-title">Black Onyx Heirloom Ring</h3>
+                <p class="jewelry-card-note">black onyx / heirloom crown / tap to view</p>
+                <p class="jewelry-card-text">black onyx panels, carved gold scrollwork, and a raised crown stone give this piece a colder heirloom authority inside the Savard Jewels.</p>
+              </div>
+            </article>
+
+            <article class="jewelry-card" data-house-product="Opal Sage Spinner" data-house-price="private quote" data-house-description="Double-sided talisman concept with jelly opal center, diamond field, and rich gold architecture." data-house-image="nate savard opal sage front.png" data-house-option-label="Select center stone" data-house-options="opal,sapphire">
+              <div class="jewelry-card-media">
+                <img src="nate savard opal sage front.png" alt="Opal Sage Spinner pendant by Nate Savard" />
+              </div>
+              <div class="jewelry-card-copy">
+                <h3 class="jewelry-card-title">Opal Sage Spinner</h3>
+                <p class="jewelry-card-note">opal fire / spinner relic / tap to view</p>
+                <p class="jewelry-card-text">jelly opal, diamond pressure, and ceremonial gold proportions turn this spinner into a collector pendant with real myth in it.</p>
+              </div>
+            </article>
+
+            <article class="jewelry-card" data-house-product="Sapphire Spinner Reverse" data-house-price="private quote" data-house-description="Millionaire-status spinner pendant concept with blue sapphire center, crushed diamonds, and bold presence." data-house-image="nate savard saphire back.png" data-house-option-label="Select center stone" data-house-options="sapphire,opal">
+              <div class="jewelry-card-media">
+                <img src="nate savard saphire back.png" alt="Sapphire Spinner Reverse pendant by Nate Savard" />
+              </div>
+              <div class="jewelry-card-copy">
+                <h3 class="jewelry-card-title">Sapphire Spinner Reverse</h3>
+                <p class="jewelry-card-note">blue core / diamond flood / tap to view</p>
+                <p class="jewelry-card-text">the reverse side brings harder blue pressure and a richer millionaire finish for clients who want the sapphire version to hit first.</p>
+              </div>
+            </article>
+
+            <article class="jewelry-card" data-house-product="Sapphire Halo Pendant" data-house-price="private quote" data-house-description="Rotating pendant architecture with sapphire top link, diamond halo field, and ceremonial medallion proportions." data-house-image="nate savard - nls 5.png" data-house-option-label="Select gold" data-house-options="14k,18k,22k">
+              <div class="jewelry-card-media">
+                <img src="nate savard - nls 5.png" alt="Sapphire Halo Pendant by Nate Savard" />
+              </div>
+              <div class="jewelry-card-copy">
+                <h3 class="jewelry-card-title">Sapphire Halo Pendant</h3>
+                <p class="jewelry-card-note">halo field / ceremonial medallion / tap to view</p>
+                <p class="jewelry-card-text">sapphire top link, halo diamonds, and spinning medallion architecture push this pendant into a true ceremonial piece.</p>
+              </div>
+            </article>
+
+            <article class="jewelry-card" data-house-product="Sapphire Monolith Pendant" data-house-price="private quote" data-house-description="Long sapphire pendant in black and gold with diamond border and a hard, elegant silhouette built for refined authority." data-house-image="nate savard - nls 11.png" data-house-option-label="Select gold" data-house-options="14k,18k,22k">
+              <div class="jewelry-card-media">
+                <img src="nate savard - nls 11.png" alt="Sapphire Monolith Pendant by Nate Savard" />
+              </div>
+              <div class="jewelry-card-copy">
+                <h3 class="jewelry-card-title">Sapphire Monolith Pendant</h3>
+                <p class="jewelry-card-note">black and gold / monolith cut / tap to view</p>
+                <p class="jewelry-card-text">longer, harder, and more architectural, this pendant carries refined authority through its sapphire core and monolith shape.</p>
+              </div>
+            </article>
+
+            <article class="jewelry-card" data-house-product="Twin Stone Spinner Pendant" data-house-price="private quote" data-house-description="Dual-version spinner pendant showing sapphire and opal directions inside the same diamond-heavy medallion system." data-house-image="2stone.png" data-house-option-label="Select center stone" data-house-options="sapphire,opal">
+              <div class="jewelry-card-media">
+                <img src="2stone.png" alt="Twin Stone Spinner Pendant by Nate Savard" />
+              </div>
+              <div class="jewelry-card-copy">
+                <h3 class="jewelry-card-title">Twin Stone Spinner Pendant</h3>
+                <p class="jewelry-card-note">sapphire / opal flip / tap to view</p>
+                <p class="jewelry-card-text">the two-stone spinner closes the rail with both worlds in one object: sapphire gravity on one side, opal fire on the other.</p>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="recent-stage rebirth-recent-stage" id="recentPhase">
+        <div class="recent-head">
+          <div class="stage-kicker">collector memory / rebirth trail</div>
+          <div class="recent-toolbar">
+            <h2 class="stage-title">Recently Viewed Items</h2>
+            <div class="recent-nav" aria-label="Recently viewed controls">
+              <button id="houseRecentPrev" type="button">Previous</button>
+              <button id="houseRecentNext" type="button">Next</button>
+            </div>
+          </div>
+          <p class="stage-text">Pieces you open inside the house viewer collect here so the whole page can revolve around what you just touched and move you back through it fast.</p>
+        </div>
+        <div class="recent-empty" id="houseRecentEmpty">Open a piece and it will appear here.</div>
+        <div class="recent-rail" id="houseRecentRail" aria-label="Recently viewed items">
+          <div class="recent-track" id="houseRecentTrack"></div>
+        </div>
+      </section>
+
+      <section class="contact-stage" id="contactPhase">
+        <div class="contact-image">
+          <img src="envy-cross.png" alt="Envy cross collection vault mark" />
+        </div>
+
+        <div class="contact-copy">
+          <div class="stage-kicker">private commissions / collector route</div>
+          <h2 class="stage-title">Angels Live Forever NLSM</h2>
+          <p class="stage-text">
+            For custom gold chains, pendants, rings, stone-set talismans, symbolic jewelry, garment placements, or full ENVYNOMADIX styling, contact the house directly. Designed by Nate Savard for collectors who want pieces with weight, presence, and myth.
+          </p>
+          <div class="contact-actions">
+            <a class="stage-button" href="#cataloguePhase">return to catalogue</a>
+            <a class="stage-button" href="originals.html">enter the original collection</a>
+          </div>
+          <div class="contact-route">private inquiries / jewelry commissions / garment orders / collector styling</div>
+        </div>
+      </section>
+
+      <div class="house-viewer" id="houseViewer" aria-hidden="true">
+        <div class="house-viewer-backdrop" id="houseViewerBackdrop"></div>
+        <div class="house-viewer-frame">
+          <div class="house-viewer-visual">
+            <button class="house-viewer-nav prev" id="houseViewerPrev" type="button" aria-label="Previous product">&lt;</button>
+            <img class="house-viewer-image" id="houseViewerImage" src="" alt="Envynomadix product enlarged view" role="button" tabindex="0" aria-label="Open full-size garment detail" />
+            <button class="house-viewer-nav next" id="houseViewerNext" type="button" aria-label="Next product">&gt;</button>
+          </div>
+          <div class="house-product-sheet">
+            <div class="house-product-kicker">envynomadix / product sheet</div>
+            <h2 class="house-product-title" id="houseProductTitle">Signature Shirt</h2>
+            <div class="house-product-price" id="houseProductPrice">$145.00</div>
+            <div class="house-product-description" id="houseProductDescription">Collector black jersey. oversized body. halo pressure. built for the chosen few.</div>
+            <div class="house-product-group">
+              <div class="house-product-label" id="houseOptionLabel">Select size</div>
+              <div class="house-size-grid">
+                <button class="house-size-chip" type="button" data-house-size="xs">XS</button>
+                <button class="house-size-chip" type="button" data-house-size="s">S</button>
+                <button class="house-size-chip is-active" type="button" data-house-size="m">M</button>
+                <button class="house-size-chip" type="button" data-house-size="l">L</button>
+                <button class="house-size-chip" type="button" data-house-size="xl">XL</button>
+              </div>
+            </div>
+            <div class="house-product-group">
+              <div class="house-product-label">Quantity</div>
+              <div class="house-quantity-row">
+                <button class="house-qty-button" id="houseQtyMinus" type="button" aria-label="Decrease quantity">-</button>
+                <div class="house-qty-value" id="houseQtyValue">1</div>
+                <button class="house-qty-button" id="houseQtyPlus" type="button" aria-label="Increase quantity">+</button>
+              </div>
+            </div>
+            <div class="house-product-actions">
+              <button class="house-product-action is-primary" id="houseAddToCartButton" type="button">add to cart</button>
+              <button class="house-product-action" id="houseOpenCartFromProduct" type="button">open cart</button>
+            </div>
+            <div class="house-product-note">Click the garment image to inspect it full size. Each order request is routed privately through the house, and checkout opens an email draft with your selected sizes, quantities, and contact details.</div>
+          </div>
+          <button class="house-viewer-close" id="houseViewerClose" type="button" aria-label="Close product with Envy">
+            <img src="envynomadix-logo-cutout.png" alt="Close product with Envy" />
+          </button>
+        </div>
+      </div>
+
+      <div class="house-image-zoom" id="houseImageZoom" aria-hidden="true">
+        <div class="house-image-zoom-backdrop" id="houseImageZoomBackdrop"></div>
+        <img id="houseImageZoomImg" src="" alt="Expanded envynomadix product view" />
+      </div>
+
+      <div class="house-cart-shell" id="houseCartShell" aria-hidden="true">
+        <div class="house-cart-backdrop" id="houseCartBackdrop"></div>
+        <aside class="house-cart-drawer" aria-label="Shopping cart">
+          <div class="house-cart-header">
+            <div>
+              <div class="house-product-kicker">envynomadix / cart</div>
+              <h2 class="house-cart-title">Collector Cart</h2>
+            </div>
+            <button class="house-cart-close" id="houseCartClose" type="button" aria-label="Close cart with Envy">
+              <img src="envynomadix-logo-cutout.png" alt="Close cart with Envy" />
+            </button>
+          </div>
+          <div class="house-cart-items" id="houseCartItems">
+            <div class="house-cart-empty">Your cart is empty. add a garment from the signature rail.</div>
+          </div>
+          <div class="house-cart-form">
+            <div class="house-cart-field">
+              <label for="houseCartName">Name</label>
+              <input id="houseCartName" type="text" placeholder="Collector name" />
+            </div>
+            <div class="house-cart-field">
+              <label for="houseCartEmail">Email</label>
+              <input id="houseCartEmail" type="email" placeholder="collector@email.com" />
+            </div>
+            <div class="house-cart-field">
+              <label for="houseCartLocation">Shipping / location</label>
+              <textarea id="houseCartLocation" rows="3" placeholder="City, country, delivery notes"></textarea>
+            </div>
+            <div class="house-cart-field">
+              <label for="houseCartNotes">Order notes</label>
+              <textarea id="houseCartNotes" rows="4" placeholder="Any custom request, fabric note, or timing"></textarea>
+            </div>
+            <div class="house-cart-summary">Checkout opens an email to natesavard@outlook.com with your selected pieces, sizes, quantities, and collector info.</div>
+            <div class="house-cart-actions">
+              <button class="house-cart-action" id="houseClearCartButton" type="button">clear cart</button>
+              <button class="house-cart-action is-primary" id="houseCheckoutButton" type="button">checkout via email</button>
+            </div>
+          </div>
+        </aside>
+      </div>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    (function () {
+      var enterButton = document.getElementById("enterPortal");
+      var topRibbon = document.getElementById("topRibbon");
+      var angelToggle = document.getElementById("angelToggle");
+      var enterCollectionLink = document.getElementById("enterCollectionLink");
+      var rotatingLine = document.getElementById("rotatingLine");
+      var luxReveal = document.getElementById("luxReveal");
+      var collectionPhase = document.getElementById("collectionPhase");
+      var cataloguePhase = document.getElementById("cataloguePhase");
+      var catalogueRail = document.querySelector(".catalogue-rail");
+      var jewelryRail = document.getElementById("jewelryRail");
+      var houseProductTriggers = Array.prototype.slice.call(document.querySelectorAll("[data-house-product]"));
+      var houseViewer = document.getElementById("houseViewer");
+      var houseViewerBackdrop = document.getElementById("houseViewerBackdrop");
+      var houseViewerImage = document.getElementById("houseViewerImage");
+      var houseImageZoom = document.getElementById("houseImageZoom");
+      var houseImageZoomImg = document.getElementById("houseImageZoomImg");
+      var houseImageZoomBackdrop = document.getElementById("houseImageZoomBackdrop");
+      var houseViewerPrev = document.getElementById("houseViewerPrev");
+      var houseViewerNext = document.getElementById("houseViewerNext");
+      var houseViewerClose = document.getElementById("houseViewerClose");
+      var houseProductTitle = document.getElementById("houseProductTitle");
+      var houseProductPrice = document.getElementById("houseProductPrice");
+      var houseProductDescription = document.getElementById("houseProductDescription");
+      var houseOptionLabel = document.getElementById("houseOptionLabel");
+      var houseSizeChips = Array.prototype.slice.call(document.querySelectorAll("[data-house-size]"));
+      var houseQtyMinus = document.getElementById("houseQtyMinus");
+      var houseQtyPlus = document.getElementById("houseQtyPlus");
+      var houseQtyValue = document.getElementById("houseQtyValue");
+      var houseAddToCartButton = document.getElementById("houseAddToCartButton");
+      var houseOpenCartFromProduct = document.getElementById("houseOpenCartFromProduct");
+      var houseCartShell = document.getElementById("houseCartShell");
+      var houseCartBackdrop = document.getElementById("houseCartBackdrop");
+      var houseCartToggle = document.getElementById("houseCartToggle");
+      var houseCartClose = document.getElementById("houseCartClose");
+      var houseCartCount = document.getElementById("houseCartCount");
+      var houseCartItems = document.getElementById("houseCartItems");
+      var houseClearCartButton = document.getElementById("houseClearCartButton");
+      var houseCheckoutButton = document.getElementById("houseCheckoutButton");
+      var houseCartName = document.getElementById("houseCartName");
+      var houseCartEmail = document.getElementById("houseCartEmail");
+      var houseCartLocation = document.getElementById("houseCartLocation");
+      var houseCartNotes = document.getElementById("houseCartNotes");
+      var houseRecentRail = document.getElementById("houseRecentRail");
+      var houseRecentTrack = document.getElementById("houseRecentTrack");
+      var houseRecentEmpty = document.getElementById("houseRecentEmpty");
+      var houseRecentPrev = document.getElementById("houseRecentPrev");
+      var houseRecentNext = document.getElementById("houseRecentNext");
+      var logoCursor = document.getElementById("envyLogoCursor");
+      var backgroundMusic = document.getElementById("backgroundMusic");
+      var stagedSections = Array.prototype.slice.call(document.querySelectorAll(".collection-stage, .archives-stage, .catalogue-stage, .jewelry-stage, .recent-stage, .contact-stage"));
+      var hasEntered = false;
+      var scrollFrame = 0;
+      var activeRail = null;
+      var railPointerId = null;
+      var railStartX = 0;
+      var railStartScroll = 0;
+      var railDragging = false;
+      var houseStorageKey = "envy-house-cart";
+      var houseInfoKey = "envy-house-cart-info";
+      var houseRecentKey = "envy-house-recently-viewed";
+      var houseSelectedSize = "m";
+      var houseSelectedQuantity = 1;
+      var houseActiveProduct = null;
+      var houseActiveProductIndex = -1;
+      var houseCart = [];
+      var houseRecentItems = [];
+      var lines = [
+        "never replicated",
+        "for the chosen few",
+        "earned in silence"
+      ];
+      var lineIndex = 0;
+      var interfaceAudio = null;
+      var backgroundMusicStarted = false;
+      var backgroundMusicTimeKey = "siteflow_music_time";
+      var backgroundMusicLastSavedAt = 0;
+      var defaultHouseOptions = ["xs", "s", "m", "l", "xl"];
+      var cursorHoverSelector = 'a, button, input, textarea, select, summary, [role="button"], .catalogue-card, .jewelry-card, .recent-card, .house-size-chip, .house-qty-button, .house-product-action, .house-cart-action';
+
+      function initLogoCursor() {
+        if (!logoCursor || !window.matchMedia || !window.matchMedia("(pointer: fine)").matches) return;
+
+        document.body.classList.add("has-logo-cursor");
+
+        function updateLogoCursorState(target) {
+          var interactive = target && target.closest ? target.closest(cursorHoverSelector) : null;
+          logoCursor.classList.toggle("is-hovering", !!interactive);
+        }
+
+        function placeLogoCursor(event) {
+          if (!event || (event.pointerType && event.pointerType !== "mouse" && event.pointerType !== "pen")) return;
+          logoCursor.style.left = event.clientX + "px";
+          logoCursor.style.top = event.clientY + "px";
+          logoCursor.classList.add("is-visible");
+          updateLogoCursorState(event.target);
+        }
+
+        window.addEventListener("pointermove", placeLogoCursor, { passive: true });
+
+        window.addEventListener("pointerdown", function (event) {
+          if (event.pointerType && event.pointerType !== "mouse" && event.pointerType !== "pen") return;
+          placeLogoCursor(event);
+          logoCursor.classList.add("is-pressed");
+        }, { passive: true, capture: true });
+
+        window.addEventListener("pointerup", function () {
+          logoCursor.classList.remove("is-pressed");
+        }, { passive: true, capture: true });
+
+        window.addEventListener("blur", function () {
+          logoCursor.classList.remove("is-visible");
+          logoCursor.classList.remove("is-hovering");
+          logoCursor.classList.remove("is-pressed");
+        });
+
+        document.addEventListener("mouseout", function (event) {
+          if (event.relatedTarget) return;
+          logoCursor.classList.remove("is-visible");
+          logoCursor.classList.remove("is-hovering");
+          logoCursor.classList.remove("is-pressed");
+        });
+      }
+
+      function bindBackgroundMusicPersistence() {
+        if (!backgroundMusic || backgroundMusic.dataset.musicStateBound === "true") return;
+
+        backgroundMusic.dataset.musicStateBound = "true";
+
+        function restoreBackgroundMusicPosition() {
+          var stored = Number(window.localStorage.getItem(backgroundMusicTimeKey) || "0");
+          var duration = Number(backgroundMusic.duration || 0);
+          if (!Number.isFinite(stored) || stored <= 0.5) return;
+          if (duration && stored >= duration - 0.5) return;
+
+          try {
+            backgroundMusic.currentTime = stored;
+          } catch (error) {
+            return;
+          }
+        }
+
+        backgroundMusic.addEventListener("loadedmetadata", restoreBackgroundMusicPosition);
+        backgroundMusic.addEventListener("timeupdate", function () {
+          var current = Number(backgroundMusic.currentTime || 0);
+          if (!Number.isFinite(current) || Math.abs(current - backgroundMusicLastSavedAt) < 1.5) return;
+          backgroundMusicLastSavedAt = current;
+
+          try {
+            window.localStorage.setItem(backgroundMusicTimeKey, String(current));
+          } catch (error) {
+            return;
+          }
+        });
+        backgroundMusic.addEventListener("ended", function () {
+          try {
+            window.localStorage.setItem(backgroundMusicTimeKey, "0");
+          } catch (error) {
+            return;
+          }
+        });
+
+        restoreBackgroundMusicPosition();
+      }
+
+      function startBackgroundMusic() {
+        if (!backgroundMusic) return;
+
+        bindBackgroundMusicPersistence();
+        if (window.localStorage.getItem("siteflow_sound_on") === "false") return;
+        backgroundMusic.volume = 0.9;
+
+        var playAttempt = backgroundMusic.play();
+        if (playAttempt && typeof playAttempt.then === "function") {
+          playAttempt.then(function () {
+            backgroundMusicStarted = true;
+          }).catch(function () {
+            backgroundMusicStarted = false;
+          });
+          return;
+        }
+
+        backgroundMusicStarted = true;
+      }
+
+      function ensureBackgroundMusic() {
+        if (backgroundMusicStarted) return;
+        startBackgroundMusic();
+      }
+
+      function createInterfaceAudio() {
+        var AudioCtx = window.AudioContext || window.webkitAudioContext;
+        if (!AudioCtx) return null;
+
+        var context = null;
+        var master = null;
+        var ready = false;
+        var lastHoverAt = 0;
+        var lastHoverTarget = null;
+
+        function ensureContext() {
+          if (context) return true;
+
+          try {
+            context = new AudioCtx();
+          } catch (error) {
+            return false;
+          }
+
+          master = context.createGain();
+          master.gain.value = 0.11;
+          master.connect(context.destination);
+          return true;
+        }
+
+        function arm() {
+          if (!ensureContext()) return;
+
+          if (context.state === "suspended") {
+            context.resume().catch(function () {
+              return;
+            });
+          }
+
+          ready = true;
+        }
+
+        function pulse(config) {
+          if (!ensureContext()) return;
+          if (context.state === "suspended") {
+            context.resume().catch(function () {
+              return;
+            });
+          }
+          ready = true;
+
+          var now = context.currentTime;
+          var osc = context.createOscillator();
+          var gain = context.createGain();
+          var filter = context.createBiquadFilter();
+
+          osc.type = config.type || "square";
+          osc.frequency.setValueAtTime(config.frequency || 240, now);
+          if (config.frequencyB) {
+            osc.frequency.exponentialRampToValueAtTime(config.frequencyB, now + (config.glide || 0.04));
+          }
+
+          filter.type = config.filterType || "bandpass";
+          filter.frequency.setValueAtTime(config.filterFrequency || 1400, now);
+          filter.Q.value = config.q || 0.9;
+
+          gain.gain.setValueAtTime(0.0001, now);
+          gain.gain.exponentialRampToValueAtTime(config.attackGain || 0.028, now + (config.attack || 0.005));
+          gain.gain.exponentialRampToValueAtTime(0.0001, now + (config.decay || 0.08));
+
+          osc.connect(filter);
+          filter.connect(gain);
+          gain.connect(master);
+
+          osc.start(now);
+          osc.stop(now + (config.decay || 0.08) + 0.03);
+        }
+
+        function hover(target) {
+          if (!ready) return;
+          if (!target) return;
+
+          var now = window.performance.now();
+          if (target === lastHoverTarget && now - lastHoverAt < 160) return;
+
+          lastHoverTarget = target;
+          lastHoverAt = now;
+
+          pulse({
+            type: "triangle",
+            frequency: 980,
+            frequencyB: 720,
+            glide: 0.045,
+            filterFrequency: 2200,
+            q: 1.3,
+            attackGain: 0.014,
+            decay: 0.055
+          });
+        }
+
+        function click(strength) {
+          pulse({
+            type: strength === "heavy" ? "sawtooth" : "square",
+            frequency: strength === "heavy" ? 160 : 210,
+            frequencyB: strength === "heavy" ? 118 : 168,
+            glide: 0.06,
+            filterFrequency: strength === "heavy" ? 980 : 1320,
+            q: 1.1,
+            attackGain: strength === "heavy" ? 0.09 : 0.058,
+            decay: strength === "heavy" ? 0.16 : 0.11
+          });
+        }
+
+        function testSequence() {
+          arm();
+          click("heavy");
+          window.setTimeout(function () {
+            pulse({
+              type: "square",
+              frequency: 420,
+              frequencyB: 280,
+              glide: 0.08,
+              filterFrequency: 1480,
+              q: 1.2,
+              attackGain: 0.075,
+              decay: 0.12
+            });
+          }, 90);
+          window.setTimeout(function () {
+            pulse({
+              type: "triangle",
+              frequency: 1180,
+              frequencyB: 760,
+              glide: 0.07,
+              filterFrequency: 2450,
+              q: 1.35,
+              attackGain: 0.032,
+              decay: 0.09
+            });
+          }, 180);
+        }
+
+        return {
+          arm: arm,
+          hover: hover,
+          click: click,
+          testSequence: testSequence
+        };
+      }
+
+      function getInteractiveAudioTarget(node) {
+        if (node && node.nodeType === 3) {
+          node = node.parentElement;
+        }
+        if (!(node instanceof Element)) return null;
+        return node.closest(
+          'a, button, [role="button"], input, textarea, select, summary, .catalogue-card, .jewelry-card, .recent-card, .house-size-chip, .house-qty-button, .house-product-action, .house-cart-action'
+        );
+      }
+
+      function installInteractionAudio() {
+        interfaceAudio = createInterfaceAudio();
+        if (!interfaceAudio) return;
+
+        var armAudio = function (event) {
+          interfaceAudio.arm();
+          var target = getInteractiveAudioTarget(event.target);
+          if (target) {
+            var strength = target.matches(".enter-logo, .lux-cart-toggle, .house-product-action, .house-cart-action") ? "heavy" : "light";
+            interfaceAudio.click(strength);
+          }
+        };
+
+        document.addEventListener("pointerdown", armAudio, { passive: true, capture: true });
+        document.addEventListener("keydown", function (event) {
+          interfaceAudio.arm();
+          if (event.key === "Enter" || event.key === " ") {
+            interfaceAudio.click("light");
+          }
+        }, true);
+
+        document.addEventListener("pointerover", function (event) {
+          var target = getInteractiveAudioTarget(event.target);
+          if (!target) return;
+          interfaceAudio.hover(target);
+        });
+
+        document.addEventListener("focusin", function (event) {
+          var target = getInteractiveAudioTarget(event.target);
+          if (!target) return;
+          interfaceAudio.hover(target);
+        });
+
+        document.addEventListener("click", function (event) {
+          var target = getInteractiveAudioTarget(event.target);
+          if (!target) return;
+
+          var strength = target.matches(".enter-logo, .lux-cart-toggle, .house-product-action, .house-cart-action") ? "heavy" : "light";
+          interfaceAudio.click(strength);
+        }, true);
+      }
+
+      function loadHouseCart() {
+        try {
+          var stored = window.localStorage.getItem(houseStorageKey);
+          houseCart = stored ? JSON.parse(stored) : [];
+        } catch (error) {
+          houseCart = [];
+        }
+      }
+
+      function saveHouseCart() {
+        try {
+          window.localStorage.setItem(houseStorageKey, JSON.stringify(houseCart));
+        } catch (error) {
+          return;
+        }
+      }
+
+      function loadHouseInfo() {
+        try {
+          var stored = window.localStorage.getItem(houseInfoKey);
+          if (!stored) return;
+          var info = JSON.parse(stored);
+          if (houseCartName) houseCartName.value = info.name || "";
+          if (houseCartEmail) houseCartEmail.value = info.email || "";
+          if (houseCartLocation) houseCartLocation.value = info.location || "";
+          if (houseCartNotes) houseCartNotes.value = info.notes || "";
+        } catch (error) {
+          return;
+        }
+      }
+
+      function saveHouseInfo() {
+        try {
+          window.localStorage.setItem(houseInfoKey, JSON.stringify({
+            name: houseCartName ? houseCartName.value : "",
+            email: houseCartEmail ? houseCartEmail.value : "",
+            location: houseCartLocation ? houseCartLocation.value : "",
+            notes: houseCartNotes ? houseCartNotes.value : ""
+          }));
+        } catch (error) {
+          return;
+        }
+      }
+
+      function loadHouseRecent() {
+        try {
+          var stored = window.localStorage.getItem(houseRecentKey);
+          var parsed = stored ? JSON.parse(stored) : [];
+          houseRecentItems = Array.isArray(parsed) ? parsed : [];
+        } catch (error) {
+          houseRecentItems = [];
+        }
+      }
+
+      function saveHouseRecent() {
+        try {
+          window.localStorage.setItem(houseRecentKey, JSON.stringify(houseRecentItems));
+        } catch (error) {
+          return;
+        }
+      }
+
+      function getHouseRecentId(product) {
+        return String(product && (product.name || product.image || "house-item"))
+          .toLowerCase()
+          .replace(/[^a-z0-9]+/g, "-");
+      }
+
+      function updateHouseRecentControls() {
+        if (!houseRecentRail) return;
+
+        var maxScroll = Math.max(0, houseRecentRail.scrollWidth - houseRecentRail.clientWidth);
+        var canScroll = maxScroll > 8;
+
+        if (houseRecentPrev) {
+          houseRecentPrev.disabled = !canScroll || houseRecentRail.scrollLeft <= 8;
+        }
+
+        if (houseRecentNext) {
+          houseRecentNext.disabled = !canScroll || houseRecentRail.scrollLeft >= maxScroll - 8;
+        }
+      }
+
+      function renderHouseRecent() {
+        if (!houseRecentTrack) return;
+
+        if (!houseRecentItems.length) {
+          houseRecentTrack.innerHTML = "";
+          if (houseRecentEmpty) {
+            houseRecentEmpty.hidden = false;
+          }
+          if (houseRecentPrev) houseRecentPrev.disabled = true;
+          if (houseRecentNext) houseRecentNext.disabled = true;
+          return;
+        }
+
+        if (houseRecentEmpty) {
+          houseRecentEmpty.hidden = true;
+        }
+
+        houseRecentTrack.innerHTML = houseRecentItems.map(function (item, index) {
+          return '' +
+            '<button class="recent-card" type="button" data-house-recent-index="' + index + '">' +
+              '<div class="recent-card-media"><img src="' + item.image + '" alt="' + item.name + '" /></div>' +
+              '<div class="recent-card-copy">' +
+                '<h3 class="recent-card-title">' + item.name + '</h3>' +
+                '<p class="recent-card-meta">' + item.price + '<br />tap to reopen</p>' +
+              '</div>' +
+            '</button>';
+        }).join("");
+
+        window.requestAnimationFrame(updateHouseRecentControls);
+      }
+
+      function rememberHouseProduct(product) {
+        if (!product || !product.name || !product.image) return;
+
+        var id = getHouseRecentId(product);
+        var normalized = {
+          id: id,
+          name: product.name,
+          price: product.price,
+          description: product.description,
+          image: product.image,
+          optionLabel: product.optionLabel,
+          options: Array.isArray(product.options) ? product.options.slice() : defaultHouseOptions.slice()
+        };
+
+        houseRecentItems = houseRecentItems.filter(function (item) {
+          return item.id !== id;
+        });
+
+        houseRecentItems.unshift(normalized);
+        houseRecentItems = houseRecentItems.slice(0, 12);
+        saveHouseRecent();
+        renderHouseRecent();
+      }
+
+      function openHouseRecentItem(index) {
+        var item = houseRecentItems[index];
+        if (!item) return;
+        openHouseViewer(item);
+      }
+
+      function scrollHouseRecent(direction) {
+        if (!houseRecentRail) return;
+
+        var distance = Math.max(houseRecentRail.clientWidth * 0.82, 260);
+        houseRecentRail.scrollBy({
+          left: distance * direction,
+          behavior: "smooth"
+        });
+      }
+
+      function setHouseSize(size) {
+        houseSelectedSize = size;
+        houseSizeChips.forEach(function (chip) {
+          chip.classList.toggle("is-active", chip.getAttribute("data-house-size") === size);
+        });
+      }
+
+      function setHouseOptions(label, options, selected) {
+        var activeOptions = options && options.length ? options : defaultHouseOptions;
+
+        if (houseOptionLabel) {
+          houseOptionLabel.textContent = label || "Select size";
+        }
+
+        houseSizeChips.forEach(function (chip, index) {
+          var optionValue = activeOptions[index];
+          if (!optionValue) {
+            chip.hidden = true;
+            chip.disabled = true;
+            chip.classList.remove("is-active");
+            return;
+          }
+
+          chip.hidden = false;
+          chip.disabled = false;
+          chip.textContent = String(optionValue).toUpperCase();
+          chip.setAttribute("data-house-size", String(optionValue).toLowerCase());
+        });
+
+        setHouseSize((selected || activeOptions[0] || "m").toLowerCase());
+      }
+
+      function setHouseQuantity(value) {
+        houseSelectedQuantity = Math.max(1, Math.min(12, value));
+        if (houseQtyValue) {
+          houseQtyValue.textContent = String(houseSelectedQuantity);
+        }
+      }
+
+      function updateHouseCartCount() {
+        if (!houseCartCount) return;
+        var total = houseCart.reduce(function (sum, item) {
+          return sum + item.quantity;
+        }, 0);
+        houseCartCount.textContent = String(total);
+      }
+
+      function renderHouseCart() {
+        if (!houseCartItems) return;
+
+        if (!houseCart.length) {
+          houseCartItems.innerHTML = '<div class="house-cart-empty">Your cart is empty. add a garment from the signature rail.</div>';
+          updateHouseCartCount();
+          return;
+        }
+
+        houseCartItems.innerHTML = houseCart.map(function (item) {
+          return '' +
+            '<div class="house-cart-item">' +
+              '<button type="button" class="house-cart-item-preview" data-house-cart-preview="' + item.id + '">' +
+                '<div class="house-cart-item-image"><img src="' + item.image + '" alt="' + item.name + '" /></div>' +
+                '<div>' +
+                  '<div class="house-cart-item-name">' + item.name + '</div>' +
+                  '<div class="house-cart-item-meta">size ' + item.size.toUpperCase() + ' / qty ' + item.quantity + '<br />' + item.price + '</div>' +
+                '</div>' +
+              '</button>' +
+              '<div class="house-cart-item-actions">' +
+                '<button type="button" data-house-cart-action="decrease" data-house-cart-id="' + item.id + '">less</button>' +
+                '<button type="button" data-house-cart-action="increase" data-house-cart-id="' + item.id + '">more</button>' +
+                '<button type="button" data-house-cart-action="remove" data-house-cart-id="' + item.id + '">remove</button>' +
+              '</div>' +
+            '</div>';
+        }).join("");
+
+        updateHouseCartCount();
+      }
+
+      function openHouseCart() {
+        if (!houseCartShell) return;
+        houseCartShell.classList.add("is-open");
+        houseCartShell.setAttribute("aria-hidden", "false");
+      }
+
+      function closeHouseCart() {
+        if (!houseCartShell) return;
+        houseCartShell.classList.remove("is-open");
+        houseCartShell.setAttribute("aria-hidden", "true");
+      }
+
+      function getHouseProductFromTrigger(trigger) {
+        var optionList = (trigger.getAttribute("data-house-options") || "")
+          .split(",")
+          .map(function (value) { return value.trim().toLowerCase(); })
+          .filter(Boolean);
+
+        return {
+          name: trigger.getAttribute("data-house-product") || "Signature Shirt",
+          price: trigger.getAttribute("data-house-price") || "$145.00",
+          description: trigger.getAttribute("data-house-description") || "Collector black jersey. oversized body. halo pressure. built for the chosen few.",
+        image: trigger.getAttribute("data-house-image") || "envy-shirt-legacy-tee.png",
+          optionLabel: trigger.getAttribute("data-house-option-label") || "Select size",
+          options: optionList.length ? optionList : defaultHouseOptions
+        };
+      }
+
+      function getHouseViewerProducts() {
+        var seen = {};
+        return houseProductTriggers.reduce(function (items, trigger) {
+          var product = getHouseProductFromTrigger(trigger);
+          if (seen[product.name]) return items;
+          seen[product.name] = true;
+          items.push(product);
+          return items;
+        }, []);
+      }
+
+      function syncHouseActiveProductIndex(product) {
+        var products = getHouseViewerProducts();
+        houseActiveProductIndex = products.findIndex(function (entry) {
+          return entry.name === product.name;
+        });
+      }
+
+      function cycleHouseViewerProduct(step) {
+        var products = getHouseViewerProducts();
+        if (!products.length) return;
+        if (houseActiveProductIndex < 0) {
+          houseActiveProductIndex = 0;
+        } else {
+          houseActiveProductIndex = (houseActiveProductIndex + step + products.length) % products.length;
+        }
+        openHouseViewer(products[houseActiveProductIndex]);
+      }
+
+      function openHouseViewer(product) {
+        if (!houseViewer || !houseViewerImage || !product || !product.image) return;
+        houseActiveProduct = product;
+        syncHouseActiveProductIndex(product);
+        rememberHouseProduct(product);
+        houseViewerImage.src = product.image;
+        if (houseProductTitle) houseProductTitle.textContent = product.name;
+        if (houseProductPrice) houseProductPrice.textContent = product.price;
+        if (houseProductDescription) houseProductDescription.textContent = product.description;
+        setHouseOptions(product.optionLabel, product.options, product.options && product.options[0] ? product.options[0] : "m");
+        setHouseQuantity(1);
+        houseViewer.classList.add("is-open");
+        houseViewer.setAttribute("aria-hidden", "false");
+      }
+
+      function openHouseImageZoom() {
+        if (!houseImageZoom || !houseImageZoomImg || !houseViewerImage || !houseViewerImage.src) return;
+        houseImageZoomImg.src = houseViewerImage.src;
+        houseImageZoom.classList.add("is-open");
+        houseImageZoom.setAttribute("aria-hidden", "false");
+      }
+
+      function closeHouseImageZoom() {
+        if (!houseImageZoom || !houseImageZoomImg) return;
+        houseImageZoom.classList.remove("is-open");
+        houseImageZoom.setAttribute("aria-hidden", "true");
+        window.setTimeout(function () {
+          if (!houseImageZoom.classList.contains("is-open")) {
+            houseImageZoomImg.src = "";
+          }
+        }, 180);
+      }
+
+      function closeHouseViewer() {
+        if (!houseViewer || !houseViewerImage) return;
+        closeHouseImageZoom();
+        houseViewer.classList.remove("is-open");
+        houseViewer.setAttribute("aria-hidden", "true");
+        window.setTimeout(function () {
+          if (!houseViewer.classList.contains("is-open")) {
+            houseViewerImage.src = "";
+          }
+        }, 240);
+      }
+
+      function addHouseProductToCart() {
+        if (!houseActiveProduct) return;
+
+        var existing = houseCart.find(function (item) {
+          return item.name === houseActiveProduct.name && item.size === houseSelectedSize;
+        });
+
+        if (existing) {
+          existing.quantity += houseSelectedQuantity;
+        } else {
+          houseCart.push({
+            id: houseActiveProduct.name.toLowerCase().replace(/[^a-z0-9]+/g, "-") + "-" + houseSelectedSize,
+            name: houseActiveProduct.name,
+            price: houseActiveProduct.price,
+            description: houseActiveProduct.description,
+            image: houseActiveProduct.image,
+            size: houseSelectedSize,
+            quantity: houseSelectedQuantity
+          });
+        }
+
+        saveHouseCart();
+        renderHouseCart();
+        closeHouseViewer();
+        openHouseCart();
+      }
+
+      function updateHouseCartItem(id, action) {
+        houseCart = houseCart.reduce(function (items, item) {
+          if (item.id !== id) {
+            items.push(item);
+            return items;
+          }
+
+          if (action === "remove") {
+            return items;
+          }
+
+          if (action === "increase") {
+            item.quantity += 1;
+          }
+
+          if (action === "decrease") {
+            item.quantity -= 1;
+          }
+
+          if (item.quantity > 0) {
+            items.push(item);
+          }
+
+          return items;
+        }, []);
+
+        saveHouseCart();
+        renderHouseCart();
+      }
+
+      function previewHouseCartItem(id) {
+        var item = houseCart.find(function (entry) {
+          return entry.id === id;
+        });
+
+        if (!item) return;
+
+        closeHouseCart();
+        openHouseViewer({
+          name: item.name,
+          price: item.price,
+          description: item.description,
+          image: item.image,
+          optionLabel: item.optionLabel,
+          options: item.options
+        });
+        setHouseOptions(item.optionLabel, item.options, item.size);
+        setHouseQuantity(item.quantity);
+      }
+
+      function buildHouseCheckoutMailto() {
+        if (!houseCart.length) return null;
+
+        saveHouseInfo();
+
+        var linesForMail = [
+          "ENVYNOMADIX ORDER REQUEST",
+          "",
+          "Name: " + (houseCartName && houseCartName.value ? houseCartName.value : ""),
+          "Email: " + (houseCartEmail && houseCartEmail.value ? houseCartEmail.value : ""),
+          "Shipping / Location: " + (houseCartLocation && houseCartLocation.value ? houseCartLocation.value : ""),
+          "",
+          "Items:"
+        ];
+
+        houseCart.forEach(function (item, index) {
+          linesForMail.push(
+            (index + 1) + ". " + item.name +
+            " | Size: " + item.size.toUpperCase() +
+            " | Qty: " + item.quantity +
+            " | Price: " + item.price
+          );
+        });
+
+        linesForMail.push("");
+        linesForMail.push("Notes: " + (houseCartNotes && houseCartNotes.value ? houseCartNotes.value : ""));
+
+        var subjectName = houseCartName && houseCartName.value ? houseCartName.value : "Collector";
+        return "mailto:natesavard@outlook.com?subject=" +
+          encodeURIComponent("ENVY Order Request - " + subjectName) +
+          "&body=" +
+          encodeURIComponent(linesForMail.join("\n"));
+      }
+
+      function go() {
+        ensureBackgroundMusic();
+        if (hasEntered) return;
+        hasEntered = true;
+        window.setTimeout(function () {
+          document.body.classList.add("is-entered");
+          if (luxReveal) {
+            window.setTimeout(function () {
+              luxReveal.scrollIntoView({ behavior: "smooth", block: "start" });
+            }, 260);
+          }
+        }, 40);
+      }
+
+      function resetIntro() {
+        hasEntered = false;
+        document.body.classList.remove("is-entered");
+        document.body.classList.remove("is-collection-open");
+        document.documentElement.style.setProperty("--hero-parallax", "0px");
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }
+
+      function updateHeroDepth() {
+        scrollFrame = 0;
+
+        if (!hasEntered || !collectionPhase) {
+          document.body.classList.remove("is-collection-open");
+          document.documentElement.style.setProperty("--hero-parallax", "0px");
+          document.documentElement.style.setProperty("--ascension-progress", "0");
+          return;
+        }
+
+        var triggerPoint = collectionPhase.offsetTop - (window.innerHeight * 0.42);
+        var isCollectionOpen = window.scrollY >= triggerPoint;
+        var depthDistance = Math.max(0, window.scrollY - triggerPoint);
+        var parallaxOffset = Math.min(depthDistance * 0.12, 96);
+        var collectionRect = collectionPhase.getBoundingClientRect();
+        var ascensionStart = window.innerHeight * 0.96;
+        var ascensionEnd = window.innerHeight * 0.28;
+        var ascensionProgress = (ascensionStart - collectionRect.top) / Math.max(ascensionStart - ascensionEnd, 1);
+
+        ascensionProgress = Math.min(Math.max(ascensionProgress, 0), 1);
+
+        document.body.classList.toggle("is-collection-open", isCollectionOpen);
+        document.documentElement.style.setProperty("--hero-parallax", isCollectionOpen ? (parallaxOffset.toFixed(1) + "px") : "0px");
+        document.documentElement.style.setProperty("--ascension-progress", ascensionProgress.toFixed(3));
+      }
+
+      function queueHeroDepth() {
+        if (scrollFrame) return;
+        scrollFrame = window.requestAnimationFrame(updateHeroDepth);
+      }
+
+      function stopRailDrag() {
+        if (!activeRail) return;
+        railDragging = false;
+        railPointerId = null;
+        activeRail.classList.remove("is-dragging");
+        activeRail = null;
+      }
+
+      function bindRailDrag(rail) {
+        if (!rail) return;
+
+        rail.addEventListener("pointerdown", function (event) {
+          if (event.target && event.target.closest && event.target.closest("[data-house-product]")) return;
+          if (event.pointerType === "mouse" && event.button !== 0) return;
+          railDragging = true;
+          activeRail = rail;
+          railPointerId = event.pointerId;
+          railStartX = event.clientX;
+          railStartScroll = rail.scrollLeft;
+          rail.classList.add("is-dragging");
+          if (rail.setPointerCapture) {
+            rail.setPointerCapture(event.pointerId);
+          }
+        });
+
+        rail.addEventListener("pointermove", function (event) {
+          if (!railDragging || activeRail !== rail || railPointerId !== event.pointerId) return;
+          var deltaX = event.clientX - railStartX;
+          rail.scrollLeft = railStartScroll - deltaX;
+        });
+
+        rail.addEventListener("pointerup", stopRailDrag);
+        rail.addEventListener("pointercancel", stopRailDrag);
+        rail.addEventListener("lostpointercapture", stopRailDrag);
+        rail.addEventListener("mouseleave", function () {
+          if (railDragging && activeRail === rail && railPointerId === null) {
+            rail.classList.remove("is-dragging");
+          }
+        });
+      }
+
+      function rotateLine() {
+        if (!rotatingLine) return;
+        rotatingLine.classList.add("is-fading");
+        window.setTimeout(function () {
+          lineIndex = (lineIndex + 1) % lines.length;
+          rotatingLine.textContent = lines[lineIndex];
+          rotatingLine.classList.remove("is-fading");
+        }, 260);
+      }
+
+      enterButton.addEventListener("click", function () {
+        ensureBackgroundMusic();
+        if (hasEntered) {
+          resetIntro();
+          return;
+        }
+        go();
+      });
+
+      if (topRibbon) {
+        topRibbon.addEventListener("click", function () {
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        });
+      }
+
+      bindRailDrag(catalogueRail);
+      bindRailDrag(jewelryRail);
+
+      if (enterCollectionLink && cataloguePhase) {
+        enterCollectionLink.addEventListener("click", function (event) {
+          event.preventDefault();
+          if (!hasEntered) return;
+          document.body.classList.add("is-collection-open");
+          cataloguePhase.scrollIntoView({ behavior: "smooth", block: "start" });
+          queueHeroDepth();
+        });
+      }
+
+      if (angelToggle) {
+        angelToggle.addEventListener("click", function () {
+          angelToggle.classList.toggle("is-hidden");
+        });
+      }
+      document.addEventListener("keydown", function (event) {
+        if (houseViewer && houseViewer.classList.contains("is-open")) {
+          if (event.key === "ArrowLeft") {
+            event.preventDefault();
+            cycleHouseViewerProduct(-1);
+            return;
+          }
+          if (event.key === "ArrowRight") {
+            event.preventDefault();
+            cycleHouseViewerProduct(1);
+            return;
+          }
+        }
+        if (event.key === "Escape") {
+          closeHouseImageZoom();
+          closeHouseViewer();
+          closeHouseCart();
+        }
+        if (event.key === "Enter" || event.key === " ") {
+          event.preventDefault();
+          ensureBackgroundMusic();
+          go();
+        }
+      });
+
+      document.addEventListener("pointerdown", function () {
+        ensureBackgroundMusic();
+      }, { passive: true, capture: true });
+
+      if ("IntersectionObserver" in window) {
+        var observer = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("is-visible");
+            }
+          });
+        }, {
+          threshold: 0.22
+        });
+
+        stagedSections.forEach(function (section) {
+          observer.observe(section);
+        });
+      } else {
+        stagedSections.forEach(function (section) {
+          section.classList.add("is-visible");
+        });
+      }
+
+      window.addEventListener("scroll", queueHeroDepth, { passive: true });
+      window.addEventListener("resize", queueHeroDepth);
+      window.addEventListener("resize", updateHouseRecentControls);
+      updateHeroDepth();
+      initLogoCursor();
+      installInteractionAudio();
+      loadHouseCart();
+      loadHouseInfo();
+      loadHouseRecent();
+      renderHouseCart();
+      renderHouseRecent();
+
+      window.setInterval(rotateLine, 2400);
+
+      houseProductTriggers.forEach(function (trigger) {
+        trigger.addEventListener("click", function () {
+          openHouseViewer(getHouseProductFromTrigger(trigger));
+        });
+      });
+
+      document.addEventListener("click", function (event) {
+        var trigger = event.target && event.target.closest ? event.target.closest("[data-house-product]") : null;
+        if (!trigger) return;
+        if (houseViewer && houseViewer.contains(trigger)) return;
+        if (houseCartShell && houseCartShell.contains(trigger)) return;
+        openHouseViewer(getHouseProductFromTrigger(trigger));
+      });
+
+      houseSizeChips.forEach(function (chip) {
+        chip.addEventListener("click", function () {
+          setHouseSize(chip.getAttribute("data-house-size"));
+        });
+      });
+
+      if (houseQtyMinus) {
+        houseQtyMinus.addEventListener("click", function () {
+          setHouseQuantity(houseSelectedQuantity - 1);
+        });
+      }
+
+      if (houseQtyPlus) {
+        houseQtyPlus.addEventListener("click", function () {
+          setHouseQuantity(houseSelectedQuantity + 1);
+        });
+      }
+
+      if (houseAddToCartButton) {
+        houseAddToCartButton.addEventListener("click", addHouseProductToCart);
+      }
+
+      if (houseOpenCartFromProduct) {
+        houseOpenCartFromProduct.addEventListener("click", function () {
+          closeHouseViewer();
+          openHouseCart();
+        });
+      }
+
+      if (houseViewerClose) {
+        houseViewerClose.addEventListener("click", closeHouseViewer);
+      }
+
+      if (houseViewerBackdrop) {
+        houseViewerBackdrop.addEventListener("click", closeHouseViewer);
+      }
+
+      if (houseViewerImage) {
+        houseViewerImage.addEventListener("click", openHouseImageZoom);
+        houseViewerImage.addEventListener("keydown", function (event) {
+          if (event.key !== "Enter" && event.key !== " ") return;
+          event.preventDefault();
+          openHouseImageZoom();
+        });
+      }
+
+      if (houseImageZoomImg) {
+        houseImageZoomImg.addEventListener("click", closeHouseImageZoom);
+      }
+
+      if (houseImageZoomBackdrop) {
+        houseImageZoomBackdrop.addEventListener("click", closeHouseImageZoom);
+      }
+
+      if (houseViewerPrev) {
+        houseViewerPrev.addEventListener("click", function () {
+          cycleHouseViewerProduct(-1);
+        });
+      }
+
+      if (houseViewerNext) {
+        houseViewerNext.addEventListener("click", function () {
+          cycleHouseViewerProduct(1);
+        });
+      }
+
+      if (houseCartToggle) {
+        houseCartToggle.addEventListener("click", openHouseCart);
+      }
+
+      if (houseCartClose) {
+        houseCartClose.addEventListener("click", closeHouseCart);
+      }
+
+      if (houseCartBackdrop) {
+        houseCartBackdrop.addEventListener("click", closeHouseCart);
+      }
+
+      if (houseRecentTrack) {
+        houseRecentTrack.addEventListener("click", function (event) {
+          var target = event.target && event.target.closest ? event.target.closest("[data-house-recent-index]") : null;
+          if (!target) return;
+          openHouseRecentItem(Number(target.getAttribute("data-house-recent-index")));
+        });
+      }
+
+      if (houseRecentPrev) {
+        houseRecentPrev.addEventListener("click", function () {
+          scrollHouseRecent(-1);
+        });
+      }
+
+      if (houseRecentNext) {
+        houseRecentNext.addEventListener("click", function () {
+          scrollHouseRecent(1);
+        });
+      }
+
+      if (houseRecentRail) {
+        houseRecentRail.addEventListener("scroll", updateHouseRecentControls, { passive: true });
+      }
+
+      if (houseCartItems) {
+        houseCartItems.addEventListener("click", function (event) {
+          var target = event.target;
+          if (!(target instanceof HTMLElement)) return;
+          var previewTarget = target.closest("[data-house-cart-preview]");
+          if (previewTarget) {
+            previewHouseCartItem(previewTarget.getAttribute("data-house-cart-preview"));
+            return;
+          }
+          var action = target.getAttribute("data-house-cart-action");
+          var id = target.getAttribute("data-house-cart-id");
+          if (!action || !id) return;
+          updateHouseCartItem(id, action);
+        });
+      }
+
+      [houseCartName, houseCartEmail, houseCartLocation, houseCartNotes].forEach(function (field) {
+        if (!field) return;
+        field.addEventListener("input", saveHouseInfo);
+      });
+
+      if (houseClearCartButton) {
+        houseClearCartButton.addEventListener("click", function () {
+          houseCart = [];
+          saveHouseCart();
+          renderHouseCart();
+        });
+      }
+
+      if (houseCheckoutButton) {
+        houseCheckoutButton.addEventListener("click", function () {
+          var mailto = buildHouseCheckoutMailto();
+          if (!mailto) return;
+          window.location.href = mailto;
+        });
+      }
+
+      window.addEventListener("storage", function (event) {
+        if (!event || !event.key) return;
+
+        if (event.key === houseStorageKey) {
+          loadHouseCart();
+          renderHouseCart();
+        }
+
+        if (event.key === houseInfoKey) {
+          loadHouseInfo();
+        }
+
+        if (event.key === houseRecentKey) {
+          loadHouseRecent();
+          renderHouseRecent();
+        }
+      });
+    }());
+  </script>
+</body>
+</html>
