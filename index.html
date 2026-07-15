@@ -804,7 +804,7 @@
 </style>
 </head>
 <body>
-  <audio id="backgroundMusic" preload="auto" loop playsinline>
+  <audio id="backgroundMusic" preload="auto" autoplay loop playsinline>
     <source src="Song%203%20FULLLL.mp3" type="audio/mpeg" />
     <source src="https://raw.githubusercontent.com/natesavard/natesavard.github.io/main/Song%203%20FULLLL.mp3" type="audio/mpeg" />
   </audio>
@@ -934,7 +934,12 @@
         if (!backgroundMusic) return;
 
         bindBackgroundMusicPersistence();
-        if (window.localStorage.getItem("siteflow_sound_on") === "false") return;
+
+        try {
+          window.localStorage.setItem("siteflow_sound_on", "true");
+        } catch (error) {
+          // Ignore storage failures and still attempt playback.
+        }
 
         backgroundMusic.volume = 0.9;
 
@@ -997,7 +1002,7 @@
       });
 
       ["pointerdown", "touchstart", "keydown", "click"].forEach(function (eventName) {
-        window.addEventListener(eventName, ensureBackgroundMusic, { passive: true });
+        window.addEventListener(eventName, ensureBackgroundMusic, { passive: true, capture: true });
       });
 
       document.querySelectorAll(".path").forEach(function (link) {
