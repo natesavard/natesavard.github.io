@@ -98,7 +98,7 @@ window.NATE_SCRAPBOOK_ITEMS = [
     note: "Winged NS league mark with embroidered cathedral lettering and bat-wing framing, pushing the house into a darker league-emblem direction."
   },
   {
-    src: "scrapbook-assets/Envy Original Logo.png?v=20260714c",
+    src: "scrapbook-assets/Envy Original Logo.png",
     alt: "Envy original logo",
     title: "Envy Original Logo",
     collection: "Envynomadix",

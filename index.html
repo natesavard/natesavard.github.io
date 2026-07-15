@@ -338,6 +338,23 @@
       filter:
         drop-shadow(0 12px 28px rgba(0, 0, 0, 0.36))
         drop-shadow(0 0 10px rgba(255, 255, 255, 0.04));
+      animation: wordmarkBaseSwap 18s ease-in-out infinite;
+    }
+
+    .path-wordmark.white {
+      position: absolute;
+      inset: 0;
+      z-index: 2;
+      opacity: 0;
+      mix-blend-mode: screen;
+      filter:
+        brightness(1.16)
+        saturate(0)
+        contrast(1.08)
+        drop-shadow(0 0 14px rgba(255, 255, 255, 0.18))
+        drop-shadow(0 0 34px rgba(255, 241, 210, 0.16))
+        drop-shadow(0 12px 28px rgba(0, 0, 0, 0.24));
+      animation: wordmarkWhiteSwap 18s ease-in-out infinite;
     }
 
     .path-route {
@@ -516,7 +533,7 @@
       }
     }
 
-    @keyframes wordmarkAngelSwap {
+    @keyframes wordmarkWhiteSwap {
       0%,
       42% {
         opacity: 0;
@@ -529,6 +546,7 @@
         opacity: 0;
       }
     }
+
 
     @keyframes shirtPulse {
       0%,
@@ -727,7 +745,7 @@
       <img class="path-logo" src="envy-cross.png" alt="Envy cross emblem" />
       <span class="path-wordmark-stack">
         <img class="path-wordmark base" src="ENVY NOMADIX ANGELS (1).png" alt="Envy Nomadix Angels" />
-        <img class="path-wordmark angel" src="ENVY NOMADIX ANGELS white logo university font.png" alt="" aria-hidden="true" />
+        <img class="path-wordmark white" src="ENVY NOMADIX ANGELS (1).png" alt="" aria-hidden="true" />
       </span>
       <div class="path-route">Enter Fashion</div>
     </a>
@@ -772,8 +790,8 @@
         "ENVY NOMADIX ANGELS (1).png"
       ]);
 
-      applyImageCandidate(".path-wordmark.angel", [
-        "ENVY NOMADIX ANGELS white logo university font.png"
+      applyImageCandidate(".path-wordmark.white", [
+        "ENVY NOMADIX ANGELS (1).png"
       ]);
 
       tryImageSources([
@@ -800,10 +818,8 @@
       });
 
       tryImageSources([
-        "turkey-nate-savard-1.png",
-        "Turkey Nate Savard (1).png",
-        "turkey-nate-savard.png",
-        "Turkey Nate Savard.png"
+        "nate savard speedway (1).png",
+        "nate-savard-speedway-1.png"
       ], function (src) {
         document.documentElement.style.setProperty("--entry-fourth-image", 'url("' + src + '")');
       });
