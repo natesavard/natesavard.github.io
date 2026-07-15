@@ -7,6 +7,13 @@
 
 window.NATE_SCRAPBOOK_ITEMS = [
   {
+    src: "scrapbook-assets/harbour club.png",
+    alt: "Harbour Club Savard patch",
+    title: "Harbour Club",
+    collection: "Identity Marks",
+    note: "An oval Harbour Club plaque with the NS monogram, Savard nameplate, and compass-star finish, built like a private marina-house insignia."
+  },
+  {
     src: "scrapbook-assets/s-savard-single-s-logo.png",
     alt: "Single S Savard logo",
     title: "Single S Savard",

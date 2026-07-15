@@ -15,7 +15,7 @@
       --entry-portrait-image: url("nate-savard-forever.png");
       --entry-storefront-image: url("turkey-nate-savard-1.png");
       --entry-third-image: url("nate-savard-bg-3.png");
-      --entry-fourth-image: url("turkey-nate-savard-1.png");
+      --entry-fourth-image: url("nate savard speedway (1).png");
       --orb-travel: clamp(110px, 15vh, 170px);
       --mono: "Courier New", monospace;
       --serif: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", Georgia, serif;
@@ -309,6 +309,16 @@
       text-shadow: 0 18px 50px rgba(0, 0, 0, 0.54);
     }
 
+    .path-title-image {
+      display: block;
+      width: min(100%, clamp(250px, 29vw, 520px));
+      max-width: 100%;
+      height: auto;
+      filter:
+        drop-shadow(0 16px 38px rgba(0, 0, 0, 0.58))
+        drop-shadow(0 0 18px rgba(255, 255, 255, 0.08));
+    }
+
     .path-wordmark-stack {
       position: relative;
       display: block;
@@ -328,21 +338,6 @@
       filter:
         drop-shadow(0 12px 28px rgba(0, 0, 0, 0.36))
         drop-shadow(0 0 10px rgba(255, 255, 255, 0.04));
-      animation: wordmarkBaseSwap 18s ease-in-out infinite;
-    }
-
-    .path-wordmark.angel {
-      position: absolute;
-      inset: 0;
-      z-index: 2;
-      opacity: 0;
-      mix-blend-mode: screen;
-      filter:
-        brightness(1.08)
-        drop-shadow(0 0 14px rgba(255, 255, 255, 0.18))
-        drop-shadow(0 0 34px rgba(255, 241, 210, 0.16))
-        drop-shadow(0 12px 28px rgba(0, 0, 0, 0.24));
-      animation: wordmarkAngelSwap 18s ease-in-out infinite;
     }
 
     .path-route {
@@ -635,6 +630,10 @@
         font-size: clamp(1.1rem, 2.8vw, 1.8rem);
       }
 
+      .path-title-image {
+        width: min(100%, 280px);
+      }
+
       .path-wordmark-stack {
         width: min(100%, 280px);
       }
@@ -678,6 +677,10 @@
         letter-spacing: 0.18em;
       }
 
+      .path-title-image {
+        width: min(100%, 170px);
+      }
+
       .path-wordmark-stack {
         width: min(100%, 170px);
       }
@@ -706,7 +709,7 @@
     <a class="path left" href="originals.html" aria-label="Enter The Original Collection jewelry house">
       <div class="path-kicker">Jewelry House</div>
       <img class="path-logo" src="ns-logo-chrome.png" alt="Chrome NS logo" />
-      <h1 class="path-title">The Original Collection</h1>
+      <img class="path-title-image" src="the original collection.png" alt="The Original Collection" />
       <div class="path-route">Enter Jewelry</div>
     </a>
 
@@ -723,8 +726,8 @@
       <div class="path-kicker">Fashion House</div>
       <img class="path-logo" src="envy-cross.png" alt="Envy cross emblem" />
       <span class="path-wordmark-stack">
-        <img class="path-wordmark base" src="envy-nomadix-logo.png" alt="Envy Nomadix" />
-        <img class="path-wordmark angel" src="envy-nomadix-angels.png" alt="" aria-hidden="true" />
+        <img class="path-wordmark base" src="ENVY NOMADIX ANGELS (1).png" alt="Envy Nomadix Angels" />
+        <img class="path-wordmark angel" src="ENVY NOMADIX ANGELS white logo university font.png" alt="" aria-hidden="true" />
       </span>
       <div class="path-route">Enter Fashion</div>
     </a>
@@ -766,14 +769,11 @@
       ]);
 
       applyImageCandidate(".path-wordmark.base", [
-        "envy-nomadix-logo.png",
-        "ENVY NOMADIX.png",
-        "envy-nomadix-wordmark.png"
+        "ENVY NOMADIX ANGELS (1).png"
       ]);
 
       applyImageCandidate(".path-wordmark.angel", [
-        "envy-nomadix-angels.png",
-        "ENVY NOMADIX ANGELS (1).png"
+        "ENVY NOMADIX ANGELS white logo university font.png"
       ]);
 
       tryImageSources([
