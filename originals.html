@@ -3615,7 +3615,7 @@
       <div class="hero-copy">
         <div class="eyebrow">THE ORIGINAL COLLECTION</div>
         <div class="hero-title-row">
-          <img src="ns-logo-chrome.png" alt="Nate Savard chrome logo" class="hero-sigil" id="logoTarget" role="button" tabindex="0" aria-label="Reload intro screen" />
+          <img src="ns-logo-chrome.png" alt="Nate Savard chrome logo" class="hero-sigil" id="logoTarget" role="button" tabindex="0" aria-label="Return to top of Originals" />
           <img src="14.png" alt="Nate Savard wordmark" class="hero-wordmark" />
         </div>
         <p>
@@ -4365,8 +4365,18 @@
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
-    function reloadIntroPage() {
-      window.location.assign(window.location.pathname + window.location.search);
+    function focusOriginalsTop() {
+      const heroSection = document.getElementById('about');
+
+      if (heroSection) {
+        heroSection.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start'
+        });
+        return;
+      }
+
+      scrollToTopSmooth();
     }
 
     function carryIntoOriginalsSite(requestedDistance) {
@@ -4638,12 +4648,12 @@
     }
 
     if (logoTarget) {
-      logoTarget.addEventListener('click', reloadIntroPage);
+      logoTarget.addEventListener('click', focusOriginalsTop);
 
       logoTarget.addEventListener('keydown', (event) => {
         if (event.key === 'Enter' || event.key === ' ') {
           event.preventDefault();
-          reloadIntroPage();
+          focusOriginalsTop();
         }
       });
 
