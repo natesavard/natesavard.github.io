@@ -1086,25 +1086,16 @@
       justify-self: end;
       width: min(100%, 420px);
       margin: 0;
-      padding: 22px;
-      border: 1px solid rgba(221, 176, 109, 0.18);
-      border-radius: 28px;
-      background:
-        radial-gradient(circle at 50% 18%, rgba(221, 176, 109, 0.12), rgba(0, 0, 0, 0) 62%),
-        linear-gradient(180deg, rgba(9, 7, 5, 0.96), rgba(0, 0, 0, 0.9));
-      box-shadow:
-        0 26px 56px rgba(0, 0, 0, 0.34),
-        inset 0 0 0 1px rgba(244, 227, 203, 0.04);
-      overflow: hidden;
+      padding: 0;
+      border: 0;
+      border-radius: 0;
+      background: transparent;
+      box-shadow: none;
+      overflow: visible;
     }
 
     .archives-visual::before {
-      content: "";
-      position: absolute;
-      inset: 10px;
-      border-radius: 22px;
-      border: 1px solid rgba(244, 227, 203, 0.08);
-      pointer-events: none;
+      content: none;
     }
 
     .archives-visual img {
