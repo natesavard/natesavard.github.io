@@ -3993,6 +3993,51 @@
     .catalogue-card:hover img[src$="envy-cross-hood-board.png"] {
       transform: translateY(-16px) scale(1.01);
     }
+
+    .catalogue-card[data-house-image="envy-shirt-legacy-tee.png"],
+    .catalogue-card[data-house-image="envy-cross-tee-board.png"],
+    .catalogue-card[data-house-image="envy-cross-hood-board.png"] {
+      background: transparent !important;
+      border: 0 !important;
+      box-shadow: none !important;
+      outline: none !important;
+    }
+
+    .catalogue-card[data-house-image="envy-shirt-legacy-tee.png"]::before,
+    .catalogue-card[data-house-image="envy-shirt-legacy-tee.png"]::after,
+    .catalogue-card[data-house-image="envy-cross-tee-board.png"]::before,
+    .catalogue-card[data-house-image="envy-cross-tee-board.png"]::after,
+    .catalogue-card[data-house-image="envy-cross-hood-board.png"]::before,
+    .catalogue-card[data-house-image="envy-cross-hood-board.png"]::after {
+      display: none !important;
+      content: none !important;
+    }
+
+    .catalogue-card[data-house-image="envy-shirt-legacy-tee.png"] .catalogue-card-copy,
+    .catalogue-card[data-house-image="envy-cross-tee-board.png"] .catalogue-card-copy,
+    .catalogue-card[data-house-image="envy-cross-hood-board.png"] .catalogue-card-copy {
+      background: transparent !important;
+      backdrop-filter: none !important;
+    }
+
+    .catalogue-card img[src$="envy-shirt-legacy-tee.png"],
+    .catalogue-card img[src$="envy-cross-tee-board.png"],
+    .catalogue-card img[src$="envy-cross-hood-board.png"],
+    .house-cart-item-image img[src$="envy-shirt-legacy-tee.png"],
+    .house-cart-item-image img[src$="envy-cross-tee-board.png"],
+    .house-cart-item-image img[src$="envy-cross-hood-board.png"],
+    #houseViewerImage[src$="envy-shirt-legacy-tee.png"],
+    #houseViewerImage[src$="envy-cross-tee-board.png"],
+    #houseViewerImage[src$="envy-cross-hood-board.png"],
+    #houseImageZoomImg[src$="envy-shirt-legacy-tee.png"],
+    #houseImageZoomImg[src$="envy-cross-tee-board.png"],
+    #houseImageZoomImg[src$="envy-cross-hood-board.png"] {
+      background: transparent !important;
+      border: 0 !important;
+      box-shadow: none !important;
+      outline: none !important;
+      filter: none !important;
+    }
   </style>
 </head>
 <body class="rebirth-page">
