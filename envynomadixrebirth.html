@@ -3964,9 +3964,9 @@
 </head>
 <body class="rebirth-page">
     <div class="envy-logo-cursor" id="envyLogoCursor" aria-hidden="true"></div>
-    <audio id="backgroundMusic" preload="auto" loop playsinline>
+    <audio id="backgroundMusic" preload="auto" autoplay loop playsinline>
       <source src="Song%203%20FULLLL.mp3" type="audio/mpeg" />
-      <source src="https://raw.githubusercontent.com/natesavard/natesavard.github.io/main/Song%203%20FULLLL.mp3" type="audio/mpeg" />
+      <source src="nate%20savard%20-%20chosen%20few%20song%203.mp3" type="audio/mpeg" />
     </audio>
     <a class="corner-signature" href="originals.html" aria-label="Enter The Original Collection">
       <img src="nate-savard-signature-corner.png" alt="Nate Savard signature" class="corner-signature-base" />
@@ -4553,6 +4553,8 @@
       var backgroundMusicStarted = false;
       var backgroundMusicTimeKey = "siteflow_music_time";
       var backgroundMusicLastSavedAt = 0;
+      var backgroundMusicBootTimer = null;
+      var backgroundMusicBootAttempts = 0;
       var defaultHouseOptions = ["xs", "s", "m", "l", "xl"];
       var cursorHoverSelector = 'a, button, input, textarea, select, summary, [role="button"], .catalogue-card, .jewelry-card, .recent-card, .house-size-chip, .house-qty-button, .house-product-action, .house-cart-action';
 
@@ -4619,6 +4621,9 @@
         }
 
         backgroundMusic.addEventListener("loadedmetadata", restoreBackgroundMusicPosition);
+        backgroundMusic.addEventListener("loadeddata", ensureBackgroundMusic);
+        backgroundMusic.addEventListener("canplay", ensureBackgroundMusic);
+        backgroundMusic.addEventListener("canplaythrough", ensureBackgroundMusic);
         backgroundMusic.addEventListener("timeupdate", function () {
           var current = Number(backgroundMusic.currentTime || 0);
           if (!Number.isFinite(current) || Math.abs(current - backgroundMusicLastSavedAt) < 1.5) return;
@@ -4630,6 +4635,10 @@
             return;
           }
         });
+        backgroundMusic.addEventListener("play", function () {
+          backgroundMusicStarted = true;
+          stopBackgroundMusicBootCycle();
+        });
         backgroundMusic.addEventListener("ended", function () {
           try {
             window.localStorage.setItem(backgroundMusicTimeKey, "0");
@@ -4638,27 +4647,75 @@
           }
         });
 
+        window.addEventListener("pagehide", function () {
+          try {
+            window.localStorage.setItem(backgroundMusicTimeKey, String(Number(backgroundMusic.currentTime || 0)));
+          } catch (error) {
+            return;
+          }
+        });
+
         restoreBackgroundMusicPosition();
+      }
+
+      function stopBackgroundMusicBootCycle() {
+        if (backgroundMusicBootTimer) {
+          window.clearInterval(backgroundMusicBootTimer);
+          backgroundMusicBootTimer = null;
+        }
+      }
+
+      function startBackgroundMusicBootCycle() {
+        if (!backgroundMusic || backgroundMusicStarted || backgroundMusicBootTimer) return;
+
+        backgroundMusicBootAttempts = 0;
+        backgroundMusicBootTimer = window.setInterval(function () {
+          if (!backgroundMusic || backgroundMusicStarted) {
+            stopBackgroundMusicBootCycle();
+            return;
+          }
+
+          backgroundMusicBootAttempts += 1;
+          ensureBackgroundMusic();
+
+          if (backgroundMusicBootAttempts >= 24) {
+            stopBackgroundMusicBootCycle();
+          }
+        }, 650);
       }
 
       function startBackgroundMusic() {
         if (!backgroundMusic) return;
 
         bindBackgroundMusicPersistence();
-        if (window.localStorage.getItem("siteflow_sound_on") === "false") return;
+
+        try {
+          window.localStorage.setItem("siteflow_sound_on", "true");
+        } catch (error) {
+          // Ignore storage failures and still attempt playback.
+        }
+
+        backgroundMusic.autoplay = true;
+        backgroundMusic.defaultMuted = false;
+        backgroundMusic.muted = false;
+        backgroundMusic.loop = true;
+        backgroundMusic.playsInline = true;
         backgroundMusic.volume = 0.9;
 
         var playAttempt = backgroundMusic.play();
         if (playAttempt && typeof playAttempt.then === "function") {
           playAttempt.then(function () {
             backgroundMusicStarted = true;
+            stopBackgroundMusicBootCycle();
           }).catch(function () {
             backgroundMusicStarted = false;
+            startBackgroundMusicBootCycle();
           });
           return;
         }
 
         backgroundMusicStarted = true;
+        stopBackgroundMusicBootCycle();
       }
 
       function ensureBackgroundMusic() {
@@ -5084,13 +5141,7 @@
         ensureBackgroundMusic();
 
         if (!hasEntered) {
-          go();
-          window.setTimeout(function () {
-            if (cataloguePhase) {
-              cataloguePhase.scrollIntoView({ behavior: "smooth", block: "start" });
-            }
-            queueHeroDepth();
-          }, 340);
+          go(cataloguePhase);
           return;
         }
 
@@ -5112,6 +5163,17 @@
         }
 
         openHouseCart();
+      }
+
+      function getStageTargetFromHash() {
+        var hash = window.location.hash;
+        if (!hash || hash === "#") return null;
+
+        try {
+          return document.querySelector(hash);
+        } catch (error) {
+          return null;
+        }
       }
 
       function renderHouseCart() {
@@ -5374,17 +5436,27 @@
           encodeURIComponent(linesForMail.join("\n"));
       }
 
-      function go() {
+      function go(target) {
         ensureBackgroundMusic();
-        if (hasEntered) return;
+        if (hasEntered) {
+          if (target) {
+            target.scrollIntoView({ behavior: "smooth", block: "start" });
+            queueHeroDepth();
+          }
+          return;
+        }
+
         hasEntered = true;
         window.setTimeout(function () {
           document.body.classList.add("is-entered");
-          if (luxReveal) {
-            window.setTimeout(function () {
-              luxReveal.scrollIntoView({ behavior: "smooth", block: "start" });
-            }, 260);
-          }
+
+          window.setTimeout(function () {
+            var nextTarget = target || getStageTargetFromHash() || luxReveal;
+            if (nextTarget) {
+              nextTarget.scrollIntoView({ behavior: "smooth", block: "start" });
+            }
+            queueHeroDepth();
+          }, 260);
         }, 40);
       }
 
@@ -5671,15 +5743,38 @@
           closeHouseViewer();
           closeHouseCart();
         }
-        if (!hasEntered && (event.key === "Enter" || event.key === " ")) {
+        if (!hasEntered && (event.key === "Enter" || event.key === " " || event.key === "ArrowDown" || event.key === "PageDown")) {
           event.preventDefault();
           ensureBackgroundMusic();
           go();
         }
       });
 
+      ["pointerdown", "touchstart", "keydown", "click"].forEach(function (eventName) {
+        window.addEventListener(eventName, ensureBackgroundMusic, { passive: true, capture: true });
+      });
+
+      ["load", "pageshow", "focus"].forEach(function (eventName) {
+        window.addEventListener(eventName, ensureBackgroundMusic, { passive: true });
+      });
+
       document.addEventListener("pointerdown", function () {
         ensureBackgroundMusic();
+      }, { passive: true, capture: true });
+
+      document.addEventListener("wheel", function (event) {
+        if (Math.abs(event.deltaY) < 6 && Math.abs(event.deltaX) < 6) return;
+        ensureBackgroundMusic();
+        if (!hasEntered) {
+          go();
+        }
+      }, { passive: true, capture: true });
+
+      document.addEventListener("touchmove", function () {
+        ensureBackgroundMusic();
+        if (!hasEntered) {
+          go();
+        }
       }, { passive: true, capture: true });
 
       if ("IntersectionObserver" in window) {
@@ -5713,6 +5808,18 @@
       loadHouseRecent();
       renderHouseCart();
       renderHouseRecent();
+      if (backgroundMusic && typeof backgroundMusic.load === "function") {
+        backgroundMusic.load();
+      }
+      startBackgroundMusicBootCycle();
+      window.setTimeout(ensureBackgroundMusic, 0);
+
+      var initialStageTarget = getStageTargetFromHash();
+      if (initialStageTarget) {
+        window.setTimeout(function () {
+          go(initialStageTarget);
+        }, 0);
+      }
 
       window.setInterval(rotateLine, 2400);
 
