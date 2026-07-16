@@ -1131,8 +1131,10 @@
       inset: 0;
       z-index: 4000;
       display: grid;
-      place-items: center;
+      justify-items: center;
+      align-items: start;
       padding: 24px;
+      overflow-y: auto;
       background:
         radial-gradient(circle at center, rgba(214,168,79,0.08), transparent 28%),
         rgba(0,0,0,0.88);
@@ -4404,6 +4406,22 @@
       }, 220);
     }
 
+    function applyOriginalsEnteredState() {
+      siteShell.classList.add('revealed');
+      document.body.classList.add('originals-entered');
+      centerLogo.style.opacity = '0';
+      enterText.style.opacity = '0';
+    }
+
+    function finalizeOriginalsIntroHidden(immediate) {
+      if (!enterScreen) return;
+      enterScreen.classList.add('hidden');
+
+      if (immediate) {
+        enterScreen.style.display = 'none';
+      }
+    }
+
     function enableOriginalsMusic() {
       if (!backgroundMusic) return;
 
@@ -4433,10 +4451,19 @@
       backgroundMusicStarted = true;
     }
 
-    function triggerOriginalsEnter() {
+    function triggerOriginalsEnter(options) {
       if (entered) return;
       enableOriginalsMusic();
       entered = true;
+      applyOriginalsEnteredState();
+
+      if (options && options.instant) {
+        finalizeOriginalsIntroHidden(true);
+        flyingLogo.style.display = 'none';
+        flyingLogo.style.opacity = '0';
+        flyingLogo.style.transform = '';
+        return;
+      }
 
       const start = rect(centerLogo);
       const target = logoTarget ? rect(logoTarget) : start;
@@ -4447,12 +4474,6 @@
       flyingLogo.style.top = `${start.top}px`;
       flyingLogo.style.width = `${start.width}px`;
       flyingLogo.style.transform = 'rotate(0deg) scale(1.08)';
-
-      siteShell.classList.add('revealed');
-      document.body.classList.add('originals-entered');
-
-      centerLogo.style.opacity = '0';
-      enterText.style.opacity = '0';
 
       requestAnimationFrame(() => {
         requestAnimationFrame(() => {
@@ -4466,7 +4487,7 @@
       });
 
       setTimeout(() => {
-        enterScreen.classList.add('hidden');
+        finalizeOriginalsIntroHidden(false);
       }, 920);
 
       setTimeout(() => {
@@ -4490,7 +4511,7 @@
       const hashTarget = getOriginalsHashTarget();
       if (hashTarget) {
         if (!entered) {
-          triggerOriginalsEnter();
+          triggerOriginalsEnter({ instant: true });
         }
         carryIntoOriginalsTarget(hashTarget);
         return;
@@ -4537,6 +4558,12 @@
       }, { passive: true });
     }
 
+    document.addEventListener('wheel', (event) => {
+      if (entered || event.deltaY <= 8) return;
+      event.preventDefault();
+      advanceIntoOriginals(Math.max(window.innerHeight * 0.72, event.deltaY * 7));
+    }, { passive: false, capture: true });
+
     window.addEventListener('wheel', (event) => {
       if (entered || event.deltaY <= 8) return;
       event.preventDefault();
@@ -4565,12 +4592,8 @@
     } else {
       const hashTarget = getOriginalsHashTarget();
       if (hashTarget) {
-        window.requestAnimationFrame(() => {
-          window.requestAnimationFrame(() => {
-            triggerOriginalsEnter();
-            carryIntoOriginalsTarget(hashTarget);
-          });
-        });
+        triggerOriginalsEnter({ instant: true });
+        carryIntoOriginalsTarget(hashTarget);
       }
     }
 
@@ -4646,6 +4669,7 @@
       const lightboxAddToCart = document.getElementById('pieceLightboxAddToCart');
       const lightboxInquire = document.getElementById('pieceLightboxInquire');
       const lightboxClose = document.getElementById('pieceLightboxClose');
+      const lightboxPanel = lightbox.querySelector('.piece-lightbox-panel');
       const cartShell = document.getElementById('originalsCartShell');
       const cartBackdrop = document.getElementById('originalsCartBackdrop');
       const cartToggle = document.getElementById('originalsCartToggle');
@@ -5151,6 +5175,15 @@
         syncDirectInquiry();
       }
 
+      function resetPieceLightboxView() {
+        if (lightbox) {
+          lightbox.scrollTop = 0;
+        }
+        if (lightboxPanel) {
+          lightboxPanel.scrollTop = 0;
+        }
+      }
+
       function openPieceConfigurator(product) {
         if (!product) return;
         closeCart(true);
@@ -5158,6 +5191,8 @@
         lightbox.classList.add('is-open');
         lightbox.setAttribute('aria-hidden', 'false');
         document.body.style.overflow = 'hidden';
+        resetPieceLightboxView();
+        window.requestAnimationFrame(resetPieceLightboxView);
       }
 
       function collectConfiguredProduct() {

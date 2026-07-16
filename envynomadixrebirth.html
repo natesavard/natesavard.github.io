@@ -1425,8 +1425,38 @@
     }
 
     .jewelry-stage {
+      position: relative;
       padding-top: 12px;
       padding-bottom: 32px;
+      isolation: isolate;
+      overflow: visible;
+    }
+
+    .jewelry-stage::before {
+      content: "";
+      position: absolute;
+      top: 72px;
+      left: calc(50% - 50vw);
+      width: 100vw;
+      height: clamp(280px, 40vw, 520px);
+      background:
+        linear-gradient(180deg, rgba(4, 2, 1, 0.74) 0%, rgba(4, 2, 1, 0.28) 26%, rgba(4, 2, 1, 0.62) 100%),
+        linear-gradient(90deg, rgba(4, 2, 1, 0.84) 0%, rgba(4, 2, 1, 0.14) 20%, rgba(4, 2, 1, 0.1) 80%, rgba(4, 2, 1, 0.84) 100%),
+        url("turkey-nate-savard-1.png") center 34% / cover no-repeat;
+      opacity: 0.28;
+      filter: saturate(0.72) brightness(0.66) contrast(1.04);
+      transform: translate3d(0, 0, 0) scale(1.03);
+      transform-origin: center center;
+      pointer-events: none;
+      z-index: 0;
+      animation: jewelryBackgroundFloat 16s ease-in-out infinite alternate;
+      mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.94) 0%, rgba(0, 0, 0, 0.9) 58%, transparent 100%);
+      -webkit-mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.94) 0%, rgba(0, 0, 0, 0.9) 58%, transparent 100%);
+    }
+
+    .jewelry-stage > * {
+      position: relative;
+      z-index: 1;
     }
 
     .recent-stage {
@@ -1577,10 +1607,66 @@
     }
 
     .rebirth-recent-stage {
-      display: grid;
-      gap: 18px;
+      display: block;
       margin-top: 10px;
-      padding-top: 18px;
+      padding-top: 42px;
+      padding-bottom: 54px;
+    }
+
+    .rebirth-recent-stage .recent-frame {
+      position: relative;
+      display: grid;
+      gap: 16px;
+      padding: clamp(54px, 6vw, 72px) clamp(20px, 3.4vw, 34px) clamp(26px, 3.6vw, 38px);
+      border: 1px solid rgba(221, 176, 109, 0.14);
+      background:
+        radial-gradient(circle at 50% 0%, rgba(255, 236, 205, 0.08), transparent 32%),
+        linear-gradient(180deg, rgba(10, 6, 4, 0.78), rgba(3, 2, 1, 0.52));
+      box-shadow:
+        0 26px 54px rgba(0, 0, 0, 0.28),
+        inset 0 0 0 1px rgba(255, 245, 224, 0.03);
+      isolation: isolate;
+      overflow: visible;
+    }
+
+    .rebirth-recent-stage .recent-frame > * {
+      position: relative;
+      z-index: 2;
+    }
+
+    .rebirth-recent-stage .recent-frame-corner {
+      position: absolute;
+      z-index: 1;
+      width: clamp(180px, 22vw, 320px);
+      height: auto;
+      opacity: 0.92;
+      pointer-events: none;
+      filter:
+        drop-shadow(0 18px 28px rgba(0, 0, 0, 0.34))
+        drop-shadow(0 0 22px rgba(255, 241, 214, 0.08));
+    }
+
+    .rebirth-recent-stage .recent-frame-corner.is-top-left {
+      top: clamp(-74px, -6vw, -34px);
+      left: clamp(-70px, -6vw, -28px);
+    }
+
+    .rebirth-recent-stage .recent-frame-corner.is-top-right {
+      top: clamp(-74px, -6vw, -34px);
+      right: clamp(-70px, -6vw, -28px);
+      transform: scaleX(-1);
+    }
+
+    .rebirth-recent-stage .recent-frame-corner.is-bottom-left {
+      bottom: clamp(-74px, -6vw, -34px);
+      left: clamp(-70px, -6vw, -28px);
+      transform: scaleY(-1);
+    }
+
+    .rebirth-recent-stage .recent-frame-corner.is-bottom-right {
+      bottom: clamp(-74px, -6vw, -34px);
+      right: clamp(-70px, -6vw, -28px);
+      transform: scale(-1, -1);
     }
 
     .rebirth-recent-stage .recent-head {
@@ -1802,6 +1888,9 @@
       height: auto;
       display: block;
       opacity: 0.94;
+      transform-origin: center center;
+      animation: vaultCrossSpin 14s linear infinite;
+      will-change: transform;
       filter:
         drop-shadow(0 18px 28px rgba(0, 0, 0, 0.34))
         drop-shadow(0 0 22px rgba(255, 255, 255, 0.12));
@@ -1824,6 +1913,15 @@
       filter:
         drop-shadow(0 20px 34px rgba(0, 0, 0, 0.34))
         drop-shadow(0 0 18px rgba(255, 244, 222, 0.08));
+    }
+
+    @keyframes jewelryBackgroundFloat {
+      0% {
+        transform: translate3d(0, 0, 0) scale(1.03);
+      }
+      100% {
+        transform: translate3d(0, -18px, 0) scale(1.06);
+      }
     }
 
     .catalogue-rail,
@@ -2131,8 +2229,10 @@
       inset: 0;
       z-index: 16;
       display: grid;
-      place-items: center;
+      justify-items: center;
+      align-items: start;
       padding: 28px;
+      overflow-y: auto;
       opacity: 0;
       pointer-events: none;
       transition: opacity 0.45s ease;
@@ -3529,6 +3629,14 @@
         min-width: 120px;
       }
 
+      .rebirth-recent-stage .recent-frame {
+        padding: 40px 16px 24px;
+      }
+
+      .rebirth-recent-stage .recent-frame-corner {
+        width: clamp(132px, 34vw, 220px);
+      }
+
       .collection-orbit {
         width: 82px;
         height: 82px;
@@ -4049,7 +4157,7 @@
             </h2>
           </div>
           <p class="stage-text">
-            private pieces from nate savard moving directly into the envy house: chain language, bracelets, pendants, and placement studies built to sit with the garments.
+            private pieces from nate savard the envy house: chain language, bracelets, pendants rings and placement studies built to drape our garments
           </p>
         </div>
 
@@ -4224,20 +4332,25 @@
       </section>
 
       <section class="recent-stage rebirth-recent-stage" id="recentPhase">
-        <div class="recent-head">
-          <div class="stage-kicker">collector memory / rebirth trail</div>
-          <div class="recent-toolbar">
-            <h2 class="stage-title">Recently Viewed Items</h2>
-            <div class="recent-nav" aria-label="Recently viewed controls">
-              <button id="houseRecentPrev" type="button">Previous</button>
-              <button id="houseRecentNext" type="button">Next</button>
+        <div class="recent-frame">
+          <img class="recent-frame-corner is-top-left" src="corner-nate-savard-frame.png" alt="" aria-hidden="true" />
+          <img class="recent-frame-corner is-top-right" src="corner-nate-savard-frame.png" alt="" aria-hidden="true" />
+          <img class="recent-frame-corner is-bottom-left" src="corner-nate-savard-frame.png" alt="" aria-hidden="true" />
+          <img class="recent-frame-corner is-bottom-right" src="corner-nate-savard-frame.png" alt="" aria-hidden="true" />
+          <div class="recent-head">
+            <div class="recent-toolbar">
+              <h2 class="stage-title">Recently Viewed Items</h2>
+              <div class="recent-nav" aria-label="Recently viewed controls">
+                <button id="houseRecentPrev" type="button">Previous</button>
+                <button id="houseRecentNext" type="button">Next</button>
+              </div>
             </div>
+            <p class="stage-text">the revolver 922</p>
           </div>
-          <p class="stage-text">the revolver 922</p>
-        </div>
-        <div class="recent-empty" id="houseRecentEmpty">Open a piece and it will appear here.</div>
-        <div class="recent-rail" id="houseRecentRail" aria-label="Recently viewed items">
-          <div class="recent-track" id="houseRecentTrack"></div>
+          <div class="recent-empty" id="houseRecentEmpty">Open a piece and it will appear here.</div>
+          <div class="recent-rail" id="houseRecentRail" aria-label="Recently viewed items">
+            <div class="recent-track" id="houseRecentTrack"></div>
+          </div>
         </div>
       </section>
 
@@ -4374,6 +4487,7 @@
       var houseViewerPrev = document.getElementById("houseViewerPrev");
       var houseViewerNext = document.getElementById("houseViewerNext");
       var houseViewerClose = document.getElementById("houseViewerClose");
+      var houseProductSheet = document.querySelector(".house-product-sheet");
       var houseProductTitle = document.getElementById("houseProductTitle");
       var houseProductPrice = document.getElementById("houseProductPrice");
       var houseProductDescription = document.getElementById("houseProductDescription");
@@ -5089,6 +5203,15 @@
         openHouseViewer(products[houseActiveProductIndex]);
       }
 
+      function resetHouseViewerPosition() {
+        if (houseViewer) {
+          houseViewer.scrollTop = 0;
+        }
+        if (houseProductSheet) {
+          houseProductSheet.scrollTop = 0;
+        }
+      }
+
       function openHouseViewer(product) {
         if (!houseViewer || !houseViewerImage || !product || !product.image) return;
         houseActiveProduct = product;
@@ -5102,6 +5225,8 @@
         setHouseQuantity(1);
         houseViewer.classList.add("is-open");
         houseViewer.setAttribute("aria-hidden", "false");
+        resetHouseViewerPosition();
+        window.requestAnimationFrame(resetHouseViewerPosition);
       }
 
       function openHouseImageZoom() {
