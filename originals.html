@@ -806,6 +806,80 @@
       line-height: 1.7;
     }
 
+    .gemstone-doctrine-section .section-head {
+      display: grid;
+      justify-items: center;
+      align-items: center;
+      gap: 16px;
+      text-align: center;
+    }
+
+    .gemstone-doctrine-section .section-title {
+      margin: 0;
+      font-family: "Old English Text MT", "Goudy Text MT", "Palatino Linotype", Georgia, serif;
+      font-size: 15px;
+      letter-spacing: 0.18em;
+    }
+
+    .gemstone-doctrine-quote {
+      position: relative;
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 26px 34px 28px;
+      color: rgba(250, 246, 238, 0.96);
+      font-family: "Old English Text MT", "Goudy Text MT", "Palatino Linotype", Georgia, serif;
+      font-size: clamp(15px, 1vw, 18px);
+      line-height: 2.02;
+      letter-spacing: 0.025em;
+      text-align: center;
+      text-transform: none;
+      border: 1px solid rgba(215, 171, 82, 0.18);
+      border-radius: 28px;
+      background:
+        radial-gradient(circle at 50% 38%, rgba(214,168,79,0.18), transparent 58%),
+        linear-gradient(180deg, rgba(22,14,8,0.72), rgba(5,4,3,0.34));
+      box-shadow:
+        0 18px 48px rgba(0,0,0,0.38),
+        inset 0 0 26px rgba(255,255,255,0.03);
+      opacity: 0;
+      transform: translateY(24px) scale(0.985);
+      filter: blur(8px);
+      overflow: hidden;
+      isolation: isolate;
+      text-shadow: 0 0 14px rgba(255,220,160,0.08);
+      backdrop-filter: blur(7px);
+      -webkit-backdrop-filter: blur(7px);
+    }
+
+    .gemstone-doctrine-quote::before {
+      content: "";
+      position: absolute;
+      inset: -30% 14%;
+      z-index: -1;
+      background: radial-gradient(circle, rgba(255,228,160,0.18), rgba(255,228,160,0) 62%);
+      opacity: 0.75;
+      filter: blur(24px);
+      animation: doctrineQuoteHalo 9.4s ease-in-out infinite;
+      pointer-events: none;
+    }
+
+    .gemstone-doctrine-section.visible .gemstone-doctrine-quote {
+      animation:
+        doctrineQuoteReveal 1.25s cubic-bezier(0.16, 0.8, 0.2, 1) 0.16s forwards,
+        doctrineQuoteFloat 8.8s ease-in-out 1.5s infinite;
+    }
+
+    .gemstone-doctrine-quote::first-letter {
+      color: #f3d489;
+      font-family: "Old English Text MT", "Goudy Text MT", "Palatino Linotype", Georgia, serif;
+      font-size: 4.1em;
+      font-weight: 700;
+      line-height: 0.72;
+      text-shadow: 0 0 18px rgba(255,205,110,0.18);
+      padding-right: 0.08em;
+      vertical-align: -0.15em;
+    }
+
     .fusion-shell {
       padding: 30px;
       border: 1px solid rgba(215, 171, 82, 0.16);
@@ -1341,6 +1415,15 @@
     .builder-group {
       display: grid;
       gap: 10px;
+    }
+
+    .builder-group-note {
+      margin: -2px 0 0;
+      color: var(--muted2);
+      font-size: 11px;
+      line-height: 1.7;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
     }
 
     .builder-pills,
@@ -2471,6 +2554,39 @@
       }
     }
 
+    @keyframes doctrineQuoteReveal {
+      0% {
+        opacity: 0;
+        transform: translateY(24px) scale(0.985);
+        filter: blur(8px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+        filter: blur(0);
+      }
+    }
+
+    @keyframes doctrineQuoteFloat {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-8px);
+      }
+    }
+
+    @keyframes doctrineQuoteHalo {
+      0%, 100% {
+        opacity: 0.45;
+        transform: scale(0.96);
+      }
+      50% {
+        opacity: 0.85;
+        transform: scale(1.04);
+      }
+    }
+
     @media (max-width: 980px) {
       :root {
         --shirt-focus-x: 57%;
@@ -2539,6 +2655,10 @@
       .world-modal-panel {
         grid-template-columns: 1fr;
       }
+
+      .gemstone-doctrine-quote {
+        max-width: 100%;
+      }
     }
 
     @media (max-width: 640px) {
@@ -2550,6 +2670,16 @@
 
       .logo-shell {
         width: min(56vw, 220px);
+      }
+
+      .gemstone-doctrine-quote {
+        padding: 18px 16px 20px;
+        font-size: 14px;
+        line-height: 1.85;
+      }
+
+      .gemstone-doctrine-quote::first-letter {
+        font-size: 3.1em;
       }
 
       .logo-shell.rebel-flag-shell {
@@ -3438,8 +3568,8 @@
 </head>
 <body class="originals-page" data-no-shared-topbar="true">
   <audio id="backgroundMusic" preload="auto" loop playsinline>
-    <source src="nate%20savard%20-%20chosen%20few%20song%203.mp3" type="audio/mpeg" />
-    <source src="https://raw.githubusercontent.com/natesavard/natesavard.github.io/main/nate%20savard%20-%20chosen%20few%20song%203.mp3" type="audio/mpeg" />
+    <source src="Song%203%20FULLLL.mp3" type="audio/mpeg" />
+    <source src="https://raw.githubusercontent.com/natesavard/natesavard.github.io/main/Song%203%20FULLLL.mp3" type="audio/mpeg" />
   </audio>
 
   <div class="enter-screen" id="enterScreen">
@@ -3871,18 +4001,18 @@
     <section class="section" id="builder">
       <div class="section-head">
         <div>
-          <div class="section-title">Original Collection Ring Builder</div>
+          <div class="section-title">Original Collection Custom Builder</div>
           <div class="section-copy">
-            Choose your stone force, silhouette, and metal tone. This builder narrows the Nate Savard archive and drafts a private commission email from your exact direction.
+            Pick the stone, the stone shape, the silhouette, and the exact metal: 10k gold, 14k gold, 18k gold, 24k gold, or silver 925.
           </div>
         </div>
       </div>
 
       <div class="builder-shell">
         <div class="builder-panel">
-          <div class="builder-kicker">Private Commission Kontrol</div>
+          <div class="builder-kicker">Private Commission Builder</div>
           <p>
-            This is the Nate Savard version of a ring builder: not mass retail, but a direction-setting tool for serious custom work. Start with the feeling, lock the architecture, and route the finished build path straight to Nate.
+            If you need a pendant or ring that represents you, let me build it for you. Lock the stone, lock the cut, lock the silhouette, choose the exact metal, and send Nate a back story for the piece you want created.
           </p>
 
           <div class="builder-group">
@@ -3891,53 +4021,76 @@
               <button class="builder-pill is-active" type="button" data-builder-filter="stone" data-builder-value="sapphire">Sapphire</button>
               <button class="builder-pill" type="button" data-builder-filter="stone" data-builder-value="opal">Opal</button>
               <button class="builder-pill" type="button" data-builder-filter="stone" data-builder-value="diamond">Diamond</button>
-              <button class="builder-pill" type="button" data-builder-filter="stone" data-builder-value="mixed">Mixed Stones</button>
+              <button class="builder-pill" type="button" data-builder-filter="stone" data-builder-value="ruby">Ruby</button>
+              <button class="builder-pill" type="button" data-builder-filter="stone" data-builder-value="emerald">Emerald</button>
+              <button class="builder-pill" type="button" data-builder-filter="stone" data-builder-value="black-onyx">Black Onyx</button>
             </div>
+          </div>
+
+          <div class="builder-group">
+            <div class="builder-label">Stone shape</div>
+            <div class="builder-pills">
+              <button class="builder-pill is-active" type="button" data-builder-filter="stoneShape" data-builder-value="cushion">Cushion</button>
+              <button class="builder-pill" type="button" data-builder-filter="stoneShape" data-builder-value="round">Round</button>
+              <button class="builder-pill" type="button" data-builder-filter="stoneShape" data-builder-value="oval">Oval</button>
+              <button class="builder-pill" type="button" data-builder-filter="stoneShape" data-builder-value="emerald">Emerald Cut</button>
+              <button class="builder-pill" type="button" data-builder-filter="stoneShape" data-builder-value="marquise">Marquise</button>
+              <button class="builder-pill" type="button" data-builder-filter="stoneShape" data-builder-value="pear">Pear</button>
+              <button class="builder-pill" type="button" data-builder-filter="stoneShape" data-builder-value="princess">Princess</button>
+              <button class="builder-pill" type="button" data-builder-filter="stoneShape" data-builder-value="radiant">Radiant</button>
+              <button class="builder-pill" type="button" data-builder-filter="stoneShape" data-builder-value="asscher">Asscher</button>
+              <button class="builder-pill" type="button" data-builder-filter="stoneShape" data-builder-value="trillion">Trillion</button>
+            </div>
+            <p class="builder-group-note">Classic custom cuts added here: round, oval, cushion, emerald cut, marquise, pear, princess, radiant, asscher, and trillion.</p>
           </div>
 
           <div class="builder-group">
             <div class="builder-label">Silhouette</div>
             <div class="builder-pills">
-              <button class="builder-pill is-active" type="button" data-builder-filter="silhouette" data-builder-value="signet">Signet</button>
-              <button class="builder-pill" type="button" data-builder-filter="silhouette" data-builder-value="spinner">Spinner</button>
+              <button class="builder-pill" type="button" data-builder-filter="silhouette" data-builder-value="signet">Signet</button>
+              <button class="builder-pill is-active" type="button" data-builder-filter="silhouette" data-builder-value="spinner">Spinner</button>
               <button class="builder-pill" type="button" data-builder-filter="silhouette" data-builder-value="cathedral">Cathedral</button>
               <button class="builder-pill" type="button" data-builder-filter="silhouette" data-builder-value="pendant">Pendant</button>
+              <button class="builder-pill" type="button" data-builder-filter="silhouette" data-builder-value="medallion">Medallion</button>
+              <button class="builder-pill" type="button" data-builder-filter="silhouette" data-builder-value="crest">Crest</button>
             </div>
           </div>
 
           <div class="builder-group">
-            <div class="builder-label">Metal tone</div>
+            <div class="builder-label">Metals</div>
             <div class="builder-pills">
-              <button class="builder-pill is-active" type="button" data-builder-filter="metal" data-builder-value="yellow">Yellow Gold</button>
-              <button class="builder-pill" type="button" data-builder-filter="metal" data-builder-value="black">Black Gold</button>
-              <button class="builder-pill" type="button" data-builder-filter="metal" data-builder-value="white">White Fire</button>
+              <button class="builder-pill" type="button" data-builder-filter="metal" data-builder-value="10k-gold">10k Gold</button>
+              <button class="builder-pill" type="button" data-builder-filter="metal" data-builder-value="14k-gold">14k Gold</button>
+              <button class="builder-pill is-active" type="button" data-builder-filter="metal" data-builder-value="18k-gold">18k Gold</button>
+              <button class="builder-pill" type="button" data-builder-filter="metal" data-builder-value="24k-gold">24k Gold</button>
+              <button class="builder-pill" type="button" data-builder-filter="metal" data-builder-value="silver-925">Silver 925</button>
             </div>
           </div>
 
           <div class="builder-summary" aria-live="polite">
-            <div class="builder-summary-line">Current build path</div>
-            <span class="builder-summary-value" id="builderSummaryValue">Sapphire / Signet / Yellow Gold</span>
+            <div class="builder-summary-line" id="builderSummaryLine">Exact archive fit</div>
+            <span class="builder-summary-value" id="builderSummaryValue">Sapphire / Cushion / Spinner / 18k Gold</span>
             <p class="builder-summary-copy" id="builderSummaryCopy">
-              Heavy sapphire signet energy in rich yellow gold, narrowed to Nate Savard directions that already carry legacy weight.
+              Sapphire Spinner Reverse already carries the right energy for a cushion sapphire spinner in 18k gold, so this starts from a real archive direction instead of a vague guess.
             </p>
           </div>
 
           <div class="builder-actions">
-            <a href="mailto:natesavard@outlook.com?subject=Original%20Collection%20Ring%20Builder%20Inquiry" class="btn primary" id="builderMailLink">Send This Build To Nate</a>
+            <a href="mailto:natesavard@outlook.com?subject=Original%20Collection%20Custom%20Builder%20Inquiry" class="btn primary" id="builderMailLink">Send This Build Brief To Nate</a>
             <a href="#archive" class="btn secondary">Browse Full Archive</a>
           </div>
         </div>
 
         <div class="builder-stage">
           <div class="builder-preview">
-            <div class="builder-preview-media piece-trigger" id="builderHeroTrigger" tabindex="0" role="button" aria-label="Open builder preview piece" data-piece-title="Royal Sapphire Signet" data-piece-image="nate savard - nls 2.jpg">
-              <img src="nate savard - nls 2.jpg" alt="Royal Sapphire Signet builder preview" id="builderHeroImage" />
+            <div class="builder-preview-media piece-trigger" id="builderHeroTrigger" tabindex="0" role="button" aria-label="Open builder preview piece" data-piece-title="Sapphire Spinner Reverse" data-piece-image="nate savard saphire back.png">
+              <img src="nate savard saphire back.png" alt="Sapphire Spinner Reverse builder preview" id="builderHeroImage" />
             </div>
             <div class="builder-preview-copy">
-              <div class="builder-preview-kicker" id="builderHeroTags">Sapphire / Signet / Yellow Gold</div>
-              <h3 class="builder-preview-title" id="builderHeroTitle">Royal Sapphire Signet</h3>
+              <div class="builder-preview-kicker" id="builderHeroTags">Exact archive fit // Sapphire / Cushion / Spinner / 18k Gold</div>
+              <h3 class="builder-preview-title" id="builderHeroTitle">Sapphire Spinner Reverse</h3>
               <p class="builder-preview-desc" id="builderHeroDesc">
-                Carved gold texture, side sapphires, and a dominant center stone built with old-world authority and full custom weight.
+                Cushion sapphire spinner architecture with a marquise top accent and a diamond-heavy halo system built to read like a real collector piece.
               </p>
             </div>
           </div>
@@ -3948,21 +4101,7 @@
     </section>
 
     <section class="section" id="stories">
-      <div class="section-head">
-        <div>
-          <div class="section-title">Five-Star Collector Wall</div>
-          <div class="section-copy">
-            Built in the same luxury review language you pointed out: stars, filters, imagery, and a strong proof wall. To keep the site honest, this launches as house story slots now, ready for your real verified client reviews the moment you want to swap them in.
-          </div>
-        </div>
-      </div>
-
       <div class="stories-shell">
-        <div class="stories-kicker">Review-Ready Presentation</div>
-        <p class="stories-note">
-          The format is live right now, but the copy below is presented as house story direction rather than fake verified testimonials. When you have real client reviews, we can drop them into this exact wall without changing the design system.
-        </p>
-
         <div class="story-tabs" id="storyTabs">
           <button class="story-tab is-active" type="button" data-story-filter="all">All</button>
           <button class="story-tab" type="button" data-story-filter="rings">Rings</button>
@@ -3986,7 +4125,7 @@
         <div class="buy-box">
           <h3>Custom Orders</h3>
           <p>
-            Contact me directly and we will build your piece from the ground up. Every commission is custom-designed by Nate Savard around your stone, your metal, your symbolism, and the level of luxury you want to wear for life. We can move through 14k, 18k, 23k, or silver 925, then shape the work around sapphire, opal, ruby, or emerald with your price range and life story in mind.
+            If you need a pendant or ring that represents you, let me build it for you. Every commission is custom-designed by Nate Savard around your stone, your metal, your symbolism, and the level of luxury you want to wear for life. We can move through 10k gold, 14k gold, 18k gold, 24k gold, or silver 925, then shape the work around sapphire, opal, ruby, or emerald with your price range and life story in mind.
           </p>
           <a href="mailto:natesavard@outlook.com?subject=Custom%20Jewelry%20Inquiry" class="btn primary">Start Inquiry</a>
           <a href="transmission-intake.html" class="btn secondary" style="margin-top: 12px;">Open Ritual Intake</a>
@@ -4039,21 +4178,19 @@
     <section class="section gemstone-doctrine-section" id="doctrine">
       <div class="section-head">
         <div class="section-title">Nate Savard Gemstones</div>
-        <div class="section-copy">
+        <p class="section-copy gemstone-doctrine-quote">
           Nate Savard travels the world and sources stones with real power,
           energy, and presence. He is Master Creator and connected to the
           highest. Every piece carries soul, presence, and intention, and is
           created and forged by master artist and designer Nate Savard himself
           under the Original Collection from beginning to end. Nate Savard
           Forever.
-        </div>
+        </p>
       </div>
 
       <div class="gemstone-power-box">
-        <div class="power-box-label">core identity</div>
-
-        <p class="power-line strong" data-order="1">we are the most original and classic collection you will find.</p>
-        <p class="power-line" data-order="2">in life, there comes a moment when you begin to have it all - the story, the scars, the wins, the beauty, the power, the family, the legacy.</p>
+        <p class="power-line strong" data-order="1">original and classic heritage collections</p>
+        <p class="power-line" data-order="2">the story, the scars, the wins, the beauty, the power, the family, the legacy.</p>
         <p class="power-line" data-order="3">this collection offers the final piece you put on to express to the world who you are, what you have been through, and what you now stand for.</p>
 
         <div class="power-divider" data-divider="1"></div>
@@ -4065,13 +4202,10 @@
         <div class="power-box-label">gemstone truth</div>
 
         <p class="power-line highlight" data-order="5">gemstone is the precious force.</p>
-        <p class="power-line highlight" data-order="6">the standard.</p>
-        <p class="power-line highlight" data-order="7">the power source.</p>
-        <p class="power-line highlight" data-order="8">the one that prevails.</p>
+        <p class="power-line highlight" data-order="6">honesty and hard work is the standard.</p>
+        <p class="power-line highlight" data-order="7">truth justice and mercy the power source.</p>
+        <p class="power-line highlight" data-order="8">the resilient the ones whom prevail.</p>
 
-        <p class="power-line final" data-order="9">
-          the one with the beautiful family, the legacy, the heat, and the kingdom.
-        </p>
       </div>
     </section>
 
@@ -4205,10 +4339,13 @@
     const floatingTopCross = document.getElementById('floatingTopCross');
     const footerScrollTop = document.getElementById('footerScrollTop');
     const logoShell = document.querySelector('.logo-shell');
+    const backgroundMusic = document.getElementById('backgroundMusic');
     const scrapbookEntrySourceKey = 'nate-originals-entry-source';
 
     let entered = false;
     let scrapbookCornerEntry = false;
+    let backgroundMusicStarted = false;
+    let introTouchStartY = null;
 
     try {
       scrapbookCornerEntry = window.sessionStorage.getItem(scrapbookEntrySourceKey) === 'scrapbook-corner-signature';
@@ -4228,8 +4365,77 @@
       window.location.assign(window.location.pathname + window.location.search);
     }
 
+    function carryIntoOriginalsSite(requestedDistance) {
+      const distance = Math.max(
+        window.innerHeight * 0.58,
+        Math.min(Math.abs(requestedDistance || 0), window.innerHeight * 0.92)
+      );
+
+      window.setTimeout(() => {
+        window.scrollBy({
+          top: distance,
+          behavior: 'smooth'
+        });
+      }, 180);
+    }
+
+    function getOriginalsHashTarget() {
+      if (!window.location.hash || window.location.hash.length < 2) return null;
+      const rawId = window.location.hash.slice(1);
+      let targetId = rawId;
+
+      try {
+        targetId = decodeURIComponent(rawId);
+      } catch (error) {
+        targetId = rawId;
+      }
+
+      return document.getElementById(targetId);
+    }
+
+    function carryIntoOriginalsTarget(target) {
+      if (!target) return;
+
+      window.setTimeout(() => {
+        target.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start'
+        });
+      }, 220);
+    }
+
+    function enableOriginalsMusic() {
+      if (!backgroundMusic) return;
+
+      try {
+        window.localStorage.setItem('siteflow_sound_on', 'true');
+      } catch (error) {
+        // ignore storage failures
+      }
+
+      backgroundMusic.volume = 0.9;
+
+      if (!backgroundMusic.paused && !backgroundMusic.ended) {
+        backgroundMusicStarted = true;
+        return;
+      }
+
+      const playAttempt = backgroundMusic.play();
+      if (playAttempt && typeof playAttempt.then === 'function') {
+        playAttempt.then(() => {
+          backgroundMusicStarted = true;
+        }).catch(() => {
+          backgroundMusicStarted = false;
+        });
+        return;
+      }
+
+      backgroundMusicStarted = true;
+    }
+
     function triggerOriginalsEnter() {
       if (entered) return;
+      enableOriginalsMusic();
       entered = true;
 
       const start = rect(centerLogo);
@@ -4273,7 +4479,76 @@
       }, 1480);
     }
 
+    function enterOriginalsFromScroll(requestedDistance) {
+      if (!entered) {
+        triggerOriginalsEnter();
+      }
+      carryIntoOriginalsSite(requestedDistance);
+    }
+
+    function advanceIntoOriginals(requestedDistance) {
+      const hashTarget = getOriginalsHashTarget();
+      if (hashTarget) {
+        if (!entered) {
+          triggerOriginalsEnter();
+        }
+        carryIntoOriginalsTarget(hashTarget);
+        return;
+      }
+
+      enterOriginalsFromScroll(requestedDistance);
+    }
+
     enterButton.addEventListener('click', triggerOriginalsEnter);
+
+    document.addEventListener('pointerdown', () => {
+      if (backgroundMusicStarted) return;
+      enableOriginalsMusic();
+    }, { passive: true, capture: true });
+
+    document.addEventListener('keydown', () => {
+      if (backgroundMusicStarted) return;
+      enableOriginalsMusic();
+    }, { capture: true });
+
+    if (enterScreen) {
+      enterScreen.addEventListener('wheel', (event) => {
+        if (entered || event.deltaY <= 8) return;
+        event.preventDefault();
+        advanceIntoOriginals(Math.max(window.innerHeight * 0.72, event.deltaY * 7));
+      }, { passive: false });
+
+      enterScreen.addEventListener('touchstart', (event) => {
+        if (!event.touches || !event.touches.length) return;
+        introTouchStartY = event.touches[0].clientY;
+      }, { passive: true });
+
+      enterScreen.addEventListener('touchmove', (event) => {
+        if (entered || introTouchStartY == null || !event.touches || !event.touches.length) return;
+        const deltaY = introTouchStartY - event.touches[0].clientY;
+        if (deltaY <= 18) return;
+        event.preventDefault();
+        introTouchStartY = null;
+        advanceIntoOriginals(Math.max(window.innerHeight * 0.78, deltaY * 10));
+      }, { passive: false });
+
+      enterScreen.addEventListener('touchend', () => {
+        introTouchStartY = null;
+      }, { passive: true });
+    }
+
+    window.addEventListener('wheel', (event) => {
+      if (entered || event.deltaY <= 8) return;
+      event.preventDefault();
+      advanceIntoOriginals(Math.max(window.innerHeight * 0.72, event.deltaY * 7));
+    }, { passive: false, capture: true });
+
+    document.addEventListener('keydown', (event) => {
+      if (entered) return;
+      if (!['ArrowDown', 'PageDown', ' ', 'Enter'].includes(event.key)) return;
+      event.preventDefault();
+      advanceIntoOriginals(window.innerHeight * 0.74);
+    }, { capture: true });
 
     if (scrapbookCornerEntry) {
       try {
@@ -4287,6 +4562,16 @@
           triggerOriginalsEnter();
         });
       });
+    } else {
+      const hashTarget = getOriginalsHashTarget();
+      if (hashTarget) {
+        window.requestAnimationFrame(() => {
+          window.requestAnimationFrame(() => {
+            triggerOriginalsEnter();
+            carryIntoOriginalsTarget(hashTarget);
+          });
+        });
+      }
     }
 
     if (floatingTopCross) {
@@ -5121,6 +5406,7 @@
 
     (() => {
       const builderSection = document.getElementById('builder');
+      const summaryLine = document.getElementById('builderSummaryLine');
       const summaryValue = document.getElementById('builderSummaryValue');
       const summaryCopy = document.getElementById('builderSummaryCopy');
       const heroTrigger = document.getElementById('builderHeroTrigger');
@@ -5131,119 +5417,141 @@
       const matchGrid = document.getElementById('builderMatchGrid');
       const mailLink = document.getElementById('builderMailLink');
 
-      if (!builderSection || !summaryValue || !summaryCopy || !heroTrigger || !heroImage || !heroTitle || !heroDesc || !heroTags || !matchGrid || !mailLink) return;
+      if (!builderSection || !summaryLine || !summaryValue || !summaryCopy || !heroTrigger || !heroImage || !heroTitle || !heroDesc || !heroTags || !matchGrid || !mailLink) return;
+
+      const matchWeights = {
+        stone: 4,
+        stoneShape: 3,
+        silhouette: 3,
+        metal: 2
+      };
+      const perfectMatchScore = Object.values(matchWeights).reduce((sum, value) => sum + value, 0);
 
       const builderLibrary = [
         {
-          name: 'Royal Sapphire Signet',
-          image: 'nate savard - nls 2.jpg',
-          desc: 'Carved gold texture, side sapphires, and a dominant center stone built with old-world authority and full custom weight.',
-          stone: 'sapphire',
-          silhouette: 'signet',
-          metal: 'yellow'
-        },
-        {
-          name: 'Imperial Blue Sapphire Ring',
-          image: 'nate savard - nls 3.jpg',
-          desc: 'Clean heavy-gold sapphire ring drawn for direct power, restraint, and permanent luxury.',
-          stone: 'sapphire',
-          silhouette: 'signet',
-          metal: 'yellow'
-        },
-        {
-          name: 'White Fire Scroll Ring',
-          image: 'nate savard - nls 4.png',
-          desc: 'Diamond-forward scrollwork ring with cathedral lift and heirloom-level white-fire presence.',
-          stone: 'diamond',
-          silhouette: 'cathedral',
-          metal: 'white'
-        },
-        {
-          name: 'Opal Sage Spinner',
-          image: 'nate savard opal sage front.png',
-          desc: 'Double-sided opal spinner concept with diamond field and ceremonial medallion architecture.',
-          stone: 'opal',
-          silhouette: 'spinner',
-          metal: 'yellow'
-        },
-        {
-          name: 'Sapphire Spinner Reverse',
-          image: 'nate savard saphire back.png',
-          desc: 'Blue sapphire spinner reverse with crushed-diamond energy and millionaire-status presence.',
-          stone: 'sapphire',
-          silhouette: 'spinner',
-          metal: 'yellow'
-        },
-        {
-          name: 'NLS Cathedral Ring Frame',
-          image: 'nate savard - nls 6.png',
-          desc: '18k architecture with black inlay and a cathedral profile waiting for a commanding center stone.',
-          stone: 'mixed',
-          silhouette: 'cathedral',
-          metal: 'black'
+          name: 'NS Marquise Crest Frame',
+          image: 'nate savard - nls 7.png',
+          desc: 'Open-center crest chassis with NS side panels and a long marquise seat built for sapphire, ruby, emerald, or white-stone authority.',
+          stone: 'open',
+          stoneOptions: ['sapphire', 'ruby', 'emerald', 'diamond', 'black-onyx'],
+          stoneShape: 'marquise',
+          stoneShapeOptions: ['marquise', 'pear'],
+          silhouette: 'crest',
+          silhouetteOptions: ['crest', 'signet'],
+          metal: '18k-gold',
+          metalOptions: ['10k-gold', '14k-gold', '18k-gold', '24k-gold', 'silver-925']
         },
         {
           name: 'Black Gold NS Ring',
           image: 'nate savard - nls 8.png',
-          desc: 'Black-and-gold ring body with carved inner gallery and a sharper statement-platform silhouette.',
-          stone: 'mixed',
+          desc: 'Black-panel signet chassis with a carved inner gallery and an elongated seat that can take sapphire, ruby, emerald, onyx, or diamond pressure.',
+          stone: 'open',
+          stoneOptions: ['sapphire', 'ruby', 'emerald', 'black-onyx', 'diamond'],
+          stoneShape: 'oval',
+          stoneShapeOptions: ['oval', 'cushion', 'princess', 'radiant', 'asscher', 'emerald'],
           silhouette: 'signet',
-          metal: 'black'
-        },
-        {
-          name: 'Black Onyx Heirloom Ring',
-          image: 'ns-gold-black-onyx-heirloom.png',
-          desc: 'Heirloom-scale gold ring with black onyx panels, engraved shoulders, and a crown-set center stone built for collector weight.',
-          stone: 'mixed',
-          silhouette: 'signet',
-          metal: 'black'
+          silhouetteOptions: ['signet'],
+          metal: '18k-gold',
+          metalOptions: ['10k-gold', '14k-gold', '18k-gold', '24k-gold']
         },
         {
           name: 'Diamond Cathedral Signet',
           image: 'nate savard - nls 9.png',
-          desc: 'Layered diamond bezel and cathedral shoulders designed for elite finish and bright stone energy.',
+          desc: 'Diamond-forward cathedral signet with an oval halo field, open scrollwork, and enough brightness to move cleanly through 10k, 14k, 18k, 24k, or silver 925.',
           stone: 'diamond',
+          stoneOptions: ['diamond'],
+          stoneShape: 'oval',
+          stoneShapeOptions: ['oval', 'cushion'],
           silhouette: 'cathedral',
-          metal: 'white'
+          silhouetteOptions: ['cathedral', 'signet'],
+          metal: '18k-gold',
+          metalOptions: ['10k-gold', '14k-gold', '18k-gold', '24k-gold', 'silver-925']
         },
         {
-          name: 'Royal Marquise Sapphire Ring',
-          image: 'nate ring 1.2.png',
-          desc: 'Multi-angle sapphire build with ornate galleries, diamond rails, and a serious custom ring attitude.',
-          stone: 'sapphire',
+          name: 'NLS Marquise Cathedral Frame',
+          image: 'nate savard - nls 10.png',
+          desc: 'High-relief cathedral chassis with a marquise north-south seat, ready for sapphire, ruby, emerald, or diamond force.',
+          stone: 'open',
+          stoneOptions: ['sapphire', 'ruby', 'emerald', 'diamond'],
+          stoneShape: 'marquise',
+          stoneShapeOptions: ['marquise', 'pear', 'trillion'],
           silhouette: 'cathedral',
-          metal: 'yellow'
-        },
-        {
-          name: 'Sapphire Halo Pendant',
-          image: 'nate savard - nls 5.png',
-          desc: 'Rotating pendant system with sapphire top link and medallion-scale diamond halo framing.',
-          stone: 'sapphire',
-          silhouette: 'pendant',
-          metal: 'yellow'
+          silhouetteOptions: ['cathedral', 'crest'],
+          metal: '18k-gold',
+          metalOptions: ['10k-gold', '14k-gold', '18k-gold', '24k-gold', 'silver-925']
         },
         {
           name: 'Sapphire Monolith Pendant',
           image: 'nate savard - nls 11.png',
-          desc: 'Black-and-gold pendant silhouette with sapphire core and a more restrained, modern authority.',
+          desc: 'Vertical pendant silhouette with a hard black field, emerald-cut sapphire core, and a cleaner luxury line that translates well into 10k, 14k, 18k, 24k, or silver 925.',
           stone: 'sapphire',
+          stoneOptions: ['sapphire'],
+          stoneShape: 'emerald',
+          stoneShapeOptions: ['emerald', 'radiant'],
           silhouette: 'pendant',
-          metal: 'black'
+          silhouetteOptions: ['pendant', 'medallion'],
+          metal: '18k-gold',
+          metalOptions: ['10k-gold', '14k-gold', '18k-gold', '24k-gold', 'silver-925']
+        },
+        {
+          name: 'Black Onyx Heirloom Ring',
+          image: 'ns-gold-black-onyx-heirloom.png',
+          desc: 'Heirloom-scale ring body with black onyx side panels, engraved shoulders, and a cushion-like crown built for collector weight.',
+          stone: 'black-onyx',
+          stoneOptions: ['black-onyx', 'diamond'],
+          stoneShape: 'cushion',
+          stoneShapeOptions: ['cushion', 'asscher', 'emerald'],
+          silhouette: 'signet',
+          silhouetteOptions: ['signet'],
+          metal: '18k-gold',
+          metalOptions: ['10k-gold', '14k-gold', '18k-gold', '24k-gold']
+        },
+        {
+          name: 'Opal Sage Spinner',
+          image: 'nate savard opal sage front.png',
+          desc: 'Spinner medallion direction with a round opal center, marquise top accent, and diamond field built to glow hard in motion.',
+          stone: 'opal',
+          stoneOptions: ['opal'],
+          stoneShape: 'round',
+          stoneShapeOptions: ['round'],
+          silhouette: 'spinner',
+          silhouetteOptions: ['spinner', 'medallion'],
+          metal: '18k-gold',
+          metalOptions: ['10k-gold', '14k-gold', '18k-gold', '24k-gold']
+        },
+        {
+          name: 'Sapphire Spinner Reverse',
+          image: 'nate savard saphire back.png',
+          desc: 'Cushion sapphire spinner architecture with a marquise top accent and a diamond-heavy halo system built to read like a real collector piece.',
+          stone: 'sapphire',
+          stoneOptions: ['sapphire'],
+          stoneShape: 'cushion',
+          stoneShapeOptions: ['cushion', 'radiant'],
+          silhouette: 'spinner',
+          silhouetteOptions: ['spinner', 'medallion'],
+          metal: '18k-gold',
+          metalOptions: ['10k-gold', '14k-gold', '18k-gold', '24k-gold', 'silver-925']
         },
         {
           name: 'Twin Stone Spinner Pendant',
           image: '2stone.png',
-          desc: 'Dual-version spinner pendant showing sapphire and opal paths inside the same diamond-heavy system.',
+          desc: 'Double-sided spinner pendant that carries both sapphire and opal routes inside one medallion-scale diamond system.',
           stone: 'mixed',
+          stoneOptions: ['sapphire', 'opal', 'diamond'],
+          stoneShape: 'mixed',
+          stoneShapeOptions: ['round', 'cushion', 'marquise'],
           silhouette: 'spinner',
-          metal: 'yellow'
+          silhouetteOptions: ['spinner', 'pendant', 'medallion'],
+          metal: '18k-gold',
+          metalOptions: ['10k-gold', '14k-gold', '18k-gold', '24k-gold']
         }
       ];
 
       const state = {
         stone: 'sapphire',
-        silhouette: 'signet',
-        metal: 'yellow'
+        stoneShape: 'cushion',
+        silhouette: 'spinner',
+        metal: '18k-gold'
       };
 
       const labels = {
@@ -5251,18 +5559,39 @@
           sapphire: 'Sapphire',
           opal: 'Opal',
           diamond: 'Diamond',
-          mixed: 'Mixed Stones'
+          ruby: 'Ruby',
+          emerald: 'Emerald',
+          'black-onyx': 'Black Onyx',
+          mixed: 'Mixed Stones',
+          open: 'Open Center'
+        },
+        stoneShape: {
+          round: 'Round',
+          oval: 'Oval',
+          cushion: 'Cushion',
+          emerald: 'Emerald Cut',
+          marquise: 'Marquise',
+          pear: 'Pear',
+          princess: 'Princess',
+          radiant: 'Radiant',
+          asscher: 'Asscher',
+          trillion: 'Trillion',
+          mixed: 'Mixed Cuts'
         },
         silhouette: {
           signet: 'Signet',
           spinner: 'Spinner',
           cathedral: 'Cathedral',
-          pendant: 'Pendant'
+          pendant: 'Pendant',
+          medallion: 'Medallion',
+          crest: 'Crest'
         },
         metal: {
-          yellow: 'Yellow Gold',
-          black: 'Black Gold',
-          white: 'White Fire'
+          '10k-gold': '10k Gold',
+          '14k-gold': '14k Gold',
+          '18k-gold': '18k Gold',
+          '24k-gold': '24k Gold',
+          'silver-925': 'Silver 925'
         }
       };
 
@@ -5273,12 +5602,64 @@
         .replace(/"/g, '&quot;')
         .replace(/'/g, '&#39;');
 
+      function getItemValues(item, group) {
+        const optionKey = `${group}Options`;
+        if (Array.isArray(item[optionKey]) && item[optionKey].length) {
+          return item[optionKey];
+        }
+        const value = item[group];
+        return value ? [value] : [];
+      }
+
+      function formatSelectionPath() {
+        return [
+          labels.stone[state.stone],
+          labels.stoneShape[state.stoneShape],
+          labels.silhouette[state.silhouette],
+          labels.metal[state.metal]
+        ].join(' / ');
+      }
+
+      function getItemTagLine(item) {
+        const metalLabel = getItemValues(item, 'metal').includes(state.metal)
+          ? labels.metal[state.metal]
+          : labels.metal[item.metal];
+        return [
+          labels.stone[item.stone],
+          labels.stoneShape[item.stoneShape],
+          labels.silhouette[item.silhouette],
+          metalLabel
+        ].join(' / ');
+      }
+
+      function getMatchBadge(item) {
+        if (item.score >= perfectMatchScore) return 'Exact archive fit';
+        if (item.score >= perfectMatchScore - 2) return 'Strong chassis';
+        if (item.score >= perfectMatchScore - 5) return 'Closest alternate';
+        return 'Open commission route';
+      }
+
+      function buildMatchMailto(item) {
+        const lines = [
+          'Nate, I want to use this archive piece as a starting point.',
+          '',
+          `Anchor piece: ${item.name}`,
+          `Selected build: ${formatSelectionPath()}`,
+          `Route quality: ${getMatchBadge(item)}`,
+          `Archive direction: ${getItemTagLine(item)}`,
+          '',
+          'Please tell me whether this should stay close to the archive piece or become a fresh one-of-one.'
+        ];
+
+        return `mailto:natesavard@outlook.com?subject=${encodeURIComponent(`${item.name} - Builder Inquiry`)}&body=${encodeURIComponent(lines.join('\n'))}`;
+      }
+
       function scoreItem(item) {
         let score = 0;
-        if (item.stone === state.stone) score += 4;
-        if (item.silhouette === state.silhouette) score += 3;
-        if (item.metal === state.metal) score += 2;
-        if (state.stone === 'mixed' && item.stone === 'mixed') score += 1;
+        if (getItemValues(item, 'stone').includes(state.stone)) score += matchWeights.stone;
+        if (getItemValues(item, 'stoneShape').includes(state.stoneShape)) score += matchWeights.stoneShape;
+        if (getItemValues(item, 'silhouette').includes(state.silhouette)) score += matchWeights.silhouette;
+        if (getItemValues(item, 'metal').includes(state.metal)) score += matchWeights.metal;
         return score;
       }
 
@@ -5301,12 +5682,11 @@
       }
 
       function updateBuilderHero(item) {
-        const tagLine = `${labels.stone[item.stone]} / ${labels.silhouette[item.silhouette]} / ${labels.metal[item.metal]}`;
         heroImage.src = item.image;
         heroImage.alt = `${item.name} by Nate Savard`;
         heroTitle.textContent = item.name;
         heroDesc.textContent = item.desc;
-        heroTags.textContent = tagLine;
+        heroTags.textContent = `${getMatchBadge(item)} // ${formatSelectionPath()}`;
         heroTrigger.setAttribute('data-piece-title', item.name);
         heroTrigger.setAttribute('data-piece-image', item.image);
         heroTrigger.setAttribute('aria-label', `Open ${item.name} preview`);
@@ -5314,8 +5694,8 @@
 
       function renderBuilderMatches(matches) {
         matchGrid.innerHTML = matches.map((item) => {
-          const itemTags = `${labels.stone[item.stone]} / ${labels.silhouette[item.silhouette]} / ${labels.metal[item.metal]}`;
-          const mailHref = `mailto:natesavard@outlook.com?subject=${encodeURIComponent(item.name)}%20Inquiry`;
+          const itemTags = `${getMatchBadge(item)} // ${getItemTagLine(item)}`;
+          const mailHref = buildMatchMailto(item);
           return `
             <article class="builder-match-card">
               <div class="builder-match-media piece-trigger" tabindex="0" role="button" aria-label="Open ${escapeHtml(item.name)}" data-piece-title="${escapeHtml(item.name)}" data-piece-image="${escapeHtml(item.image)}">
@@ -5325,7 +5705,7 @@
                 <div class="builder-match-name">${escapeHtml(item.name)}</div>
                 <p class="builder-match-desc">${escapeHtml(item.desc)}</p>
                 <div class="builder-match-meta">${escapeHtml(itemTags)}</div>
-                <a href="${mailHref}" class="story-link">inquire</a>
+                <a href="${escapeHtml(mailHref)}" class="story-link">inquire</a>
               </div>
             </article>
           `;
@@ -5334,27 +5714,39 @@
 
       function updateBuilderSummary(matches) {
         const stoneLabel = labels.stone[state.stone];
+        const shapeLabel = labels.stoneShape[state.stoneShape];
         const silhouetteLabel = labels.silhouette[state.silhouette];
         const metalLabel = labels.metal[state.metal];
         const lead = matches[0];
+        const selectionRoute = `${shapeLabel.toLowerCase()} ${stoneLabel.toLowerCase()} ${silhouetteLabel.toLowerCase()} in ${metalLabel.toLowerCase()}`;
+        const alternateNames = matches.slice(1).map((item) => item.name).join(', ');
 
-        summaryValue.textContent = `${stoneLabel} / ${silhouetteLabel} / ${metalLabel}`;
-        summaryCopy.textContent = `Built for a ${stoneLabel.toLowerCase()} ${silhouetteLabel.toLowerCase()} in ${metalLabel.toLowerCase()}, narrowed to Nate Savard directions like ${lead.name}. This is now ready to route into a real one-of-one commission.`;
+        summaryValue.textContent = formatSelectionPath();
+        if (lead.score >= perfectMatchScore) {
+          summaryLine.textContent = 'Exact archive fit';
+          summaryCopy.textContent = `${lead.name} already carries the right energy for a ${selectionRoute}, so this can start from a proven Nate Savard chassis and then tighten the last details in commission.`;
+        } else {
+          summaryLine.textContent = 'Closest archive route';
+          summaryCopy.textContent = `${lead.name} is the strongest archive anchor for a ${selectionRoute}. ${alternateNames ? `${alternateNames} stay close behind if you want a different body language or gallery treatment. ` : ''}This is now ready to send as a fresh one-of-one brief.`;
+        }
 
         const lines = [
-          'Nate, I want to start from the Original Collection Ring Builder.',
+          'Nate, I want to start from the Original Collection Custom Builder.',
           '',
-          `Stone force: ${stoneLabel}`,
+          `Stone: ${stoneLabel}`,
+          `Stone shape: ${shapeLabel}`,
           `Silhouette: ${silhouetteLabel}`,
-          `Metal tone: ${metalLabel}`,
+          `Metal: ${metalLabel}`,
           '',
-          'Top suggested directions:',
-          ...matches.map((item, index) => `${index + 1}. ${item.name} // ${labels.stone[item.stone]} / ${labels.silhouette[item.silhouette]} / ${labels.metal[item.metal]}`),
+          `${lead.score >= perfectMatchScore ? 'Exact archive fit' : 'Closest archive anchor'}: ${lead.name}`,
           '',
-          'Please send me next steps, pricing direction, and whether we should build from one of these directions or create a fresh one-of-one.'
+          'Top archive anchors:',
+          ...matches.map((item, index) => `${index + 1}. ${item.name} // ${getMatchBadge(item)} // ${getItemTagLine(item)}`),
+          '',
+          'Please send me next steps, pricing direction, and whether we should build from one of these anchors or create a fresh one-of-one.'
         ];
 
-        mailLink.href = `mailto:natesavard@outlook.com?subject=${encodeURIComponent(`Original Collection Ring Builder - ${stoneLabel} ${silhouetteLabel}`)}&body=${encodeURIComponent(lines.join('\n'))}`;
+        mailLink.href = `mailto:natesavard@outlook.com?subject=${encodeURIComponent(`Original Collection Custom Builder - ${stoneLabel} ${shapeLabel} ${silhouetteLabel}`)}&body=${encodeURIComponent(lines.join('\n'))}`;
       }
 
       function updateBuilder() {
@@ -5385,48 +5777,30 @@
       const stories = [
         {
           category: 'signets',
-          badge: 'placeholder',
-          name: 'Collector Review Placeholder 01',
+          badge: 'collector review',
+          name: 'Rhonda Lerner / Vic, Canada',
           image: 'nate savard - nls 3.jpg',
-          copy: 'Placeholder slot for a future verified collector quote about a sapphire signet commission. Replace with the client\'s exact words when approved.',
-          detail: 'placeholder / signet commission / awaiting verified review',
-          link: 'mailto:natesavard@outlook.com?subject=Signet%20Review%20Placeholder'
+          copy: '****** - Rhonda Lerner Vic, Canada - Incredible artist I could not be happier with the ring ----',
+          detail: 'client review / signet ring',
+          link: 'mailto:natesavard@outlook.com?subject=Rhonda%20Lerner%20Review'
         },
         {
           category: 'rings',
-          badge: 'placeholder',
-          name: 'Collector Review Placeholder 02',
+          badge: 'collector review',
+          name: 'Hamilton Hadden / H Town, TX',
           image: 'nate savard - nls 9.png',
-          copy: 'Placeholder slot for a future verified collector quote about a white-fire custom ring. Keep the five-star layout and swap in the final review later.',
-          detail: 'placeholder / ring build / awaiting verified review',
-          link: 'mailto:natesavard@outlook.com?subject=Ring%20Review%20Placeholder'
+          copy: '***** - Hamilton Hadden H Town TX DiZzo is the best hands down -----',
+          detail: 'client review / ring build',
+          link: 'mailto:natesavard@outlook.com?subject=Hamilton%20Hadden%20Review'
         },
         {
           category: 'pendants',
-          badge: 'placeholder',
-          name: 'Collector Review Placeholder 03',
+          badge: 'collector review',
+          name: 'Daniel Norman / Baton Rouge',
           image: 'nate savard saphire back.png',
-          copy: 'Placeholder slot for a future verified collector quote about a pendant or talisman order. Built to hold real delivery, stone, and craftsmanship feedback.',
-          detail: 'placeholder / pendant order / awaiting verified review',
-          link: 'mailto:natesavard@outlook.com?subject=Pendant%20Review%20Placeholder'
-        },
-        {
-          category: 'spinners',
-          badge: 'placeholder',
-          name: 'Collector Review Placeholder 04',
-          image: 'nate savard opal sage front.png',
-          copy: 'Placeholder slot for a future verified collector quote about a spinner talisman. Ready for a real note on movement, presence, and stone detail.',
-          detail: 'placeholder / spinner build / awaiting verified review',
-          link: 'mailto:natesavard@outlook.com?subject=Spinner%20Review%20Placeholder'
-        },
-        {
-          category: 'signets',
-          badge: 'placeholder',
-          name: 'Collector Review Placeholder 05',
-          image: 'nate ring 1.2.png',
-          copy: 'Placeholder slot for a future verified collector quote about a one-of-one signet. Use this space for real fit, finish, and design feedback once collected.',
-          detail: 'placeholder / one-of-one signet / awaiting verified review',
-          link: 'mailto:natesavard@outlook.com?subject=One-of-One%20Review%20Placeholder'
+          copy: '***** Daniel Norman Baton Rouge - This guy makes the coolest pieces.. they flip and spin and have secret compartments ... i feel like i found a magic sourcerer .. gandalf with the jewels..',
+          detail: 'client review / pendant order',
+          link: 'mailto:natesavard@outlook.com?subject=Daniel%20Norman%20Review'
         },
         {
           category: 'signets',

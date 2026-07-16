@@ -290,6 +290,86 @@
       opacity: 0.82;
     }
 
+    .hero-quick-actions {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 2310;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .hero-quick-action {
+      appearance: none;
+      border: 1px solid rgba(221, 176, 109, 0.28);
+      background: rgba(7, 4, 3, 0.54);
+      color: rgba(246, 226, 190, 0.96);
+      min-height: 46px;
+      padding: 12px 16px;
+      font-family: "Courier New", monospace;
+      font-size: 0.68rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      text-decoration: none;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      box-shadow:
+        inset 0 0 0 1px rgba(255, 239, 214, 0.04),
+        0 12px 24px rgba(0, 0, 0, 0.22);
+      backdrop-filter: blur(8px);
+      transition: transform 0.28s ease, border-color 0.28s ease, box-shadow 0.28s ease, background 0.28s ease;
+    }
+
+    .hero-quick-action.lux-cart-toggle {
+      min-width: 0;
+      padding: 12px 16px;
+      border: 1px solid rgba(221, 176, 109, 0.28);
+      background: rgba(7, 4, 3, 0.54);
+      color: rgba(246, 226, 190, 0.96);
+      text-transform: uppercase;
+      text-align: center;
+      font-size: 0.68rem;
+      text-shadow: none;
+    }
+
+    .hero-quick-action.lux-cart-toggle::before {
+      display: none;
+      content: none;
+    }
+
+    .hero-quick-action:hover,
+    .hero-quick-action:focus-visible {
+      transform: translateY(-2px);
+      border-color: rgba(242, 211, 158, 0.52);
+      background: rgba(10, 6, 4, 0.72);
+      box-shadow:
+        inset 0 0 0 1px rgba(255, 239, 214, 0.06),
+        0 18px 32px rgba(0, 0, 0, 0.28);
+    }
+
+    .hero-quick-action:focus-visible {
+      outline: 2px solid rgba(245, 223, 185, 0.52);
+      outline-offset: 2px;
+    }
+
+    .hero-quick-count {
+      display: inline-grid;
+      place-items: center;
+      min-width: 20px;
+      height: 20px;
+      padding: 0 6px;
+      border-radius: 999px;
+      background: rgba(221, 176, 109, 0.16);
+      color: #f6e0b9;
+      font-size: 0.62rem;
+      letter-spacing: 0.08em;
+      line-height: 1;
+    }
+
     .rebirth-stack {
       position: relative;
       width: min(92vw, 1100px);
@@ -945,17 +1025,34 @@
     }
 
     .collection-stage {
-      display: grid;
-      grid-template-columns: minmax(280px, 0.9fr) minmax(340px, 1.1fr);
-      gap: 34px;
-      align-items: center;
-      min-height: 88vh;
-      padding-top: 56px;
+      display: block;
+      min-height: clamp(460px, 72vh, 780px);
+      padding: 0;
+      overflow: hidden;
+      background: #050302;
+      isolation: isolate;
+    }
+
+    .collection-stage::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      background:
+        linear-gradient(90deg, rgba(4, 2, 1, 0.82) 0%, rgba(4, 2, 1, 0.56) 22%, rgba(4, 2, 1, 0.18) 58%, rgba(4, 2, 1, 0.4) 100%),
+        linear-gradient(180deg, rgba(4, 2, 1, 0.18), rgba(4, 2, 1, 0.36));
+      pointer-events: none;
     }
 
     .collection-copy {
-      max-width: 430px;
-      padding: 20px 0 20px 2px;
+      position: relative;
+      z-index: 2;
+      max-width: 460px;
+      min-height: clamp(460px, 72vh, 780px);
+      padding: clamp(34px, 6vw, 58px) clamp(22px, 4vw, 40px);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
     }
 
     .collection-kicker,
@@ -1060,20 +1157,17 @@
     }
 
     .collection-visual {
-      position: relative;
-      min-height: 680px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      min-height: 100%;
+      display: block;
+      z-index: 0;
+      pointer-events: none;
     }
 
     .collection-visual::before {
-      content: "";
-      position: absolute;
-      inset: 8% 4% 12%;
-      background: none;
-      filter: none;
-      opacity: 0;
+      content: none;
     }
 
     .collection-orbit {
@@ -1099,45 +1193,45 @@
     }
 
     .collection-angel-wrap {
-      position: sticky;
-      top: 94px;
-      width: min(100%, 720px);
-      padding: 34px 10px 20px;
-      transform:
-        translate3d(
-          calc((1 - var(--ascension-progress, 0)) * 150px),
-          calc(((1 - var(--ascension-progress, 0)) * -240px) + 18px),
-          0
-        )
-        scale(calc(0.88 + (var(--ascension-progress, 0) * 0.12)));
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      max-width: none;
+      height: 100%;
+      padding: 0;
+      overflow: hidden;
+      transform: none;
       opacity: 1;
       filter: none;
-      will-change: transform, opacity, filter;
+      will-change: auto;
+      background: #050302;
     }
 
     .collection-stage.is-visible .collection-angel-wrap {
       opacity: 1;
+      transform: none;
     }
 
     .collection-angel-wrap img {
       width: 100%;
-      height: auto;
+      height: 100%;
       display: block;
-      object-fit: contain;
-      filter: drop-shadow(0 40px 64px rgba(0, 0, 0, 0.38));
-      animation: ascensionFloat 8.5s ease-in-out infinite alternate;
-      transform: scale(1.08);
-      transform-origin: center 18%;
-      opacity: 0.92;
+      object-fit: cover;
+      object-position: center 18%;
+      filter: none;
+      animation: none;
+      transform: none;
+      opacity: 0.96;
     }
 
     .collection-angel-wrap::after {
       content: "";
       position: absolute;
       inset: 0;
-      background: none;
-      mix-blend-mode: normal;
-      opacity: 0;
+      background:
+        linear-gradient(90deg, rgba(4, 2, 1, 0.26), rgba(4, 2, 1, 0.02) 24%, rgba(4, 2, 1, 0.08) 74%, rgba(4, 2, 1, 0.3)),
+        linear-gradient(180deg, rgba(4, 2, 1, 0.04), rgba(4, 2, 1, 0.16));
+      opacity: 1;
       pointer-events: none;
     }
 
@@ -1732,232 +1826,206 @@
         drop-shadow(0 0 18px rgba(255, 244, 222, 0.08));
     }
 
-    .catalogue-rail {
-      position: relative;
-      margin: 0 calc(50% - 50vw);
-      padding: 6px 0 14px;
-      overflow-x: auto;
-      overflow-y: visible;
-      cursor: grab;
-      user-select: none;
-      -webkit-user-select: none;
-      scrollbar-width: thin;
-      scrollbar-color: rgba(221, 176, 109, 0.35) rgba(0, 0, 0, 0.22);
-    }
-
-    .catalogue-rail.is-dragging {
-      cursor: grabbing;
-    }
-
-    .catalogue-track {
-      display: flex;
-      gap: 18px;
-      width: max-content;
-      padding: 0 max(18px, calc(50vw - 590px)) 6px;
-      pointer-events: none;
-    }
-
-    .catalogue-card {
-      position: relative;
-      width: min(32vw, 340px);
-      min-width: 240px;
-      min-height: 360px;
-      border: 0;
-      background:
-        radial-gradient(circle at 50% 24%, rgba(255, 236, 205, 0.08), transparent 30%),
-        linear-gradient(180deg, rgba(10, 6, 4, 0.42), rgba(2, 1, 1, 0.1));
-      overflow: hidden;
-      box-shadow: none;
-      pointer-events: auto;
-    }
-
-    .catalogue-card:not(.is-art) {
-      background: transparent;
-      cursor: pointer;
-      transition: transform 0.45s ease, filter 0.45s ease;
-    }
-
-    .catalogue-card:not(.is-art):hover {
-      transform: translateY(-8px) scale(1.04);
-      filter: brightness(1.05);
-    }
-
-    .catalogue-card img {
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
-      display: block;
-      opacity: 0.96;
-      filter:
-        drop-shadow(0 22px 38px rgba(0, 0, 0, 0.42))
-        drop-shadow(0 0 18px rgba(221, 176, 109, 0.08));
-    }
-
-    .catalogue-card.is-art img {
-      object-fit: cover;
-      opacity: 0.82;
-      filter: saturate(0.84) contrast(1.04);
-    }
-
-    .catalogue-card.is-lookbook-wide {
-      width: min(48vw, 560px);
-      min-width: 360px;
-    }
-
-    .catalogue-card.is-lookbook-wide img {
-      object-position: 52% 34%;
-      filter:
-        saturate(0.86)
-        contrast(1.03)
-        brightness(0.92)
-        drop-shadow(0 20px 34px rgba(0, 0, 0, 0.28));
-    }
-
-    .catalogue-card-copy {
-      position: absolute;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      padding: 16px 16px 18px;
-      background: linear-gradient(180deg, transparent, rgba(0, 0, 0, 0.82));
-    }
-
-    .catalogue-card:not(.is-art) .catalogue-card-copy {
-      background: transparent;
-    }
-
-    .catalogue-card:not(.is-art):hover img {
-      transform: scale(1.08) translateY(-8px);
-      filter:
-        drop-shadow(0 28px 42px rgba(0, 0, 0, 0.46))
-        drop-shadow(0 0 24px rgba(221, 176, 109, 0.14));
-    }
-
-    .catalogue-card-title {
-      margin: 0 0 6px;
-      color: #f0ddbf;
-      font-family: "Courier New", monospace;
-      font-size: 0.92rem;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-    }
-
-    .catalogue-card-note {
-      margin: 0;
-      color: rgba(221, 176, 109, 0.82);
-      font-family: "Courier New", monospace;
-      font-size: 0.78rem;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-    }
-
+    .catalogue-rail,
     .jewelry-rail {
       position: relative;
       margin: 0 calc(50% - 50vw);
-      padding: 6px 0 14px;
+      padding: 8px 0 20px;
       overflow-x: auto;
       overflow-y: visible;
       cursor: grab;
       user-select: none;
       -webkit-user-select: none;
+      scroll-snap-type: x mandatory;
+      scroll-padding-inline: max(18px, calc(50vw - 560px));
       scrollbar-width: thin;
       scrollbar-color: rgba(221, 176, 109, 0.35) rgba(0, 0, 0, 0.22);
     }
 
+    .catalogue-rail.is-dragging,
     .jewelry-rail.is-dragging {
       cursor: grabbing;
     }
 
+    .catalogue-track,
     .jewelry-track {
       display: flex;
-      gap: 18px;
+      gap: 28px;
       width: max-content;
-      padding: 0 max(18px, calc(50vw - 590px)) 6px;
+      padding: 0 max(18px, calc(50vw - 560px)) 10px;
       pointer-events: none;
+      align-items: stretch;
     }
 
+    .catalogue-card,
     .jewelry-card {
       position: relative;
-      width: min(32vw, 340px);
-      min-width: 240px;
-      min-height: 420px;
-      padding: 26px 24px 20px;
-      overflow: visible;
-      background: transparent;
-      border: 0;
-      box-shadow: none;
-      pointer-events: auto;
-      cursor: pointer;
-      transition: transform 0.45s ease, filter 0.45s ease;
-    }
-
-    .jewelry-card:hover {
-      transform: translateY(-8px) scale(1.04);
-      filter: brightness(1.05);
-    }
-
-    .jewelry-card::before {
-      content: none;
-    }
-
-    .jewelry-card-media {
-      position: relative;
-      min-height: 320px;
-      display: grid;
-      place-items: center;
-      margin-bottom: 14px;
-    }
-
-    .jewelry-card-media img {
-      width: min(100%, 380px);
-      max-height: 320px;
-      object-fit: contain;
       display: block;
-      filter:
-        drop-shadow(0 26px 38px rgba(0, 0, 0, 0.46))
-        drop-shadow(0 0 16px rgba(255, 255, 255, 0.08));
-      transition: transform 0.45s ease, filter 0.45s ease;
+      flex: 0 0 min(92vw, 1120px);
+      width: min(92vw, 1120px);
+      min-width: min(92vw, 1120px);
+      height: clamp(420px, 60vw, 576px);
+      border-radius: 32px;
+      overflow: hidden;
+      border: 1px solid rgba(221, 176, 109, 0.2);
+      background:
+        radial-gradient(circle at 50% 16%, rgba(255, 238, 207, 0.12), transparent 40%),
+        linear-gradient(180deg, rgba(18, 12, 8, 0.92), rgba(5, 3, 2, 0.96));
+      box-shadow:
+        0 28px 56px rgba(0, 0, 0, 0.42),
+        inset 0 1px 0 rgba(255, 244, 222, 0.08);
+      pointer-events: auto;
+      scroll-snap-align: center;
+      scroll-snap-stop: always;
+      isolation: isolate;
+      cursor: pointer;
+      transition: transform 0.38s ease, box-shadow 0.38s ease, border-color 0.38s ease, filter 0.38s ease;
     }
 
-    .jewelry-card:hover .jewelry-card-media img {
-      transform: scale(1.08) translateY(-8px);
-      filter:
-        drop-shadow(0 30px 44px rgba(0, 0, 0, 0.5))
-        drop-shadow(0 0 22px rgba(255, 255, 255, 0.12));
+    .catalogue-card:hover,
+    .jewelry-card:hover,
+    .catalogue-card:focus-visible,
+    .jewelry-card:focus-visible {
+      transform: translateY(-8px);
+      border-color: rgba(242, 211, 158, 0.5);
+      box-shadow:
+        0 34px 66px rgba(0, 0, 0, 0.46),
+        0 0 28px rgba(221, 176, 109, 0.12);
+      filter: brightness(1.03);
     }
 
-    .jewelry-card-copy {
-      position: relative;
+    .catalogue-card:focus-visible,
+    .jewelry-card:focus-visible {
+      outline: 2px solid rgba(245, 223, 185, 0.58);
+      outline-offset: 4px;
+    }
+
+    .catalogue-card::before,
+    .jewelry-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.04), transparent 16%, transparent 72%, rgba(0, 0, 0, 0.22));
+      pointer-events: none;
       z-index: 1;
     }
 
+    .catalogue-card::after,
+    .jewelry-card::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 52%;
+      background: linear-gradient(180deg, rgba(5, 3, 2, 0) 0%, rgba(5, 3, 2, 0.18) 16%, rgba(5, 3, 2, 0.82) 68%, rgba(5, 3, 2, 0.96) 100%);
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .catalogue-card img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
+      padding: clamp(24px, 4vw, 48px);
+      opacity: 0.96;
+      transition: transform 0.45s ease, filter 0.45s ease;
+      z-index: 0;
+    }
+
+    .catalogue-card.is-art img,
+    .catalogue-card.is-lookbook-wide img {
+      object-fit: cover;
+      padding: 0;
+      opacity: 0.88;
+      filter: saturate(0.9) contrast(1.04);
+    }
+
+    .catalogue-card:hover img,
+    .jewelry-card:hover .jewelry-card-media img,
+    .catalogue-card:focus-visible img,
+    .jewelry-card:focus-visible .jewelry-card-media img {
+      transform: scale(1.03);
+      filter: saturate(1.04) contrast(1.04);
+    }
+
+    .catalogue-card-copy,
+    .jewelry-card-copy {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 2;
+      display: grid;
+      gap: 8px;
+      padding: clamp(18px, 3vw, 30px);
+      background: linear-gradient(180deg, rgba(7, 4, 3, 0) 0%, rgba(7, 4, 3, 0.24) 18%, rgba(7, 4, 3, 0.86) 72%, rgba(7, 4, 3, 0.97) 100%);
+      backdrop-filter: blur(8px);
+    }
+
+    .catalogue-card-title,
     .jewelry-card-title {
-      margin: 0 0 8px;
-      color: #f0ddbf;
+      margin: 0;
+      color: #f7ebd5;
       font-family: "Courier New", monospace;
-      font-size: 0.94rem;
+      font-size: clamp(1rem, 1.3vw, 1.18rem);
       letter-spacing: 0.16em;
+      line-height: 1.2;
+      text-transform: uppercase;
+      font-weight: 400;
+    }
+
+    .catalogue-card-note,
+    .jewelry-card-note {
+      margin: 0;
+      color: rgba(221, 176, 109, 0.88);
+      font-family: "Courier New", monospace;
+      font-size: 0.68rem;
+      letter-spacing: 0.18em;
+      line-height: 1.7;
       text-transform: uppercase;
     }
 
-    .jewelry-card-note,
+    .catalogue-card-note::after,
+    .jewelry-card-note::after {
+      content: " // click to view + buy";
+      color: rgba(235, 219, 195, 0.54);
+    }
+
+    .jewelry-card-media {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: clamp(24px, 4vw, 50px);
+      z-index: 0;
+    }
+
+    .jewelry-card-media img {
+      width: 100%;
+      height: 100%;
+      max-height: none;
+      object-fit: contain;
+      display: block;
+      filter:
+        drop-shadow(0 26px 40px rgba(0, 0, 0, 0.46))
+        drop-shadow(0 0 18px rgba(221, 176, 109, 0.1));
+      transition: transform 0.45s ease, filter 0.45s ease;
+    }
+
     .jewelry-card-text {
       margin: 0;
+      max-width: min(92ch, 72%);
+      color: rgba(240, 225, 203, 0.84);
       font-family: "Courier New", monospace;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-    }
-
-    .jewelry-card-note {
-      color: rgba(221, 176, 109, 0.82);
-      font-size: 0.76rem;
-    }
-
-    .jewelry-card-text {
-      margin-top: 10px;
-      color: rgba(232, 216, 191, 0.78);
-      font-size: 0.72rem;
-      line-height: 1.8;
+      font-size: 0.78rem;
+      line-height: 1.72;
+      letter-spacing: 0.08em;
+      text-transform: none;
     }
 
     .archives-head,
@@ -3226,17 +3294,24 @@
         min-height: 540px;
       }
 
+      .collection-copy {
+        min-height: 540px;
+      }
+
+      .collection-angel-wrap {
+        height: 540px;
+      }
+
       .stage-grid {
         grid-template-columns: 1fr 1fr;
       }
 
-      .catalogue-card {
-        width: min(42vw, 300px);
-      }
-
-      .catalogue-card.is-lookbook-wide {
-        width: min(62vw, 440px);
-        min-width: 320px;
+      .catalogue-card,
+      .jewelry-card {
+        flex-basis: min(94vw, 980px);
+        width: min(94vw, 980px);
+        min-width: min(94vw, 980px);
+        height: clamp(400px, 58vw, 540px);
       }
 
       .catalogue-stage::before,
@@ -3327,6 +3402,24 @@
         top: 14px;
         left: 14px;
         width: clamp(98px, 28vw, 146px);
+      }
+
+      .hero-quick-actions {
+        top: 14px;
+        right: 14px;
+        gap: 8px;
+      }
+
+      .hero-quick-action {
+        min-height: 40px;
+        padding: 10px 12px;
+        font-size: 0.6rem;
+        letter-spacing: 0.14em;
+      }
+
+      .hero-quick-action.lux-cart-toggle {
+        padding: 10px 12px;
+        font-size: 0.6rem;
       }
 
       .rebirth-stack {
@@ -3442,25 +3535,36 @@
         top: -6px;
       }
 
+      .collection-copy {
+        min-height: 420px;
+        padding: 26px 18px 24px;
+      }
+
       .collection-angel-wrap {
-        position: relative;
+        position: absolute;
+        inset: 0;
         top: auto;
-        padding-top: 24px;
+        height: 100%;
       }
 
       .stage-grid {
         grid-template-columns: 1fr;
       }
 
-      .catalogue-card {
-        width: 76vw;
-        min-width: 220px;
-        min-height: 320px;
+      .catalogue-track,
+      .jewelry-track {
+        gap: 18px;
+        padding: 0 14px 8px;
       }
 
-      .catalogue-card.is-lookbook-wide {
-        width: 88vw;
-        min-width: 260px;
+      .catalogue-card,
+      .catalogue-card.is-lookbook-wide,
+      .jewelry-card {
+        flex-basis: 94vw;
+        width: 94vw;
+        min-width: 94vw;
+        height: clamp(320px, 74vw, 430px);
+        border-radius: 24px;
       }
 
       .catalogue-stage::before,
@@ -3472,19 +3576,25 @@
         opacity: 0.1;
       }
 
-      .jewelry-card {
-        width: min(42vw, 300px);
-        min-height: 360px;
-        padding: 20px 18px 18px;
-      }
-
       .recent-card {
         width: 76vw;
         min-width: 220px;
       }
 
+      .catalogue-card img,
       .jewelry-card-media {
-        min-height: 250px;
+        padding: 20px;
+      }
+
+      .catalogue-card-copy,
+      .jewelry-card-copy {
+        padding: 16px 16px 18px;
+      }
+
+      .jewelry-card-text {
+        max-width: 100%;
+        font-size: 0.7rem;
+        line-height: 1.55;
       }
 
       .house-viewer {
@@ -3555,23 +3665,11 @@
 
     }
 
-    /* Floating garment cleanup */
+    /* Oversized rail cleanup */
     .catalogue-card,
-    .catalogue-card.is-art {
-      background: transparent !important;
-      border: 0 !important;
-      box-shadow: none !important;
-      overflow: visible !important;
+    .catalogue-card.is-art,
+    .jewelry-card {
       isolation: isolate;
-    }
-
-    .catalogue-card-copy {
-      background: transparent !important;
-      backdrop-filter: none !important;
-    }
-
-    .catalogue-card img {
-      transition: transform 0.45s ease, filter 0.45s ease;
     }
 
     .house-viewer-frame {
@@ -3590,6 +3688,140 @@
       background: transparent !important;
       box-shadow: none !important;
       text-shadow: 0 0 14px rgba(0, 0, 0, 0.82);
+    }
+
+    /* Rebirth hero gallery */
+    .portal {
+      width: min(1320px, calc(100vw - 10px));
+    }
+
+    .visual {
+      width: 100vw;
+      max-width: none;
+      margin: 0 calc(50% - 50vw);
+      min-height: clamp(420px, 68vh, 620px);
+      overflow: hidden;
+      display: block;
+    }
+
+    .visual::before,
+    .visual::after,
+    .visual .fused-logo,
+    .visual .rebirth-stamp {
+      display: none !important;
+      content: none !important;
+    }
+
+    .rebirth-stack {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      gap: 0;
+      width: 100%;
+      min-height: clamp(420px, 68vh, 620px);
+      overflow-x: auto;
+      overflow-y: hidden;
+      scroll-snap-type: none;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+      cursor: grab;
+      background: #000;
+      touch-action: pan-x;
+      overscroll-behavior-x: contain;
+    }
+
+    .rebirth-stack::-webkit-scrollbar {
+      display: none;
+    }
+
+    .rebirth-stack.is-dragging {
+      cursor: grabbing;
+    }
+
+    .rebirth-stack:focus-visible {
+      outline: 1px solid rgba(243, 222, 192, 0.46);
+      outline-offset: -1px;
+    }
+
+    .rebirth-stack.is-hidden,
+    body.is-entered .rebirth-stack {
+      opacity: 1;
+      filter: none;
+      transform: none;
+    }
+
+    .rebirth-page .visual .rebirth-photo-main,
+    .rebirth-page .visual .rebirth-photo-second,
+    .rebirth-page .visual .rebirth-photo-third,
+    .rebirth-page .visual .rebirth-photo-fourth,
+    body.is-entered .visual .rebirth-photo-main,
+    body.is-entered .visual .rebirth-photo-second,
+    body.is-entered .visual .rebirth-photo-third,
+    body.is-entered .visual .rebirth-photo-fourth {
+      position: relative;
+      left: auto;
+      right: auto;
+      top: auto;
+      bottom: auto;
+      flex: 0 0 100vw;
+      width: 100vw;
+      min-width: 100vw;
+      height: clamp(420px, 68vh, 620px);
+      padding: 0;
+      border-radius: 0;
+      object-fit: cover;
+      opacity: 0.96;
+      transform: none !important;
+      animation: none !important;
+      filter: saturate(0.94) brightness(0.9) contrast(1.03);
+    }
+
+    .rebirth-page .visual .rebirth-photo-main,
+    body.is-entered .visual .rebirth-photo-main {
+      object-position: center 24%;
+    }
+
+    .rebirth-page .visual .rebirth-photo-second,
+    body.is-entered .visual .rebirth-photo-second {
+      object-position: center 36%;
+    }
+
+    .rebirth-page .visual .rebirth-photo-third,
+    body.is-entered .visual .rebirth-photo-third {
+      object-position: center 22%;
+    }
+
+    .rebirth-page .visual .rebirth-photo-fourth,
+    body.is-entered .visual .rebirth-photo-fourth {
+      object-position: center 30%;
+    }
+
+    body.is-entered .visual {
+      min-height: clamp(400px, 60vh, 560px);
+    }
+
+    @media (max-width: 640px) {
+      .visual,
+      body.is-entered .visual,
+      .rebirth-stack {
+        min-height: clamp(300px, 56vh, 420px);
+      }
+
+      .rebirth-page .visual .rebirth-photo-main,
+      .rebirth-page .visual .rebirth-photo-second,
+      .rebirth-page .visual .rebirth-photo-third,
+      .rebirth-page .visual .rebirth-photo-fourth,
+      body.is-entered .visual .rebirth-photo-main,
+      body.is-entered .visual .rebirth-photo-second,
+      body.is-entered .visual .rebirth-photo-third,
+      body.is-entered .visual .rebirth-photo-fourth {
+        height: clamp(300px, 56vh, 420px);
+      }
+
+      .rebirth-page .visual .rebirth-photo-second,
+      body.is-entered .visual .rebirth-photo-second {
+        object-position: center 42%;
+      }
     }
 
     .catalogue-card img[src$="envy-cross-tee-board.png"],
@@ -3625,13 +3857,17 @@
 <body class="rebirth-page">
     <div class="envy-logo-cursor" id="envyLogoCursor" aria-hidden="true"></div>
     <audio id="backgroundMusic" preload="auto" loop playsinline>
-      <source src="nate%20savard%20-%20chosen%20few%20song%203.mp3" type="audio/mpeg" />
-      <source src="https://raw.githubusercontent.com/natesavard/natesavard.github.io/main/nate%20savard%20-%20chosen%20few%20song%203.mp3" type="audio/mpeg" />
+      <source src="Song%203%20FULLLL.mp3" type="audio/mpeg" />
+      <source src="https://raw.githubusercontent.com/natesavard/natesavard.github.io/main/Song%203%20FULLLL.mp3" type="audio/mpeg" />
     </audio>
     <a class="corner-signature" href="originals.html" aria-label="Enter The Original Collection">
       <img src="nate-savard-signature-corner.png" alt="Nate Savard signature" class="corner-signature-base" />
       <img src="nate-savard-signature-write-on.png" alt="" class="corner-signature-pass" />
     </a>
+    <div class="hero-quick-actions" aria-label="Quick actions">
+      <button class="hero-quick-action" id="heroShopButton" type="button">shop</button>
+      <button class="hero-quick-action lux-cart-toggle" id="heroCartButton" type="button">cart <span class="hero-quick-count" id="heroCartCount">0</span></button>
+    </div>
     <div class="screen">
       <div class="bg"></div>
       <div class="static"></div>
@@ -3652,7 +3888,7 @@
     <main class="shell">
       <section class="portal">
         <div class="visual">
-          <div class="rebirth-stack" id="angelToggle" aria-label="Envynomadix rebirth campaign image stack" role="img">
+          <div class="rebirth-stack" id="angelToggle" aria-label="Envynomadix rebirth campaign gallery" role="region" tabindex="0">
             <img class="rebirth-photo-main" src="nate-savard-forever.png" alt="Nate Savard portrait from the rebirth campaign" />
             <img class="rebirth-photo-second" src="turkey-nate-savard-1.png" alt="" />
             <img class="rebirth-photo-third" src="nate-savard-bg-3.png" alt="" />
@@ -3733,7 +3969,7 @@
               </div>
             </article>
 
-            <article class="catalogue-card is-art">
+            <article class="catalogue-card is-art" data-house-product="Envy Cross House Symbol" data-house-price="private inquiry" data-house-description="Main house symbol rendered in chrome signal form for collector styling, placement studies, and private commission reference." data-house-image="envy-cross.png" data-house-option-label="Select route" data-house-options="collector,inquiry">
               <img src="envy-cross.png" alt="Envy cross brand mark" />
               <div class="catalogue-card-copy">
                 <h3 class="catalogue-card-title">Envy Cross</h3>
@@ -3749,7 +3985,7 @@
               </div>
             </article>
 
-            <article class="catalogue-card is-art">
+            <article class="catalogue-card is-art" data-house-product="Forever Signal Portrait" data-house-price="private inquiry" data-house-description="Opening-state portrait from the rebirth world used for house direction, campaign pressure, and collector styling reference." data-house-image="nate-savard-forever.png" data-house-option-label="Select route" data-house-options="collector,inquiry">
               <img src="nate-savard-forever.png" alt="Nate Savard portrait from the rebirth campaign" />
               <div class="catalogue-card-copy">
                 <h3 class="catalogue-card-title">Forever Signal</h3>
@@ -3757,7 +3993,7 @@
               </div>
             </article>
 
-            <article class="catalogue-card is-art">
+            <article class="catalogue-card is-art" data-house-product="Speedway Signal Lookbook" data-house-price="private inquiry" data-house-description="Resort-black speedway lookbook image carrying the rebirth house tone into motorsport and summer travel territory." data-house-image="nate savard speedway (1).png" data-house-option-label="Select route" data-house-options="collector,inquiry">
               <img src="nate savard speedway (1).png" alt="Nate Savard Speedway resort lookbook" />
               <div class="catalogue-card-copy">
                 <h3 class="catalogue-card-title">Speedway Signal</h3>
@@ -3765,7 +4001,7 @@
               </div>
             </article>
 
-            <article class="catalogue-card is-art is-lookbook-wide">
+            <article class="catalogue-card is-art is-lookbook-wide" data-house-product="Private Motorsport House Lookbook" data-house-price="private inquiry" data-house-description="Mediterranean dusk lookbook frame built around stitched house language, yacht club pressure, and collector travel styling." data-house-image="turkey-nate-savard-1.png" data-house-option-label="Select route" data-house-options="collector,inquiry">
               <img src="turkey-nate-savard-1.png" alt="Nate Savard private motorsport house lookbook in Turkey" />
               <div class="catalogue-card-copy">
                 <h3 class="catalogue-card-title">Private Motorsport House</h3>
@@ -3997,7 +4233,7 @@
               <button id="houseRecentNext" type="button">Next</button>
             </div>
           </div>
-          <p class="stage-text">Pieces you open inside the house viewer collect here so the whole page can revolve around what you just touched and move you back through it fast.</p>
+          <p class="stage-text">the revolver 922</p>
         </div>
         <div class="recent-empty" id="houseRecentEmpty">Open a piece and it will appear here.</div>
         <div class="recent-rail" id="houseRecentRail" aria-label="Recently viewed items">
@@ -4056,10 +4292,10 @@
               </div>
             </div>
             <div class="house-product-actions">
-              <button class="house-product-action is-primary" id="houseAddToCartButton" type="button">add to cart</button>
-              <button class="house-product-action" id="houseOpenCartFromProduct" type="button">open cart</button>
+              <button class="house-product-action is-primary" id="houseAddToCartButton" type="button">buy / add to cart</button>
+              <button class="house-product-action" id="houseOpenCartFromProduct" type="button">open cart / checkout</button>
             </div>
-            <div class="house-product-note">Click the garment image to inspect it full size. Each order request is routed privately through the house, and checkout opens an email draft with your selected sizes, quantities, and contact details.</div>
+            <div class="house-product-note">Click the image to open it full size. Use next, previous, or your keyboard arrows to move through the rail, then buy or add the piece to your cart.</div>
           </div>
           <button class="house-viewer-close" id="houseViewerClose" type="button" aria-label="Close product with Envy">
             <img src="envynomadix-logo-cutout.png" alt="Close product with Envy" />
@@ -4085,7 +4321,7 @@
             </button>
           </div>
           <div class="house-cart-items" id="houseCartItems">
-            <div class="house-cart-empty">Your cart is empty. add a garment from the signature rail.</div>
+            <div class="house-cart-empty">Your cart is empty. add a piece from the rebirth rail.</div>
           </div>
           <div class="house-cart-form">
             <div class="house-cart-field">
@@ -4104,7 +4340,7 @@
               <label for="houseCartNotes">Order notes</label>
               <textarea id="houseCartNotes" rows="4" placeholder="Any custom request, fabric note, or timing"></textarea>
             </div>
-            <div class="house-cart-summary">Checkout opens an email to natesavard@outlook.com with your selected pieces, sizes, quantities, and collector info.</div>
+            <div class="house-cart-summary">Checkout opens an email to natesavard@outlook.com with your selected pieces, selections, quantities, and collector info.</div>
             <div class="house-cart-actions">
               <button class="house-cart-action" id="houseClearCartButton" type="button">clear cart</button>
               <button class="house-cart-action is-primary" id="houseCheckoutButton" type="button">checkout via email</button>
@@ -4151,6 +4387,9 @@
       var houseCartShell = document.getElementById("houseCartShell");
       var houseCartBackdrop = document.getElementById("houseCartBackdrop");
       var houseCartToggle = document.getElementById("houseCartToggle");
+      var heroShopButton = document.getElementById("heroShopButton");
+      var heroCartButton = document.getElementById("heroCartButton");
+      var heroCartCount = document.getElementById("heroCartCount");
       var houseCartClose = document.getElementById("houseCartClose");
       var houseCartCount = document.getElementById("houseCartCount");
       var houseCartItems = document.getElementById("houseCartItems");
@@ -4175,6 +4414,12 @@
       var railStartX = 0;
       var railStartScroll = 0;
       var railDragging = false;
+      var heroGalleryFrame = 0;
+      var heroGalleryLastTick = 0;
+      var heroGalleryDirection = 1;
+      var heroGalleryBoost = 120;
+      var heroGalleryPauseUntil = 0;
+      var heroGalleryLastScrollLeft = 0;
       var houseStorageKey = "envy-house-cart";
       var houseInfoKey = "envy-house-cart-info";
       var houseRecentKey = "envy-house-recently-viewed";
@@ -4470,7 +4715,7 @@
           interfaceAudio.arm();
           var target = getInteractiveAudioTarget(event.target);
           if (target) {
-            var strength = target.matches(".enter-logo, .lux-cart-toggle, .house-product-action, .house-cart-action") ? "heavy" : "light";
+            var strength = target.matches(".enter-logo, .lux-cart-toggle, .hero-quick-action, .house-product-action, .house-cart-action") ? "heavy" : "light";
             interfaceAudio.click(strength);
           }
         };
@@ -4499,7 +4744,7 @@
           var target = getInteractiveAudioTarget(event.target);
           if (!target) return;
 
-          var strength = target.matches(".enter-logo, .lux-cart-toggle, .house-product-action, .house-cart-action") ? "heavy" : "light";
+          var strength = target.matches(".enter-logo, .lux-cart-toggle, .hero-quick-action, .house-product-action, .house-cart-action") ? "heavy" : "light";
           interfaceAudio.click(strength);
         }, true);
       }
@@ -4658,6 +4903,18 @@
         });
       }
 
+      function formatHouseOptionLabel(label) {
+        return (label || "Select size").replace(/^select\s+/i, "").trim() || "Option";
+      }
+
+      function formatHouseOptionValue(value) {
+        return String(value || "")
+          .replace(/-/g, " ")
+          .replace(/\b[a-z]/g, function (char) {
+            return char.toUpperCase();
+          });
+      }
+
       function setHouseSize(size) {
         houseSelectedSize = size;
         houseSizeChips.forEach(function (chip) {
@@ -4698,30 +4955,70 @@
       }
 
       function updateHouseCartCount() {
-        if (!houseCartCount) return;
         var total = houseCart.reduce(function (sum, item) {
           return sum + item.quantity;
         }, 0);
-        houseCartCount.textContent = String(total);
+        if (houseCartCount) {
+          houseCartCount.textContent = String(total);
+        }
+        if (heroCartCount) {
+          heroCartCount.textContent = String(total);
+        }
+      }
+
+      function openCatalogueFromHero() {
+        ensureBackgroundMusic();
+
+        if (!hasEntered) {
+          go();
+          window.setTimeout(function () {
+            if (cataloguePhase) {
+              cataloguePhase.scrollIntoView({ behavior: "smooth", block: "start" });
+            }
+            queueHeroDepth();
+          }, 340);
+          return;
+        }
+
+        if (cataloguePhase) {
+          cataloguePhase.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+        queueHeroDepth();
+      }
+
+      function openCartFromHero() {
+        ensureBackgroundMusic();
+
+        if (!hasEntered) {
+          go();
+          window.setTimeout(function () {
+            openHouseCart();
+          }, 340);
+          return;
+        }
+
+        openHouseCart();
       }
 
       function renderHouseCart() {
         if (!houseCartItems) return;
 
         if (!houseCart.length) {
-          houseCartItems.innerHTML = '<div class="house-cart-empty">Your cart is empty. add a garment from the signature rail.</div>';
+          houseCartItems.innerHTML = '<div class="house-cart-empty">Your cart is empty. add a piece from the rebirth rail.</div>';
           updateHouseCartCount();
           return;
         }
 
         houseCartItems.innerHTML = houseCart.map(function (item) {
+          var optionLabel = formatHouseOptionLabel(item.optionLabel);
+          var optionValue = formatHouseOptionValue(item.size);
           return '' +
             '<div class="house-cart-item">' +
               '<button type="button" class="house-cart-item-preview" data-house-cart-preview="' + item.id + '">' +
                 '<div class="house-cart-item-image"><img src="' + item.image + '" alt="' + item.name + '" /></div>' +
                 '<div>' +
                   '<div class="house-cart-item-name">' + item.name + '</div>' +
-                  '<div class="house-cart-item-meta">size ' + item.size.toUpperCase() + ' / qty ' + item.quantity + '<br />' + item.price + '</div>' +
+                  '<div class="house-cart-item-meta">' + optionLabel + ': ' + optionValue + ' / qty ' + item.quantity + '<br />' + item.price + '</div>' +
                 '</div>' +
               '</button>' +
               '<div class="house-cart-item-actions">' +
@@ -4853,6 +5150,8 @@
             price: houseActiveProduct.price,
             description: houseActiveProduct.description,
             image: houseActiveProduct.image,
+            optionLabel: houseActiveProduct.optionLabel,
+            options: Array.isArray(houseActiveProduct.options) ? houseActiveProduct.options.slice() : defaultHouseOptions.slice(),
             size: houseSelectedSize,
             quantity: houseSelectedQuantity
           });
@@ -4930,9 +5229,11 @@
         ];
 
         houseCart.forEach(function (item, index) {
+          var optionLabel = formatHouseOptionLabel(item.optionLabel);
+          var optionValue = formatHouseOptionValue(item.size);
           linesForMail.push(
             (index + 1) + ". " + item.name +
-            " | Size: " + item.size.toUpperCase() +
+            " | " + optionLabel + ": " + optionValue +
             " | Qty: " + item.quantity +
             " | Price: " + item.price
           );
@@ -4999,6 +5300,146 @@
       function queueHeroDepth() {
         if (scrollFrame) return;
         scrollFrame = window.requestAnimationFrame(updateHeroDepth);
+      }
+
+      function clampNumber(value, min, max) {
+        return Math.min(Math.max(value, min), max);
+      }
+
+      function getHeroGalleryMaxScroll() {
+        if (!angelToggle) return 0;
+        return Math.max(0, angelToggle.scrollWidth - angelToggle.clientWidth);
+      }
+
+      function pauseHeroGalleryMotion(duration) {
+        heroGalleryPauseUntil = window.performance.now() + (duration || 1600);
+      }
+
+      function syncHeroGalleryDirectionFromScroll() {
+        if (!angelToggle) return;
+        var current = angelToggle.scrollLeft;
+        if (Math.abs(current - heroGalleryLastScrollLeft) > 1) {
+          heroGalleryDirection = current > heroGalleryLastScrollLeft ? 1 : -1;
+        }
+        heroGalleryLastScrollLeft = current;
+      }
+
+      function focusHeroGallery() {
+        if (!angelToggle || typeof angelToggle.focus !== "function") return;
+        try {
+          angelToggle.focus({ preventScroll: true });
+        } catch (error) {
+          angelToggle.focus();
+        }
+      }
+
+      function nudgeHeroGallery(direction, distance) {
+        if (!angelToggle) return;
+        var maxScroll = getHeroGalleryMaxScroll();
+        if (!maxScroll) return;
+
+        var nudgeDistance = typeof distance === "number" ? distance : Math.max(220, angelToggle.clientWidth * 0.42);
+        var nextLeft = clampNumber(angelToggle.scrollLeft + (direction * nudgeDistance), 0, maxScroll);
+
+        pauseHeroGalleryMotion(1800);
+        heroGalleryDirection = direction < 0 ? -1 : 1;
+        heroGalleryBoost = clampNumber(heroGalleryBoost + (heroGalleryDirection * 220), -720, 720);
+        angelToggle.scrollTo({ left: nextLeft, behavior: "smooth" });
+        heroGalleryLastScrollLeft = nextLeft;
+      }
+
+      function stepHeroGalleryMotion(timestamp) {
+        if (!angelToggle) return;
+
+        if (!heroGalleryLastTick) {
+          heroGalleryLastTick = timestamp;
+          heroGalleryLastScrollLeft = angelToggle.scrollLeft;
+        }
+
+        var delta = Math.min(40, timestamp - heroGalleryLastTick);
+        heroGalleryLastTick = timestamp;
+
+        var maxScroll = getHeroGalleryMaxScroll();
+        if (!maxScroll || document.hidden) {
+          heroGalleryFrame = window.requestAnimationFrame(stepHeroGalleryMotion);
+          return;
+        }
+
+        if (angelToggle.scrollLeft <= 1 && heroGalleryDirection < 0) {
+          heroGalleryDirection = 1;
+        } else if (angelToggle.scrollLeft >= maxScroll - 1 && heroGalleryDirection > 0) {
+          heroGalleryDirection = -1;
+        }
+
+        var isInteracting = railDragging && activeRail === angelToggle;
+        if (!isInteracting && timestamp >= heroGalleryPauseUntil) {
+          var baseVelocity = 160;
+          var velocity = (heroGalleryDirection * baseVelocity) + heroGalleryBoost;
+          var nextLeft = clampNumber(angelToggle.scrollLeft + ((velocity * delta) / 1000), 0, maxScroll);
+
+          angelToggle.scrollLeft = nextLeft;
+          heroGalleryLastScrollLeft = nextLeft;
+
+          if (nextLeft <= 0.5 && heroGalleryDirection < 0) {
+            heroGalleryDirection = 1;
+          } else if (nextLeft >= maxScroll - 0.5 && heroGalleryDirection > 0) {
+            heroGalleryDirection = -1;
+          }
+        }
+
+        heroGalleryBoost *= Math.pow(0.95, delta / 16.6667);
+        if (Math.abs(heroGalleryBoost) < 6) {
+          heroGalleryBoost = 0;
+        }
+
+        heroGalleryFrame = window.requestAnimationFrame(stepHeroGalleryMotion);
+      }
+
+      function isTypingField(target) {
+        if (!(target instanceof Element)) return false;
+        if (target === angelToggle) return false;
+        return target.isContentEditable || /^(INPUT|TEXTAREA|SELECT)$/i.test(target.tagName);
+      }
+
+      function isHeroGalleryInView() {
+        if (!angelToggle) return false;
+        var rect = angelToggle.getBoundingClientRect();
+        return rect.bottom > window.innerHeight * 0.18 && rect.top < window.innerHeight * 0.82;
+      }
+
+      function initHeroGalleryMotion() {
+        if (!angelToggle) return;
+
+        angelToggle.addEventListener("scroll", syncHeroGalleryDirectionFromScroll, { passive: true });
+        angelToggle.addEventListener("pointerdown", function () {
+          pauseHeroGalleryMotion(2200);
+          focusHeroGallery();
+        }, { passive: true });
+        angelToggle.addEventListener("pointerup", function () {
+          pauseHeroGalleryMotion(1200);
+        }, { passive: true });
+        angelToggle.addEventListener("wheel", function (event) {
+          var dominantDelta = Math.abs(event.deltaX) > Math.abs(event.deltaY) ? event.deltaX : event.deltaY;
+          if (Math.abs(dominantDelta) < 1) return;
+
+          pauseHeroGalleryMotion(1800);
+          heroGalleryDirection = dominantDelta > 0 ? 1 : -1;
+          heroGalleryBoost = clampNumber(heroGalleryBoost + (heroGalleryDirection * Math.min(420, Math.abs(dominantDelta) * 1.15)), -720, 720);
+        }, { passive: true });
+
+        window.addEventListener("resize", function () {
+          heroGalleryLastTick = 0;
+          pauseHeroGalleryMotion(500);
+        });
+
+        document.addEventListener("visibilitychange", function () {
+          heroGalleryLastTick = 0;
+          if (!document.hidden) {
+            pauseHeroGalleryMotion(600);
+          }
+        });
+
+        heroGalleryFrame = window.requestAnimationFrame(stepHeroGalleryMotion);
       }
 
       function stopRailDrag() {
@@ -5069,6 +5510,7 @@
 
       bindRailDrag(catalogueRail);
       bindRailDrag(jewelryRail);
+      initHeroGalleryMotion();
 
       if (enterCollectionLink && cataloguePhase) {
         enterCollectionLink.addEventListener("click", function (event) {
@@ -5080,11 +5522,7 @@
         });
       }
 
-      if (angelToggle) {
-        angelToggle.addEventListener("click", function () {
-          angelToggle.classList.toggle("is-hidden");
-        });
-      }
+      bindRailDrag(angelToggle);
       document.addEventListener("keydown", function (event) {
         if (houseViewer && houseViewer.classList.contains("is-open")) {
           if (event.key === "ArrowLeft") {
@@ -5098,12 +5536,17 @@
             return;
           }
         }
+        if ((event.key === "ArrowLeft" || event.key === "ArrowRight") && !isTypingField(event.target) && isHeroGalleryInView()) {
+          event.preventDefault();
+          nudgeHeroGallery(event.key === "ArrowRight" ? 1 : -1);
+          return;
+        }
         if (event.key === "Escape") {
           closeHouseImageZoom();
           closeHouseViewer();
           closeHouseCart();
         }
-        if (event.key === "Enter" || event.key === " ") {
+        if (!hasEntered && (event.key === "Enter" || event.key === " ")) {
           event.preventDefault();
           ensureBackgroundMusic();
           go();
@@ -5149,8 +5592,18 @@
       window.setInterval(rotateLine, 2400);
 
       houseProductTriggers.forEach(function (trigger) {
+        var productName = trigger.getAttribute("data-house-product") || "Envynomadix piece";
+        trigger.setAttribute("role", "button");
+        trigger.setAttribute("tabindex", "0");
+        trigger.setAttribute("aria-label", "Open " + productName + " full size");
         trigger.addEventListener("click", function () {
           openHouseViewer(getHouseProductFromTrigger(trigger));
+        });
+        trigger.addEventListener("keydown", function (event) {
+          if (event.key === "Enter" || event.key === " ") {
+            event.preventDefault();
+            openHouseViewer(getHouseProductFromTrigger(trigger));
+          }
         });
       });
 
@@ -5230,6 +5683,14 @@
 
       if (houseCartToggle) {
         houseCartToggle.addEventListener("click", openHouseCart);
+      }
+
+      if (heroShopButton) {
+        heroShopButton.addEventListener("click", openCatalogueFromHero);
+      }
+
+      if (heroCartButton) {
+        heroCartButton.addEventListener("click", openCartFromHero);
       }
 
       if (houseCartClose) {
