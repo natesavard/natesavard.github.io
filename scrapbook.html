@@ -1115,12 +1115,23 @@
           .replace(/'/g, '&#39;');
       }
 
+      const scrapbookAssetVersion = '20260716a';
+
       function resolveAssetPath(value = '') {
         const raw = String(value || '').trim();
         if (!raw) return '';
-        if (/^(https?:|data:|blob:|\/)/i.test(raw)) return raw;
-        if (window.location.protocol === 'file:') return raw;
-        return `/${raw.replace(/^\.?\//, '')}`;
+        if (/^(https?:|data:|blob:)/i.test(raw)) return raw;
+
+        const normalizedPath = /^\/.*/.test(raw)
+          ? raw
+          : (window.location.protocol === 'file:' ? raw : `/${raw.replace(/^\.?\//, '')}`);
+
+        if (!scrapbookAssetVersion) return normalizedPath;
+        const hashIndex = normalizedPath.indexOf('#');
+        const basePath = hashIndex >= 0 ? normalizedPath.slice(0, hashIndex) : normalizedPath;
+        const hash = hashIndex >= 0 ? normalizedPath.slice(hashIndex) : '';
+        const separator = basePath.includes('?') ? '&' : '?';
+        return `${basePath}${separator}v=${scrapbookAssetVersion}${hash}`;
       }
 
       function slugify(value = '') {
