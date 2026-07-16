@@ -237,59 +237,6 @@
       place-items: center;
     }
 
-    .corner-signature {
-      position: fixed;
-      top: 18px;
-      left: 20px;
-      z-index: 2306;
-      width: clamp(118px, 11vw, 188px);
-      border: 0;
-      padding: 0;
-      margin: 0;
-      background: transparent;
-      cursor: pointer;
-      opacity: 0.54;
-      transform: translateY(0);
-      animation: cornerSignaturePulse 8.8s ease-in-out infinite;
-    }
-
-    .corner-signature img {
-      display: block;
-      width: 100%;
-      height: auto;
-    }
-
-    .corner-signature-base {
-      filter:
-        grayscale(1)
-        invert(1)
-        brightness(1.08)
-        drop-shadow(0 0 10px rgba(255, 255, 255, 0.08));
-      animation: cornerSignatureTone 8.8s ease-in-out infinite;
-    }
-
-    .corner-signature-pass {
-      position: absolute;
-      inset: 0;
-      opacity: 0;
-      clip-path: inset(0 100% 0 0);
-      mix-blend-mode: screen;
-      filter:
-        grayscale(1)
-        invert(1)
-        brightness(1.38)
-        contrast(1.06)
-        drop-shadow(0 0 14px rgba(255, 255, 255, 0.22))
-        drop-shadow(0 0 28px rgba(255, 255, 255, 0.12));
-      transform: translateX(-1px) scale(1.01);
-      transform-origin: left center;
-      animation: cornerSignatureWriteOn 17.6s cubic-bezier(.2,.72,.18,1) infinite;
-    }
-
-    .corner-signature:hover {
-      opacity: 0.82;
-    }
-
     .hero-quick-actions {
       position: fixed;
       top: 20px;
@@ -3147,69 +3094,6 @@
       82% { opacity: 0.55; }
     }
 
-    @keyframes cornerSignaturePulse {
-      0%, 100% { opacity: 0.22; }
-      50% { opacity: 0.72; }
-    }
-
-    @keyframes cornerSignatureTone {
-      0%, 100% {
-        filter:
-          grayscale(1)
-          invert(0.12)
-          brightness(0.46)
-          contrast(1.04)
-          drop-shadow(0 0 8px rgba(255, 255, 255, 0));
-      }
-
-      50% {
-        filter:
-          grayscale(1)
-          invert(1)
-          brightness(1.12)
-          contrast(1.02)
-          drop-shadow(0 0 12px rgba(255, 255, 255, 0.12));
-      }
-    }
-
-    @keyframes cornerSignatureWriteOn {
-      0%, 46% {
-        opacity: 0;
-        clip-path: inset(0 100% 0 0);
-        transform: translateX(-2px) scale(1.01);
-      }
-
-      49% {
-        opacity: 0;
-        clip-path: inset(0 100% 0 0);
-        transform: translateX(-2px) scale(1.01);
-      }
-
-      54% {
-        opacity: 0.84;
-        clip-path: inset(0 74% 0 0);
-        transform: translateX(-1px) scale(1.01);
-      }
-
-      61% {
-        opacity: 0.96;
-        clip-path: inset(0 34% 0 0);
-        transform: translateX(0) scale(1.005);
-      }
-
-      68% {
-        opacity: 0.9;
-        clip-path: inset(0 0 0 0);
-        transform: translateX(0) scale(1);
-      }
-
-      73%, 100% {
-        opacity: 0;
-        clip-path: inset(0 0 0 0);
-        transform: translateX(0) scale(1);
-      }
-    }
-
     @keyframes rebirthCardFloatA {
       0% { transform: rotate(-7deg) translate3d(0, 0, 0); }
       100% { transform: rotate(-4deg) translate3d(8px, -16px, 0); }
@@ -3553,12 +3437,6 @@
       .visual .fused-logo {
         width: min(64vw, 260px);
         height: 82px;
-      }
-
-      .corner-signature {
-        top: 14px;
-        left: 14px;
-        width: clamp(98px, 28vw, 146px);
       }
 
       .hero-quick-actions {
@@ -4034,10 +3912,6 @@
       <source src="Song%203%20FULLLL.mp3" type="audio/mpeg" />
       <source src="nate%20savard%20-%20chosen%20few%20song%203.mp3" type="audio/mpeg" />
     </audio>
-    <a class="corner-signature" href="originals.html" aria-label="Enter The Original Collection">
-      <img src="nate-savard-signature-corner.png" alt="Nate Savard signature" class="corner-signature-base" />
-      <img src="nate-savard-signature-write-on.png" alt="" class="corner-signature-pass" />
-    </a>
     <div class="hero-quick-actions" aria-label="Quick actions">
       <button class="hero-quick-action" id="heroShopButton" type="button">shop</button>
       <button class="hero-quick-action lux-cart-toggle" id="heroCartButton" type="button">cart <span class="hero-quick-count" id="heroCartCount">0</span></button>
