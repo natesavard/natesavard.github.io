@@ -1861,8 +1861,12 @@
     }
 
     .jewelry-head {
-      max-width: 760px;
+      max-width: min(1120px, 100%);
       margin: 0 0 24px;
+    }
+
+    .jewelry-head .stage-text {
+      max-width: 760px;
     }
 
     .jewelry-title-lockup {
@@ -1870,6 +1874,8 @@
       flex-direction: column;
       align-items: flex-start;
       gap: 14px;
+      width: 100%;
+      overflow: visible;
     }
 
     .jewelry-cross-mark {
@@ -1887,21 +1893,79 @@
 
     .jewelry-title-brand {
       margin: 0;
-      width: min(100%, clamp(320px, 58vw, 780px));
+      width: min(100%, clamp(360px, 92vw, 1120px));
+      min-height: clamp(148px, 19vw, 250px);
       font-size: 0;
       line-height: 0;
       letter-spacing: 0;
       text-transform: none;
       text-shadow: none;
+      overflow: visible;
+    }
+
+    .jewelry-title-motion {
+      position: relative;
+      display: block;
+      width: 100%;
+      min-height: inherit;
+      animation: jewelryTitleCruise 24s ease-in-out infinite alternate;
+      will-change: transform;
+    }
+
+    .jewelry-title-base,
+    .jewelry-title-mark {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      display: block;
+      height: auto;
+      pointer-events: none;
+      transform-origin: center center;
+      will-change: transform;
+    }
+
+    .jewelry-title-base {
+      width: min(88vw, 980px);
+      opacity: 0.92;
+      filter:
+        drop-shadow(0 26px 44px rgba(0, 0, 0, 0.32))
+        drop-shadow(0 0 24px rgba(245, 226, 198, 0.08));
+      animation: jewelryTitleBaseFloat 29s ease-in-out infinite alternate;
     }
 
     .jewelry-title-mark {
-      display: block;
-      width: 100%;
-      height: auto;
+      width: min(100%, 1120px);
       filter:
-        drop-shadow(0 20px 34px rgba(0, 0, 0, 0.34))
-        drop-shadow(0 0 18px rgba(255, 244, 222, 0.08));
+        drop-shadow(0 24px 38px rgba(0, 0, 0, 0.36))
+        drop-shadow(0 0 18px rgba(255, 244, 222, 0.12));
+      animation: jewelryTitleMarkFloat 17s ease-in-out infinite alternate;
+    }
+
+    @keyframes jewelryTitleCruise {
+      0% {
+        transform: translate3d(-4vw, 0, 0);
+      }
+      100% {
+        transform: translate3d(4vw, 0, 0);
+      }
+    }
+
+    @keyframes jewelryTitleBaseFloat {
+      0% {
+        transform: translate3d(calc(-50% - 1.2vw), -48%, 0) rotate(-0.9deg);
+      }
+      100% {
+        transform: translate3d(calc(-50% + 1.6vw), -44%, 0) rotate(0.9deg);
+      }
+    }
+
+    @keyframes jewelryTitleMarkFloat {
+      0% {
+        transform: translate3d(calc(-50% - 2.2vw), -57%, 0) rotate(-1deg);
+      }
+      100% {
+        transform: translate3d(calc(-50% + 2.9vw), -51%, 0) rotate(1deg);
+      }
     }
 
     @keyframes jewelryBackgroundFloat {
@@ -3457,6 +3521,27 @@
         font-size: 0.6rem;
       }
 
+      .jewelry-head .stage-text {
+        max-width: none;
+      }
+
+      .jewelry-title-brand {
+        width: 100%;
+        min-height: clamp(118px, 30vw, 180px);
+      }
+
+      .jewelry-title-motion {
+        animation-duration: 18s;
+      }
+
+      .jewelry-title-base {
+        width: min(92vw, 620px);
+      }
+
+      .jewelry-title-mark {
+        width: min(100%, 720px);
+      }
+
       .rebirth-stack {
         width: min(100%, 96vw);
         min-height: min(58vh, 520px);
@@ -4099,7 +4184,10 @@
           <div class="jewelry-title-lockup">
             <img class="jewelry-cross-mark" src="envy-cross.png" alt="Envy cross logo" />
             <h2 class="stage-title jewelry-title-brand">
-              <img class="jewelry-title-mark" src="New Project.png" alt="The Original Collection by Nate Savard" />
+              <span class="jewelry-title-motion">
+                <img class="jewelry-title-base" src="the-nate-savard-league.png" alt="" aria-hidden="true" />
+                <img class="jewelry-title-mark" src="the-original-collection-mark.png" alt="The Original Collection by Nate Savard" />
+              </span>
             </h2>
           </div>
           <p class="stage-text">
