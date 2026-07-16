@@ -1583,9 +1583,10 @@
     .builder-preview-media img {
       width: auto;
       height: auto;
-      max-width: 82%;
-      max-height: 82%;
+      max-width: 90%;
+      max-height: 90%;
       object-fit: contain;
+      border-radius: 18px;
       filter:
         drop-shadow(0 0 22px rgba(255, 196, 92, 0.14))
         drop-shadow(0 0 46px rgba(255, 196, 92, 0.10));
@@ -1658,9 +1659,10 @@
     .story-media img {
       width: auto;
       height: auto;
-      max-width: 84%;
-      max-height: 84%;
+      max-width: 92%;
+      max-height: 92%;
       object-fit: contain;
+      border-radius: 16px;
       filter:
         drop-shadow(0 0 16px rgba(255, 196, 92, 0.12))
         drop-shadow(0 0 30px rgba(255, 196, 92, 0.08));
@@ -4085,11 +4087,11 @@
 
         <div class="builder-stage">
           <div class="builder-preview">
-            <div class="builder-preview-media piece-trigger" id="builderHeroTrigger" tabindex="0" role="button" aria-label="Open builder preview piece" data-piece-title="Sapphire Spinner Reverse" data-piece-image="nate savard saphire back.png">
-              <img src="nate savard saphire back.png" alt="Sapphire Spinner Reverse builder preview" id="builderHeroImage" />
+            <div class="builder-preview-media piece-trigger" id="builderHeroTrigger" tabindex="0" role="button" aria-label="Open Sapphire reference stone" data-piece-title="Sapphire reference stone" data-piece-image="builder-stone-sapphire.jpg">
+              <img src="builder-stone-sapphire.jpg" alt="Blue sapphire gemstone reference" id="builderHeroImage" />
             </div>
             <div class="builder-preview-copy">
-              <div class="builder-preview-kicker" id="builderHeroTags">Exact archive fit // Sapphire / Cushion / Spinner / 18k Gold</div>
+              <div class="builder-preview-kicker" id="builderHeroTags">Stone reference // Exact archive fit // Sapphire / Cushion / Spinner / 18k Gold</div>
               <h3 class="builder-preview-title" id="builderHeroTitle">Sapphire Spinner Reverse</h3>
               <p class="builder-preview-desc" id="builderHeroDesc">
                 Cushion sapphire spinner architecture with a marquise top accent and a diamond-heavy halo system built to read like a real collector piece.
@@ -5630,6 +5632,39 @@
         }
       };
 
+      const stoneReferenceMedia = {
+        sapphire: {
+          image: 'builder-stone-sapphire.jpg',
+          title: 'Sapphire reference stone',
+          alt: 'Blue sapphire gemstone reference'
+        },
+        opal: {
+          image: 'builder-stone-opal.jpg',
+          title: 'Opal reference stone',
+          alt: 'Raw opal gemstone reference'
+        },
+        diamond: {
+          image: 'builder-stone-diamond.jpg',
+          title: 'Diamond reference stone',
+          alt: 'Clear diamond gemstone reference'
+        },
+        ruby: {
+          image: 'builder-stone-ruby.jpg',
+          title: 'Ruby reference stone',
+          alt: 'Red ruby gemstone reference'
+        },
+        emerald: {
+          image: 'builder-stone-emerald.jpg',
+          title: 'Emerald reference stone',
+          alt: 'Green emerald gemstone reference'
+        },
+        'black-onyx': {
+          image: 'builder-stone-black-onyx.jpg',
+          title: 'Black onyx reference stone',
+          alt: 'Black onyx stone reference'
+        }
+      };
+
       const escapeHtml = (value = '') => value
         .replace(/&/g, '&amp;')
         .replace(/</g, '&lt;')
@@ -5653,6 +5688,22 @@
           labels.silhouette[state.silhouette],
           labels.metal[state.metal]
         ].join(' / ');
+      }
+
+      function getBuilderReferenceStone(item) {
+        if (state.stone && stoneReferenceMedia[state.stone]) {
+          return stoneReferenceMedia[state.stone];
+        }
+
+        if (item && item.stone && stoneReferenceMedia[item.stone]) {
+          return stoneReferenceMedia[item.stone];
+        }
+
+        const fallbackStone = item
+          ? getItemValues(item, 'stone').find((value) => stoneReferenceMedia[value])
+          : null;
+
+        return stoneReferenceMedia[fallbackStone || 'sapphire'];
       }
 
       function getItemTagLine(item) {
@@ -5717,24 +5768,26 @@
       }
 
       function updateBuilderHero(item) {
-        heroImage.src = item.image;
-        heroImage.alt = `${item.name} by Nate Savard`;
+        const referenceStone = getBuilderReferenceStone(item);
+        heroImage.src = referenceStone.image;
+        heroImage.alt = referenceStone.alt;
         heroTitle.textContent = item.name;
         heroDesc.textContent = item.desc;
-        heroTags.textContent = `${getMatchBadge(item)} // ${formatSelectionPath()}`;
-        heroTrigger.setAttribute('data-piece-title', item.name);
-        heroTrigger.setAttribute('data-piece-image', item.image);
-        heroTrigger.setAttribute('aria-label', `Open ${item.name} preview`);
+        heroTags.textContent = `Stone reference // ${getMatchBadge(item)} // ${formatSelectionPath()}`;
+        heroTrigger.setAttribute('data-piece-title', referenceStone.title);
+        heroTrigger.setAttribute('data-piece-image', referenceStone.image);
+        heroTrigger.setAttribute('aria-label', `Open ${referenceStone.title}`);
       }
 
       function renderBuilderMatches(matches) {
         matchGrid.innerHTML = matches.map((item) => {
-          const itemTags = `${getMatchBadge(item)} // ${getItemTagLine(item)}`;
+          const referenceStone = getBuilderReferenceStone(item);
+          const itemTags = `Stone reference // ${getMatchBadge(item)} // ${getItemTagLine(item)}`;
           const mailHref = buildMatchMailto(item);
           return `
             <article class="builder-match-card">
-              <div class="builder-match-media piece-trigger" tabindex="0" role="button" aria-label="Open ${escapeHtml(item.name)}" data-piece-title="${escapeHtml(item.name)}" data-piece-image="${escapeHtml(item.image)}">
-                <img src="${escapeHtml(item.image)}" alt="${escapeHtml(item.name)} by Nate Savard" />
+              <div class="builder-match-media piece-trigger" tabindex="0" role="button" aria-label="Open ${escapeHtml(referenceStone.title)}" data-piece-title="${escapeHtml(referenceStone.title)}" data-piece-image="${escapeHtml(referenceStone.image)}">
+                <img src="${escapeHtml(referenceStone.image)}" alt="${escapeHtml(referenceStone.alt)}" />
               </div>
               <div class="builder-match-info">
                 <div class="builder-match-name">${escapeHtml(item.name)}</div>
