@@ -7,6 +7,13 @@
 
 window.NATE_SCRAPBOOK_ITEMS = [
   {
+    src: "scrapbook-assets/NS monogram in gallery.png",
+    alt: "Chrome NS monogram gallery crest",
+    title: "NS Gallery Monogram",
+    collection: "Identity Marks",
+    note: "A sharpened chrome NS monogram with cathedral spikes and gallery-wall pressure, built like a colder house crest carved out of polished silver."
+  },
+  {
     src: "scrapbook-assets/harbour club.png",
     alt: "Harbour Club Savard patch",
     title: "Harbour Club",
