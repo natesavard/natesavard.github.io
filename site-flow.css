@@ -313,6 +313,124 @@ body.siteflow-leaving {
   gap: 10px;
 }
 
+.siteflow-player {
+  display: grid;
+  gap: 7px;
+  padding: 9px;
+  border: 1px solid rgba(224, 228, 219, 0.48);
+  border-radius: 5px;
+  color: #e9e7d7;
+  background:
+    linear-gradient(180deg, rgba(91, 95, 91, 0.96) 0, rgba(35, 37, 36, 0.98) 46%, rgba(12, 13, 13, 0.99) 48%, rgba(43, 45, 43, 0.98) 100%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.34),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.82),
+    0 8px 18px rgba(0, 0, 0, 0.28);
+  font-family: "Courier New", monospace;
+}
+
+.siteflow-player-head,
+.siteflow-player-meta,
+.siteflow-player-volume {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.siteflow-player-brand,
+.siteflow-player-track-number {
+  color: rgba(245, 242, 224, 0.9);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.siteflow-player-screen {
+  min-width: 0;
+  padding: 7px 8px;
+  border: 1px solid rgba(0, 0, 0, 0.72);
+  border-radius: 3px;
+  color: #d9c36f;
+  background:
+    repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.018) 0 1px, transparent 1px 3px),
+    #10130d;
+  box-shadow: inset 0 0 12px rgba(0, 0, 0, 0.82);
+}
+
+.siteflow-player-title {
+  display: block;
+  min-width: 0;
+  overflow: hidden;
+  color: #dfca72;
+  font-size: 9px;
+  letter-spacing: 0.05em;
+  line-height: 1.35;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.siteflow-player-meta {
+  margin-top: 5px;
+  color: rgba(206, 211, 174, 0.68);
+  font-size: 8px;
+  letter-spacing: 0.06em;
+}
+
+.siteflow-player-buttons {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 5px;
+}
+
+.siteflow-player-button {
+  min-height: 27px;
+  padding: 3px 5px;
+  border: 1px solid rgba(229, 232, 224, 0.42);
+  border-radius: 3px;
+  color: rgba(239, 238, 226, 0.9);
+  background: linear-gradient(180deg, rgba(103, 107, 102, 0.98), rgba(29, 31, 30, 0.98));
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.26),
+    0 1px 0 rgba(0, 0, 0, 0.85);
+  cursor: pointer;
+  font-size: 12px;
+}
+
+.siteflow-player-button:hover,
+.siteflow-player-button:focus-visible {
+  border-color: rgba(222, 196, 104, 0.74);
+  color: #fff7d9;
+}
+
+.siteflow-player-button.is-play {
+  color: #ead36f;
+}
+
+.siteflow-player-range {
+  width: 100%;
+  height: 12px;
+  margin: 0;
+  accent-color: #b99736;
+  cursor: pointer;
+}
+
+.siteflow-player-range:disabled {
+  cursor: not-allowed;
+  opacity: 0.32;
+}
+
+.siteflow-player-volume {
+  color: rgba(231, 229, 214, 0.62);
+  font-size: 8px;
+  letter-spacing: 0.12em;
+}
+
+.siteflow-player-volume .siteflow-player-range {
+  width: 72%;
+}
+
 .siteflow-brand {
   display: flex;
   align-items: flex-start;
@@ -513,6 +631,7 @@ body.siteflow-leaving {
 }
 
 .siteflow-shell.is-collapsed .siteflow-brand-copy,
+.siteflow-shell.is-collapsed .siteflow-player,
 .siteflow-shell.is-collapsed .siteflow-transmission,
 .siteflow-shell.is-collapsed .siteflow-dossier,
 .siteflow-shell.is-collapsed .siteflow-jump {

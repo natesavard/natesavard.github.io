@@ -38,6 +38,8 @@
     vip: "siteflow_vip_mode",
     sound: "siteflow_sound_on",
     musicTime: "siteflow_music_time",
+    musicVolume: "siteflow_music_volume",
+    musicTrack: "siteflow_music_track",
     fragment: "siteflow_fragment_seen",
     fragmentCollapsed: "siteflow_fragment_collapsed",
     chatCollapsed: "siteflow_chat_collapsed",
@@ -134,6 +136,18 @@
   const nextPage = findAdjacentVisiblePage(safeCurrentIndex, 1);
   const activeFragment = getActiveFragment();
   let soundEngine = null;
+  const panelPlayerTracks = [
+    { title: "NATE SAVARD — CHOSEN FEW / SONG 3", src: "nate%20savard%20-%20chosen%20few%20song%203.mp3" },
+    { title: "TRACK 02 — EMPTY SLOT", src: "" },
+    { title: "TRACK 03 — EMPTY SLOT", src: "" },
+    { title: "TRACK 04 — EMPTY SLOT", src: "" },
+    { title: "TRACK 05 — EMPTY SLOT", src: "" },
+    { title: "TRACK 06 — EMPTY SLOT", src: "" },
+    { title: "TRACK 07 — EMPTY SLOT", src: "" },
+    { title: "TRACK 08 — EMPTY SLOT", src: "" },
+    { title: "TRACK 09 — EMPTY SLOT", src: "" },
+    { title: "TRACK 10 — EMPTY SLOT", src: "" }
+  ];
 
   document.addEventListener("DOMContentLoaded", function () {
     enforceProtectedRoutes();
@@ -236,16 +250,23 @@
     shell.className = "siteflow-shell" + (collapsed ? " is-collapsed" : "");
     shell.innerHTML = [
       '<div class="siteflow-bar">',
-      '  <div class="siteflow-head">',
-      '  <div class="siteflow-brand">',
-      '    <span class="siteflow-badge" aria-hidden="true"></span>',
-      '    <div class="siteflow-brand-copy">',
-      '      <span class="siteflow-label">NLSM Schematics</span>',
-      '      <span class="siteflow-page">' + escapeHtml(currentPage.title) + ' / ' + escapeHtml(currentPage.section) + '</span>',
-      '      <span class="siteflow-clearance">' + escapeHtml(currentPage.clearance) + '</span>',
+      '  <section class="siteflow-player" aria-label="Nate Savard music player">',
+      '    <div class="siteflow-player-head">',
+      '      <span class="siteflow-player-brand">NS AUDIO</span>',
+      '      <span class="siteflow-player-track-number" id="siteflowPlayerTrackNumber">01/10</span>',
       '    </div>',
-      '  </div>',
-      '  </div>',
+      '    <div class="siteflow-player-screen" aria-live="polite">',
+      '      <span class="siteflow-player-title" id="siteflowPlayerTitle">NATE SAVARD — CHOSEN FEW / SONG 3</span>',
+      '      <span class="siteflow-player-meta"><span id="siteflowPlayerStatus">READY</span><time id="siteflowPlayerTime">00:00 / --:--</time></span>',
+      '    </div>',
+      '    <div class="siteflow-player-buttons" aria-label="Playback controls">',
+      '      <button class="siteflow-player-button" id="siteflowPlayerPrevious" type="button" aria-label="Previous track">&#9198;</button>',
+      '      <button class="siteflow-player-button is-play" id="siteflowPlayerPlay" type="button" aria-label="Play track" aria-pressed="false">&#9654;</button>',
+      '      <button class="siteflow-player-button" id="siteflowPlayerNext" type="button" aria-label="Next track">&#9197;</button>',
+      '    </div>',
+      '    <input class="siteflow-player-range" id="siteflowPlayerSeek" type="range" min="0" max="1000" value="0" aria-label="Track position">',
+      '    <label class="siteflow-player-volume">VOL <input class="siteflow-player-range" id="siteflowPlayerVolume" type="range" min="0" max="100" value="90" aria-label="Volume"></label>',
+      '  </section>',
       '  <div class="siteflow-transmission" id="siteflowTransmission">' + escapeHtml(transmissions[0]) + '</div>',
       '  <div class="siteflow-dossier">',
       '    <div class="siteflow-kicker">dossier</div>',
@@ -576,6 +597,219 @@
         syncYouTubePlayback(nextState);
         syncPageAudioPlayback(nextState);
       });
+    }
+    bindPanelPlayer();
+  }
+
+  function bindPanelPlayer() {
+    const playButton = document.getElementById("siteflowPlayerPlay");
+    const previousButton = document.getElementById("siteflowPlayerPrevious");
+    const nextButton = document.getElementById("siteflowPlayerNext");
+    const seek = document.getElementById("siteflowPlayerSeek");
+    const volume = document.getElementById("siteflowPlayerVolume");
+    const status = document.getElementById("siteflowPlayerStatus");
+    const time = document.getElementById("siteflowPlayerTime");
+    const trackNumber = document.getElementById("siteflowPlayerTrackNumber");
+    const title = document.getElementById("siteflowPlayerTitle");
+    const soundToggle = document.getElementById("siteflowSoundToggle");
+
+    if (!playButton || !previousButton || !nextButton || !seek || !volume || !status || !time || !trackNumber || !title) return;
+
+    let audio = document.getElementById("backgroundMusic");
+    if (!audio) {
+      audio = document.createElement("audio");
+      audio.id = "backgroundMusic";
+      audio.preload = "metadata";
+      audio.setAttribute("playsinline", "");
+      document.body.appendChild(audio);
+    }
+
+    if (audio.dataset.siteflowPanelPlayerBound === "true") return;
+
+    audio.dataset.siteflowPanelPlayerBound = "true";
+    audio.loop = false;
+    let trackIndex = 0;
+
+    try {
+      const storedTrack = Number(window.localStorage.getItem(storageKeys.musicTrack) || "0");
+      if (Number.isInteger(storedTrack) && storedTrack >= 0 && storedTrack < panelPlayerTracks.length) {
+        trackIndex = storedTrack;
+      }
+    } catch (error) {
+      trackIndex = 0;
+    }
+
+    function currentTrack() {
+      return panelPlayerTracks[trackIndex] || panelPlayerTracks[0];
+    }
+
+    function formatTime(seconds) {
+      const safeSeconds = Number.isFinite(seconds) && seconds >= 0 ? Math.floor(seconds) : 0;
+      const minutes = Math.floor(safeSeconds / 60);
+      const remainder = safeSeconds % 60;
+      return String(minutes).padStart(2, "0") + ":" + String(remainder).padStart(2, "0");
+    }
+
+    function syncPlayer() {
+      const track = currentTrack();
+      const isPlaceholder = !track.src;
+      const duration = Number(audio.duration || 0);
+      const current = Number(audio.currentTime || 0);
+      const isPlaying = !isPlaceholder && !audio.paused && !audio.ended;
+
+      playButton.innerHTML = isPlaying ? "&#10074;&#10074;" : "&#9654;";
+      playButton.setAttribute("aria-label", isPlaying ? "Pause track" : "Play track");
+      playButton.setAttribute("aria-pressed", isPlaying ? "true" : "false");
+      trackNumber.textContent = String(trackIndex + 1).padStart(2, "0") + "/" + panelPlayerTracks.length;
+      title.textContent = track.title;
+
+      if (isPlaceholder) {
+        status.textContent = "EMPTY SLOT";
+      } else if (isPlaying) {
+        status.textContent = "PLAYING";
+      } else if (audio.networkState === 3) {
+        status.textContent = "LOAD ERROR";
+      } else if (audio.readyState < 1) {
+        status.textContent = "LOADING";
+      } else {
+        status.textContent = current > 0 ? "PAUSED" : "READY";
+      }
+
+      time.textContent = isPlaceholder
+        ? "--:-- / --:--"
+        : formatTime(current) + " / " + (duration ? formatTime(duration) : "--:--");
+      seek.value = duration ? String(Math.round((current / duration) * 1000)) : "0";
+      seek.disabled = isPlaceholder;
+    }
+
+    function setSoundOn() {
+      try {
+        window.localStorage.setItem(storageKeys.sound, "true");
+      } catch (error) {
+        return;
+      } finally {
+        if (soundToggle) soundToggle.textContent = "sound on";
+        if (soundEngine) soundEngine.setEnabled(true);
+      }
+    }
+
+    function playCurrentTrack() {
+      const track = currentTrack();
+      if (!track.src) {
+        syncPlayer();
+        return;
+      }
+
+      setSoundOn();
+      audio.muted = false;
+      const playAttempt = audio.play();
+      if (playAttempt && typeof playAttempt.catch === "function") {
+        playAttempt.catch(syncPlayer);
+      }
+    }
+
+    function loadTrack(index, shouldPlay) {
+      const wasFirstTrack = trackIndex === 0;
+      if (wasFirstTrack) {
+        try {
+          window.localStorage.setItem(storageKeys.musicTime, String(audio.currentTime || 0));
+        } catch (error) {
+          // The player still works when storage is unavailable.
+        }
+      }
+
+      audio.pause();
+      trackIndex = (index + panelPlayerTracks.length) % panelPlayerTracks.length;
+      const track = currentTrack();
+
+      try {
+        window.localStorage.setItem(storageKeys.musicTrack, String(trackIndex));
+      } catch (error) {
+        // The active slot still works when storage is unavailable.
+      }
+
+      if (!track.src) {
+        audio.removeAttribute("src");
+        audio.querySelectorAll("source").forEach(function (source) {
+          source.remove();
+        });
+        audio.load();
+        syncPlayer();
+        return;
+      }
+
+      audio.src = track.src;
+      audio.load();
+      syncPlayer();
+      if (shouldPlay) playCurrentTrack();
+    }
+
+    playButton.addEventListener("click", function () {
+      if (!currentTrack().src) {
+        syncPlayer();
+        return;
+      }
+
+      if (audio.paused) {
+        playCurrentTrack();
+      } else {
+        audio.pause();
+      }
+    });
+
+    previousButton.addEventListener("click", function () {
+      const wasPlaying = !audio.paused && !!currentTrack().src;
+      if (currentTrack().src && audio.currentTime > 3) {
+        audio.currentTime = 0;
+        syncPlayer();
+        return;
+      }
+      loadTrack(trackIndex - 1, wasPlaying);
+    });
+
+    nextButton.addEventListener("click", function () {
+      const wasPlaying = !audio.paused && !!currentTrack().src;
+      loadTrack(trackIndex + 1, wasPlaying);
+    });
+
+    seek.addEventListener("input", function () {
+      if (!audio.duration) return;
+      audio.currentTime = (Number(seek.value || 0) / 1000) * audio.duration;
+      syncPlayer();
+    });
+
+    volume.addEventListener("input", function () {
+      audio.muted = false;
+      audio.volume = Number(volume.value || 0) / 100;
+      try {
+        window.localStorage.setItem(storageKeys.musicVolume, String(audio.volume));
+      } catch (error) {
+        // Volume changes still apply when storage is unavailable.
+      }
+    });
+
+    ["loadedmetadata", "loadstart", "canplay", "play", "pause", "error"].forEach(function (eventName) {
+      audio.addEventListener(eventName, syncPlayer);
+    });
+    audio.addEventListener("timeupdate", syncPlayer);
+    audio.addEventListener("ended", function () {
+      loadTrack(trackIndex + 1, true);
+    });
+
+    let storedVolume = 0.9;
+    try {
+      storedVolume = Number(window.localStorage.getItem(storageKeys.musicVolume) || "0.9");
+    } catch (error) {
+      storedVolume = 0.9;
+    }
+    if (!Number.isFinite(storedVolume) || storedVolume < 0 || storedVolume > 1) storedVolume = 0.9;
+    audio.volume = storedVolume;
+    volume.value = String(Math.round(storedVolume * 100));
+
+    if (trackIndex !== 0 || (!audio.currentSrc && !audio.getAttribute("src") && !audio.querySelector("source"))) {
+      loadTrack(trackIndex, false);
+    } else {
+      syncPlayer();
     }
   }
 
@@ -981,13 +1215,14 @@
     const audio = bindPageAudio();
     if (!audio) return;
 
-    audio.volume = 0.9;
-
     if (!shouldPlay) {
       audio.pause();
       return;
     }
 
+    if (audio.dataset.siteflowPanelPlayerBound === "true") return;
+
+    audio.volume = 0.9;
     const playAttempt = audio.play();
     if (playAttempt && typeof playAttempt.catch === "function") {
       playAttempt.catch(function () {
