@@ -137,7 +137,7 @@
   const activeFragment = getActiveFragment();
   let soundEngine = null;
   const panelPlayerTracks = [
-    { title: "NATE SAVARD — CHOSEN FEW / SONG 3", src: "nate%20savard%20-%20chosen%20few%20song%203.mp3" },
+    { title: "NATE SAVARD — CHOSEN FEW / SONG 3", src: "Song%203%20FULLLL.mp3" },
     { title: "TRACK 02 — EMPTY SLOT", src: "" },
     { title: "TRACK 03 — EMPTY SLOT", src: "" },
     { title: "TRACK 04 — EMPTY SLOT", src: "" },
@@ -252,7 +252,7 @@
       '<div class="siteflow-bar">',
       '  <section class="siteflow-player" aria-label="Nate Savard music player">',
       '    <div class="siteflow-player-head">',
-      '      <span class="siteflow-player-brand">NS AUDIO</span>',
+      '      <span class="siteflow-player-brand"><strong>NS AUDIO</strong><small>STEREO 85</small></span>',
       '      <span class="siteflow-player-track-number" id="siteflowPlayerTrackNumber">01/10</span>',
       '    </div>',
       '    <div class="siteflow-player-screen" aria-live="polite">',
