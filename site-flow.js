@@ -3,7 +3,7 @@
     { file: "index.html", key: "houses", title: "The Original Collection x Envynomadix", short: "Houses", section: "Dual flagship entry", summary: "The two main houses front and center: jewelry, garments, relics, and collector direction.", clearance: "main entry", dossier: "Primary landing page connecting the Original Collection jewelry house and the Envynomadix fashion world.", hum: "soft" },
     { file: "originals.html", key: "sage", title: "The Original Collection", short: "The Original Collection", section: "Talismans // Rings // Relics // Custom Signature Pieces", summary: "Jewelry pieces, relic visuals, and private collection pathway.", clearance: "private collection", dossier: "Talismans and relics private collection tied to the luxury node.", hum: "soft" },
     { file: "envynomadix-worldwide.html", key: "envynomadix", title: "Envynomadix", short: "Envynomadix", section: "Fashion house", summary: "Dark luxury garments, campaign visuals, and the merged house archive beside The Original Collection.", clearance: "fashion signal", dossier: "Digital flagship for the Envynomadix clothing world and its crossover with the jewelry line.", hum: "soft" },
-    { file: "main.html", key: "home", title: "Nate's World Portal", short: "Portal", section: "Full archive hub", summary: "Expanded gateway for the wider archive, music, visuals, and outbound nodes.", clearance: "public node", dossier: "Secondary portal for the broader Nate's World network beyond the two main houses.", hum: "soft" },
+    { file: "main.html", key: "home", title: "NS AUDIO", short: "Portal", section: "STEREO 85", summary: "Current music, visuals, jewelry, garments, and archive routes.", clearance: "signal live", dossier: "Song 3 and the active Nate Savard archive routes.", hum: "soft" },
     { file: "gemstone-field-distortion-paradox.html", key: "gemstone", title: "Gemstone Paradox", short: "Gemstone", section: "Concept portal", summary: "Field distortion lore, signal breakdown, and paradox chapters.", clearance: "vip vault", dossier: "Gemstone resonance research marked as high-interest lore.", hum: "resonance" },
     { file: "transmissions.html", key: "transmissions", title: "Transmission Updates", short: "Transmissions", section: "Signal log", summary: "Active updates, collector notices, and private network movement.", clearance: "signal stable", dossier: "Rolling log of new drops, active routes, and underground status updates.", hum: "signal" },
     { file: "timeline.html", key: "timeline", title: "Timeline", short: "Timeline", section: "Archive chronology", summary: "Long-view chronology for the site, lore, jewelry, and signal evolution.", clearance: "archive line", dossier: "Chronology node mapping the build, story, and collector path over time.", hum: "soft" },
@@ -43,7 +43,7 @@
     fragment: "siteflow_fragment_seen",
     fragmentCollapsed: "siteflow_fragment_collapsed",
     chatCollapsed: "siteflow_chat_collapsed",
-    collapsed: "siteflow_panel_collapsed",
+    collapsed: "siteflow_panel_collapsed_v2",
     horusAccess: "siteflow_horus_access",
     rareSeen: "siteflow_rare_seen"
   };
@@ -137,16 +137,7 @@
   const activeFragment = getActiveFragment();
   let soundEngine = null;
   const panelPlayerTracks = [
-    { title: "NATE SAVARD — CHOSEN FEW / SONG 3", src: "Song%203%20FULLLL.mp3" },
-    { title: "TRACK 02 — EMPTY SLOT", src: "" },
-    { title: "TRACK 03 — EMPTY SLOT", src: "" },
-    { title: "TRACK 04 — EMPTY SLOT", src: "" },
-    { title: "TRACK 05 — EMPTY SLOT", src: "" },
-    { title: "TRACK 06 — EMPTY SLOT", src: "" },
-    { title: "TRACK 07 — EMPTY SLOT", src: "" },
-    { title: "TRACK 08 — EMPTY SLOT", src: "" },
-    { title: "TRACK 09 — EMPTY SLOT", src: "" },
-    { title: "TRACK 10 — EMPTY SLOT", src: "" }
+    { title: "NATE SAVARD — CHOSEN FEW / SONG 3", src: "Song%203%20FULLLL.mp3" }
   ];
 
   document.addEventListener("DOMContentLoaded", function () {
@@ -253,7 +244,7 @@
       '  <section class="siteflow-player" aria-label="Nate Savard music player">',
       '    <div class="siteflow-player-head">',
       '      <span class="siteflow-player-brand"><strong>NS AUDIO</strong><small>STEREO 85</small></span>',
-      '      <span class="siteflow-player-track-number" id="siteflowPlayerTrackNumber">01/10</span>',
+      '      <span class="siteflow-player-track-number" id="siteflowPlayerTrackNumber">01/01</span>',
       '    </div>',
       '    <div class="siteflow-player-screen" aria-live="polite">',
       '      <span class="siteflow-player-title" id="siteflowPlayerTitle">NATE SAVARD — CHOSEN FEW / SONG 3</span>',
@@ -268,10 +259,12 @@
       '    <label class="siteflow-player-volume">VOL <input class="siteflow-player-range" id="siteflowPlayerVolume" type="range" min="0" max="100" value="90" aria-label="Volume"></label>',
       '  </section>',
       '  <div class="siteflow-transmission" id="siteflowTransmission">' + escapeHtml(transmissions[0]) + '</div>',
-      '  <div class="siteflow-dossier">',
-      '    <div class="siteflow-kicker">dossier</div>',
-      '    <div class="siteflow-small">' + escapeHtml(currentPage.dossier) + '</div>',
-      '  </div>',
+      currentPage.key === "home" ? "" : [
+        '  <div class="siteflow-dossier">',
+        '    <div class="siteflow-kicker">dossier</div>',
+        '    <div class="siteflow-small">' + escapeHtml(currentPage.dossier) + '</div>',
+        '  </div>'
+      ].join("") ,
       '  <div class="siteflow-jump">' +
         '<a class="siteflow-link siteflow-secondary" href="' + escapeHtml(prevPage.file) + '">Back</a>' +
         visibleKeyLinks.map(renderNavLink).join("") +
@@ -664,7 +657,7 @@
       title.textContent = track.title;
 
       if (isPlaceholder) {
-        status.textContent = "EMPTY SLOT";
+        status.textContent = "NO TRACK";
       } else if (isPlaying) {
         status.textContent = "PLAYING";
       } else if (audio.networkState === 3) {

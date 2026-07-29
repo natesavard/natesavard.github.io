@@ -2473,6 +2473,17 @@
         });
       }
 
+      const archiveArt = [
+        { src: "nlxstarboy.png", alt: "NLX Starboy archive artwork", label: "Starboy Archive" },
+        { src: "NLS ALIEN.png", alt: "NLS Alien archive artwork", label: "Alien Signal" },
+        { src: "Ancient symbols in neon glow.png", alt: "Ancient neon symbols archive artwork", label: "Oracle Archive" },
+        { src: "Futuristic cybernetic Ns.png", alt: "Futuristic cybernetic NS archive artwork", label: "Cybernetic Signal" },
+        { src: "Mystical Egyptian neon crest.png", alt: "Mystical Egyptian neon crest archive artwork", label: "Crest Archive" },
+        { src: "gold alien nate.png", alt: "Gold alien Nate archive artwork", label: "Gold Signal" },
+        { src: "nlx 1.png", alt: "NLX archive artwork", label: "NLX Archive" },
+        { src: "nate savard forever ghost network.png", alt: "Nate Savard Forever Ghost Network artwork", label: "Ghost Network" }
+      ];
+
       document.querySelectorAll(".page").forEach(function (page, index) {
         if (page.querySelector(".page-art")) return;
 
@@ -2506,14 +2517,15 @@
           moodClass = "is-desert";
         }
 
+        const artFile = archiveArt[index % archiveArt.length];
         const art = document.createElement("div");
         art.className = "page-art " + moodClass;
         art.innerHTML =
           '<div class="page-art-inner">' +
-          '<div class="page-art-label">Image Placeholder</div>' +
-          '<img class="page-art-logo" src="nlxstarboy.png" alt="NLX Starboy placeholder art" />' +
+          '<div class="page-art-label">' + artFile.label + '</div>' +
+          '<img class="page-art-logo" src="' + artFile.src + '" alt="' + artFile.alt + '" />' +
           '<p class="page-art-title">' + heading.textContent + '</p>' +
-          '<p class="page-art-copy">Drop comic art, cover art, panel collage, or a single cinematic frame here for page ' + (index + 1) + '.</p>' +
+          '<p class="page-art-copy">Nate Savard archive visual paired with page ' + (index + 1) + ' of the Starboy reader.</p>' +
           '</div>';
 
         heading.insertAdjacentElement("afterend", art);

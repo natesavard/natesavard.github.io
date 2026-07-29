@@ -7,7 +7,7 @@
 
 window.NATE_SCRAPBOOK_ITEMS = [
   {
-    src: "scrapbook-assets/NS monogram in gallery.png",
+    src: "NS monogram in gallery.png",
     alt: "Chrome NS monogram gallery crest",
     title: "NS Gallery Monogram",
     collection: "Identity Marks",

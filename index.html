@@ -1045,7 +1045,7 @@
       </div>
       <div class="sound-player__display" aria-live="polite">
         <div class="sound-player__track-row">
-          <span class="sound-player__track-number" id="soundPlayerTrackNumber">01/10</span>
+          <span class="sound-player__track-number" id="soundPlayerTrackNumber">01/01</span>
           <span class="sound-player__track-title" id="soundPlayerTrackTitle">NATE SAVARD — CHOSEN FEW / SONG 3</span>
         </div>
         <div class="sound-player__display-meta">
@@ -1132,16 +1132,7 @@
         {
           title: "NATE SAVARD — CHOSEN FEW / SONG 3",
           src: "Song%203%20FULLLL.mp3"
-        },
-        { title: "TRACK 02 — EMPTY SLOT", src: "" },
-        { title: "TRACK 03 — EMPTY SLOT", src: "" },
-        { title: "TRACK 04 — EMPTY SLOT", src: "" },
-        { title: "TRACK 05 — EMPTY SLOT", src: "" },
-        { title: "TRACK 06 — EMPTY SLOT", src: "" },
-        { title: "TRACK 07 — EMPTY SLOT", src: "" },
-        { title: "TRACK 08 — EMPTY SLOT", src: "" },
-        { title: "TRACK 09 — EMPTY SLOT", src: "" },
-        { title: "TRACK 10 — EMPTY SLOT", src: "" }
+        }
       ];
       var soundPlayerTrackIndex = 0;
       var soundPlayerPlay = document.getElementById("soundPlayerPlay");
@@ -1185,12 +1176,12 @@
         }
 
         if (soundPlayerTrackTitle) {
-          soundPlayerTrackTitle.textContent = track ? track.title : "EMPTY SLOT";
+          soundPlayerTrackTitle.textContent = track ? track.title : "NO TRACK";
         }
 
         if (soundPlayerStatus) {
           if (isPlaceholder) {
-            soundPlayerStatus.textContent = "EMPTY SLOT";
+            soundPlayerStatus.textContent = "NO TRACK";
           } else if (isPlaying) {
             soundPlayerStatus.textContent = "PLAYING";
           } else if (backgroundMusic.networkState === 3) {

@@ -66,42 +66,12 @@
       font-family: "Courier New", monospace;
     }
 
-    #nlxMatrix {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      opacity: .22;
-      pointer-events: none;
-    }
-
-    .nlx-scanlines {
-      position: absolute;
-      inset: 0;
-      pointer-events: none;
-      background:
-        repeating-linear-gradient(
-          to bottom,
-          rgba(255,255,255,0.00) 0px,
-          rgba(255,255,255,0.00) 2px,
-          rgba(255,70,70,0.06) 3px,
-          rgba(255,70,70,0.00) 4px
-        );
-      mix-blend-mode: screen;
-      opacity: .65;
-    }
-
     .nlx-glow {
       position: absolute;
       inset: 0;
       pointer-events: none;
       background: linear-gradient(180deg, rgba(255,255,255,.025), rgba(255,255,255,0));
       opacity: .72;
-    }
-
-    @keyframes nlxGlowPulse {
-      0%,100% { opacity: .7; }
-      50% { opacity: 1; }
     }
 
     .nlx-topbar::after {
@@ -2821,10 +2791,10 @@
         <img src="nate savard x.png" class="gallery-img" alt="Design 1">
         <img src="nate savard.png" class="gallery-img" alt="Design 2">
         <img src="natesavard.png" class="gallery-img" alt="Design 7">
-        <img src="Screenshot 2026-02-19 213557.png" class="gallery-img" alt="Design 3">
-        <img src="Screenshot 2026-03-05 113931.png" class="gallery-img" alt="Design 4">
-        <img src="Screenshot 2026-03-08 231755.png" class="gallery-img" alt="Design 5">
-        <img src="Screenshot 2026-03-08 233849.png" class="gallery-img" alt="Design 6">
+        <img src="nate savard forever ghost network.png" class="gallery-img" alt="Nate Savard Forever Ghost Network artwork">
+        <img src="Ancient symbols in neon glow.png" class="gallery-img" alt="Ancient symbols in neon glow artwork">
+        <img src="Futuristic cybernetic Ns.png" class="gallery-img" alt="Futuristic cybernetic NS artwork">
+        <img src="Mystical Egyptian neon crest.png" class="gallery-img" alt="Mystical Egyptian neon crest artwork">
         <img src="NLS ALIEN.png" class="gallery-img" alt="Design 7">
         <img src="gold alien nate.png" class="gallery-img" alt="Design 8">
         <img src="natesavard.png" class="gallery-img" alt="Design 9">
@@ -2854,7 +2824,7 @@
       <h2 id="fragments-data-log">fragments / data log</h2>
       <div class="box">
         <div class="manifesto">
-          this node archives design, sound, memory, and unfinished transmissions.<br>
+          this node archives design, sound, memory, and active transmissions.<br>
           built outside the usual systems.<br>
           signal first. style second. truth in the artifact.
         </div>
@@ -2870,7 +2840,7 @@
 
       <h2 id="experiments">experiments</h2>
       <div class="box">
-        <p>Creative tests and unfinished ideas.</p>
+        <p>Visual experiments, jewelry studies, sonic transmissions, garment graphics, and archive fragments from the working Nate Savard world.</p>
       </div>
 
       <h2 id="gemstone-field-distortion-paradox">gemstone field distortion paradox</h2>
@@ -3134,111 +3104,6 @@
     })();
   </script>
 
-  <script>
-    (function(){
-      const messageEl = document.getElementById("nlxMessage");
-      const canvas = document.getElementById("nlxMatrix");
-
-      if (!messageEl || !canvas) return;
-
-      const messages = [
-        "NLS GHOST NETWORK // PROTOCOL ONLINE",
-        "ORACLE LINK DETECTED // ANCHOR SIGNAL CONFIRMED",
-        "TEMPORAL FRACTURE FOUND // SCAN IN PROGRESS",
-        "SWAP ANOMALY // HOSTILE FORCE ACTIVE",
-        "TRACE DETECTED // PARASITE PATTERN LOCKED",
-        "GEMSTONE ENGINE // 14 24",
-        "SIGNAL CLEAN // PORTAL WINDOW APPROACHING",
-        "NLX SYMBOL LIVE // THE ANCHOR BETWEEN WORLDS",
-        "PARADOX NODE READY // FRACTURE PORTAL ARMED"
-      ];
-
-      let i = 0;
-
-      function cycleMessage(){
-        messageEl.classList.remove("glitching");
-        void messageEl.offsetWidth;
-        messageEl.textContent = messages[i];
-        messageEl.classList.add("glitching");
-        i = (i + 1) % messages.length;
-      }
-
-      cycleMessage();
-      setInterval(cycleMessage, 2800);
-
-      setInterval(() => {
-        if (Math.random() < 0.45) {
-          messageEl.classList.remove("glitching");
-          void messageEl.offsetWidth;
-          messageEl.classList.add("glitching");
-        }
-      }, 900);
-
-      const ctx = canvas.getContext("2d");
-
-      function resizeCanvas(){
-        const dpr = window.devicePixelRatio || 1;
-        const rect = canvas.getBoundingClientRect();
-        canvas.width = Math.floor(rect.width * dpr);
-        canvas.height = Math.floor(rect.height * dpr);
-        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-      }
-
-      resizeCanvas();
-      window.addEventListener("resize", resizeCanvas);
-
-      const chars = "01ABCDEFGHIJKLMNOPQRSTUVWXYZ<>/[]{}#%*+=";
-      let columns = [];
-      let fontSize = 10;
-      let width = 0;
-      let height = 0;
-
-      function resetColumns(){
-        width = canvas.getBoundingClientRect().width;
-        height = canvas.getBoundingClientRect().height;
-        const count = Math.floor(width / fontSize);
-        columns = Array.from({ length: count }, () => Math.random() * height / fontSize);
-      }
-
-      resetColumns();
-      window.addEventListener("resize", resetColumns);
-
-      let lastMatrixFrame = 0;
-      const matrixFrameDelay = 58;
-
-      function drawMatrix(now){
-        if (now - lastMatrixFrame < matrixFrameDelay) {
-          requestAnimationFrame(drawMatrix);
-          return;
-        }
-        lastMatrixFrame = now;
-
-        width = canvas.getBoundingClientRect().width;
-        height = canvas.getBoundingClientRect().height;
-
-        ctx.fillStyle = "rgba(0,0,0,0.13)";
-        ctx.fillRect(0, 0, width, height);
-
-        ctx.fillStyle = "rgba(255,70,70,0.55)";
-        ctx.font = fontSize + "px Courier New";
-
-        for (let x = 0; x < columns.length; x++) {
-          const text = chars[Math.floor(Math.random() * chars.length)];
-          ctx.fillText(text, x * fontSize, columns[x] * fontSize);
-
-          if (columns[x] * fontSize > height && Math.random() > 0.975) {
-            columns[x] = 0;
-          }
-          columns[x] += 0.13;
-        }
-
-        requestAnimationFrame(drawMatrix);
-      }
-
-      drawMatrix();
-
-    })();
-  </script>
   <script src="site-flow.js"></script>
 </body>
 </html>
