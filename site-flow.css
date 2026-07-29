@@ -347,6 +347,25 @@ body.siteflow-leaving {
   text-transform: uppercase;
 }
 
+.siteflow-player-brand {
+  display: grid;
+  gap: 2px;
+  line-height: 1;
+}
+
+.siteflow-player-brand strong {
+  font: inherit;
+  letter-spacing: inherit;
+}
+
+.siteflow-player-brand small {
+  color: rgba(235, 237, 225, 0.58);
+  font-size: 7px;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  line-height: 1;
+}
+
 .siteflow-player-screen {
   min-width: 0;
   padding: 7px 8px;
