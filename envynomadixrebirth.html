@@ -242,45 +242,63 @@
       top: 20px;
       right: 20px;
       z-index: 2310;
-      display: flex;
+      display: inline-flex;
       align-items: center;
-      gap: 10px;
+      gap: 20px;
+      padding: 8px 0;
+      isolation: isolate;
+    }
+
+    .hero-quick-actions::before {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      z-index: 0;
+      width: 16mm;
+      height: 2mm;
+      transform: translate(-50%, -50%);
+      background: rgba(163, 22, 43, 0.42);
+      pointer-events: none;
     }
 
     .hero-quick-action {
       appearance: none;
-      border: 1px solid rgba(221, 176, 109, 0.28);
-      background: rgba(7, 4, 3, 0.54);
+      position: relative;
+      z-index: 1;
+      min-height: 0;
+      padding: 8px 0;
+      border: 0;
+      background: transparent;
       color: rgba(246, 226, 190, 0.96);
-      min-height: 46px;
-      padding: 12px 16px;
       font-family: "Courier New", monospace;
       font-size: 0.68rem;
       letter-spacing: 0.18em;
+      line-height: 1;
       text-transform: uppercase;
       text-decoration: none;
+      text-shadow:
+        0 1px 2px rgba(0, 0, 0, 0.96),
+        0 0 4px rgba(0, 0, 0, 0.9);
       cursor: pointer;
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      gap: 8px;
-      box-shadow:
-        inset 0 0 0 1px rgba(255, 239, 214, 0.04),
-        0 12px 24px rgba(0, 0, 0, 0.22);
-      backdrop-filter: blur(8px);
-      transition: transform 0.28s ease, border-color 0.28s ease, box-shadow 0.28s ease, background 0.28s ease;
+      gap: 6px;
+      box-shadow: none;
+      backdrop-filter: none;
+      transition: transform 0.28s ease, color 0.28s ease;
     }
 
     .hero-quick-action.lux-cart-toggle {
       min-width: 0;
-      padding: 12px 16px;
-      border: 1px solid rgba(221, 176, 109, 0.28);
-      background: rgba(7, 4, 3, 0.54);
+      padding: 8px 0;
+      border: 0;
+      background: transparent;
       color: rgba(246, 226, 190, 0.96);
       text-transform: uppercase;
       text-align: center;
       font-size: 0.68rem;
-      text-shadow: none;
     }
 
     .hero-quick-action.lux-cart-toggle::before {
@@ -290,32 +308,32 @@
 
     .hero-quick-action:hover,
     .hero-quick-action:focus-visible {
-      transform: translateY(-2px);
-      border-color: rgba(242, 211, 158, 0.52);
-      background: rgba(10, 6, 4, 0.72);
-      box-shadow:
-        inset 0 0 0 1px rgba(255, 239, 214, 0.06),
-        0 18px 32px rgba(0, 0, 0, 0.28);
+      transform: translateY(-1px);
+      color: #fff4df;
+      background: transparent;
+      box-shadow: none;
     }
 
     .hero-quick-action:focus-visible {
-      outline: 2px solid rgba(245, 223, 185, 0.52);
-      outline-offset: 2px;
+      outline: 1px solid rgba(163, 22, 43, 0.68);
+      outline-offset: 4px;
     }
 
     .hero-quick-count {
-      display: inline-grid;
-      place-items: center;
-      min-width: 20px;
-      height: 20px;
-      padding: 0 6px;
-      border-radius: 999px;
-      background: rgba(221, 176, 109, 0.16);
-      color: #f6e0b9;
+      display: inline;
+      min-width: 0;
+      height: auto;
+      padding: 0;
+      border-radius: 0;
+      background: transparent;
+      color: inherit;
       font-size: 0.62rem;
       letter-spacing: 0.08em;
       line-height: 1;
     }
+
+    .hero-quick-count::before { content: "("; }
+    .hero-quick-count::after { content: ")"; }
 
     .rebirth-stack {
       position: relative;
@@ -3496,19 +3514,15 @@
       .hero-quick-actions {
         top: 14px;
         right: 14px;
-        gap: 8px;
+        gap: 14px;
       }
 
-      .hero-quick-action {
-        min-height: 40px;
-        padding: 10px 12px;
+      .hero-quick-action,
+      .hero-quick-action.lux-cart-toggle {
+        min-height: 0;
+        padding: 8px 0;
         font-size: 0.6rem;
         letter-spacing: 0.14em;
-      }
-
-      .hero-quick-action.lux-cart-toggle {
-        padding: 10px 12px;
-        font-size: 0.6rem;
       }
 
       .jewelry-head .stage-text {
@@ -4044,7 +4058,6 @@
     <div class="envy-logo-cursor" id="envyLogoCursor" aria-hidden="true"></div>
     <audio id="backgroundMusic" preload="auto" autoplay loop playsinline>
       <source src="Song%203%20FULLLL.mp3" type="audio/mpeg" />
-      <source src="nate%20savard%20-%20chosen%20few%20song%203.mp3" type="audio/mpeg" />
     </audio>
     <div class="hero-quick-actions" aria-label="Quick actions">
       <button class="hero-quick-action" id="heroShopButton" type="button">shop</button>
@@ -4416,10 +4429,10 @@
 
       <section class="recent-stage rebirth-recent-stage" id="recentPhase">
         <div class="recent-frame">
-          <img class="recent-frame-corner is-top-left" src="corner-nate-savard-frame.png" alt="" aria-hidden="true" />
-          <img class="recent-frame-corner is-top-right" src="corner-nate-savard-frame.png" alt="" aria-hidden="true" />
-          <img class="recent-frame-corner is-bottom-left" src="corner-nate-savard-frame.png" alt="" aria-hidden="true" />
-          <img class="recent-frame-corner is-bottom-right" src="corner-nate-savard-frame.png" alt="" aria-hidden="true" />
+          <img class="recent-frame-corner is-top-left" src="nate-savard-signature-corner.png" alt="" aria-hidden="true" />
+          <img class="recent-frame-corner is-top-right" src="nate-savard-signature-corner.png" alt="" aria-hidden="true" />
+          <img class="recent-frame-corner is-bottom-left" src="nate-savard-signature-corner.png" alt="" aria-hidden="true" />
+          <img class="recent-frame-corner is-bottom-right" src="nate-savard-signature-corner.png" alt="" aria-hidden="true" />
           <div class="recent-head">
             <div class="recent-toolbar">
               <h2 class="stage-title">Recently Viewed Items</h2>

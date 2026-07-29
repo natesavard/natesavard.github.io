@@ -100,6 +100,193 @@
       isolation: isolate;
     }
 
+    .sound-player {
+      position: fixed;
+      top: 10px;
+      left: 50%;
+      z-index: 30;
+      width: min(1120px, calc(100vw - 20px));
+      transform: translateX(-50%);
+      color: #e9e7d7;
+      font-family: var(--mono);
+      border: 1px solid rgba(225, 230, 221, 0.54);
+      border-radius: 5px;
+      background:
+        linear-gradient(180deg, rgba(104, 108, 104, 0.96) 0, rgba(38, 40, 39, 0.98) 48%, rgba(13, 14, 14, 0.98) 50%, rgba(45, 47, 45, 0.98) 100%);
+      box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.42),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.9),
+        0 8px 24px rgba(0, 0, 0, 0.52);
+      overflow: hidden;
+    }
+
+    .sound-player::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background:
+        repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.025) 0 1px, transparent 1px 4px),
+        linear-gradient(90deg, rgba(215, 171, 82, 0.08), transparent 24%, transparent 76%, rgba(215, 171, 82, 0.08));
+      mix-blend-mode: screen;
+    }
+
+    .sound-player__inner {
+      position: relative;
+      display: grid;
+      grid-template-columns: auto auto minmax(220px, 1fr) minmax(170px, 0.52fr);
+      gap: 8px;
+      align-items: center;
+      min-height: 54px;
+      padding: 6px 8px;
+    }
+
+    .sound-player__brand {
+      display: grid;
+      gap: 2px;
+      min-width: 88px;
+      padding: 3px 8px 3px 4px;
+      border-right: 1px solid rgba(0, 0, 0, 0.66);
+      text-shadow: 0 1px 0 #000;
+    }
+
+    .sound-player__brand strong {
+      color: #f0d28c;
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      white-space: nowrap;
+    }
+
+    .sound-player__brand small {
+      color: rgba(235, 237, 225, 0.64);
+      font-size: 7px;
+      letter-spacing: 0.26em;
+    }
+
+    .sound-player__controls {
+      display: flex;
+      gap: 4px;
+      align-items: center;
+    }
+
+    .sound-player__button {
+      width: 30px;
+      height: 27px;
+      display: grid;
+      place-items: center;
+      padding: 0;
+      color: #e7e6dc;
+      font: 700 12px/1 var(--mono);
+      border: 1px solid rgba(225, 230, 221, 0.42);
+      border-radius: 2px;
+      background: linear-gradient(180deg, #6d706c, #262827 56%, #171818);
+      box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.27),
+        0 1px 0 rgba(0, 0, 0, 0.9);
+      cursor: pointer;
+    }
+
+    .sound-player__button:hover,
+    .sound-player__button:focus-visible {
+      color: #ffe2a0;
+      border-color: rgba(255, 221, 153, 0.68);
+      outline: none;
+    }
+
+    .sound-player__button:active {
+      transform: translateY(1px);
+      background: linear-gradient(180deg, #202221, #4a4d4a);
+      box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.8);
+    }
+
+    .sound-player__display {
+      min-width: 0;
+      padding: 5px 8px 4px;
+      border: 1px solid #060806;
+      border-radius: 2px;
+      background:
+        repeating-linear-gradient(0deg, rgba(138, 255, 106, 0.025) 0 1px, transparent 1px 3px),
+        linear-gradient(180deg, #071109, #020503);
+      box-shadow:
+        inset 0 0 9px rgba(0, 0, 0, 0.96),
+        0 1px 0 rgba(255, 255, 255, 0.16);
+    }
+
+    .sound-player__track-row {
+      display: flex;
+      gap: 9px;
+      align-items: baseline;
+      min-width: 0;
+    }
+
+    .sound-player__track-number,
+    .sound-player__status,
+    .sound-player__time {
+      color: #a7f57d;
+      text-shadow: 0 0 7px rgba(134, 255, 101, 0.42);
+    }
+
+    .sound-player__track-number {
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .sound-player__track-title {
+      min-width: 0;
+      overflow: hidden;
+      color: #c5ff9e;
+      font-size: 10px;
+      letter-spacing: 0.08em;
+      text-overflow: ellipsis;
+      text-shadow: 0 0 7px rgba(134, 255, 101, 0.32);
+      white-space: nowrap;
+    }
+
+    .sound-player__display-meta {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      margin-top: 3px;
+      font-size: 8px;
+      letter-spacing: 0.11em;
+    }
+
+    .sound-player__status {
+      opacity: 0.74;
+    }
+
+    .sound-player__timeline {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 9px;
+      align-items: center;
+    }
+
+    .sound-player__range {
+      width: 100%;
+      height: 3px;
+      margin: 0;
+      border-radius: 999px;
+      background: #080908;
+      accent-color: #d4b368;
+      cursor: pointer;
+    }
+
+    .sound-player__range:disabled {
+      opacity: 0.34;
+      cursor: default;
+    }
+
+    .sound-player__volume {
+      display: grid;
+      grid-template-columns: auto minmax(58px, 84px);
+      gap: 6px;
+      align-items: center;
+      color: rgba(235, 237, 225, 0.68);
+      font-size: 8px;
+      letter-spacing: 0.14em;
+    }
+
     body::before,
     body::after,
     .entry-gate::before,
@@ -143,7 +330,7 @@
       grid-template-columns: 1fr minmax(16px, 44px) 1fr;
       align-items: center;
       justify-items: center;
-      padding: clamp(18px, 3vw, 40px);
+      padding: clamp(84px, 10vh, 108px) clamp(18px, 3vw, 40px) clamp(18px, 3vw, 40px);
       isolation: isolate;
     }
 
@@ -741,10 +928,51 @@
     }
 
     @media (max-width: 680px) {
+      .sound-player {
+        top: 6px;
+        width: calc(100vw - 12px);
+      }
+
+      .sound-player__inner {
+        grid-template-columns: auto minmax(0, 1fr);
+        gap: 5px 7px;
+        min-height: 64px;
+        padding: 5px 6px;
+      }
+
+      .sound-player__brand {
+        display: none;
+      }
+
+      .sound-player__controls {
+        grid-row: 1 / span 2;
+      }
+
+      .sound-player__button {
+        width: 27px;
+        height: 25px;
+      }
+
+      .sound-player__display {
+        min-width: 0;
+      }
+
+      .sound-player__track-title {
+        font-size: 9px;
+      }
+
+      .sound-player__timeline {
+        grid-column: 2;
+      }
+
+      .sound-player__volume {
+        display: none;
+      }
+
       .entry-gate {
         grid-template-columns: 1fr 14px 1fr;
         align-items: center;
-        padding: 18px 10px;
+        padding: 78px 10px 18px;
       }
 
       .path {
@@ -804,10 +1032,37 @@
 </style>
 </head>
 <body>
-  <audio id="backgroundMusic" preload="auto" autoplay loop playsinline>
-    <source src="nate%20savard%20-%20chosen%20few%20song%203.mp3" type="audio/mpeg" />
-    <source src="https://raw.githubusercontent.com/natesavard/natesavard.github.io/main/nate%20savard%20-%20chosen%20few%20song%203.mp3" type="audio/mpeg" />
-  </audio>
+  <section class="sound-player" aria-label="Nate Savard music player">
+    <div class="sound-player__inner">
+      <div class="sound-player__brand" aria-hidden="true">
+        <strong>NS AUDIO</strong>
+        <small>STEREO 85</small>
+      </div>
+      <div class="sound-player__controls" aria-label="Playback controls">
+        <button class="sound-player__button" id="soundPlayerPrevious" type="button" aria-label="Previous track">&#9198;</button>
+        <button class="sound-player__button" id="soundPlayerPlay" type="button" aria-label="Play track" aria-pressed="false">&#9654;</button>
+        <button class="sound-player__button" id="soundPlayerNext" type="button" aria-label="Next track">&#9197;</button>
+      </div>
+      <div class="sound-player__display" aria-live="polite">
+        <div class="sound-player__track-row">
+          <span class="sound-player__track-number" id="soundPlayerTrackNumber">01/01</span>
+          <span class="sound-player__track-title" id="soundPlayerTrackTitle">NATE SAVARD — CHOSEN FEW / SONG 3</span>
+        </div>
+        <div class="sound-player__display-meta">
+          <span class="sound-player__status" id="soundPlayerStatus">LOADING</span>
+          <time class="sound-player__time" id="soundPlayerTime">00:00 / --:--</time>
+        </div>
+      </div>
+      <div class="sound-player__timeline">
+        <input class="sound-player__range" id="soundPlayerSeek" type="range" min="0" max="1000" value="0" aria-label="Track position" />
+        <label class="sound-player__volume">
+          VOL
+          <input class="sound-player__range" id="soundPlayerVolume" type="range" min="0" max="100" value="90" aria-label="Volume" />
+        </label>
+      </div>
+    </div>
+  </section>
+  <audio id="backgroundMusic" preload="metadata" playsinline></audio>
   <div class="entry-third-backdrop" aria-hidden="true"></div>
   <div class="entry-fourth-backdrop" aria-hidden="true"></div>
   <main class="entry-gate" aria-label="Choose your path">
@@ -870,14 +1125,88 @@
       }
 
       var backgroundMusic = document.getElementById("backgroundMusic");
-      var backgroundMusicStarted = false;
       var backgroundMusicTimeKey = "siteflow_music_time";
+      var soundPlayerVolumeKey = "siteflow_music_volume";
       var backgroundMusicLastSavedAt = 0;
-      var backgroundMusicBootTimer = null;
-      var backgroundMusicBootAttempts = 0;
+      var soundPlayerTracks = [
+        {
+          title: "NATE SAVARD — CHOSEN FEW / SONG 3",
+          src: "Song%203%20FULLLL.mp3"
+        }
+      ];
+      var soundPlayerTrackIndex = 0;
+      var soundPlayerPlay = document.getElementById("soundPlayerPlay");
+      var soundPlayerPrevious = document.getElementById("soundPlayerPrevious");
+      var soundPlayerNext = document.getElementById("soundPlayerNext");
+      var soundPlayerSeek = document.getElementById("soundPlayerSeek");
+      var soundPlayerVolume = document.getElementById("soundPlayerVolume");
+      var soundPlayerStatus = document.getElementById("soundPlayerStatus");
+      var soundPlayerTime = document.getElementById("soundPlayerTime");
+      var soundPlayerTrackNumber = document.getElementById("soundPlayerTrackNumber");
+      var soundPlayerTrackTitle = document.getElementById("soundPlayerTrackTitle");
+
+      function getSoundPlayerTrack() {
+        return soundPlayerTracks[soundPlayerTrackIndex];
+      }
+
+      function formatSoundPlayerTime(seconds) {
+        var safeSeconds = Number.isFinite(seconds) && seconds >= 0 ? Math.floor(seconds) : 0;
+        var minutes = Math.floor(safeSeconds / 60);
+        var remainder = safeSeconds % 60;
+        return String(minutes).padStart(2, "0") + ":" + String(remainder).padStart(2, "0");
+      }
+
+      function syncSoundPlayer() {
+        if (!backgroundMusic) return;
+
+        var track = getSoundPlayerTrack();
+        var isPlaceholder = !track || !track.src;
+        var duration = Number(backgroundMusic.duration || 0);
+        var current = Number(backgroundMusic.currentTime || 0);
+        var isPlaying = !isPlaceholder && !backgroundMusic.paused && !backgroundMusic.ended;
+
+        if (soundPlayerPlay) {
+          soundPlayerPlay.innerHTML = isPlaying ? "&#10074;&#10074;" : "&#9654;";
+          soundPlayerPlay.setAttribute("aria-label", isPlaying ? "Pause track" : "Play track");
+          soundPlayerPlay.setAttribute("aria-pressed", isPlaying ? "true" : "false");
+        }
+
+        if (soundPlayerTrackNumber) {
+          soundPlayerTrackNumber.textContent = String(soundPlayerTrackIndex + 1).padStart(2, "0") + "/" + soundPlayerTracks.length;
+        }
+
+        if (soundPlayerTrackTitle) {
+          soundPlayerTrackTitle.textContent = track ? track.title : "NO TRACK";
+        }
+
+        if (soundPlayerStatus) {
+          if (isPlaceholder) {
+            soundPlayerStatus.textContent = "NO TRACK";
+          } else if (isPlaying) {
+            soundPlayerStatus.textContent = "PLAYING";
+          } else if (backgroundMusic.networkState === 3) {
+            soundPlayerStatus.textContent = "LOAD ERROR";
+          } else if (backgroundMusic.readyState < 1) {
+            soundPlayerStatus.textContent = "LOADING";
+          } else {
+            soundPlayerStatus.textContent = current > 0 ? "PAUSED" : "READY";
+          }
+        }
+
+        if (soundPlayerTime) {
+          soundPlayerTime.textContent = isPlaceholder
+            ? "--:-- / --:--"
+            : formatSoundPlayerTime(current) + " / " + (duration ? formatSoundPlayerTime(duration) : "--:--");
+        }
+
+        if (soundPlayerSeek) {
+          soundPlayerSeek.value = duration ? String(Math.round((current / duration) * 1000)) : "0";
+          soundPlayerSeek.disabled = isPlaceholder;
+        }
+      }
 
       function saveBackgroundMusicPosition(force) {
-        if (!backgroundMusic) return;
+        if (!backgroundMusic || soundPlayerTrackIndex !== 0) return;
 
         var current = Number(backgroundMusic.currentTime || 0);
         if (!Number.isFinite(current)) return;
@@ -897,7 +1226,15 @@
         backgroundMusic.dataset.musicStateBound = "true";
 
         function restoreBackgroundMusicPosition() {
-          var stored = Number(window.localStorage.getItem(backgroundMusicTimeKey) || "0");
+          if (soundPlayerTrackIndex !== 0) return;
+
+          var stored = 0;
+          try {
+            stored = Number(window.localStorage.getItem(backgroundMusicTimeKey) || "0");
+          } catch (error) {
+            return;
+          }
+
           var duration = Number(backgroundMusic.duration || 0);
           if (!Number.isFinite(stored) || stored <= 0.15) return;
           if (duration && stored >= duration - 0.5) return;
@@ -910,22 +1247,28 @@
         }
 
         backgroundMusic.addEventListener("loadedmetadata", restoreBackgroundMusicPosition);
-        backgroundMusic.addEventListener("loadeddata", ensureBackgroundMusic);
-        backgroundMusic.addEventListener("canplay", ensureBackgroundMusic);
-        backgroundMusic.addEventListener("canplaythrough", ensureBackgroundMusic);
+        backgroundMusic.addEventListener("loadedmetadata", syncSoundPlayer);
+        backgroundMusic.addEventListener("loadstart", syncSoundPlayer);
+        backgroundMusic.addEventListener("canplay", syncSoundPlayer);
+        backgroundMusic.addEventListener("error", syncSoundPlayer);
         backgroundMusic.addEventListener("timeupdate", function () {
           saveBackgroundMusicPosition(false);
+          syncSoundPlayer();
         });
         backgroundMusic.addEventListener("play", function () {
-          backgroundMusicStarted = true;
-          stopBackgroundMusicBootCycle();
+          syncSoundPlayer();
+        });
+        backgroundMusic.addEventListener("pause", function () {
+          syncSoundPlayer();
         });
         backgroundMusic.addEventListener("ended", function () {
           try {
             window.localStorage.setItem(backgroundMusicTimeKey, "0");
           } catch (error) {
-            return;
+            // Continue to the next playlist slot even if storage is unavailable.
           }
+
+          loadSoundPlayerTrack(soundPlayerTrackIndex + 1, true);
         });
 
         window.addEventListener("pagehide", function () {
@@ -939,69 +1282,44 @@
         restoreBackgroundMusicPosition();
       }
 
-      function stopBackgroundMusicBootCycle() {
-        if (backgroundMusicBootTimer) {
-          window.clearInterval(backgroundMusicBootTimer);
-          backgroundMusicBootTimer = null;
-        }
-      }
-
-      function startBackgroundMusicBootCycle() {
-        if (!backgroundMusic || backgroundMusicStarted || backgroundMusicBootTimer) return;
-
-        backgroundMusicBootAttempts = 0;
-        backgroundMusicBootTimer = window.setInterval(function () {
-          if (!backgroundMusic || backgroundMusicStarted) {
-            stopBackgroundMusicBootCycle();
-            return;
-          }
-
-          backgroundMusicBootAttempts += 1;
-          ensureBackgroundMusic();
-
-          if (backgroundMusicBootAttempts >= 24) {
-            stopBackgroundMusicBootCycle();
-          }
-        }, 650);
-      }
-
-      function startBackgroundMusic() {
-        if (!backgroundMusic) return;
-
-        bindBackgroundMusicPersistence();
-
-        try {
-          window.localStorage.setItem("siteflow_sound_on", "true");
-        } catch (error) {
-          // Ignore storage failures and still attempt playback.
-        }
-
-        backgroundMusic.autoplay = true;
-        backgroundMusic.defaultMuted = false;
-        backgroundMusic.muted = false;
-        backgroundMusic.loop = true;
-        backgroundMusic.playsInline = true;
-        backgroundMusic.volume = 0.9;
-
-        var playAttempt = backgroundMusic.play();
-        if (playAttempt && typeof playAttempt.then === "function") {
-          playAttempt.then(function () {
-            backgroundMusicStarted = true;
-            stopBackgroundMusicBootCycle();
-          }).catch(function () {
-            backgroundMusicStarted = false;
-            startBackgroundMusicBootCycle();
-          });
+      function playSoundPlayerTrack() {
+        var track = getSoundPlayerTrack();
+        if (!backgroundMusic || !track || !track.src) {
+          syncSoundPlayer();
           return;
         }
 
-        backgroundMusicStarted = true;
-        stopBackgroundMusicBootCycle();
+        backgroundMusic.muted = false;
+        var playAttempt = backgroundMusic.play();
+        if (playAttempt && typeof playAttempt.then === "function") {
+          playAttempt.then(syncSoundPlayer).catch(syncSoundPlayer);
+        }
       }
 
-      function ensureBackgroundMusic() {
-        if (backgroundMusicStarted) return;
-        startBackgroundMusic();
+      function loadSoundPlayerTrack(index, shouldPlay) {
+        if (!backgroundMusic) return;
+
+        saveBackgroundMusicPosition(true);
+        backgroundMusic.pause();
+        soundPlayerTrackIndex = (index + soundPlayerTracks.length) % soundPlayerTracks.length;
+
+        var track = getSoundPlayerTrack();
+        backgroundMusic.currentTime = 0;
+
+        if (!track.src) {
+          backgroundMusic.removeAttribute("src");
+          backgroundMusic.load();
+          syncSoundPlayer();
+          return;
+        }
+
+        backgroundMusic.src = track.src;
+        backgroundMusic.load();
+        syncSoundPlayer();
+
+        if (shouldPlay) {
+          playSoundPlayerTrack();
+        }
       }
 
       applyImageCandidate(".path-official-logo", [
@@ -1044,31 +1362,98 @@
         document.documentElement.style.setProperty("--entry-fourth-image", 'url("' + src + '")');
       });
 
-      ["pointerdown", "touchstart", "keydown", "click"].forEach(function (eventName) {
-        window.addEventListener(eventName, ensureBackgroundMusic, { passive: true, capture: true });
-      });
-
-      ["load", "pageshow", "focus"].forEach(function (eventName) {
-        window.addEventListener(eventName, ensureBackgroundMusic, { passive: true });
-      });
-
-      document.addEventListener("visibilitychange", function () {
-        if (!document.hidden) ensureBackgroundMusic();
-      });
-
       document.querySelectorAll(".path").forEach(function (link) {
         link.addEventListener("click", function () {
-          ensureBackgroundMusic();
           saveBackgroundMusicPosition(true);
         }, { capture: true });
       });
 
-      if (backgroundMusic && typeof backgroundMusic.load === "function") {
-        backgroundMusic.load();
+      if (soundPlayerPlay) {
+        soundPlayerPlay.addEventListener("click", function () {
+          var track = getSoundPlayerTrack();
+          if (!backgroundMusic || !track || !track.src) {
+            syncSoundPlayer();
+            return;
+          }
+
+          if (backgroundMusic.paused) {
+            playSoundPlayerTrack();
+            return;
+          }
+
+          backgroundMusic.pause();
+        });
       }
 
-      startBackgroundMusicBootCycle();
-      ensureBackgroundMusic();
+      if (soundPlayerPrevious) {
+        soundPlayerPrevious.addEventListener("click", function () {
+          if (!backgroundMusic) return;
+
+          var track = getSoundPlayerTrack();
+          var wasPlaying = !!track.src && !backgroundMusic.paused;
+
+          if (track.src && backgroundMusic.currentTime > 3) {
+            backgroundMusic.currentTime = 0;
+            syncSoundPlayer();
+            return;
+          }
+
+          loadSoundPlayerTrack(soundPlayerTrackIndex - 1, wasPlaying);
+        });
+      }
+
+      if (soundPlayerNext) {
+        soundPlayerNext.addEventListener("click", function () {
+          if (!backgroundMusic) return;
+
+          var track = getSoundPlayerTrack();
+          var wasPlaying = !!track.src && !backgroundMusic.paused;
+          loadSoundPlayerTrack(soundPlayerTrackIndex + 1, wasPlaying);
+        });
+      }
+
+      if (soundPlayerSeek) {
+        soundPlayerSeek.addEventListener("input", function () {
+          if (!backgroundMusic || !backgroundMusic.duration) return;
+          backgroundMusic.currentTime = (Number(soundPlayerSeek.value || 0) / 1000) * backgroundMusic.duration;
+          syncSoundPlayer();
+        });
+      }
+
+      if (soundPlayerVolume) {
+        soundPlayerVolume.addEventListener("input", function () {
+          if (!backgroundMusic) return;
+          backgroundMusic.muted = false;
+          backgroundMusic.volume = Number(soundPlayerVolume.value || 0) / 100;
+
+          try {
+            window.localStorage.setItem(soundPlayerVolumeKey, String(backgroundMusic.volume));
+          } catch (error) {
+            // Volume still works when storage is unavailable.
+          }
+        });
+      }
+
+      bindBackgroundMusicPersistence();
+
+      if (backgroundMusic && soundPlayerVolume) {
+        var storedVolume = 0.9;
+
+        try {
+          storedVolume = Number(window.localStorage.getItem(soundPlayerVolumeKey) || "0.9");
+        } catch (error) {
+          storedVolume = 0.9;
+        }
+
+        if (!Number.isFinite(storedVolume) || storedVolume < 0 || storedVolume > 1) {
+          storedVolume = 0.9;
+        }
+
+        backgroundMusic.volume = storedVolume;
+        soundPlayerVolume.value = String(Math.round(storedVolume * 100));
+      }
+
+      loadSoundPlayerTrack(0, false);
     })();
   </script>
 </body>
