@@ -3130,6 +3130,140 @@
       }
     }
 
+
+    /* side-by-side floating shirts revision */
+    .archive__intro--shop .shop-grid {
+      width: min(960px, 100%);
+      margin: 0 auto;
+      padding: clamp(84px, 9vw, 126px) 0 clamp(30px, 4vw, 54px);
+      align-items: end;
+      justify-items: center;
+      gap: clamp(28px, 4vw, 58px);
+    }
+
+    .archive__intro--shop .shop-card {
+      width: min(100%, 410px);
+      min-width: 0;
+      animation: nlsmGarmentFloatFlatA 7.1s ease-in-out infinite;
+    }
+
+    .archive__intro--shop .shop-card:nth-child(2) {
+      margin-top: 0;
+      animation-name: nlsmGarmentFloatFlatB;
+      animation-duration: 7.7s;
+    }
+
+    .archive__intro--shop .shop-card__button {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+      text-align: center;
+    }
+
+    .archive__intro--shop .shop-card__stage {
+      width: 100%;
+      aspect-ratio: 0.88;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+    }
+
+    .archive__intro--shop .shop-card__stage::before {
+      opacity: 0.14;
+      mask-image: radial-gradient(circle at center, #000, transparent 70%);
+    }
+
+    .archive__intro--shop .shop-card__stage::after {
+      top: 6%;
+      left: 50%;
+      transform: translateX(-50%);
+      color: rgba(188, 255, 143, 0.46);
+    }
+
+    .archive__intro--shop .shop-card__image {
+      inset: auto;
+      width: min(100%, 390px);
+      height: auto;
+      max-height: 100%;
+      object-fit: contain;
+      object-position: center bottom;
+      transform: none;
+      filter:
+        drop-shadow(0 30px 42px rgba(0, 0, 0, 0.74))
+        drop-shadow(0 0 24px rgba(242, 210, 144, 0.10));
+    }
+
+    .archive__intro--shop .shop-card__meta {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      text-align: center;
+      color: rgba(242, 234, 219, 0.93);
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+    }
+
+    .archive__intro--shop .shop-card__meta > span:first-child {
+      font-size: 0.78rem;
+    }
+
+    .archive__intro--shop .shop-card__price {
+      font-size: 0.72rem;
+      letter-spacing: 0.18em;
+    }
+
+    .archive__intro--shop .shop-card__edition {
+      display: none;
+    }
+
+    @keyframes nlsmGarmentFloatFlatA {
+      0%, 100% { transform: translate3d(0, -6px, 0); }
+      50% { transform: translate3d(0, 8px, 0); }
+    }
+
+    @keyframes nlsmGarmentFloatFlatB {
+      0%, 100% { transform: translate3d(0, 6px, 0); }
+      50% { transform: translate3d(0, -7px, 0); }
+    }
+
+    @media (max-width: 860px) {
+      .archive__intro--shop .shop-grid {
+        width: 100%;
+        gap: 16px;
+      }
+
+      .archive__intro--shop .shop-card {
+        width: min(100%, 360px);
+      }
+
+      .archive__intro--shop .shop-card:nth-child(2) {
+        margin-top: 0;
+      }
+    }
+
+    @media (max-width: 620px) {
+      .archive__intro--shop .shop-grid {
+        padding-top: 88px;
+        grid-template-columns: 1fr;
+        gap: 22px;
+      }
+
+      .archive__intro--shop .shop-card,
+      .archive__intro--shop .shop-card:nth-child(2) {
+        width: min(86%, 390px);
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .archive__intro--shop .shop-card__stage {
+        aspect-ratio: 0.9;
+      }
+    }
+
   </style>
 </head>
 <body class="is-booting">
@@ -3372,26 +3506,26 @@
                 class="shop-card__button"
                 type="button"
                 data-shop-index="0"
-                aria-label="Open Envy Shirt Legacy Tee"
+                aria-label="Open Envy Crystal V-Neck Tee"
               >
                 <span class="shop-card__stage" data-object="001">
                   <img
                     class="shop-card__image shop-card__image--primary"
-                    src="envy-shirt-legacy-tee.png"
-                    alt="Envy Shirt Legacy Tee"
+                    src="distressed_envy_crystal_v_neck_tee.png"
+                    alt="Envy Crystal V-Neck Tee"
                   />
                   <img
                     class="shop-card__image shop-card__image--alt"
-                    src="envy-shirt-legacy-tee.png"
+                    src="distressed_envy_crystal_v_neck_tee.png"
                     alt=""
                     aria-hidden="true"
                   />
                 </span>
                 <span class="shop-card__meta">
-                  <span>Envy Shirt Legacy Tee</span>
+                  <span>Envy Crystal V-Neck Tee</span>
                   <span class="shop-card__price">$145.00</span>
                 </span>
-                <span class="shop-card__edition">deep v / crystal script / archive object 001</span>
+                <span class="shop-card__edition"></span>
               </button>
             </article>
 
@@ -3400,26 +3534,26 @@
                 class="shop-card__button"
                 type="button"
                 data-shop-index="1"
-                aria-label="Open Fuck Up Tee"
+                aria-label="Open Chrome Star Distressed Tee"
               >
                 <span class="shop-card__stage" data-object="002">
                   <img
                     class="shop-card__image shop-card__image--primary"
-                    src="envy-cross-tee-board.png"
-                    alt="Fuck Up Tee"
+                    src="chrome_star_distressed_black_t_shirt.png"
+                    alt="Chrome Star Distressed Tee"
                   />
                   <img
                     class="shop-card__image shop-card__image--alt"
-                    src="envy-cross-tee-fuck-up-lookbook.png"
+                    src="chrome_star_distressed_black_t_shirt.png"
                     alt=""
                     aria-hidden="true"
                   />
                 </span>
                 <span class="shop-card__meta">
-                  <span>Fuck Up Tee</span>
+                  <span>Chrome Star Distressed Tee</span>
                   <span class="shop-card__price">$190.00</span>
                 </span>
-                <span class="shop-card__edition">scarred front / chrome crossback / archive object 002</span>
+                <span class="shop-card__edition"></span>
               </button>
             </article>
           </div>
@@ -3485,7 +3619,7 @@
 
       <div class="shop-viewer__controls">
         <span class="shop-viewer__index" id="shopViewerIndex">OBJECT 001 / 002</span>
-        <h2 class="shop-viewer__name" id="shopViewerName">Envy Shirt Legacy Tee</h2>
+        <h2 class="shop-viewer__name" id="shopViewerName">Envy Crystal V-Neck Tee</h2>
         <div class="shop-viewer__price" id="shopViewerPrice">$145.00</div>
         <p class="shop-viewer__description" id="shopViewerDescription"></p>
 
@@ -4426,16 +4560,16 @@
     (function () {
       var products = [
         {
-          name: "Envy Shirt Legacy Tee",
+          name: "Envy Crystal V-Neck Tee",
           price: "$145.00",
-          image: "envy-shirt-legacy-tee.png",
-          description: "Main house shirt. Deep V legacy tee with crystal script in front and the Envy cross carried across the back."
+          image: "distressed_envy_crystal_v_neck_tee.png",
+          description: "Floating garment cutout. Crystal-script deep V archive tee rendered clean and straight-on."
         },
         {
-          name: "Fuck Up Tee",
+          name: "Chrome Star Distressed Tee",
           price: "$190.00",
-          image: "envy-cross-tee-board.png",
-          description: "Luxury Deep V tee carrying the Envy cross on back with a scarred front statement and stripped-down finish."
+          image: "chrome_star_distressed_black_t_shirt.png",
+          description: "Floating garment cutout. Distressed black tee with chrome star signal on back."
         }
       ];
 
