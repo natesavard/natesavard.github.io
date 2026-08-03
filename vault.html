@@ -411,6 +411,41 @@
     }
     .footer__right { text-align: right; }
 
+    .floating-envy-star {
+      position: fixed;
+      right: 24px;
+      bottom: 24px;
+      z-index: 2600;
+      width: clamp(64px, 8vw, 96px);
+      padding: 0;
+      border: 0;
+      background: transparent;
+      cursor: pointer;
+      filter:
+        drop-shadow(0 16px 28px rgba(0, 0, 0, 0.42))
+        drop-shadow(0 0 18px rgba(255, 255, 255, 0.1));
+    }
+    .floating-envy-star img {
+      display: block;
+      width: 100%;
+      height: auto;
+      opacity: .92;
+      transform-origin: center;
+      animation: envyStarSpin 8.5s linear infinite;
+    }
+    .floating-envy-star:hover img {
+      animation: envyStarSpinReverse 1.8s linear infinite;
+      filter: drop-shadow(0 0 24px rgba(255, 255, 255, 0.16));
+    }
+    @keyframes envyStarSpin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+    @keyframes envyStarSpinReverse {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(-360deg); }
+    }
+
     @media (max-width: 980px) {
       .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .hero { min-height: 62vh; }
@@ -449,6 +484,7 @@
       .footer__logo { margin: 0 auto; }
       .footer__tag { margin: 0 auto; width: min(100%, 280px); }
       .footer__right { text-align: center; }
+      .floating-envy-star { right: 16px; bottom: 16px; width: 72px; }
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -878,10 +914,12 @@
 </div>
 </div>
 <header class="site-header">
+<a aria-label="Return to Nate Savard home" class="site-header__home" href="https://natesavard.com/">
 <div aria-label="Nate Savard" class="site-header__left originals-signature">
 <img alt="Nate Savard signature" class="corner-signature-base" src="https://raw.githubusercontent.com/natesavard/natesavard.github.io/main/nate-savard-signature-corner.png"/>
 <img alt="" aria-hidden="true" class="corner-signature-pass" src="https://raw.githubusercontent.com/natesavard/natesavard.github.io/main/nate-savard-signature-write-on.png"/>
 </div>
+</a>
 <img alt="NS" class="site-header__mark" src="assets/ns-chrome-monogram.webp"/>
 <div class="site-header__right">
 <div aria-label="N L S M 27 slash 28" class="season-badge">
@@ -932,7 +970,7 @@
 <section class="archive" id="archive">
 <div class="archive__bar">
 <div class="archive__title">Archive Index</div>
-<div class="archive__count" id="archiveCount">6 recovered designs</div>
+<div class="archive__count" id="archiveCount">7 recovered designs</div>
 <label>
 <span style="position:absolute;left:-9999px">Sort archive</span>
 <select id="sortSelect">
@@ -950,6 +988,19 @@
 <button class="filter" data-filter="experiment">Experiments</button>
 </div>
 <div class="grid" id="archiveGrid">
+<article class="card" data-category="garment" data-name="Lost Dimensions: Insomnia 2026" data-year="2026">
+<div class="card__image-wrap">
+<span class="card__badge">New arrival</span>
+<img alt="Lost Dimensions: Insomnia 2026 Tee" class="card__image" src="assets/lost-dimensions-insomnia-2026-tee.png"/>
+</div>
+<div class="card__meta">
+<div>
+<h2 class="card__name">Lost Dimensions: Insomnia 2026</h2>
+<p class="card__type">Garment / black heavyweight / N L S M 85</p>
+</div>
+<div class="card__year">2026</div>
+</div>
+</article>
 <article class="card" data-category="garment" data-name="Envy Crystal V-Neck" data-year="2026">
 <div class="card__image-wrap">
 <span class="card__badge">Archived</span>
@@ -1031,6 +1082,9 @@
 </div>
 </section>
 </main>
+<button aria-label="Return to top" class="floating-envy-star" id="floatingEnvyStar" type="button">
+<img alt="Envy star" src="envy-cross.png"/>
+</button>
 <footer class="footer">
 <div><img alt="Death Is Not The End Of Consciousness tag" class="footer__tag" src="assets/consciousness-tag.webp"/></div>
 <img alt="" class="footer__logo" src="assets/ns-chrome-monogram.webp"/>
@@ -1043,6 +1097,7 @@
     const sortSelect = document.getElementById('sortSelect');
     const filters = document.getElementById('filters');
     const archiveCount = document.getElementById('archiveCount');
+    const floatingEnvyStar = document.getElementById('floatingEnvyStar');
     let activeFilter = 'all';
 
     window.addEventListener('load', () => {
@@ -1052,6 +1107,10 @@
     heroLogo.addEventListener('click', () => {
       heroLogo.autoRotate = !heroLogo.autoRotate;
       heroLogo.classList.toggle('is-paused', !heroLogo.autoRotate);
+    });
+
+    floatingEnvyStar.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     });
 
     document.addEventListener('pointermove', (event) => {
