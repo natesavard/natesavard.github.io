@@ -637,6 +637,36 @@
       white-space: nowrap;
     }
 
+    .collection-links {
+      position: fixed;
+      z-index: 24;
+      right: 18px;
+      bottom: 15px;
+      left: 18px;
+      display: flex;
+      justify-content: center;
+      gap: clamp(18px, 4vw, 58px);
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: clamp(11px, 1.05vw, 15px);
+      font-weight: 800;
+      letter-spacing: 0.13em;
+      line-height: 1;
+      text-transform: uppercase;
+    }
+
+    .collection-links a {
+      color: #fff;
+      text-decoration: none;
+      text-shadow: 0 2px 16px rgba(0, 0, 0, 0.92);
+      transition: color 180ms ease, opacity 180ms ease;
+    }
+
+    .collection-links a:hover,
+    .collection-links a:focus-visible {
+      color: var(--gold);
+      outline: none;
+    }
+
     @keyframes portraitFloat {
       0%,
       100% {
@@ -1094,6 +1124,11 @@
       <div class="path-route">Enter 27-28</div>
     </a>
   </main>
+  <nav class="collection-links" aria-label="Collections">
+    <a href="revelations.html">Revelations</a>
+    <a href="vault.html">Vault</a>
+    <a href="insomnia-world.html">Insomnia World</a>
+  </nav>
   <script>
     (function () {
       function tryImageSources(candidates, onSuccess) {
