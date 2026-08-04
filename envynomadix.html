@@ -3274,14 +3274,6 @@
               </div>
             </article>
 
-            <article class="catalogue-card" data-house-product="NLS Star ’85 F/S" data-house-price="available now" data-house-description="Nate Savard shop release. Select your size here, then continue to secure checkout." data-house-image="envy-legacy-tee-cutout.png" data-house-buy-url="https://nate-savard-shop.fourthwall.com/products/nls-star-85-f-s">
-              <img src="envy-legacy-tee-cutout.png" alt="NLS Star 85 F/S product preview" />
-              <div class="catalogue-card-copy">
-                <h3 class="catalogue-card-title">NLS Star ’85 F/S</h3>
-                <p class="catalogue-card-note">shop release / select size / buy now</p>
-              </div>
-            </article>
-
             <article class="catalogue-card" data-house-product="Fuck Up Tee" data-house-price="$190.00" data-house-description="Luxury deep v tee carrying the envy cross on back with a scarred front statement and stripped-down finish." data-house-image="envy-cross-tee-board.png">
               <img src="envy-cross-tee-board.png" alt="Fuck up tee board" />
               <div class="catalogue-card-copy">
@@ -4185,7 +4177,6 @@
           price: product.price,
           description: product.description,
           image: product.image,
-          buyUrl: product.buyUrl || "",
           optionLabel: product.optionLabel,
           options: Array.isArray(product.options) ? product.options.slice() : defaultHouseOptions.slice()
         };
@@ -4316,7 +4307,6 @@
           price: trigger.getAttribute("data-house-price") || "$145.00",
           description: trigger.getAttribute("data-house-description") || "Collector black jersey. oversized body. halo pressure. built for the chosen few.",
           image: trigger.getAttribute("data-house-image") || "envy-shirt-legacy-tee.png",
-          buyUrl: trigger.getAttribute("data-house-buy-url") || "",
           optionLabel: trigger.getAttribute("data-house-option-label") || "Select size",
           options: optionList.length ? optionList : defaultHouseOptions
         };
@@ -4360,7 +4350,6 @@
         if (houseProductTitle) houseProductTitle.textContent = product.name;
         if (houseProductPrice) houseProductPrice.textContent = product.price;
         if (houseProductDescription) houseProductDescription.textContent = product.description;
-        if (houseAddToCartButton) houseAddToCartButton.textContent = product.buyUrl ? "buy this piece" : "add to cart";
         setHouseOptions(product.optionLabel, product.options, product.options && product.options[0] ? product.options[0] : "m");
         setHouseQuantity(1);
         houseViewer.classList.add("is-open");
@@ -4399,11 +4388,6 @@
 
       function addHouseProductToCart() {
         if (!houseActiveProduct) return;
-
-        if (houseActiveProduct.buyUrl) {
-          window.location.href = houseActiveProduct.buyUrl;
-          return;
-        }
 
         var existing = houseCart.find(function (item) {
           return item.name === houseActiveProduct.name && item.size === houseSelectedSize;
@@ -4472,7 +4456,6 @@
           price: item.price,
           description: item.description,
           image: item.image,
-          buyUrl: item.buyUrl || "",
           optionLabel: item.optionLabel,
           options: item.options
         });
