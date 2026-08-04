@@ -1461,6 +1461,22 @@
         drop-shadow(0 0 18px rgba(221, 176, 109, 0.08));
     }
 
+    .catalogue-card .catalogue-card-hover-image {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.35s ease, transform 0.45s ease, filter 0.45s ease;
+    }
+
+    .catalogue-card:hover .catalogue-card-primary-image {
+      opacity: 0;
+    }
+
+    .catalogue-card:hover .catalogue-card-hover-image {
+      opacity: 0.96;
+    }
+
     .catalogue-card.is-art img {
       object-fit: cover;
       opacity: 0.82;
@@ -3267,7 +3283,8 @@
         <div class="catalogue-rail" aria-label="Sideways catalogue">
           <div class="catalogue-track">
             <article class="catalogue-card" data-house-product="NLS Star ’85 F/S" data-house-price="available now" data-house-description="Nate Savard shop release. Select your size, then continue to secure checkout." data-house-image="nls-star-85-fs.avif" data-house-buy-url="https://nate-savard-shop.fourthwall.com/products/nls-star-85-f-s">
-              <img src="nls-star-85-fs.avif" alt="NLS Star 85 F/S shirt" />
+              <img class="catalogue-card-primary-image" src="nls-star-85-fs.avif" alt="NLS Star 85 F/S shirt" />
+              <img class="catalogue-card-hover-image" src="nls-star-85-fs-hover.avif" alt="NLS Star 85 F/S alternate view" />
               <div class="catalogue-card-copy">
                 <h3 class="catalogue-card-title">NLS Star ’85 F/S</h3>
                 <p class="catalogue-card-note">current release / select size / buy now</p>
