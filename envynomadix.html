@@ -3266,11 +3266,11 @@
 
         <div class="catalogue-rail" aria-label="Sideways catalogue">
           <div class="catalogue-track">
-            <article class="catalogue-card" data-house-product="NLSM Envy Tee" data-house-price="$145.00" data-house-description="Distressed black collector tee with the NLSM Envy angel print. Made for the chosen few." data-house-image="envy-legacy-tee-cutout.png">
-              <img src="envy-legacy-tee-cutout.png" alt="NLSM Envy Tee isolated product cutout" />
+            <article class="catalogue-card" data-house-product="NLS Star ’85 F/S" data-house-price="available now" data-house-description="Nate Savard shop release. Select your size, then continue to secure checkout." data-house-image="nls-star-85-fs.avif" data-house-buy-url="https://nate-savard-shop.fourthwall.com/products/nls-star-85-f-s">
+              <img src="nls-star-85-fs.avif" alt="NLS Star 85 F/S shirt" />
               <div class="catalogue-card-copy">
-                <h3 class="catalogue-card-title">NLSM Envy Tee</h3>
-                <p class="catalogue-card-note">first edition / distressed black / chosen few</p>
+                <h3 class="catalogue-card-title">NLS Star ’85 F/S</h3>
+                <p class="catalogue-card-note">current release / select size / buy now</p>
               </div>
             </article>
 
@@ -4177,6 +4177,7 @@
           price: product.price,
           description: product.description,
           image: product.image,
+          buyUrl: product.buyUrl || "",
           optionLabel: product.optionLabel,
           options: Array.isArray(product.options) ? product.options.slice() : defaultHouseOptions.slice()
         };
@@ -4307,6 +4308,7 @@
           price: trigger.getAttribute("data-house-price") || "$145.00",
           description: trigger.getAttribute("data-house-description") || "Collector black jersey. oversized body. halo pressure. built for the chosen few.",
           image: trigger.getAttribute("data-house-image") || "envy-shirt-legacy-tee.png",
+          buyUrl: trigger.getAttribute("data-house-buy-url") || "",
           optionLabel: trigger.getAttribute("data-house-option-label") || "Select size",
           options: optionList.length ? optionList : defaultHouseOptions
         };
@@ -4350,6 +4352,7 @@
         if (houseProductTitle) houseProductTitle.textContent = product.name;
         if (houseProductPrice) houseProductPrice.textContent = product.price;
         if (houseProductDescription) houseProductDescription.textContent = product.description;
+        if (houseAddToCartButton) houseAddToCartButton.textContent = product.buyUrl ? "buy this piece" : "add to cart";
         setHouseOptions(product.optionLabel, product.options, product.options && product.options[0] ? product.options[0] : "m");
         setHouseQuantity(1);
         houseViewer.classList.add("is-open");
@@ -4388,6 +4391,11 @@
 
       function addHouseProductToCart() {
         if (!houseActiveProduct) return;
+
+        if (houseActiveProduct.buyUrl) {
+          window.location.href = houseActiveProduct.buyUrl;
+          return;
+        }
 
         var existing = houseCart.find(function (item) {
           return item.name === houseActiveProduct.name && item.size === houseSelectedSize;
@@ -4456,6 +4464,7 @@
           price: item.price,
           description: item.description,
           image: item.image,
+          buyUrl: item.buyUrl || "",
           optionLabel: item.optionLabel,
           options: item.options
         });
