@@ -330,6 +330,26 @@
       transform: scale(.98);
       filter: saturate(1) contrast(1.08);
     }
+    .card__hover-image {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      transition: opacity .32s ease;
+    }
+    .card:hover .card__image:not(.card__hover-image) { opacity: 0; }
+    .card:hover .card__hover-image { opacity: 1; }
+    .card__buy {
+      display: inline-block;
+      margin: 0 6px 14px;
+      padding: 9px 11px;
+      border: 1px solid var(--line-strong);
+      color: var(--ink);
+      font: 9px/1 "Courier New", monospace;
+      letter-spacing: .13em;
+      text-transform: uppercase;
+      transition: background .2s ease, color .2s ease;
+    }
+    .card__buy:hover { background: var(--ink); color: #050505; }
     .card__scan {
       position: absolute;
       inset: 0;
@@ -988,6 +1008,21 @@
 <button class="filter" data-filter="experiment">Experiments</button>
 </div>
 <div class="grid" id="archiveGrid">
+<article class="card" data-category="garment" data-name="NLS Star 85 F/S" data-year="2026">
+<div class="card__image-wrap">
+<span class="card__badge">Current release</span>
+<img alt="NLS Star 85 F/S shirt front" class="card__image" src="nls-star-85-fs.avif"/>
+<img alt="NLS Star 85 F/S shirt alternate view" class="card__image card__hover-image" src="nls-star-85-fs-hover.avif"/>
+</div>
+<div class="card__meta">
+<div>
+<h2 class="card__name">NLS Star ’85 F/S</h2>
+<p class="card__type">Garment / current release / hover for alternate view</p>
+</div>
+<div class="card__year">2026</div>
+</div>
+<a class="card__buy" href="https://nate-savard-shop.fourthwall.com/products/nls-star-85-f-s">Buy / select size</a>
+</article>
 <article class="card" data-category="garment" data-name="Lost Dimensions: Insomnia 2026" data-year="2026">
 <div class="card__image-wrap">
 <span class="card__badge">New arrival</span>
