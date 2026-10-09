@@ -3269,8 +3269,14 @@
     .originals-cart-item-actions {
       display: flex;
       align-items: center;
-      gap: 12px;
-    }
+      gap: 12px;    }
+    
+/* Originals entry override */
+html::before { background-image: url("IMG_6721.jpg") !important; transition: opacity 1.25s ease !important; }
+html::after { content: ""; position: fixed; inset: 0; z-index: 0; pointer-events: none; background: url("IMG_6736.jpg") 38% center / cover no-repeat fixed; transform: scale(1.04); filter: saturate(0.94) contrast(1.04) brightness(0.88); opacity: 0; transition: opacity 1.25s ease; }
+html:has(body.originals-entered)::before { opacity: 0 !important; }
+html:has(body.originals-entered)::after { opacity: 1 !important; }
+
 
     .originals-cart-item-actions button {
       border: 0;
