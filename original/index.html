@@ -13,8 +13,8 @@
       --sand: #dec39a;
       --gold: #d7ab52;
       --line: rgba(255, 232, 188, 0.22);
-      --entry-portrait-image: url("nate-savard-forever.png");
-      --entry-storefront-image: url("turkey-nate-savard-1.png");
+      --entry-portrait-image: url("nate-savard-warm-portrait-3000(1).png");
+      --entry-storefront-image: url("IMG_6721.jpg");
       --entry-third-image: url("nate-savard-bg-3.png");
       --entry-fourth-image: url("nate savard speedway (1).png");
       --orb-travel: clamp(110px, 15vh, 170px);
@@ -680,14 +680,10 @@
 
     @keyframes backgroundSwapPortrait {
       0%,
-      45% {
-        opacity: 0;
-      }
-      50%,
-      70% {
+      20% {
         opacity: 0.6;
       }
-      75%,
+      25%,
       100% {
         opacity: 0;
       }
@@ -695,13 +691,14 @@
 
     @keyframes backgroundSwapStorefront {
       0%,
-      70% {
+      20% {
         opacity: 0;
       }
-      75%,
-      95% {
+      25%,
+      45% {
         opacity: 0.56;
       }
+      50%,
       100% {
         opacity: 0;
       }
@@ -709,10 +706,14 @@
 
     @keyframes backgroundSwapThird {
       0%,
-      20% {
+      45% {
+        opacity: 0;
+      }
+      50%,
+      70% {
         opacity: 0.58;
       }
-      25%,
+      75%,
       100% {
         opacity: 0;
       }
@@ -720,14 +721,13 @@
 
     @keyframes backgroundSwapFourth {
       0%,
-      20% {
+      70% {
         opacity: 0;
       }
-      25%,
-      45% {
+      75%,
+      95% {
         opacity: 0.54;
       }
-      50%,
       100% {
         opacity: 0;
       }
@@ -1031,18 +1031,6 @@
       }
     }
 </style>
-
-  <style>.sound-player{display:none!important}</style>
-  <script>
-    (function(){
-      var music=document.getElementById('backgroundMusic');
-      if(!music)return;
-      music.volume=.9;
-      function start(){music.play().catch(function(){});}
-      document.addEventListener('pointerdown',start,{once:true,capture:true});
-      window.addEventListener('load',start,{once:true});
-    })();
-  </script>
 </head>
 <body>
   <section class="sound-player" aria-label="Nate Savard music player">
@@ -1099,7 +1087,7 @@
         <img class="path-official-logo base" src="envy-nomadix-chrome-signature-cutout.png" alt="" />
         <img class="path-official-logo white" src="envy-nomadix-chrome-signature-cutout.png" alt="" />
       </span>
-      
+      <div class="path-kicker">Fashion House</div>
       <img class="path-logo" src="envy-cross.png" alt="Envy cross emblem" />
       <span class="path-wordmark-stack">
         <img class="path-wordmark base" src="ENVY NOMADIX ANGELS (1).png" alt="Envy Nomadix Angels" />
@@ -1347,7 +1335,6 @@
 
       tryImageSources([
         "nate-savard-warm-portrait-3000(1).png",
-        "IMG_6721.jpg",
         "nate-savard-forever.png",
         "nate savard forever.png"
       ], function (src) {
@@ -1355,6 +1342,7 @@
       });
 
       tryImageSources([
+        "IMG_6721.jpg",
         "turkey-nate-savard-1.png",
         "Turkey Nate Savard (1).png",
         "turkey-nate-savard.png",
