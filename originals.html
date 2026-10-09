@@ -2789,6 +2789,29 @@
         font-size: 17px;
       }
     }
+  
+
+    /* Entry sequence: 6721, then 6736 after Enter. */
+    html::before {
+      background-image: url("IMG_6721.jpg") !important;
+      transition: opacity 1.25s ease;
+    }
+    html::after {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      background: url("IMG_6736.jpg") 38% center / cover no-repeat fixed;
+      transform: scale(1.04);
+      transform-origin: center center;
+      filter: saturate(0.94) contrast(1.04) brightness(0.88);
+      opacity: 0;
+      transition: opacity 1.25s ease;
+    }
+    html:has(body.originals-entered)::before { opacity: 0; }
+    html:has(body.originals-entered)::after { opacity: 1; }
+
   </style>
   <link rel="stylesheet" href="site-flow.css" />
   <style>
@@ -3269,14 +3292,8 @@
     .originals-cart-item-actions {
       display: flex;
       align-items: center;
-      gap: 12px;    }
-    
-/* Originals entry override */
-html::before { background-image: url("IMG_6721.jpg") !important; transition: opacity 1.25s ease !important; }
-html::after { content: ""; position: fixed; inset: 0; z-index: 0; pointer-events: none; background: url("IMG_6736.jpg") 38% center / cover no-repeat fixed; transform: scale(1.04); filter: saturate(0.94) contrast(1.04) brightness(0.88); opacity: 0; transition: opacity 1.25s ease; }
-html:has(body.originals-entered)::before { opacity: 0 !important; }
-html:has(body.originals-entered)::after { opacity: 1 !important; }
-
+      gap: 12px;
+    }
 
     .originals-cart-item-actions button {
       border: 0;
@@ -3309,30 +3326,7 @@ html:has(body.originals-entered)::after { opacity: 1 !important; }
       letter-spacing: 0.22em;
     }
 
-
-    
-<style>
-  /* Entry portrait sequence: 6721 first, then 6736 after Enter. */
-  html::before {
-    background: url("IMG_6721.jpg") 38% center / cover no-repeat fixed !important;
-    transition: opacity 1.25s ease;
-  }
-  html::after {
-    content: "";
-    position: fixed;
-    inset: 0;
-    z-index: 0;
-    pointer-events: none;
-    background: url("IMG_6736.jpg") 38% center / cover no-repeat fixed;
-    transform: scale(1.04);
-    transform-origin: center center;
-    filter: saturate(0.94) contrast(1.04) brightness(0.88);
-    opacity: 0;
-    transition: opacity 1.25s ease;
-  }
-  html:has(body.originals-entered)::before { opacity: 0; }
-  html:has(body.originals-entered)::after { opacity: 1; }
-</style>.originals-cart-field input,
+    .originals-cart-field input,
     .originals-cart-field textarea {
       width: 100%;
       border: 1px solid rgba(215, 171, 82, 0.14);
