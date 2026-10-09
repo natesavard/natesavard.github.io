@@ -1031,6 +1031,18 @@
       }
     }
 </style>
+
+  <style>.sound-player{display:none!important}</style>
+  <script>
+    (function(){
+      var music=document.getElementById('backgroundMusic');
+      if(!music)return;
+      music.volume=.9;
+      function start(){music.play().catch(function(){});}
+      document.addEventListener('pointerdown',start,{once:true,capture:true});
+      window.addEventListener('load',start,{once:true});
+    })();
+  </script>
 </head>
 <body>
   <section class="sound-player" aria-label="Nate Savard music player">
