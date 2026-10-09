@@ -3303,7 +3303,30 @@
       letter-spacing: 0.22em;
     }
 
-    .originals-cart-field input,
+
+    
+<style>
+  /* Entry portrait sequence: 6721 first, then 6736 after Enter. */
+  html::before {
+    background: url("IMG_6721.jpg") 38% center / cover no-repeat fixed !important;
+    transition: opacity 1.25s ease;
+  }
+  html::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background: url("IMG_6736.jpg") 38% center / cover no-repeat fixed;
+    transform: scale(1.04);
+    transform-origin: center center;
+    filter: saturate(0.94) contrast(1.04) brightness(0.88);
+    opacity: 0;
+    transition: opacity 1.25s ease;
+  }
+  html:has(body.originals-entered)::before { opacity: 0; }
+  html:has(body.originals-entered)::after { opacity: 1; }
+</style>.originals-cart-field input,
     .originals-cart-field textarea {
       width: 100%;
       border: 1px solid rgba(215, 171, 82, 0.14);
