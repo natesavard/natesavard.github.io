@@ -1463,7 +1463,7 @@ html.ns85-v5-ready .sound-player{display:none!important}
 #ns85-v5 .ns-control{position:absolute;padding:0;display:grid;place-items:center}
 #ns85-v5 .ns-control img{width:100%;height:100%;object-fit:contain;pointer-events:none}
 #ns85-v5 .ns-play{left:22.4%;top:17%;width:9%;height:66%}
-#ns85-v5 .ns-stop{left:33.5%;top:25%;width:6%;height:50%}
+#ns85-v5 .ns-stop{left:32.7%;top:19%;width:8.1%;height:62%}
 #ns85-v5 .ns-control:hover{filter:brightness(1.15)}
 #ns85-v5 button:focus-visible,#ns85-v5 input:focus-visible{outline:2px solid #d9f6ff;outline-offset:2px}
 #ns85-v5 .ns-readout{position:absolute;left:43%;top:28%;width:30%;height:48%;pointer-events:none;text-shadow:0 0 6px #b7e6ff50}
@@ -1485,6 +1485,11 @@ html.ns85-v5-ready .sound-player{display:none!important}
 #ns85-v5.is-min{width:min(320px,calc(100vw - 24px));height:72px;aspect-ratio:auto}
 #ns85-v5.is-min .ns-expanded{display:none}
 #ns85-v5.is-min .ns-minimized{display:block!important}
+/* Separate, accessible minimized Play hotspot above the tab's baked-in play graphic. */
+#ns85-v5 .ns-mini-play{display:none;position:absolute;right:4.2%;top:17%;width:19%;height:66%;z-index:5;padding:0;border:0;border-radius:50%;background:transparent!important;cursor:pointer}
+#ns85-v5.is-min .ns-mini-play{display:block}
+#ns85-v5 .ns-mini-play:hover{filter:brightness(1.25)}
+@media(max-width:680px){#ns85-v5 .ns-mini-play{right:4.2%;top:17%}}
 @media(max-width:650px){#ns85-v5{right:8px;bottom:8px;width:calc(100vw - 16px)}#ns85-v5.is-min{width:min(320px,calc(100vw - 16px))}#ns85-v5 .ns-title{font-size:clamp(6px,1.65vw,9px)}#ns85-v5 .ns-subtitle{font-size:clamp(5px,1.3vw,7px);margin-top:2px}#ns85-v5 .ns-time{font-size:clamp(6px,1.4vw,8px)}#ns85-v5 .ns-minimize{width:18px;height:18px;font-size:12px;top:1%;right:2%}}
 
 </style>
@@ -1494,36 +1499,27 @@ html.ns85-v5-ready .sound-player{display:none!important}
 const audio=document.getElementById('backgroundMusic'),old=document.querySelector('.sound-player'),nativePlay=document.getElementById('soundPlayerPlay'),nativeTitle=document.getElementById('soundPlayerTrackTitle'),nativeVolume=document.getElementById('soundPlayerVolume');
 if(!audio||!old||!nativePlay){console.warn('NS85 V6: original player unavailable');return;}
 document.getElementById('ns85-v5')?.remove();
-const ui=document.createElement('aside');ui.id='ns85-v5';ui.className='is-min';ui.setAttribute('aria-label','NS Audio 85');
-ui.innerHTML=`<section class="ns-expanded"><img class="ns-art ns-logo" src="/logo.png" alt=""><img class="ns-art ns-divider-a" src="/divider.png" alt=""><button class="ns-control ns-play" type="button" aria-label="Play"><img src="/play.png" alt=""></button><button class="ns-control ns-stop" type="button" aria-label="Stop"><img src="/stop.png" alt=""></button><div class="ns-readout"><span class="ns-title">NATE SAVARD</span><span class="ns-subtitle">NS COLLECTIVE</span><span class="ns-time">00:00 / --:--</span></div><input class="ns-seek" type="range" min="0" max="1000" value="0" aria-label="Track position"><img class="ns-art ns-divider-b" src="/divider.png" alt=""><svg class="ns-speaker" aria-hidden="true" viewBox="0 0 24 24"><path d="M3 9v6h4l5 4V5L7 9H3M16 9a4 4 0 0 1 0 6M19 6a8 8 0 0 1 0 12" stroke-linecap="round" stroke-linejoin="round"/></svg><input class="ns-volume" type="range" min="0" max="100" value="90" aria-label="Volume"><button class="ns-minimize" type="button" aria-label="Minimize">−</button></section><button class="ns-minimized" type="button" aria-label="Expand NS Audio 85 player"></button>`;
+const ui=document.createElement('aside');ui.id='ns85-v5';ui.className=window.matchMedia('(max-width: 680px)').matches?'':'is-min';ui.setAttribute('aria-label','NS Audio 85');
+ui.innerHTML=`<section class="ns-expanded"><img class="ns-art ns-logo" src="/logo.png" alt=""><img class="ns-art ns-divider-a" src="/divider.png" alt=""><button class="ns-control ns-play" type="button" aria-label="Play"><img src="/play.png" alt=""></button><button class="ns-control ns-stop" type="button" aria-label="Stop"><img src="/stop.png" alt=""></button><div class="ns-readout"><span class="ns-title">NATE SAVARD</span><span class="ns-subtitle">NS COLLECTIVE</span><span class="ns-time">00:00 / --:--</span></div><input class="ns-seek" type="range" min="0" max="1000" value="0" aria-label="Track position"><img class="ns-art ns-divider-b" src="/divider.png" alt=""><svg class="ns-speaker" aria-hidden="true" viewBox="0 0 24 24"><path d="M3 9v6h4l5 4V5L7 9H3M16 9a4 4 0 0 1 0 6M19 6a8 8 0 0 1 0 12" stroke-linecap="round" stroke-linejoin="round"/></svg><input class="ns-volume" type="range" min="0" max="100" value="90" aria-label="Volume"><button class="ns-minimize" type="button" aria-label="Minimize">−</button></section><button class="ns-minimized" type="button" aria-label="Expand NS Audio 85 player"></button><button class="ns-mini-play" type="button" aria-label="Play music"></button>`;
 document.body.appendChild(ui);
 const $=s=>ui.querySelector(s),seek=$('.ns-seek'),vol=$('.ns-volume'),play=$('.ns-play'),tab=$('.ns-minimized');
-tab.onclick=()=>{ui.classList.remove('is-min');play.focus({preventScroll:true})};$('.ns-minimize').onclick=()=>{ui.classList.add('is-min');tab.focus({preventScroll:true})};
+tab.onclick=()=>{ui.classList.remove('is-min');play.focus({preventScroll:true})};$('.ns-mini-play').onclick=(event)=>{event.stopPropagation();nativePlay.click()};$('.ns-minimize').onclick=()=>{ui.classList.add('is-min');tab.focus({preventScroll:true})};
 play.onclick=()=>nativePlay.click();$('.ns-stop').onclick=()=>{audio.pause();try{audio.currentTime=0}catch(_){}};
 seek.oninput=()=>{if(Number.isFinite(audio.duration)&&audio.duration>0)audio.currentTime=audio.duration*Number(seek.value)/1000};
 vol.oninput=()=>{if(nativeVolume){nativeVolume.value=vol.value;nativeVolume.dispatchEvent(new Event('input',{bubbles:true}))}else{audio.muted=false;audio.volume=Number(vol.value)/100}vol.style.setProperty('--fill',vol.value+'%')};
 const fmt=n=>Number.isFinite(n)&&n>=0?String(Math.floor(n/60)).padStart(2,'0')+':'+String(Math.floor(n%60)).padStart(2,'0'):'--:--';
-function render(){const dur=audio.duration,cur=audio.currentTime||0;$('.ns-title').textContent=nativeTitle?.textContent?.trim()||'NATE SAVARD';$('.ns-time').textContent=fmt(cur)+' / '+fmt(dur);if(document.activeElement!==seek){seek.value=Number.isFinite(dur)&&dur>0?String(Math.round(cur/dur*1000)):0;seek.style.setProperty('--fill',Number(seek.value)/10+'%')}seek.disabled=!(Number.isFinite(dur)&&dur>0);if(document.activeElement!==vol){vol.value=Math.round(audio.volume*100);vol.style.setProperty('--fill',vol.value+'%')}play.setAttribute('aria-label',audio.paused?'Play':'Pause')}
-for(const e of ['play','pause','timeupdate','loadedmetadata','durationchange','volumechange','ended'])audio.addEventListener(e,render);if(nativeTitle)new MutationObserver(render).observe(nativeTitle,{childList:true,subtree:true,characterData:true});render();document.documentElement.classList.add('ns85-v5-ready');};
+function render(){const dur=audio.duration,cur=audio.currentTime||0;$('.ns-title').textContent=nativeTitle?.textContent?.trim()||'NATE SAVARD';$('.ns-time').textContent=fmt(cur)+' / '+fmt(dur);if(document.activeElement!==seek){seek.value=Number.isFinite(dur)&&dur>0?String(Math.round(cur/dur*1000)):0;seek.style.setProperty('--fill',Number(seek.value)/10+'%')}seek.disabled=!(Number.isFinite(dur)&&dur>0);if(document.activeElement!==vol){vol.value=Math.round(audio.volume*100);vol.style.setProperty('--fill',vol.value+'%')}play.setAttribute('aria-label',audio.paused?'Play':'Pause');$('.ns-mini-play').setAttribute('aria-label',audio.paused?'Play music':'Pause music')}
+for(const e of ['play','pause','timeupdate','loadedmetadata','durationchange','volumechange','ended'])audio.addEventListener(e,render);if(nativeTitle)new MutationObserver(render).observe(nativeTitle,{childList:true,subtree:true,characterData:true});render();document.documentElement.classList.add('ns85-v5-ready');
+// Attempt audible autoplay once. Mobile Safari normally blocks it until a tap.
+// Rejection is expected: keep the expanded Play button available.
+if(audio.paused){try{const attempt=audio.play();if(attempt&&typeof attempt.catch==='function')attempt.catch(()=>{/* browser blocked autoplay; visitor can press Play */})}catch(_){/* no autoplay permission */}}
+};
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init,{once:true});else init();})();
 
 </script>
-  
-<style>
-/* Mobile-only: raise the two brand columns */
-@media screen and (max-width: 680px) {
-  .entry-gate {
-    transform: translateY(-85px);
-  }
-}
-
-/* Shorter mobile screens */
-@media screen and (max-width: 680px) and (max-height: 650px) {
-  .entry-gate {
-    transform: translateY(-45px);
-  }
-}
+<style id="ns85-mobile-brand-position">
+@media screen and (max-width:680px){.entry-gate{transform:translateY(-85px)}}
+@media screen and (max-width:680px) and (max-height:650px){.entry-gate{transform:translateY(-45px)}}
 </style>
-
 </body>
 </html>
