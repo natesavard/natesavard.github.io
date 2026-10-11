@@ -1037,38 +1037,21 @@
 /* Compensate for transparent padding in the Envy star artwork. */
 @keyframes rightLogoSpin{0%,100%{transform:translate3d(0,0,0) rotate(0deg) scale(1.42)}25%{transform:translate3d(0,-4px,0) rotate(90deg) scale(1.42)}50%{transform:translate3d(0,-8px,0) rotate(180deg) scale(1.42)}75%{transform:translate3d(0,-4px,0) rotate(270deg) scale(1.42)}}
 </style>
+<style id="ns85-remove-legacy">.sound-player,.sound-player *{display:none!important;visibility:hidden!important;pointer-events:none!important}</style>
 </head>
 <body>
-  <section class="sound-player" aria-label="Nate Savard music player">
-    <div class="sound-player__inner">
-      <div class="sound-player__brand" aria-hidden="true">
-        <strong>NS AUDIO</strong>
-        <small>STEREO 85</small>
-      </div>
-      <div class="sound-player__controls" aria-label="Playback controls">
-        <button class="sound-player__button" id="soundPlayerPrevious" type="button" aria-label="Previous track">&#9198;</button>
-        <button class="sound-player__button" id="soundPlayerPlay" type="button" aria-label="Play track" aria-pressed="false">&#9654;</button>
-        <button class="sound-player__button" id="soundPlayerNext" type="button" aria-label="Next track">&#9197;</button>
-      </div>
-      <div class="sound-player__display" aria-live="polite">
-        <div class="sound-player__track-row">
-          <span class="sound-player__track-number" id="soundPlayerTrackNumber">01/01</span>
-          <span class="sound-player__track-title" id="soundPlayerTrackTitle">NATE SAVARD — CHOSEN FEW / SONG 3</span>
-        </div>
-        <div class="sound-player__display-meta">
-          <span class="sound-player__status" id="soundPlayerStatus">LOADING</span>
-          <time class="sound-player__time" id="soundPlayerTime">00:00 / --:--</time>
-        </div>
-      </div>
-      <div class="sound-player__timeline">
-        <input class="sound-player__range" id="soundPlayerSeek" type="range" min="0" max="1000" value="0" aria-label="Track position" />
-        <label class="sound-player__volume">
-          VOL
-          <input class="sound-player__range" id="soundPlayerVolume" type="range" min="0" max="100" value="90" aria-label="Volume" />
-        </label>
-      </div>
-    </div>
-  </section>
+  <!-- Legacy audio-engine hooks only. No visible legacy player. -->
+  <div class="sound-player" hidden aria-hidden="true" style="display:none!important;position:absolute!important;width:0!important;height:0!important;overflow:hidden!important;pointer-events:none!important">
+    <button id="soundPlayerPrevious" type="button" tabindex="-1"></button>
+    <button id="soundPlayerPlay" type="button" tabindex="-1"></button>
+    <button id="soundPlayerNext" type="button" tabindex="-1"></button>
+    <span id="soundPlayerTrackNumber"></span>
+    <span id="soundPlayerTrackTitle"></span>
+    <span id="soundPlayerStatus"></span>
+    <time id="soundPlayerTime"></time>
+    <input id="soundPlayerSeek" type="range" min="0" max="1000" value="0" tabindex="-1" />
+    <input id="soundPlayerVolume" type="range" min="0" max="100" value="90" tabindex="-1" />
+  </div>
   <audio id="backgroundMusic" preload="metadata" playsinline></audio>
   <div class="entry-third-backdrop" aria-hidden="true"></div>
   <div class="entry-fourth-backdrop" aria-hidden="true"></div>
@@ -1465,26 +1448,65 @@
     })();
   </script>
   <script src="/site-bottom-nav.js"></script>
+<!-- NS85 V6: self-contained CSS and JS; only six image files required -->
+<style id="ns85-v5-inline">
+/* NS85 V6 — user-supplied exact chrome graphics */
+html.ns85-v5-ready .sound-player{display:none!important}
+#ns85-v5{position:fixed;right:max(12px,env(safe-area-inset-right));bottom:max(12px,env(safe-area-inset-bottom));z-index:99999;width:min(680px,calc(100vw - 24px));aspect-ratio:1880 / 285;color:#f3f1ef;font-family:Georgia,serif;filter:drop-shadow(0 10px 18px #000a);user-select:none}
+#ns85-v5,#ns85-v5 *{box-sizing:border-box}
+#ns85-v5 .ns-expanded{position:absolute;inset:0;background:url('/frame.png') center/100% 100% no-repeat}
+#ns85-v5 .ns-art{position:absolute;object-fit:contain;pointer-events:none}
+#ns85-v5 .ns-logo{left:6.1%;top:12%;width:10.5%;height:76%}
+#ns85-v5 .ns-divider-a{left:19%;top:22%;width:1.8%;height:56%}
+#ns85-v5 .ns-divider-b{left:75%;top:22%;width:1.8%;height:56%}
+#ns85-v5 button{cursor:pointer;border:0;background:transparent;color:inherit}
+#ns85-v5 .ns-control{position:absolute;padding:0;display:grid;place-items:center}
+#ns85-v5 .ns-control img{width:100%;height:100%;object-fit:contain;pointer-events:none}
+#ns85-v5 .ns-play{left:22.4%;top:17%;width:9%;height:66%}
+#ns85-v5 .ns-stop{left:33.5%;top:25%;width:6%;height:50%}
+#ns85-v5 .ns-control:hover{filter:brightness(1.15)}
+#ns85-v5 button:focus-visible,#ns85-v5 input:focus-visible{outline:2px solid #d9f6ff;outline-offset:2px}
+#ns85-v5 .ns-readout{position:absolute;left:43%;top:28%;width:30%;height:48%;pointer-events:none;text-shadow:0 0 6px #b7e6ff50}
+#ns85-v5 .ns-title{display:block;max-width:60%;font-size:clamp(8px,.88vw,11px);letter-spacing:.25em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#ns85-v5 .ns-subtitle{display:block;margin-top:5px;color:#dedcdf;font-size:clamp(6px,.7vw,9px);letter-spacing:.37em}
+#ns85-v5 .ns-time{position:absolute;right:0;top:7%;font-size:clamp(7px,.7vw,9px);letter-spacing:.12em;white-space:nowrap}
+#ns85-v5 input[type=range]{-webkit-appearance:none;appearance:none;position:absolute;margin:0;padding:0;height:14px;border:0;background:transparent;cursor:pointer}
+#ns85-v5 .ns-seek{left:43%;top:59%;width:30%}
+#ns85-v5 .ns-volume{left:84%;top:49%;width:10.4%}
+#ns85-v5 input[type=range]::-webkit-slider-runnable-track{height:3px;border-radius:8px;background:linear-gradient(to right,#f0fdff 0 var(--fill,0%),#454d55 var(--fill,0%) 100%);box-shadow:0 0 7px #c0f3ff70}
+#ns85-v5 input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:11px;height:11px;border-radius:50%;margin-top:-4px;background:#f7ffff;box-shadow:0 0 8px 2px #b1ebffc0;border:0}
+#ns85-v5 input[type=range]::-moz-range-track{height:3px;border-radius:8px;background:#454d55}
+#ns85-v5 input[type=range]::-moz-range-progress{height:3px;background:#f0fdff}
+#ns85-v5 input[type=range]::-moz-range-thumb{width:11px;height:11px;border-radius:50%;background:white;border:0;box-shadow:0 0 8px #b1ebff}
+#ns85-v5 .ns-speaker{position:absolute;left:79.5%;top:42%;width:3.5%;height:20%;stroke:#eefaff;stroke-width:1.4;fill:none;filter:drop-shadow(0 0 3px #a3d2fb)}
+#ns85-v5 .ns-minimize{position:absolute;right:4.1%;top:34%;width:20px;height:20px;border-radius:100%;font:14px/1 Arial,sans-serif;color:#bfc8cc;opacity:.65}
+#ns85-v5 .ns-minimize:hover{opacity:1}
+#ns85-v5 .ns-minimized{display:none;position:absolute;inset:0;width:100%;height:100%;appearance:none!important;-webkit-appearance:none!important;background-color:transparent!important;background-image:url('/minimized.png')!important;background-position:center!important;background-size:100% 100%!important;background-repeat:no-repeat!important;border:0!important;box-shadow:none!important;border-radius:36px!important;padding:0!important;overflow:hidden}
+#ns85-v5.is-min{width:min(320px,calc(100vw - 24px));height:72px;aspect-ratio:auto}
+#ns85-v5.is-min .ns-expanded{display:none}
+#ns85-v5.is-min .ns-minimized{display:block!important}
+@media(max-width:650px){#ns85-v5{right:8px;bottom:8px;width:calc(100vw - 16px)}#ns85-v5.is-min{width:min(320px,calc(100vw - 16px))}#ns85-v5 .ns-title{font-size:clamp(6px,1.65vw,9px)}#ns85-v5 .ns-subtitle{font-size:clamp(5px,1.3vw,7px);margin-top:2px}#ns85-v5 .ns-time{font-size:clamp(6px,1.4vw,8px)}#ns85-v5 .ns-minimize{width:18px;height:18px;font-size:12px;top:1%;right:2%}}
 
-<!--
-  NS AUDIO 85 — CLEAN PLAYER INSTALLATION
-  Nate Savard / Original Music Page
+</style>
+<script id="ns85-v5-inline-script">
+/* NS85 V6 — hooks existing backgroundMusic; never introduces audio */
+(()=>{'use strict';const init=()=>{
+const audio=document.getElementById('backgroundMusic'),old=document.querySelector('.sound-player'),nativePlay=document.getElementById('soundPlayerPlay'),nativeTitle=document.getElementById('soundPlayerTrackTitle'),nativeVolume=document.getElementById('soundPlayerVolume');
+if(!audio||!old||!nativePlay){console.warn('NS85 V6: original player unavailable');return;}
+document.getElementById('ns85-v5')?.remove();
+const ui=document.createElement('aside');ui.id='ns85-v5';ui.className='is-min';ui.setAttribute('aria-label','NS Audio 85');
+ui.innerHTML=`<section class="ns-expanded"><img class="ns-art ns-logo" src="/logo.png" alt=""><img class="ns-art ns-divider-a" src="/divider.png" alt=""><button class="ns-control ns-play" type="button" aria-label="Play"><img src="/play.png" alt=""></button><button class="ns-control ns-stop" type="button" aria-label="Stop"><img src="/stop.png" alt=""></button><div class="ns-readout"><span class="ns-title">NATE SAVARD</span><span class="ns-subtitle">NS COLLECTIVE</span><span class="ns-time">00:00 / --:--</span></div><input class="ns-seek" type="range" min="0" max="1000" value="0" aria-label="Track position"><img class="ns-art ns-divider-b" src="/divider.png" alt=""><svg class="ns-speaker" aria-hidden="true" viewBox="0 0 24 24"><path d="M3 9v6h4l5 4V5L7 9H3M16 9a4 4 0 0 1 0 6M19 6a8 8 0 0 1 0 12" stroke-linecap="round" stroke-linejoin="round"/></svg><input class="ns-volume" type="range" min="0" max="100" value="90" aria-label="Volume"><button class="ns-minimize" type="button" aria-label="Minimize">−</button></section><button class="ns-minimized" type="button" aria-label="Expand NS Audio 85 player"></button>`;
+document.body.appendChild(ui);
+const $=s=>ui.querySelector(s),seek=$('.ns-seek'),vol=$('.ns-volume'),play=$('.ns-play'),tab=$('.ns-minimized');
+tab.onclick=()=>{ui.classList.remove('is-min');play.focus({preventScroll:true})};$('.ns-minimize').onclick=()=>{ui.classList.add('is-min');tab.focus({preventScroll:true})};
+play.onclick=()=>nativePlay.click();$('.ns-stop').onclick=()=>{audio.pause();try{audio.currentTime=0}catch(_){}};
+seek.oninput=()=>{if(Number.isFinite(audio.duration)&&audio.duration>0)audio.currentTime=audio.duration*Number(seek.value)/1000};
+vol.oninput=()=>{if(nativeVolume){nativeVolume.value=vol.value;nativeVolume.dispatchEvent(new Event('input',{bubbles:true}))}else{audio.muted=false;audio.volume=Number(vol.value)/100}vol.style.setProperty('--fill',vol.value+'%')};
+const fmt=n=>Number.isFinite(n)&&n>=0?String(Math.floor(n/60)).padStart(2,'0')+':'+String(Math.floor(n%60)).padStart(2,'0'):'--:--';
+function render(){const dur=audio.duration,cur=audio.currentTime||0;$('.ns-title').textContent=nativeTitle?.textContent?.trim()||'NATE SAVARD';$('.ns-time').textContent=fmt(cur)+' / '+fmt(dur);if(document.activeElement!==seek){seek.value=Number.isFinite(dur)&&dur>0?String(Math.round(cur/dur*1000)):0;seek.style.setProperty('--fill',Number(seek.value)/10+'%')}seek.disabled=!(Number.isFinite(dur)&&dur>0);if(document.activeElement!==vol){vol.value=Math.round(audio.volume*100);vol.style.setProperty('--fill',vol.value+'%')}play.setAttribute('aria-label',audio.paused?'Play':'Pause')}
+for(const e of ['play','pause','timeupdate','loadedmetadata','durationchange','volumechange','ended'])audio.addEventListener(e,render);if(nativeTitle)new MutationObserver(render).observe(nativeTitle,{childList:true,subtree:true,characterData:true});render();document.documentElement.classList.add('ns85-v5-ready');};
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init,{once:true});else init();})();
 
-  Uses the existing backgroundMusic audio engine.
-  Uses the existing playlist and track functions.
-  Loads one player interface.
-  No duplicate audio element.
--->
-
-<link
-  rel="stylesheet"
-  href="/original/ns-player.css?v=20261011-clean3"
->
-
-<script
-  defer
-  src="/original/ns-player.js?v=20261011-clean3">
 </script>
-
 </body>
 </html>
