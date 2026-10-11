@@ -1508,5 +1508,22 @@ for(const e of ['play','pause','timeupdate','loadedmetadata','durationchange','v
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init,{once:true});else init();})();
 
 </script>
+  
+<style>
+/* Mobile-only: raise the two brand columns */
+@media screen and (max-width: 680px) {
+  .entry-gate {
+    transform: translateY(-85px);
+  }
+}
+
+/* Shorter mobile screens */
+@media screen and (max-width: 680px) and (max-height: 650px) {
+  .entry-gate {
+    transform: translateY(-45px);
+  }
+}
+</style>
+
 </body>
 </html>
