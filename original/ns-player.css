@@ -1,34 +1,37 @@
-/* NS AUDIO 85: supplied chrome artwork drives the interface. */
-#ns85-dock { position:fixed; right:max(16px,env(safe-area-inset-right)); bottom:max(16px,env(safe-area-inset-bottom)); z-index:9999; width:min(820px,calc(100vw - 32px)); color:#edf7ff; font-family:Arial,Helvetica,sans-serif; }
-#ns85-dock * { box-sizing:border-box; }
-#ns85-dock button { appearance:none; border:0; margin:0; padding:0; cursor:pointer; background:transparent; }
-#ns85-dock .ns85-shell { position:relative; width:100%; }
-#ns85-dock .ns85-min { display:block; width:min(360px,100%); margin-left:auto; }
-#ns85-dock .ns85-min img { display:block; width:100%; height:auto; filter:drop-shadow(0 12px 18px rgba(0,0,0,.58)); }
-#ns85-dock .ns85-expanded { position:relative; width:100%; aspect-ratio:2048 / 682; transform-origin:bottom right; animation:ns85Expand .26s cubic-bezier(.16,1,.3,1); }
-#ns85-dock .ns85-frame { position:absolute; inset:0; display:block; width:100%; height:100%; pointer-events:none; filter:drop-shadow(0 16px 24px rgba(0,0,0,.6)); }
-#ns85-dock .ns85-expanded-content { position:absolute; inset:7% 6% 9%; }
-#ns85-dock .ns85-mark { position:absolute; left:3%; top:7%; width:13%; max-width:96px; height:auto; filter:drop-shadow(0 0 10px rgba(174,231,255,.34)); }
-#ns85-dock .ns85-brand { position:absolute; left:20%; top:17%; font-size:clamp(10px,1.42vw,16px); font-weight:700; letter-spacing:.31em; color:#f3f8fb; text-shadow:0 1px 0 #000,0 0 8px rgba(184,230,255,.35); white-space:nowrap; }
-#ns85-dock .ns85-sub { display:block; margin-top:.52em; color:#a7bbc8; font-size:.53em; font-weight:400; letter-spacing:.25em; }
-#ns85-dock .ns85-controls { position:absolute; right:1%; top:4%; display:flex; align-items:center; gap:clamp(5px,.8vw,11px); width:46%; justify-content:flex-end; }
-#ns85-dock .ns85-art-btn { display:grid; place-items:center; width:clamp(34px,5.8vw,63px); aspect-ratio:1; transition:transform .14s ease,filter .14s ease; }
-#ns85-dock .ns85-art-btn img { width:100%; height:100%; object-fit:contain; display:block; }
-#ns85-dock .ns85-art-btn:hover { transform:translateY(-2px) scale(1.035); filter:brightness(1.14); }
-#ns85-dock .ns85-art-btn:focus-visible,#ns85-dock .ns85-min:focus-visible,#ns85-dock input:focus-visible { outline:2px solid #ccefff; outline-offset:3px; }
-#ns85-dock .ns85-previous img { transform:scaleX(-1); }
-#ns85-dock .ns85-minimize { width:clamp(27px,4.3vw,47px); }
-#ns85-dock .ns85-main { position:absolute; left:20%; right:4%; bottom:7%; display:grid; grid-template-columns:minmax(0,1fr) auto; gap:clamp(4px,.6vw,8px) clamp(8px,1.25vw,16px); align-items:center; }
-#ns85-dock .ns85-track { min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; font-size:clamp(8px,1.13vw,13px); font-weight:700; letter-spacing:.1em; color:#eef8ff; text-shadow:0 1px 4px #000; }
-#ns85-dock .ns85-time { font-size:clamp(7px,.95vw,11px); color:#c5d7e1; font-variant-numeric:tabular-nums; white-space:nowrap; }
-#ns85-dock input[type=range] { appearance:none; -webkit-appearance:none; width:100%; height:4px; margin:0; border-radius:99px; background:linear-gradient(to right,#dff9ff 0 var(--fill,0%),#38434b var(--fill,0%) 100%); box-shadow:0 0 8px rgba(132,233,255,.56); cursor:pointer; }
-#ns85-dock input[type=range]::-webkit-slider-thumb { appearance:none; width:12px; height:12px; border-radius:50%; border:1px solid #fff; background:#ebfcff; box-shadow:0 0 10px #c2f4ff; }
-#ns85-dock input[type=range]::-moz-range-thumb { width:12px; height:12px; border-radius:50%; border:1px solid #fff; background:#ebfcff; box-shadow:0 0 10px #c2f4ff; }
-#ns85-dock .ns85-progress { grid-column:1 / 2; }
-#ns85-dock .ns85-volume { grid-column:2; grid-row:3; display:flex; align-items:center; gap:7px; min-width:clamp(86px,12vw,140px); }
-#ns85-dock .ns85-volume img { width:clamp(14px,2vw,21px); height:clamp(14px,2vw,21px); object-fit:contain; }
-#ns85-dock .ns85-volume input { flex:1; min-width:0; }
-#ns85-dock [hidden] { display:none!important; }
-@keyframes ns85Expand { from { opacity:0; transform:translateY(14px) scale(.98); } to { opacity:1; transform:translateY(0) scale(1); } }
-@media(max-width:560px) { #ns85-dock { right:10px; bottom:10px; width:calc(100vw - 20px); } #ns85-dock .ns85-min { width:min(330px,100%); } #ns85-dock .ns85-expanded-content { inset:6% 5% 7%; } #ns85-dock .ns85-mark { width:13%; } #ns85-dock .ns85-brand { left:20%; letter-spacing:.16em; } #ns85-dock .ns85-main { left:20%; right:4%; bottom:6%; } }
-@media(prefers-reduced-motion:reduce) { #ns85-dock * { animation:none!important; transition:none!important; } }
+/* NS AUDIO 85 • compact dock. No global styles, no external font dependencies. */
+#ns85-dock { --ns-ice:#d9f5ff; --ns-dim:#9ca5ae; position:fixed; bottom:max(16px,env(safe-area-inset-bottom)); right:max(16px,env(safe-area-inset-right)); z-index:9999; color:#f2f3f5; font-family:Arial,Helvetica,sans-serif; }
+#ns85-dock * {box-sizing:border-box}
+#ns85-dock button { cursor:pointer; font:inherit; color:inherit; -webkit-tap-highlight-color:transparent; }
+#ns85-dock .ns85-shell { position:relative; width:min(220px,calc(100vw - 32px)); transition:width .22s ease; border:1px solid #72777e; border-radius:23px; background:linear-gradient(120deg,rgba(41,43,47,.95),rgba(7,9,13,.97) 32%,rgba(21,24,28,.96)); box-shadow:inset 0 1px 1px #c3cbd15c,inset 0 -1px 1px #ffffff20,0 14px 35px #0008,0 0 0 3px #0b0c10; overflow:hidden; }
+#ns85-dock .ns85-shell:before {content:"";position:absolute;inset:3px;border:1px solid #b6c1cf28;border-radius:19px;pointer-events:none}
+#ns85-dock .ns85-min { width:220px; min-height:48px; display:flex; gap:9px; align-items:center; padding:7px 12px; background:transparent; border:0; text-align:left; }
+#ns85-dock .ns85-min-label { flex:1; font-size:10px; font-weight:600; letter-spacing:.22em; white-space:nowrap; }
+#ns85-dock .ns85-mark {width:29px;height:29px;object-fit:contain;filter:drop-shadow(0 0 5px #cdefff55)}
+#ns85-dock .ns85-mini-indicator { color:var(--ns-ice); text-shadow:0 0 10px #83e0ff; font-size:16px; }
+#ns85-dock .ns85-expanded { padding:14px 16px 16px; }
+#ns85-dock .ns85-top {display:flex;gap:9px;align-items:center;margin-bottom:13px}
+#ns85-dock .ns85-brand { flex:1; font-size:10px;letter-spacing:.24em;font-weight:700;color:#e6e8ed}
+#ns85-dock .ns85-sub { display:block; margin-top:4px; font-size:8px;color:#99a2ad;letter-spacing:.16em;font-weight:400 }
+#ns85-dock .ns85-controls {display:flex; align-items:center; gap:9px}
+#ns85-dock .ns85-btn { width:34px;height:34px;display:grid;place-items:center;border-radius:50%;border:1px solid #7d8993;background:radial-gradient(circle at 35% 25%,#313a45,#080a0e 65%);box-shadow:inset 0 1px 1px #ffffff40,0 0 8px #a2eaff13;transition:transform .15s,box-shadow .15s;padding:0 }
+#ns85-dock .ns85-btn:hover {transform:translateY(-1px);box-shadow:inset 0 1px 1px #ffffff55,0 0 12px #b8eeff55}
+#ns85-dock .ns85-btn:focus-visible,#ns85-dock .ns85-min:focus-visible,#ns85-dock input:focus-visible {outline:2px solid #c9f1ff;outline-offset:3px}
+#ns85-dock .ns85-btn svg {width:15px;height:15px;fill:#d3f4ff;filter:drop-shadow(0 0 4px #bfefff99)}
+#ns85-dock .ns85-main {display:grid;grid-template-columns:1fr auto;gap:7px 12px;align-items:center}
+#ns85-dock .ns85-track { min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:11px;letter-spacing:.09em; }
+#ns85-dock .ns85-time {font-variant-numeric:tabular-nums;font-size:10px;color:#b8c3cb}
+#ns85-dock input[type=range] {appearance:none;-webkit-appearance:none; margin:0; width:100%;height:3px;border-radius:8px;background:linear-gradient(to right,#d9f7ff 0 var(--fill,0%),#59616c var(--fill,0%) 100%);outline:none;box-shadow:0 0 8px #84e9ff4c;cursor:pointer}
+#ns85-dock input[type=range]::-webkit-slider-thumb {appearance:none;width:10px;height:10px;border-radius:50%;background:#e5faff;border:1px solid white;box-shadow:0 0 9px #b8f4ff}
+#ns85-dock input[type=range]::-moz-range-thumb {width:10px;height:10px;border-radius:50%;background:#e5faff;border:1px solid white;box-shadow:0 0 9px #b8f4ff}
+#ns85-dock .ns85-volume {display:flex;align-items:center;gap:9px;min-width:105px}
+#ns85-dock .ns85-volume span {font-size:8px;color:#a7b4c1;letter-spacing:.1em}
+#ns85-dock .ns85-volume input {width:72px}
+#ns85-dock [hidden] {display:none!important}
+@media(max-width:560px) {#ns85-dock .ns85-shell {width:min(370px,calc(100vw - 28px))}#ns85-dock .ns85-expanded {padding:12px}#ns85-dock .ns85-btn {width:31px;height:31px}#ns85-dock .ns85-brand{letter-spacing:.13em}#ns85-dock .ns85-track{font-size:10px}#ns85-dock .ns85-volume input{width:55px}}
+@media(prefers-reduced-motion:reduce){#ns85-dock *{transition:none!important}}
+
+/* FIX: collapsed state must NOT retain the expanded 510px shell. */
+#ns85-dock.is-expanded .ns85-shell {width:min(510px,calc(100vw - 32px));}
+#ns85-dock:not(.is-expanded) .ns85-min {width:100%;}
+#ns85-dock:not(.is-expanded) .ns85-shell {width:min(220px,calc(100vw - 32px));}
+@media(max-width:560px){#ns85-dock.is-expanded .ns85-shell{width:min(370px,calc(100vw - 28px))}}
