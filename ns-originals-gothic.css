@@ -357,4 +357,128 @@ body.originals-page .siteflow-min-toggle {
   box-shadow: none !important;
 }
 
+/* SLEEKER NS NUB / COLLAPSED TAB */
 
+body.originals-page .siteflow-shell.is-collapsed {
+  width: 62px !important;
+  height: 116px !important;
+  top: 46% !important;
+  right: 0 !important;
+  transform: translateY(-50%) !important;
+  max-height: none !important;
+}
+
+body.originals-page .siteflow-shell.is-collapsed .siteflow-bar {
+  width: 62px !important;
+  height: 116px !important;
+  max-height: 116px !important;
+  padding: 0 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  overflow: hidden !important;
+
+  border: 0 !important;
+  outline: 0 !important;
+  border-radius: 18px 0 0 18px !important;
+
+  background: linear-gradient(
+    180deg,
+    rgba(22, 24, 28, 0.82) 0%,
+    rgba(8, 10, 14, 0.82) 100%
+  ) !important;
+
+  -webkit-backdrop-filter: blur(14px) saturate(110%);
+  backdrop-filter: blur(14px) saturate(110%);
+
+  box-shadow:
+    -8px 8px 26px rgba(0, 0, 0, 0.32),
+    inset 1px 0 0 rgba(255,255,255,0.08) !important;
+
+  clip-path: none !important;
+}
+
+body.originals-page .siteflow-shell.is-collapsed .siteflow-head,
+body.originals-page .siteflow-shell.is-collapsed .siteflow-brand,
+body.originals-page .siteflow-shell.is-collapsed .siteflow-player,
+body.originals-page .siteflow-shell.is-collapsed .siteflow-transmission,
+body.originals-page .siteflow-shell.is-collapsed .siteflow-dossier,
+body.originals-page .siteflow-shell.is-collapsed .siteflow-jump {
+  display: none !important;
+}
+
+body.originals-page .siteflow-shell.is-collapsed .siteflow-controls {
+  display: flex !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  gap: 0 !important;
+}
+
+body.originals-page .siteflow-shell.is-collapsed #siteflowVipToggle,
+body.originals-page .siteflow-shell.is-collapsed #siteflowSoundToggle {
+  display: none !important;
+}
+
+body.originals-page .siteflow-shell.is-collapsed .siteflow-min-toggle {
+  position: relative !important;
+  width: 62px !important;
+  min-width: 62px !important;
+  max-width: 62px !important;
+  height: 116px !important;
+  min-height: 116px !important;
+  padding: 0 !important;
+
+  border: 0 !important;
+  outline: 0 !important;
+  border-radius: 18px 0 0 18px !important;
+
+  background: transparent !important;
+  box-shadow: none !important;
+
+  color: transparent !important;
+  font-size: 0 !important;
+}
+
+/* cleaner NS crest */
+body.originals-page .siteflow-shell.is-collapsed .siteflow-min-toggle::before {
+  content: "" !important;
+  position: absolute !important;
+  top: 18px !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+
+  width: 38px !important;
+  height: 38px !important;
+
+  background: url("ns-gothic-assets/ns-crest.png") center / contain no-repeat !important;
+  filter: drop-shadow(0 2px 6px rgba(0,0,0,0.45));
+}
+
+/* subtle menu text */
+body.originals-page .siteflow-shell.is-collapsed .siteflow-min-toggle::after {
+  content: "MENU" !important;
+  position: absolute !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 18px !important;
+
+  text-align: center !important;
+  color: rgba(235,238,244,0.72) !important;
+  font-family: Arial, Helvetica, sans-serif !important;
+  font-size: 9px !important;
+  line-height: 1 !important;
+  letter-spacing: 0.24em !important;
+}
+
+/* subtle hover */
+body.originals-page .siteflow-shell.is-collapsed .siteflow-min-toggle:hover::before {
+  filter: drop-shadow(0 2px 8px rgba(255,255,255,0.08));
+}
+
+body.originals-page .siteflow-shell.is-collapsed .siteflow-bar:hover {
+  background: linear-gradient(
+    180deg,
+    rgba(26, 28, 33, 0.86) 0%,
+    rgba(10, 12, 16, 0.86) 100%
+  ) !important;
+}
