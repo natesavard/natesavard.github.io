@@ -230,3 +230,36 @@ body.originals-page .siteflow-shell.is-collapsed .siteflow-min-toggle::after {
 @media(prefers-reduced-motion:reduce){
   body.originals-page .siteflow-shell:not(.is-collapsed) .siteflow-bar{animation:none!important}
 }
+
+/* VIP MODE — TRANSPARENT, BORDERLESS DRAWER */
+
+body.originals-page.siteflow-vip-mode
+.siteflow-shell:not(.is-collapsed) .siteflow-bar {
+  background: rgba(5, 7, 10, 0.28) !important;
+  border: none !important;
+  border-left: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+
+  -webkit-backdrop-filter: blur(7px) saturate(110%);
+  backdrop-filter: blur(7px) saturate(110%);
+
+  transition:
+    background 0.45s ease,
+    backdrop-filter 0.45s ease,
+    border-color 0.45s ease,
+    box-shadow 0.45s ease;
+}
+
+/* Remove decorative silver lines in VIP mode */
+body.originals-page.siteflow-vip-mode
+.siteflow-shell:not(.is-collapsed) .siteflow-bar::before {
+  display: none !important;
+}
+
+/* Keep lettering and controls fully visible */
+body.originals-page.siteflow-vip-mode
+.siteflow-shell:not(.is-collapsed) .siteflow-bar > * {
+  opacity: 1;
+}
+
