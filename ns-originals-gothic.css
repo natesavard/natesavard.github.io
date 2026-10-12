@@ -263,3 +263,98 @@ body.originals-page.siteflow-vip-mode
   opacity: 1;
 }
 
+
+/* NS ORIGINALS — GLASS MODES + CHROME CONTROLS */
+
+/* NORMAL — light transparent glass, borderless */
+body.originals-page:not(.siteflow-vip-mode)
+.siteflow-shell:not(.is-collapsed) .siteflow-bar {
+  background: rgba(5, 7, 11, 0.24) !important;
+  border: 0 !important;
+  outline: 0 !important;
+  box-shadow: none !important;
+  -webkit-backdrop-filter: blur(7px) saturate(110%);
+  backdrop-filter: blur(7px) saturate(110%);
+}
+
+/* VIP — darker glass, also borderless */
+body.originals-page.siteflow-vip-mode
+.siteflow-shell:not(.is-collapsed) .siteflow-bar {
+  background: rgba(5, 7, 11, 0.76) !important;
+  border: 0 !important;
+  outline: 0 !important;
+  box-shadow: none !important;
+  -webkit-backdrop-filter: blur(20px) saturate(110%);
+  backdrop-filter: blur(20px) saturate(110%);
+}
+
+/* Remove decorative line at the top in BOTH modes */
+body.originals-page
+.siteflow-shell:not(.is-collapsed) .siteflow-bar::before,
+body.originals-page
+.siteflow-shell:not(.is-collapsed) .siteflow-bar::after {
+  content: none !important;
+  display: none !important;
+}
+
+/* Remove outer panel decorations */
+body.originals-page .siteflow-shell::before {
+  content: none !important;
+  display: none !important;
+}
+
+/* Chrome controls — original NS AUDIO artwork */
+body.originals-page .siteflow-player-buttons {
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+}
+
+body.originals-page .siteflow-player-button {
+  display: block !important;
+  width: 49px !important;
+  height: 49px !important;
+  min-height: 49px !important;
+  flex: 0 0 49px !important;
+  padding: 0 !important;
+  border: none !important;
+  border-radius: 0 !important;
+  outline: none !important;
+  box-shadow: none !important;
+  font-size: 0 !important;
+  color: transparent !important;
+  cursor: pointer;
+  background: transparent center / contain no-repeat !important;
+  transition: transform .2s ease, filter .2s ease;
+}
+
+body.originals-page #siteflowPlayerPrevious {
+  background-image: url("/stop.png") !important;
+  transform: none !important;
+}
+
+body.originals-page #siteflowPlayerPlay {
+  width: 58px !important;
+  height: 58px !important;
+  min-height: 58px !important;
+  flex-basis: 58px !important;
+  background-image: url("/play.png") !important;
+}
+
+body.originals-page #siteflowPlayerNext {
+  background-image: url("/forward.png") !important;
+}
+
+body.originals-page .siteflow-player-button:hover {
+  transform: scale(1.07) !important;
+  filter: brightness(1.18);
+}
+
+/* Unframed controls in the drawer */
+body.originals-page .siteflow-control,
+body.originals-page .siteflow-min-toggle {
+  box-shadow: none !important;
+}
+
+
