@@ -431,4 +431,16 @@ body.originals-page .siteflow-shell.is-collapsed
     min-width: 48px !important;
     min-height: 88px !important;
   }
+   
+/* NS AUDIO — REAL CHROME PAUSE BUTTON */
+
+body.originals-page
+#siteflowPlayerPlay[aria-pressed="true"]::before {
+  background: url("ns-gothic-assets/glossy_chrome_pause_button_icon.png")
+    center / contain no-repeat !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+}
+
 }
