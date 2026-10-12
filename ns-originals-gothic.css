@@ -641,3 +641,97 @@ body.originals-page .siteflow-shell.is-collapsed
   font-size: 0 !important;
   letter-spacing: 0 !important;
 }
+/* NS ORIGINALS — LUXE PULL TAB. Paste LAST in ns-originals-gothic.css */
+body.originals-page .siteflow-shell.is-collapsed {
+  top: 46% !important;
+  right: 0 !important;
+  bottom: auto !important;
+  width: 74px !important;
+  height: 194px !important;
+  max-height: none !important;
+  transform: translateY(-50%) !important;
+  overflow: visible !important;
+}
+body.originals-page .siteflow-shell.is-collapsed .siteflow-bar {
+  position: relative !important;
+  width: 74px !important;
+  height: 194px !important;
+  max-height: 194px !important;
+  min-height: 0 !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  border: 0 !important;
+  outline: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  clip-path: none !important;
+  overflow: visible !important;
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
+  animation: none !important;
+}
+body.originals-page .siteflow-shell.is-collapsed .siteflow-bar::before,
+body.originals-page .siteflow-shell.is-collapsed .siteflow-bar::after {
+  content: none !important;
+  display: none !important;
+}
+body.originals-page .siteflow-shell.is-collapsed .siteflow-controls {
+  display: flex !important;
+  width: 74px !important;
+  height: 194px !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  gap: 0 !important;
+  justify-content: center !important;
+  align-items: center !important;
+}
+body.originals-page .siteflow-shell.is-collapsed #siteflowVipToggle,
+body.originals-page .siteflow-shell.is-collapsed #siteflowSoundToggle { display: none !important; }
+body.originals-page .siteflow-shell.is-collapsed #siteflowMinToggle {
+  position: relative !important;
+  display: block !important;
+  flex: 0 0 74px !important;
+  width: 74px !important;
+  min-width: 74px !important;
+  max-width: 74px !important;
+  height: 194px !important;
+  min-height: 194px !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  overflow: visible !important;
+  border: 0 !important;
+  outline: 0 !important;
+  border-radius: 0 !important;
+  background: url("ns-gothic-assets/ns-tab-luxe.png") center / contain no-repeat !important;
+  box-shadow: none !important;
+  color: transparent !important;
+  font-size: 0 !important;
+  cursor: pointer !important;
+  transition: filter .22s ease, translate .35s cubic-bezier(.2,.8,.2,1) !important;
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
+  clip-path: none !important;
+}
+body.originals-page .siteflow-shell.is-collapsed #siteflowMinToggle::before,
+body.originals-page .siteflow-shell.is-collapsed #siteflowMinToggle::after {
+  content: none !important;
+  display: none !important;
+}
+body.originals-page .siteflow-shell.is-collapsed #siteflowMinToggle:hover {
+  translate: -5px 0 !important;
+  filter: brightness(1.17) drop-shadow(0 2px 9px rgba(220,228,235,.18)) !important;
+}
+body.originals-page .siteflow-shell.is-collapsed #siteflowMinToggle:focus-visible {
+  outline: 2px solid #e7e7ea !important;
+  outline-offset: -6px !important;
+}
+@media(max-width:600px) {
+  body.originals-page .siteflow-shell.is-collapsed {width: 65px !important;height: 170px !important;}
+  body.originals-page .siteflow-shell.is-collapsed .siteflow-bar,
+  body.originals-page .siteflow-shell.is-collapsed .siteflow-controls {width:65px !important;height:170px !important;max-height:170px !important;}
+  body.originals-page .siteflow-shell.is-collapsed #siteflowMinToggle {width:65px !important;min-width:65px !important;max-width:65px !important;flex-basis:65px !important;height:170px !important;min-height:170px !important;}
+}
