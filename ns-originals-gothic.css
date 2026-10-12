@@ -1,0 +1,35 @@
+/* NS ORIGINALS / GOTHIC CHROME - scoped to jewelry originals page only. */
+body.originals-page{--siteflow-bg:rgba(0,0,0,.95);--siteflow-border:transparent;--siteflow-text:#f1f1f2;--siteflow-muted:#bfc1c6;--siteflow-accent:#e8e8ed;--siteflow-accent-2:#e8e8ed;--siteflow-shadow:0 20px 46px #000b}
+body.originals-page .siteflow-shell{width:min(260px,calc(100vw - 14px));right:7px}
+body.originals-page .siteflow-shell::before{display:none}
+body.originals-page .siteflow-bar{gap:8px;padding:57px 18px 43px;border:0;border-radius:0;overflow-y:auto;max-height:calc(100dvh - 12px);background:#030303 url('ns-gothic-assets/outer-frame.png') center / 100% 100% no-repeat;box-shadow:none;color:#ededf0;scrollbar-color:#777 #080808;scrollbar-width:thin}
+body.originals-page .siteflow-player{position:relative;margin:0 0 3px;padding:13px 12px 12px;border:0;border-radius:0;color:#f2f2f4;background:transparent url('ns-gothic-assets/audio-frame.png') center / 100% 100% no-repeat;box-shadow:none;font-family:Georgia,'Times New Roman',serif}
+body.originals-page .siteflow-player::before{content:'';position:absolute;left:50%;top:-61px;width:67px;height:67px;transform:translateX(-50%);background:url('ns-gothic-assets/ns-crest.png') center/contain no-repeat;pointer-events:none}
+body.originals-page .siteflow-player-head{padding:0 7px 4px}
+body.originals-page .siteflow-player-brand,.siteflow-player-track-number{color:#e5e6e9;letter-spacing:.17em}
+body.originals-page .siteflow-player-brand small{color:#afb2b7}
+body.originals-page .siteflow-player-screen{padding:5px 6px;border:0;border-radius:0;background:transparent;box-shadow:none}
+body.originals-page .siteflow-player-title{color:#eaecef;text-align:center;font:10px/1.3 Georgia,serif;letter-spacing:.08em}
+body.originals-page .siteflow-player-meta{color:#c2c3c8;font:8px Georgia,serif;letter-spacing:.03em}
+body.originals-page .siteflow-player-buttons{grid-template-columns:repeat(3,40px);gap:8px;justify-content:center;align-items:center}
+body.originals-page .siteflow-player-button{width:40px;height:40px;min-height:40px;justify-self:center;padding:0;border:0;border-radius:50%;box-shadow:none;background:transparent url('ns-gothic-assets/next.png') center/contain no-repeat;color:transparent!important;font-size:0;cursor:pointer;transition:filter .2s,transform .2s}
+body.originals-page #siteflowPlayerPrevious{transform:scaleX(-1)}
+body.originals-page #siteflowPlayerPlay{width:44px;height:44px;min-height:44px;background-image:url('ns-gothic-assets/play.png')}
+body.originals-page .siteflow-player-button:hover{filter:brightness(1.25)}
+body.originals-page .siteflow-player-range{accent-color:#d5d5d9;height:10px}
+body.originals-page .siteflow-player-volume{color:#c5c5c9}
+body.originals-page .siteflow-transmission,body.originals-page .siteflow-dossier{margin:0;padding:17px 12px;border:0;border-radius:0;background:transparent url('ns-gothic-assets/info-frame.png') center/100% 100% no-repeat;box-shadow:none;color:#d8d9df;text-align:center;font-family:Georgia,'Times New Roman',serif;font-size:10px;line-height:1.5;letter-spacing:.08em}
+body.originals-page .siteflow-dossier{min-height:87px}
+body.originals-page .siteflow-kicker{color:#f1f1f1;letter-spacing:.22em;text-transform:uppercase;font-size:10px}
+body.originals-page .siteflow-small{color:#c9c9cf;font-size:11px;line-height:1.4}
+body.originals-page .siteflow-jump{gap:2px}
+body.originals-page .siteflow-jump a,body.originals-page .siteflow-link{display:flex;justify-content:center;align-items:center;min-height:32px;padding:6px 11px;border:0;border-radius:0;background:transparent url('ns-gothic-assets/ornate-pill.png') center/100% 100% no-repeat;color:#ececef!important;box-shadow:none;font:9px/1.15 Georgia,'Times New Roman',serif;letter-spacing:.10em;text-transform:uppercase;transition:filter .2s}
+body.originals-page .siteflow-jump a:hover,body.originals-page .siteflow-jump a.siteflow-active,body.originals-page .siteflow-link:hover,body.originals-page .siteflow-link.siteflow-active{background:transparent url('ns-gothic-assets/ornate-pill.png') center/100% 100% no-repeat!important;color:#fff!important;filter:brightness(1.22);transform:none;text-shadow:0 0 6px #fff9;border:0}
+body.originals-page .siteflow-controls{display:flex;flex-wrap:wrap;justify-content:center;gap:3px}
+body.originals-page .siteflow-control,body.originals-page .siteflow-min-toggle{display:grid;place-items:center;min-height:31px;flex:1 1 45%;padding:6px 10px;border:0;border-radius:0;background:transparent url('ns-gothic-assets/small-pill.png') center/100% 100% no-repeat;box-shadow:none;color:#ededf0;font:9px Georgia,serif;letter-spacing:.07em}
+body.originals-page .siteflow-min-toggle{max-width:85px;flex:0 0 85px}
+body.originals-page .siteflow-control:hover,body.originals-page .siteflow-min-toggle:hover{color:#fff;filter:brightness(1.2);background:transparent url('ns-gothic-assets/small-pill.png') center/100% 100% no-repeat}
+body.originals-page .siteflow-shell.is-collapsed{width:78px}
+body.originals-page .siteflow-shell.is-collapsed .siteflow-bar{padding:17px 10px;background-size:100% 100%;border-radius:18px}
+body.originals-page .siteflow-shell.is-collapsed .siteflow-min-toggle{min-width:56px;max-width:56px}
+@media(max-width:560px){body.originals-page .siteflow-shell{right:4px;width:min(260px,calc(100vw - 8px))}body.originals-page .siteflow-bar{max-height:calc(100dvh - 8px)}}
