@@ -482,3 +482,162 @@ body.originals-page .siteflow-shell.is-collapsed .siteflow-bar:hover {
     rgba(10, 12, 16, 0.86) 100%
   ) !important;
 }
+
+
+/* NS AUDIO — FIX ALL THREE CHROME BUTTONS */
+
+body.originals-page .siteflow-player-buttons {
+  display: grid !important;
+  grid-template-columns: 48px 58px 48px !important;
+  align-items: center !important;
+  justify-content: center !important;
+  justify-items: center !important;
+  column-gap: 16px !important;
+  width: 100% !important;
+  margin: 10px 0 15px !important;
+  padding: 0 !important;
+}
+
+body.originals-page .siteflow-player-buttons button {
+  position: relative !important;
+  display: block !important;
+  width: 48px !important;
+  height: 48px !important;
+  min-width: 48px !important;
+  min-height: 48px !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  flex: none !important;
+  border: 0 !important;
+  background: none !important;
+  color: transparent !important;
+  font-size: 0 !important;
+  box-shadow: none !important;
+  transform: none !important;
+}
+
+body.originals-page #siteflowPlayerPlay {
+  width: 58px !important;
+  height: 58px !important;
+  min-width: 58px !important;
+  min-height: 58px !important;
+}
+
+/* Place chrome PNGs on top of the actual buttons */
+body.originals-page .siteflow-player-buttons button::before {
+  content: "" !important;
+  display: block !important;
+  position: absolute !important;
+  inset: 0 !important;
+  background-position: center !important;
+  background-size: contain !important;
+  background-repeat: no-repeat !important;
+  pointer-events: none !important;
+}
+
+body.originals-page #siteflowPlayerPrevious::before {
+  background-image: url("/stop.png") !important;
+}
+
+body.originals-page #siteflowPlayerPlay::before {
+  background-image: url("/play.png") !important;
+}
+
+body.originals-page #siteflowPlayerNext::before {
+  background-image: url("/forward.png") !important;
+}
+
+/* Display pause bars when playing */
+body.originals-page #siteflowPlayerPlay[aria-pressed="true"]::before {
+  background-image: none !important;
+  border: 2px solid #b8c1cc;
+  border-radius: 50%;
+  background: linear-gradient(
+    90deg,
+    transparent 32%,
+    #dce3eb 32% 43%,
+    transparent 43% 57%,
+    #dce3eb 57% 68%,
+    transparent 68%
+  ) !important;
+  box-shadow: inset 0 1px 5px #ffffff33;
+}
+
+body.originals-page .siteflow-player-buttons button:hover {
+  filter: brightness(1.2);
+}
+
+/* NS LUXURY SIDE TAB */
+
+body.originals-page .siteflow-shell.is-collapsed {
+  width: 48px !important;
+  height: 102px !important;
+  right: 0 !important;
+}
+
+body.originals-page .siteflow-shell.is-collapsed .siteflow-bar {
+  width: 48px !important;
+  height: 102px !important;
+  max-height: 102px !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  clip-path: none !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+body.originals-page .siteflow-shell.is-collapsed .siteflow-min-toggle {
+  position: relative !important;
+  width: 48px !important;
+  min-width: 48px !important;
+  max-width: 48px !important;
+  height: 102px !important;
+  min-height: 102px !important;
+  padding: 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: rgba(7, 9, 13, 0.82) !important;
+  clip-path: none !important;
+  overflow: hidden !important;
+  box-shadow: none !important;
+  color: transparent !important;
+  font-size: 0 !important;
+  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(14px);
+}
+
+/* Curved metal edge */
+body.originals-page .siteflow-shell.is-collapsed
+.siteflow-min-toggle::before {
+  content: "" !important;
+  position: absolute !important;
+  inset: 2px 0 2px 2px !important;
+  width: auto !important;
+  height: auto !important;
+  transform: none !important;
+  border-left: 1px solid rgba(224,232,242,.75);
+  border-top: 1px solid rgba(224,232,242,.28);
+  border-bottom: 1px solid rgba(224,232,242,.28);
+  border-radius: 24px 0 0 24px;
+  background: none !important;
+  filter: none !important;
+}
+
+/* Actual chrome NS crest, centered */
+body.originals-page .siteflow-shell.is-collapsed
+.siteflow-min-toggle::after {
+  content: "" !important;
+  position: absolute !important;
+  top: 30px !important;
+  left: 6px !important;
+  right: 6px !important;
+  bottom: auto !important;
+  width: 36px !important;
+  height: 40px !important;
+  background: url("/logo.png") center / contain no-repeat !important;
+  color: transparent !important;
+  font-size: 0 !important;
+  letter-spacing: 0 !important;
+}
