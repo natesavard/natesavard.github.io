@@ -172,3 +172,61 @@ body.originals-page .siteflow-shell.is-collapsed .siteflow-min-toggle::after{
 @media(prefers-reduced-motion:no-preference){
   body.originals-page .siteflow-shell {transition:width .26s ease,transform .26s ease}
 }
+
+
+/* V7 — Smoked-glass cinematic treatment and improved motion */
+body.originals-page .siteflow-shell:not(.is-collapsed) .siteflow-bar {
+  animation: nsDrawerReveal .68s cubic-bezier(.16,1,.28,1) both;
+}
+@keyframes nsDrawerReveal {
+  from { transform: translate3d(105%,0,0); opacity:.55; }
+  to   { transform: translate3d(0,0,0); opacity:1; }
+}
+body.originals-page .siteflow-shell:not(.is-collapsed) .siteflow-bar {
+  border-left: 1px solid rgba(232,237,244,.40);
+  background: linear-gradient(115deg,
+    rgba(19,23,29,.72) 0%,
+    rgba(7,10,15,.72) 47%,
+    rgba(6,8,12,.82) 100%) !important;
+  -webkit-backdrop-filter: blur(24px) saturate(115%);
+  backdrop-filter: blur(24px) saturate(115%);
+  box-shadow: -18px 0 65px rgba(0,0,0,.5),
+              inset 1px 0 0 rgba(255,255,255,.12);
+}
+body.originals-page .siteflow-shell:not(.is-collapsed) .siteflow-bar::before {
+  content:"" !important; display:block; position:sticky;
+  height:1px;min-height:1px;top:0;
+  background:linear-gradient(90deg,transparent,rgba(238,242,255,.55),transparent);
+  order:-1;pointer-events:none;
+}
+body.originals-page .siteflow-player {margin-top:3px}
+body.originals-page .siteflow-player-screen {background:rgba(0,0,0,.07)}
+body.originals-page .siteflow-jump a:hover {
+  padding-left:9px;
+  background:rgba(255,255,255,.045) !important;
+  transition:padding-left .25s ease,background .25s ease,color .25s ease;
+}
+body.originals-page .siteflow-shell.is-collapsed {
+  width:72px; height:104px;
+}
+body.originals-page .siteflow-shell.is-collapsed .siteflow-bar {
+  width:72px; height:104px; max-height:104px;
+  border:1px solid rgba(229,232,239,.58);
+  border-right:0;border-radius:0;
+  clip-path:polygon(30% 0,100% 0,100% 100%,30% 100%,0 80%,0 20%);
+  background:linear-gradient(120deg,rgba(30,34,39,.88),rgba(5,6,9,.95))!important;
+  -webkit-backdrop-filter:blur(12px);
+  backdrop-filter:blur(12px);
+  box-shadow:none;
+}
+body.originals-page .siteflow-shell.is-collapsed .siteflow-min-toggle {
+  width:54px;min-width:54px;max-width:54px;
+  background-position:center 1px!important;
+  background-size:51px 51px!important;
+}
+body.originals-page .siteflow-shell.is-collapsed .siteflow-min-toggle::after {
+  bottom:-1px;letter-spacing:.21em;
+}
+@media(prefers-reduced-motion:reduce){
+  body.originals-page .siteflow-shell:not(.is-collapsed) .siteflow-bar{animation:none!important}
+}
