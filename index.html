@@ -285,5 +285,37 @@
       });
     })();
   </script>
+
+  <style>
+/* INSOMNIA first slide — keep it zoomed in so side edges never show */
+.scene--insomnia{
+  inset:-10% !important;
+  background-size:cover !important;
+  background-repeat:no-repeat !important;
+  background-position:58% 48% !important;
+  animation: insomniaSafeZoom 22s ease-in-out infinite alternate !important;
+  transform-origin:center center !important;
+}
+
+@keyframes insomniaSafeZoom{
+  0%{
+    transform:scale(1.16) translate3d(0,0,0);
+  }
+  50%{
+    transform:scale(1.20) translate3d(-0.4%,0,0);
+  }
+  100%{
+    transform:scale(1.24) translate3d(0.5%,0.2%,0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce){
+  .scene--insomnia{
+    animation:none !important;
+    transform:scale(1.18) !important;
+  }
+}
+</style>
+  
 </body>
 </html>
