@@ -1,473 +1,61 @@
+/* NS ORIGINALS — CLEAN DRAWER. Replace entire old ns-originals-gothic.css.
+   Site flow JS, links, sound, and VIP behaviour remain unchanged. */
+body.originals-page{--siteflow-text:#f4f4f5;--siteflow-muted:#bdbdc4;--siteflow-accent:#ededf0;--siteflow-accent-2:#d6d6da}
+body.originals-page .siteflow-shell{position:fixed;top:0!important;right:0;left:auto;bottom:0;width:min(350px,92vw);max-height:100dvh;transform:none!important;z-index:9997;pointer-events:none}
+body.originals-page .siteflow-shell::before{display:none!important}
+body.originals-page .siteflow-bar{position:relative;display:flex;flex-direction:column;gap:0;width:100%;height:100dvh;max-height:100dvh;padding:22px 26px;overflow-x:hidden;overflow-y:auto;border:0!important;border-radius:0;background:rgba(5,7,11,.26)!important;-webkit-backdrop-filter:blur(5px);backdrop-filter:blur(5px);box-shadow:none!important;scrollbar-width:thin;scrollbar-color:#444 transparent;color:#eee;pointer-events:auto}
+body.originals-page .siteflow-bar::before,body.originals-page .siteflow-bar::after{display:none!important;content:none!important}
+body.originals-page.siteflow-vip-mode .siteflow-shell:not(.is-collapsed) .siteflow-bar{background:rgba(5,7,11,.76)!important;-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
+body.originals-page .siteflow-player{position:relative;display:grid;gap:8px;padding:65px 0 17px;margin:0 0 15px;border:0;border-bottom:1px solid #ffffff35;border-radius:0;background:none!important;box-shadow:none;color:#eee;font-family:Arial,Helvetica,sans-serif}
+body.originals-page .siteflow-player::before{content:"";position:absolute;top:0;left:0;width:60px;height:60px;background:url('/logo.png') center/contain no-repeat;pointer-events:none}
+body.originals-page .siteflow-player::after{display:none}
+body.originals-page .siteflow-player-brand,body.originals-page .siteflow-player-track-number{color:#ddd;font:600 10px Arial,sans-serif;letter-spacing:.16em}
+body.originals-page .siteflow-player-brand small{color:#aaa;font-size:8px}
+body.originals-page .siteflow-player-screen{border:0;background:none;padding:4px 0;box-shadow:none}
+body.originals-page .siteflow-player-title{color:#fff;font:12px/1.4 Arial,sans-serif;text-align:left;letter-spacing:.01em}
+body.originals-page .siteflow-player-meta{color:#aaa;font:10px Arial,sans-serif}
+body.originals-page .siteflow-player-buttons{display:grid!important;grid-template-columns:48px 58px 48px!important;justify-content:center!important;align-items:center!important;justify-items:center!important;gap:13px!important;width:100%!important;margin:8px 0!important;padding:0!important}
+body.originals-page .siteflow-player-buttons .siteflow-player-button{position:relative!important;display:block!important;box-sizing:border-box!important;width:48px!important;height:48px!important;min-width:48px!important;min-height:48px!important;flex:none!important;margin:0!important;padding:0!important;border:0!important;border-radius:0!important;background:transparent!important;box-shadow:none!important;color:transparent!important;font-size:0!important;transform:none!important;cursor:pointer}
+body.originals-page .siteflow-player-buttons .siteflow-player-button::before{content:"";position:absolute;inset:0;display:block;background:center/contain no-repeat;pointer-events:none}
+body.originals-page #siteflowPlayerPrevious::before{background-image:url('/stop.png')}
+body.originals-page #siteflowPlayerPlay{width:58px!important;height:58px!important;min-width:58px!important;min-height:58px!important}
+body.originals-page #siteflowPlayerPlay::before{background-image:url('/play.png')}
+body.originals-page #siteflowPlayerPlay[aria-pressed='true']::before{background-image:url('/ns-gothic-assets/Glossy%20Chrome%20Pause%20Button%20Icon.png')!important;}
+body.originals-page #siteflowPlayerNext::before{background-image:url('/forward.png')}
+/* Keep the real chrome Play control visible, even while the JS toggles pause. */
+body.originals-page .siteflow-player-buttons button:hover{filter:brightness(1.18)}
+body.originals-page .siteflow-player-range{accent-color:#d0d0d6;height:12px}
+body.originals-page .siteflow-player-volume{color:#aaa;font:10px Arial,sans-serif}
+body.originals-page .siteflow-transmission,body.originals-page .siteflow-dossier{padding:15px 0;border:0;border-bottom:1px solid #ffffff25;border-radius:0;background:none!important;color:#c8c8cf;box-shadow:none;font:11px/1.5 Arial,sans-serif;text-align:left}
+body.originals-page .siteflow-dossier{margin:0 0 7px}
+body.originals-page .siteflow-kicker{color:#aaa;font:10px Arial,sans-serif;letter-spacing:.15em;text-transform:uppercase;margin-bottom:7px}
+body.originals-page .siteflow-small{color:#ddd;font:12px/1.5 Arial,sans-serif}
+body.originals-page .siteflow-jump{display:flex;flex-direction:column;gap:0;margin:4px 0 10px}
+body.originals-page .siteflow-jump a,body.originals-page .siteflow-link{display:flex;align-items:center;justify-content:space-between;min-height:40px;padding:10px 2px;border:0!important;border-bottom:1px solid #ffffff1e!important;border-radius:0;background:none!important;color:#ddd!important;font:12px/1.4 Arial,sans-serif;letter-spacing:.02em;text-transform:none;text-align:left;box-shadow:none!important;transform:none}
+body.originals-page .siteflow-jump a::after{content:'›';color:#aaa;font-size:20px;line-height:1}
+body.originals-page .siteflow-jump a:hover,body.originals-page .siteflow-link:hover,body.originals-page .siteflow-jump a.siteflow-active{color:#fff!important;background:#ffffff0b!important;text-shadow:none}
+body.originals-page .siteflow-controls{display:flex;flex-wrap:wrap;gap:8px;padding:12px 0}
+body.originals-page .siteflow-control,body.originals-page .siteflow-min-toggle{flex:1 1 40%;min-height:35px;padding:9px 12px;border:1px solid #ffffff55;border-radius:999px;background:#0b0b10a8;color:#eee;font:10px Arial,sans-serif;letter-spacing:.05em;box-shadow:none}
+body.originals-page .siteflow-min-toggle{flex-basis:100%}
+body.originals-page .siteflow-shell.is-collapsed{top:50%!important;right:-13px!important;bottom:auto!important;width:52px!important;height:82px!important;max-height:none!important;transform:translateY(-50%)!important;overflow:visible!important}
+body.originals-page .siteflow-shell.is-collapsed .siteflow-bar{width:52px!important;height:82px!important;max-height:82px!important;padding:0!important;display:flex!important;align-items:center!important;justify-content:center!important;overflow:hidden!important;background:transparent!important;box-shadow:none!important;backdrop-filter:none!important;border:0!important}
+body.originals-page .siteflow-shell.is-collapsed .siteflow-head,body.originals-page .siteflow-shell.is-collapsed .siteflow-player,body.originals-page .siteflow-shell.is-collapsed .siteflow-transmission,body.originals-page .siteflow-shell.is-collapsed .siteflow-dossier,body.originals-page .siteflow-shell.is-collapsed .siteflow-jump{display:none!important}
+body.originals-page .siteflow-shell.is-collapsed .siteflow-controls{display:flex!important;margin:0!important;padding:0!important;gap:0!important}
+body.originals-page .siteflow-shell.is-collapsed #siteflowVipToggle,body.originals-page .siteflow-shell.is-collapsed #siteflowSoundToggle{display:none!important}
+body.originals-page .siteflow-shell.is-collapsed #siteflowMinToggle{position:relative!important;display:block!important;flex:0 0 52px!important;width:52px!important;min-width:52px!important;max-width:52px!important;height:82px!important;min-height:82px!important;padding:0!important;margin:0!important;border:0!important;border-radius:22px 0 0 22px!important;background:linear-gradient(135deg,#1c1d21d9,#050509ec)!important;color:transparent!important;font-size:0!important;box-shadow:-5px 5px 22px #0007,inset 1px 0 0 #ffffff35!important;cursor:pointer;overflow:hidden!important;clip-path:none!important;transform:none!important;filter:none!important}
+body.originals-page .siteflow-shell.is-collapsed #siteflowMinToggle::before{content:""!important;position:absolute!important;inset:0!important;display:block!important;transform:none!important;background:url('/logo.png') 27% center/34px auto no-repeat!important;filter:none!important;border:0!important}
+body.originals-page .siteflow-shell.is-collapsed #siteflowMinToggle::after{content:none!important;display:none!important}
+body.originals-page .siteflow-shell.is-collapsed #siteflowMinToggle:hover{filter:brightness(1.17)!important}
+@media(max-width:600px){body.originals-page .siteflow-shell{width:min(340px,90vw)}body.originals-page .siteflow-bar{padding:18px 22px}body.originals-page .siteflow-shell.is-collapsed,body.originals-page .siteflow-shell.is-collapsed .siteflow-bar,body.originals-page .siteflow-shell.is-collapsed #siteflowMinToggle{width:48px!important;height:76px!important;min-width:48px!important;min-height:76px!important}}
 
-/* NS ORIGINALS — CLEAN DRAWER
-   Complete replacement for ns-originals-gothic.css */
-
-body.originals-page {
-  --siteflow-text: #f4f4f5;
-  --siteflow-muted: #bdbdc4;
-  --siteflow-accent: #ededf0;
-  --siteflow-accent-2: #d6d6da;
+/* Keep touch-friendly mobile panel light enough for iPhone Safari. */
+@media(max-width:600px){
+ body.originals-page .siteflow-shell.is-collapsed {right:-10px!important;}
+ body.originals-page .siteflow-bar,
+ body.originals-page.siteflow-vip-mode .siteflow-shell:not(.is-collapsed) .siteflow-bar {
+  -webkit-backdrop-filter:none!important; backdrop-filter:none!important;
+ }
+ body.originals-page .siteflow-bar {background:rgba(5,7,11,.72)!important;}
+ body.originals-page.siteflow-vip-mode .siteflow-shell:not(.is-collapsed) .siteflow-bar {background:rgba(5,7,11,.90)!important;}
 }
-
-/* MAIN DRAWER */
-body.originals-page .siteflow-shell {
-  position: fixed;
-  top: 0 !important;
-  right: 0;
-  left: auto;
-  bottom: 0;
-  width: min(350px, 92vw);
-  max-height: 100dvh;
-  transform: none !important;
-  z-index: 9997;
-  pointer-events: none;
-}
-
-body.originals-page .siteflow-shell::before {
-  display: none !important;
-}
-
-body.originals-page .siteflow-bar {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  gap: 0;
-  width: 100%;
-  height: 100dvh;
-  max-height: 100dvh;
-  padding: 22px 26px;
-  overflow-x: hidden;
-  overflow-y: auto;
-  border: 0 !important;
-  border-radius: 0;
-  background: rgba(5, 7, 11, .26) !important;
-  -webkit-backdrop-filter: blur(8px);
-  backdrop-filter: blur(8px);
-  box-shadow: none !important;
-  scrollbar-width: thin;
-  scrollbar-color: #444 transparent;
-  color: #eee;
-  pointer-events: auto;
-}
-
-body.originals-page .siteflow-bar::before,
-body.originals-page .siteflow-bar::after {
-  display: none !important;
-  content: none !important;
-}
-
-/* VIP MODE — DARKER GLASS */
-body.originals-page.siteflow-vip-mode
-.siteflow-shell:not(.is-collapsed) .siteflow-bar {
-  background: rgba(5, 7, 11, .76) !important;
-  -webkit-backdrop-filter: blur(20px);
-  backdrop-filter: blur(20px);
-}
-
-/* MUSIC PLAYER */
-body.originals-page .siteflow-player {
-  position: relative;
-  display: grid;
-  gap: 8px;
-  padding: 65px 0 17px;
-  margin: 0 0 15px;
-  border: 0;
-  border-bottom: 1px solid #ffffff35;
-  border-radius: 0;
-  background: none !important;
-  box-shadow: none;
-  color: #eee;
-  font-family: Arial, Helvetica, sans-serif;
-}
-
-body.originals-page .siteflow-player::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 60px;
-  height: 60px;
-  background: url("/logo.png") center / contain no-repeat;
-  pointer-events: none;
-}
-
-body.originals-page .siteflow-player::after {
-  display: none;
-}
-
-body.originals-page .siteflow-player-brand,
-body.originals-page .siteflow-player-track-number {
-  color: #ddd;
-  font: 600 10px Arial, sans-serif;
-  letter-spacing: .16em;
-}
-
-body.originals-page .siteflow-player-brand small {
-  color: #aaa;
-  font-size: 8px;
-}
-
-body.originals-page .siteflow-player-screen {
-  border: 0;
-  background: none;
-  padding: 4px 0;
-  box-shadow: none;
-}
-
-body.originals-page .siteflow-player-title {
-  color: #fff;
-  font: 12px/1.4 Arial, sans-serif;
-  text-align: left;
-  letter-spacing: .01em;
-}
-
-body.originals-page .siteflow-player-meta {
-  color: #aaa;
-  font: 10px Arial, sans-serif;
-}
-
-/* CHROME PLAYBACK BUTTONS */
-body.originals-page .siteflow-player-buttons {
-  display: grid !important;
-  grid-template-columns: 48px 58px 48px !important;
-  justify-content: center !important;
-  align-items: center !important;
-  justify-items: center !important;
-  gap: 13px !important;
-  width: 100% !important;
-  margin: 8px 0 !important;
-  padding: 0 !important;
-}
-
-body.originals-page .siteflow-player-buttons
-.siteflow-player-button {
-  position: relative !important;
-  display: block !important;
-  box-sizing: border-box !important;
-  width: 48px !important;
-  height: 48px !important;
-  min-width: 48px !important;
-  min-height: 48px !important;
-  flex: none !important;
-  margin: 0 !important;
-  padding: 0 !important;
-  border: 0 !important;
-  border-radius: 0 !important;
-  background: transparent !important;
-  box-shadow: none !important;
-  color: transparent !important;
-  font-size: 0 !important;
-  transform: none !important;
-  cursor: pointer;
-}
-
-body.originals-page .siteflow-player-buttons
-.siteflow-player-button::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  display: block;
-  background: center / contain no-repeat;
-  pointer-events: none;
-}
-
-body.originals-page #siteflowPlayerPrevious::before {
-  background-image: url("/stop.png");
-}
-
-body.originals-page #siteflowPlayerPlay {
-  width: 58px !important;
-  height: 58px !important;
-  min-width: 58px !important;
-  min-height: 58px !important;
-}
-
-body.originals-page #siteflowPlayerPlay::before {
-  background-image: url("/play.png");
-}
-
-body.originals-page #siteflowPlayerNext::before {
-  background-image: url("/forward.png");
-}
-
-body.originals-page .siteflow-player-buttons button:hover {
-  filter: brightness(1.18);
-}
-
-body.originals-page .siteflow-player-range {
-  accent-color: #d0d0d6;
-  height: 12px;
-}
-
-body.originals-page .siteflow-player-volume {
-  color: #aaa;
-  font: 10px Arial, sans-serif;
-}
-
-/* ORACLE + DOSSIER */
-body.originals-page .siteflow-transmission,
-body.originals-page .siteflow-dossier {
-  padding: 15px 0;
-  border: 0;
-  border-bottom: 1px solid #ffffff25;
-  border-radius: 0;
-  background: none !important;
-  color: #c8c8cf;
-  box-shadow: none;
-  font: 11px/1.5 Arial, sans-serif;
-  text-align: left;
-}
-
-body.originals-page .siteflow-dossier {
-  margin: 0 0 7px;
-}
-
-body.originals-page .siteflow-kicker {
-  color: #aaa;
-  font: 10px Arial, sans-serif;
-  letter-spacing: .15em;
-  text-transform: uppercase;
-  margin-bottom: 7px;
-}
-
-body.originals-page .siteflow-small {
-  color: #ddd;
-  font: 12px/1.5 Arial, sans-serif;
-}
-
-/* NAVIGATION */
-body.originals-page .siteflow-jump {
-  display: flex;
-  flex-direction: column;
-  gap: 0;
-  margin: 4px 0 10px;
-}
-
-body.originals-page .siteflow-jump a,
-body.originals-page .siteflow-link {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  min-height: 40px;
-  padding: 10px 2px;
-  border: 0 !important;
-  border-bottom: 1px solid #ffffff1e !important;
-  border-radius: 0;
-  background: none !important;
-  color: #ddd !important;
-  font: 12px/1.4 Arial, sans-serif;
-  letter-spacing: .02em;
-  text-transform: none;
-  text-align: left;
-  box-shadow: none !important;
-  transform: none;
-}
-
-body.originals-page .siteflow-jump a::after {
-  content: "›";
-  color: #aaa;
-  font-size: 20px;
-  line-height: 1;
-}
-
-body.originals-page .siteflow-jump a:hover,
-body.originals-page .siteflow-link:hover,
-body.originals-page .siteflow-jump a.siteflow-active {
-  color: #fff !important;
-  background: #ffffff0b !important;
-  text-shadow: none;
-}
-
-/* VIP / SOUND / MINIMIZE */
-body.originals-page .siteflow-controls {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  padding: 12px 0;
-}
-
-body.originals-page .siteflow-control,
-body.originals-page .siteflow-min-toggle {
-  flex: 1 1 40%;
-  min-height: 35px;
-  padding: 9px 12px;
-  border: 1px solid #ffffff55;
-  border-radius: 999px;
-  background: #0b0b10a8;
-  color: #eee;
-  font: 10px Arial, sans-serif;
-  letter-spacing: .05em;
-  box-shadow: none;
-}
-
-body.originals-page .siteflow-min-toggle {
-  flex-basis: 100%;
-}
-
-/* COLLAPSED — SMALL NS TAB ONLY */
-body.originals-page .siteflow-shell.is-collapsed {
-  top: 50% !important;
-  right: 0 !important;
-  bottom: auto !important;
-  width: 52px !important;
-  height: 96px !important;
-  max-height: none !important;
-  transform: translateY(-50%) !important;
-  overflow: visible !important;
-}
-
-body.originals-page .siteflow-shell.is-collapsed .siteflow-bar {
-  width: 52px !important;
-  height: 96px !important;
-  max-height: 96px !important;
-  padding: 0 !important;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  overflow: hidden !important;
-  background: transparent !important;
-  box-shadow: none !important;
-  backdrop-filter: none !important;
-  border: 0 !important;
-}
-
-body.originals-page .siteflow-shell.is-collapsed
-.siteflow-head,
-body.originals-page .siteflow-shell.is-collapsed
-.siteflow-player,
-body.originals-page .siteflow-shell.is-collapsed
-.siteflow-transmission,
-body.originals-page .siteflow-shell.is-collapsed
-.siteflow-dossier,
-body.originals-page .siteflow-shell.is-collapsed
-.siteflow-jump {
-  display: none !important;
-}
-
-body.originals-page .siteflow-shell.is-collapsed
-.siteflow-controls {
-  display: flex !important;
-  margin: 0 !important;
-  padding: 0 !important;
-  gap: 0 !important;
-}
-
-body.originals-page .siteflow-shell.is-collapsed
-#siteflowVipToggle,
-body.originals-page .siteflow-shell.is-collapsed
-#siteflowSoundToggle {
-  display: none !important;
-}
-
-body.originals-page .siteflow-shell.is-collapsed
-#siteflowMinToggle {
-  position: relative !important;
-  display: block !important;
-  flex: 0 0 52px !important;
-  width: 52px !important;
-  min-width: 52px !important;
-  max-width: 52px !important;
-  height: 96px !important;
-  min-height: 96px !important;
-  padding: 0 !important;
-  margin: 0 !important;
-  border: 0 !important;
-  border-radius: 20px 0 0 20px !important;
-  background: linear-gradient(
-    135deg,
-    #1c1d21d9,
-    #050509ec
-  ) !important;
-  color: transparent !important;
-  font-size: 0 !important;
-  box-shadow:
-    -5px 5px 22px #0007,
-    inset 1px 0 0 #ffffff35 !important;
-  cursor: pointer;
-  overflow: hidden !important;
-  clip-path: none !important;
-  transform: none !important;
-  filter: none !important;
-}
-
-body.originals-page .siteflow-shell.is-collapsed
-#siteflowMinToggle::before {
-  content: "" !important;
-  position: absolute !important;
-  inset: 0 !important;
-  display: block !important;
-  transform: none !important;
-  background: url("/logo.png") center / 36px auto no-repeat !important;
-  filter: none !important;
-  border: 0 !important;
-}
-
-body.originals-page .siteflow-shell.is-collapsed
-#siteflowMinToggle::after {
-  content: none !important;
-  display: none !important;
-}
-
-body.originals-page .siteflow-shell.is-collapsed
-#siteflowMinToggle:hover {
-  filter: brightness(1.17) !important;
-}
-
-/* MOBILE */
-@media (max-width: 600px) {
-  body.originals-page .siteflow-shell {
-    width: min(340px, 90vw);
-  }
-
-  body.originals-page .siteflow-bar {
-    padding: 18px 22px;
-  }
-
-  body.originals-page .siteflow-shell.is-collapsed,
-  body.originals-page .siteflow-shell.is-collapsed .siteflow-bar,
-  body.originals-page .siteflow-shell.is-collapsed #siteflowMinToggle {
-    width: 48px !important;
-    height: 88px !important;
-    min-width: 48px !important;
-    min-height: 88px !important;
-  }
-   
-/* NS AUDIO — REAL CHROME PAUSE BUTTON */
-
-body.originals-page
-#siteflowPlayerPlay[aria-pressed="true"]::before {
-  background: url("ns-gothic-assets/glossy_chrome_pause_button_icon.png")
-    center / contain no-repeat !important;
-  border: 0 !important;
-  border-radius: 0 !important;
-  box-shadow: none !important;
-}
-   
-/* NS TAB — PARTIALLY HIDDEN OFFSCREEN */
-
-body.originals-page .siteflow-shell.is-collapsed {
-  right: -27px !important;
-  overflow: visible !important;
-}
-
-body.originals-page .siteflow-shell.is-collapsed
-#siteflowMinToggle {
-  overflow: hidden !important;
-  transition: transform .35s ease !important;
-}
-
-/* Slide out slightly on hover */
-body.originals-page .siteflow-shell.is-collapsed:hover {
-  right: -12px !important;
-  transition: right .35s ease !important;
-}
-
-/* Phone — leave enough visible to tap */
-@media (max-width: 600px) {
-  body.originals-page .siteflow-shell.is-collapsed {
-    right: -19px !important;
-  }
-}
-
-
-}
+@media(prefers-reduced-motion:reduce){body.originals-page .siteflow-shell{transition:none!important}}
