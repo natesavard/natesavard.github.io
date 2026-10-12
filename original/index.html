@@ -1525,5 +1525,89 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
 @media screen and (max-width:680px){.entry-gate{transform:translateY(-85px)}}
 @media screen and (max-width:680px) and (max-height:650px){.entry-gate{transform:translateY(-45px)}}
 </style>
+
+  
+<!-- NS CINEMATIC SHADOW ATMOSPHERE -->
+<style>
+#ns-shadow-atmosphere {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+/* Slow drifting darkness */
+#ns-shadow-atmosphere::before {
+  content: "";
+  position: absolute;
+  inset: -25%;
+  background:
+    radial-gradient(
+      ellipse at 25% 40%,
+      transparent 0%,
+      rgba(0,0,0,.36) 52%,
+      rgba(0,0,0,.58) 100%
+    ),
+    linear-gradient(
+      115deg,
+      rgba(0,0,0,.56),
+      rgba(0,0,0,.08) 48%,
+      rgba(0,0,0,.48)
+    );
+  animation: nsShadowDrift 22s ease-in-out infinite alternate;
+}
+
+/* Subtle moving warm light */
+#ns-shadow-atmosphere::after {
+  content: "";
+  position: absolute;
+  inset: -20%;
+  background: radial-gradient(
+    ellipse at 40% 35%,
+    rgba(185,145,95,.12),
+    transparent 48%
+  );
+  mix-blend-mode: screen;
+  animation: nsLightDrift 17s ease-in-out infinite alternate;
+}
+
+@keyframes nsShadowDrift {
+  0% {
+    transform: translate(-5%, -2%) rotate(-4deg);
+    opacity: .65;
+  }
+  50% {
+    transform: translate(3%, 1%) rotate(2deg);
+    opacity: .9;
+  }
+  100% {
+    transform: translate(7%, -3%) rotate(5deg);
+    opacity: .7;
+  }
+}
+
+@keyframes nsLightDrift {
+  from {
+    transform: translate(-8%, 2%) scale(1);
+    opacity: .3;
+  }
+  to {
+    transform: translate(9%, -5%) scale(1.15);
+    opacity: .7;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #ns-shadow-atmosphere::before,
+  #ns-shadow-atmosphere::after {
+    animation: none;
+  }
+}
+</style>
+
+<div id="ns-shadow-atmosphere" aria-hidden="true"></div>
+
 </body>
 </html>
