@@ -442,5 +442,32 @@ body.originals-page
   border-radius: 0 !important;
   box-shadow: none !important;
 }
+   
+/* NS TAB — PARTIALLY HIDDEN OFFSCREEN */
+
+body.originals-page .siteflow-shell.is-collapsed {
+  right: -27px !important;
+  overflow: visible !important;
+}
+
+body.originals-page .siteflow-shell.is-collapsed
+#siteflowMinToggle {
+  overflow: hidden !important;
+  transition: transform .35s ease !important;
+}
+
+/* Slide out slightly on hover */
+body.originals-page .siteflow-shell.is-collapsed:hover {
+  right: -12px !important;
+  transition: right .35s ease !important;
+}
+
+/* Phone — leave enough visible to tap */
+@media (max-width: 600px) {
+  body.originals-page .siteflow-shell.is-collapsed {
+    right: -19px !important;
+  }
+}
+
 
 }
