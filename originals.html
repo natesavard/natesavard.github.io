@@ -6543,6 +6543,40 @@
 
 <link rel="stylesheet" href="ns-originals-gothic.css">
 
+  
+<script>
+/* NS AUDIO — genuine STOP control */
+document.addEventListener("click", function(event) {
+  const stop = event.target.closest("#siteflowPlayerPrevious");
+  if (!stop) return;
+
+  event.preventDefault();
+  event.stopImmediatePropagation();
+
+  const audio = document.getElementById("backgroundMusic");
+  if (!audio) return;
+
+  audio.pause();
+  try {
+    audio.currentTime = 0;
+  } catch (error) {}
+
+  audio.dispatchEvent(new Event("timeupdate"));
+}, true);
+
+function setNSStopLabel() {
+  const stop = document.getElementById("siteflowPlayerPrevious");
+  if (stop) stop.setAttribute("aria-label", "Stop track");
+}
+
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", setNSStopLabel);
+} else {
+  setNSStopLabel();
+}
+</script>
+
+
 
 </body>
 </html>
