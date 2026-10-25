@@ -329,6 +329,44 @@
   
 <script src="/ns-home-collection-vault.js" defer></script>
 <script src="/ns-home-vault-exact.js" defer></script>
+  
+<style>
+/* Restore small floating NS monogram */
+.floating-monogram {
+  display: grid !important;
+  position: fixed !important;
+  right: 16px !important;
+  bottom: 18px !important;
+  top: auto !important;
+  left: auto !important;
+  width: 72px !important;
+  height: 72px !important;
+  z-index: 1200 !important;
+  place-items: center;
+  border: 0;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(9,9,8,.47),
+    rgba(9,9,8,.05) 62%,
+    transparent 73%
+  );
+  cursor: pointer;
+  filter: drop-shadow(0 9px 18px rgba(0,0,0,.58));
+}
+
+.floating-monogram model-viewer {
+  display: block !important;
+  width: 100% !important;
+  height: 100% !important;
+  pointer-events: none;
+}
+
+.floating-monogram:hover {
+  transform: scale(1.1);
+}
+</style>
+
 
 </body>
 </html>
