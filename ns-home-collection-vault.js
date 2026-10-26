@@ -39,7 +39,11 @@
    ['DISTRESSED STREETWEAR','ns-envy-02.webp'],
    ['FW25 TECHNICAL','ns-envy-08.webp']
   ];
-  const intro=document.createElement('div');intro.innerHTML='<p class="ns-kicker">NATE SAVARD / death is not the end of consciousness / ネイト・サヴァード
+  
+const intro=document.createElement('div');
+intro.innerHTML='<p class="ns-kicker">NATE SAVARD / death is not the end of consciousness / ネイト・サヴァード PRO TOUR WORLDWIDE</p><h2>COLLECTION</h2><p class="ns-intro">Grand World Tour, Racing Heritage, a different reality. genetic level programmable matter. A selection from Nate Savard archive.</p>';
+section.append(intro);
+
 PRO TOUR WORLDWIDE</p><h2>COLLECTION</h2><p class="ns-intro">Grand World Tour, Racing Heritage, a different reality. genetic level
 programmable matter. A selection from Nate Savard  archive.</p>';section.append(intro);
   const grid=document.createElement('div');grid.className='ns-products';
