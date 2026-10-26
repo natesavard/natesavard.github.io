@@ -39,7 +39,8 @@
    ['DISTRESSED STREETWEAR','ns-envy-02.webp'],
    ['FW25 TECHNICAL','ns-envy-08.webp']
   ];
-  const intro=document.createElement('div');intro.innerHTML='<p class="ns-kicker">NATE SAVARD / ORIGINALS / WORLDWIDE</p><h2>COLLECTION</h2><p class="ns-intro">Distressed garments, racing heritage, and objects for a different reality. A selection from the Nate Savard design archive.</p>';section.append(intro);
+  const intro=document.createElement('div');intro.innerHTML='<p class="ns-kicker">NATE SAVARD / death is not the end of consciousness / ネイト・サヴァード
+PRO TOUR WORLDWIDE</p><h2>COLLECTION</h2><p class="ns-intro">Grand World Tour, Racing Heritage, a different reality. A selection from the Nate Savard design archive.</p>';section.append(intro);
   const grid=document.createElement('div');grid.className='ns-products';
   products.forEach(([name,src])=>{const a=document.createElement('button');a.type='button';a.className='ns-product';a.style.cssText='background:none;border:0;padding:0;text-align:left;cursor:pointer;width:100%';const box=document.createElement('div');box.className='ns-image';const img=document.createElement('img');img.src='/'+src;img.alt=name;img.loading='lazy';img.classList.add('card__image');box.append(img);const title=document.createElement('div');title.className='ns-name';title.textContent=name;const sub=document.createElement('div');sub.className='ns-label';sub.textContent='VIEW DETAILS / ADD TO CART ↗';a.dataset.name=name;a.append(box,title,sub);grid.append(a)});section.append(grid);
   const explore=document.createElement('a');explore.className='ns-explore';explore.href='/vault.html';explore.textContent='EXPLORE ALL GARMENTS / VAULT ↗';section.append(explore);
