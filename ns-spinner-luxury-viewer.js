@@ -49,8 +49,7 @@ function init(){
   document.querySelectorAll('.jewelry-card').forEach(card=>{const name=card.dataset.houseProduct||card.querySelector('.jewelry-card-title')?.textContent||'';if(!/spinner/i.test(name)||card.querySelector('.ns-spinner-lux'))return;
    const old=card.querySelector('.jewelry-card-media');if(old)old.replaceWith(viewer());else card.prepend(viewer());
   });
-  const hero=document.querySelector('.hero-showcase');
-  if(hero&&!hero.parentElement.querySelector('.ns-spinner-lux-hero'))hero.replaceWith(viewer(true));
+
  }
  mount();window.addEventListener('load',mount,{once:true});
 }
