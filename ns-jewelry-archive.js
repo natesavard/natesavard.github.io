@@ -27,7 +27,7 @@
     const section=document.createElement('section');section.id='ns-new-jewels';
     const kicker=document.createElement('p');kicker.className='nsj-kicker';kicker.textContent='NATE SAVARD / THE ORIGINAL COLLECTION';
     const title=document.createElement('h2');title.textContent='THE JEWEL ARCHIVE';
-    const sub=document.createElement('p');sub.className='nsj-sub';sub.textContent='Nine custom jewelry design studies. Rings, signets, and heirloom lockets. Private commissions and availability by inquiry; imagery represents design concepts, not confirmed inventory.';
+    const sub=document.createElement('p');sub.className='nsj-sub';sub.textContent='Rings, signets, and heirloom lockets. Private commissions and availability by inquiry; imagery represents design concepts, not confirmed inventory.';
     const grid=document.createElement('div');grid.className='nsj-grid';
     const lightbox=document.createElement('div');lightbox.id='nsj-lightbox';lightbox.setAttribute('role','dialog');lightbox.setAttribute('aria-modal','true');
     const close=document.createElement('button');close.type='button';close.setAttribute('aria-label','Close image');close.textContent='×';
