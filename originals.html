@@ -6653,6 +6653,46 @@ if (document.readyState === "loading") {
 <script src="/ns-spinner-luxury-viewer.js?v=2" defer></script>
 
 <script>
+/* RESTORE ORIGINAL ORIGINALS HERO SPINNER */
+
+document.addEventListener("DOMContentLoaded", () => {
+  const hero = document.querySelector(".hero-visual");
+  const gallery = hero?.querySelector(".ns-spinner-lux-hero");
+
+  if (!gallery) return;
+
+  gallery.remove();
+
+  const original = document.createElement("div");
+  original.className = "hero-showcase";
+
+  original.innerHTML = `
+    <div class="hero-card hero-card-main piece-trigger"
+         tabindex="0"
+         role="button"
+         aria-label="Open Hero Spinner image"
+         data-piece-title="Hero Spinner"
+         data-piece-image="nate-savard-hero-spinner.png">
+      <img src="nate-savard-hero-spinner.png"
+           alt="Hero spinner pendant by Nate Savard">
+    </div>
+
+    <div class="hero-card hero-card-side piece-trigger"
+         tabindex="0"
+         role="button"
+         aria-label="Open Hero Spinner Side View image"
+         data-piece-title="Hero Spinner Side View"
+         data-piece-image="side-view-true-transparent-cropped.png">
+      <img src="side-view-true-transparent-cropped.png"
+           alt="Hero spinner side view">
+    </div>
+  `;
+
+  hero.prepend(original);
+});
+</script>
+
+<script>
 /* NATE SAVARD — REMOVE CHAIN DESIGNS */
 
 (() => {
