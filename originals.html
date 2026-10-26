@@ -4546,6 +4546,8 @@
       const start = rect(centerLogo);
       const target = logoTarget ? rect(logoTarget) : start;
 
+centerLogo.style.visibility = 'hidden';
+
       flyingLogo.style.display = 'block';
       flyingLogo.style.opacity = '1';
       flyingLogo.style.left = `${start.left}px`;
@@ -4570,7 +4572,7 @@
 
       setTimeout(() => {
         flyingLogo.style.opacity = '0';
-      }, 1160);
+      }, 960);
 
       setTimeout(() => {
         flyingLogo.style.display = 'none';
@@ -6749,6 +6751,13 @@ document.addEventListener("DOMContentLoaded", () => {
   
 <script src="/ns-deep-sapphire-add.js?v=1" defer></script>
 
+
+<style>
+body:not(.originals-entered) #floatingTopCross {
+  opacity: 0 !important;
+  visibility: hidden !important;
+}
+</style>
 
 </body>
 </html>
