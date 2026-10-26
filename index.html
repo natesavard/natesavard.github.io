@@ -436,6 +436,61 @@
   
 <script src="/ns-home-insomnia-hats.js?v=1" defer></script>
 
+<style>
+/* NATE SAVARD — LUXURY CART MOTION */
+
+/* Smooth dark background fade */
+.nsv-overlay:has(.nsv-drawer) {
+  display: flex !important;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  background: rgba(0,0,0,0) !important;
+
+  transition:
+    opacity 0.55s ease,
+    background 0.55s ease,
+    visibility 0s linear 0.65s !important;
+}
+
+.nsv-overlay.open:has(.nsv-drawer) {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  background: rgba(0,0,0,0.65) !important;
+
+  transition:
+    opacity 0.55s ease,
+    background 0.55s ease,
+    visibility 0s !important;
+}
+
+/* Weighted, smooth drawer movement */
+.nsv-overlay .nsv-drawer {
+  transform: translate3d(105%, 0, 0) !important;
+  opacity: 0.92;
+
+  transition:
+    transform 0.75s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 0.55s ease !important;
+
+  will-change: transform;
+}
+
+.nsv-overlay.open .nsv-drawer {
+  transform: translate3d(0, 0, 0) !important;
+  opacity: 1;
+}
+
+/* Respect reduced-motion settings */
+@media (prefers-reduced-motion: reduce) {
+  .nsv-overlay:has(.nsv-drawer),
+  .nsv-overlay .nsv-drawer {
+    transition: none !important;
+  }
+}
+</style>
+
 
 </body>
 </html>
