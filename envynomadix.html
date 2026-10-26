@@ -4952,5 +4952,66 @@
 <script src="/ns-jewelry-archive.js?v=1" defer></script>
 
 
+<script>
+/* NATE SAVARD — REMOVE DISCONTINUED JEWELRY */
+
+(() => {
+  const discontinued = [
+    "white fire scroll ring",
+    "ns marquise crest frame",
+    "ns scale crest ring"
+  ];
+
+  const selectors = [
+    ".product-card",
+    ".jewelry-card",
+    ".nsj-card",
+    ".world-card",
+    ".builder-match-card",
+    ".recent-card"
+  ].join(",");
+
+  function removeDiscontinued() {
+    document.querySelectorAll(selectors).forEach(card => {
+      const name =
+        card.dataset.houseProduct ||
+        card.querySelector(
+          ".product-name, .jewelry-card-title, .nsj-name"
+        )?.textContent ||
+        card.getAttribute("data-piece-title") ||
+        "";
+
+      if (discontinued.includes(name.trim().toLowerCase())) {
+        card.remove();
+      }
+    });
+  }
+
+  function start() {
+    removeDiscontinued();
+
+    const observer = new MutationObserver(() => {
+      observer.disconnect();
+      removeDiscontinued();
+      observer.observe(document.body, {
+        childList: true,
+        subtree: true
+      });
+    });
+
+    observer.observe(document.body, {
+      childList: true,
+      subtree: true
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", start);
+  } else {
+    start();
+  }
+})();
+</script>
+
 </body>
 </html>
