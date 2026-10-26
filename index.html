@@ -496,5 +496,18 @@
 <script src="/ns-unified-drop.js?v=1" defer></script>
 
 
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  document.querySelectorAll('.scene').forEach(scene =>
+    scene.classList.toggle('is-active', scene.dataset.scene === 'insomnia')
+  );
+
+  document.querySelectorAll('.scene-tab').forEach(tab => {
+    tab.classList.toggle('is-active', tab.dataset.target === 'insomnia');
+    if (tab.dataset.target === 'insomnia') tab.textContent = 'NLS SAVARD';
+  });
+});
+</script>
+
 </body>
 </html>
