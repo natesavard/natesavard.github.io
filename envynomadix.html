@@ -4897,6 +4897,47 @@
   </script>
   <script src="/site-bottom-nav.js"></script>
   <script src="ns-envy-collection.js" defer></script>
-  
+
+<style>
+/* ENVYNOMADIX — MINI CLOTHING GRID ON MOBILE */
+@media (max-width: 640px) {
+
+  #ns-envy-edit {
+    width: calc(100% - 20px) !important;
+    margin: 25px auto 50px !important;
+  }
+
+  #ns-envy-edit .ns-grid {
+    display: grid !important;
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+    gap: 7px !important;
+  }
+
+  #ns-envy-edit .ns-frame {
+    width: 100% !important;
+    aspect-ratio: 3 / 4 !important;
+    padding: 0 !important;
+    overflow: hidden !important;
+  }
+
+  #ns-envy-edit .ns-frame img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: contain !important;
+  }
+
+  #ns-envy-edit figcaption {
+    font-size: 8px !important;
+    line-height: 1.3 !important;
+    letter-spacing: 0.02em !important;
+    padding: 6px 0 12px !important;
+  }
+
+  #ns-envy-edit figcaption small {
+    display: none !important;
+  }
+}
+</style>
+
 </body>
 </html>
