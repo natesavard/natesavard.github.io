@@ -5072,6 +5072,50 @@
 </script>
 
 <script src="/ns-deep-sapphire-add.js?v=1" defer></script>
+  
+<script>
+/* REMOVE THREE ENVYNOMADIX JEWELRY DESIGNS */
+(() => {
+  const removed = new Set([
+    "n cross chain",
+    "chrome envy",
+    "envy monogram bracelet"
+  ]);
+
+  function cleanJewels() {
+    document.querySelectorAll(".jewelry-card").forEach(card => {
+      const name = (
+        card.dataset.houseProduct ||
+        card.querySelector(".jewelry-card-title")?.textContent ||
+        ""
+      ).trim().toLowerCase();
+
+      if (removed.has(name)) {
+        card.remove();
+      }
+    });
+  }
+
+  function init() {
+    cleanJewels();
+
+    const rail = document.querySelector("#jewelryRail");
+    if (!rail) return;
+
+    new MutationObserver(cleanJewels).observe(rail, {
+      childList: true,
+      subtree: true
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", init);
+  } else {
+    init();
+  }
+})();
+</script>
+
 
 </body>
 </html>
