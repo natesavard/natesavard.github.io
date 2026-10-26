@@ -5017,5 +5017,59 @@
 <script src="/ns-spinner-luxury-viewer.js?v=2" defer></script>
 
 
+<script>
+/* NATE SAVARD — REMOVE CHAIN DESIGNS */
+
+(() => {
+  const removed = [
+    "ns monogram link chain",
+    "envy script chain"
+  ];
+
+  function cleanJewelry() {
+    document.querySelectorAll(
+      ".product-card, .jewelry-card, .nsj-card"
+    ).forEach(card => {
+
+      const name = (
+        card.dataset.houseProduct ||
+        card.querySelector(
+          ".product-name, .jewelry-card-title, .nsj-name"
+        )?.textContent ||
+        ""
+      ).trim().toLowerCase();
+
+      if (removed.some(item => name.includes(item))) {
+        card.remove();
+      }
+    });
+  }
+
+  function start() {
+    cleanJewelry();
+
+    const observer = new MutationObserver(() => {
+      observer.disconnect();
+      cleanJewelry();
+      observer.observe(document.body, {
+        childList: true,
+        subtree: true
+      });
+    });
+
+    observer.observe(document.body, {
+      childList: true,
+      subtree: true
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", start);
+  } else {
+    start();
+  }
+})();
+</script>
+
 </body>
 </html>
