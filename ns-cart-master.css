@@ -1,0 +1,13 @@
+/* Nate Savard unified collector cart — homepage silhouette, Originals identity */
+.nsv-overlay .nsv-drawer,.originals-cart-drawer{background:linear-gradient(155deg,#1c1915 0%,#090807 42%,#050505 100%)!important;color:#eee7da!important;border-color:rgba(218,177,104,.38)!important;box-shadow:-24px 0 90px rgba(0,0,0,.78),inset 1px 0 rgba(255,231,179,.09)!important}
+.nsv-overlay .nsv-drawer{border-radius:30px 0 0 30px!important}
+.originals-cart-drawer{border-radius:30px 0 0 30px!important;width:min(470px,96vw)!important}
+.ns-cart-logo{display:inline-flex;align-items:center;justify-content:center;border:0;background:transparent;cursor:pointer;padding:3px;margin:0 0 13px;transition:filter .25s,transform .25s}
+.ns-cart-logo:hover,.ns-cart-logo:focus-visible{filter:drop-shadow(0 0 9px rgba(224,181,110,.45));transform:scale(1.04);outline:1px solid rgba(218,177,104,.4)}
+.ns-cart-logo img{display:block;width:86px;max-height:88px;object-fit:contain}
+.nsv-drawer .nsv-overline,.originals-cart-header .piece-lightbox-kicker{color:#c5a678!important;letter-spacing:.22em!important;text-transform:uppercase!important}
+.nsv-drawer h2,.originals-cart-title{font:400 clamp(22px,3vw,32px)/1.2 Georgia,serif!important;letter-spacing:.08em!important;color:#f6eee2!important;text-transform:uppercase!important}
+.nsv-drawer .nsv-line,.originals-cart-item{border-bottom:1px solid rgba(218,177,104,.2)!important}
+.nsv-drawer .nsv-submit,.originals-cart-action.is-primary{background:linear-gradient(120deg,#e9d7b7,#c9a36a)!important;color:#140f09!important;border:1px solid #c6a46f!important;border-radius:13px!important}
+.nsv-drawer input,.nsv-drawer textarea,.originals-cart-field input,.originals-cart-field textarea{background:rgba(255,255,255,.045)!important;border:1px solid rgba(218,177,104,.3)!important;color:#f7f0e5!important}
+@media(max-width:600px){.nsv-overlay .nsv-drawer,.originals-cart-drawer{width:min(430px,96vw)!important;border-radius:22px 0 0 22px!important;padding-left:20px!important;padding-right:20px!important}}

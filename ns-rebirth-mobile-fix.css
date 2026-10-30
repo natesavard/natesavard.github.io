@@ -1,0 +1,16 @@
+/* Mobile containment for Rebirth: desktop remains untouched */
+@media(max-width:767px){
+ html,body{width:100%;max-width:100%;overflow-x:clip!important;scroll-behavior:auto}
+ body{min-width:0!important}
+ .shell,.portal,.copy,.copy-inner,.visual,.rebirth-stack{max-width:100%!important;min-width:0!important}
+ .shell{width:100%!important;padding:18px 12px 60px!important;display:block!important;min-height:auto!important}
+ .portal{width:100%!important;max-width:100%!important;display:flex!important;flex-direction:column!important;gap:12px!important;transform:none!important;animation:none!important}
+ .visual{width:100%!important;min-height:0!important;height:auto!important;overflow:hidden!important;display:flex!important;justify-content:center!important}
+ .rebirth-stack{position:relative!important;width:100%!important;max-width:520px!important;min-height:0!important;aspect-ratio:4/5!important;margin-inline:auto!important;transform:none!important}
+ .rebirth-stack img{max-width:100%!important;max-height:100%!important;object-fit:contain!important}
+ .copy{position:relative!important;inset:auto!important;width:100%!important;height:auto!important;min-height:0!important;overflow:visible!important;transform:none!important;padding:10px 6px 32px!important}
+ .copy-inner{position:relative!important;top:auto!important;left:auto!important;right:auto!important;transform:none!important;width:100%!important;max-width:100%!important;min-height:0!important}
+ img,video,iframe{max-width:100%}
+ h1,h2,h3,p{overflow-wrap:anywhere}
+ .accent-logo{max-width:22vw!important}
+}

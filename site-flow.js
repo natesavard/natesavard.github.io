@@ -1,4 +1,4 @@
-﻿(function () {
+(function () {
   const pages = [
     { file: "index.html", key: "houses", title: "The Original Collection x Envynomadix", short: "Houses", section: "Dual flagship entry", summary: "The two main houses front and center: jewelry, garments, relics, and collector direction.", clearance: "main entry", dossier: "Primary landing page connecting the Original Collection jewelry house and the Envynomadix fashion world.", hum: "soft" },
     { file: "originals.html", key: "sage", title: "The Original Collection", short: "The Original Collection", section: "Talismans // Rings // Relics // Custom Signature Pieces", summary: "Jewelry pieces, relic visuals, and private collection pathway.", clearance: "private collection", dossier: "Talismans and relics private collection tied to the luxury node.", hum: "soft" },
@@ -366,6 +366,7 @@
 
   function injectLoreFragment() {
     if (document.querySelector(".siteflow-fragment") || !activeFragment) return;
+    if (currentPage.key === "sage" && window.localStorage.getItem("ns-originals-welcome-dismissed") === "yes") return;
     const card = document.createElement("aside");
     card.className = "siteflow-fragment";
     const savedState = window.localStorage.getItem(storageKeys.fragmentCollapsed);
@@ -416,6 +417,11 @@
     });
     card.querySelector(".siteflow-fragment-toggle").addEventListener("click", function (event) {
       event.stopPropagation();
+      if (currentPage.key === "sage") {
+        window.localStorage.setItem("ns-originals-welcome-dismissed", "yes");
+        card.remove();
+        return;
+      }
       openState(!card.classList.contains("is-open"));
       if (soundEngine) soundEngine.click();
     });
@@ -1104,8 +1110,8 @@
       return {
         id: "sage-private-note",
         glyph: "◈",
-        title: "Private Collection Note",
-        body: "Welcome to your next piece. Let us connect and shape a talisman or ring meant to move with you for life - rare, personal, and worthy of a man or woman building legacy."
+        title: "WELCOME TO NATE SAVARD",
+        body: "You have reached the most badass cool fkn place on the internet. We are rare, personal, high-end luxury people. We cater to like-minded humans. Shalom."
       };
     }
     if (currentPage.key === "transmissions") {

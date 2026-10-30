@@ -1,0 +1,1 @@
+(()=>{'use strict';document.addEventListener('click',e=>{const cart=e.target.closest('.originals-cart-title,.originals-cart-header img,.originals-cart-header .piece-lightbox-kicker');if(cart){document.getElementById('originalsCartClose')?.click();return}const logo=e.target.closest('.siteflow-player-brand');if(logo){document.getElementById('siteflowMinToggle')?.click();}});})();
