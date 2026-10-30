@@ -16,11 +16,20 @@
   `;document.head.append(style);
   const scene=document.querySelector('.scene--insomnia');
   if(scene&&!scene.querySelector('.ns-insomnia-video')){
-   const v=document.createElement('video');v.className='ns-insomnia-video';v.src='/ns-insomnia-purple-loop.mp4';v.muted=true;v.loop=true;v.autoplay=true;v.playsInline=true;v.preload='none';v.setAttribute('aria-hidden','true');
+   const v=document.createElement('video');v.className='ns-insomnia-video';v.src='/ns-insomnia-purple-loop.mp4';v.muted=true;v.loop=true;v.autoplay=true;v.playsInline=true;v.preload='auto';v.setAttribute('playsinline','');v.setAttribute('muted','');v.setAttribute('aria-hidden','true');
    const tint=document.createElement('div');tint.className='ns-insomnia-tint';scene.prepend(v,tint);
    const update=()=>{if(window.matchMedia('(prefers-reduced-motion: reduce)').matches||!scene.classList.contains('is-active')||document.hidden){v.pause()}else{v.play().catch(()=>{})}};
-   document.querySelectorAll('.scene-tab').forEach(b=>b.addEventListener('click',()=>setTimeout(update,450)));
-   document.addEventListener('visibilitychange',update);update();
+   document.querySelectorAll('.scene-tab').forEach(b=>b.addEventListener('click',()=>{requestAnimationFrame(update);setTimeout(update,500)}));
+   document.addEventListener('visibilitychange',update);
+   // The homepage sets the NLS scene active later during DOMContentLoaded.
+   // Observe that state so playback begins without switching tabs twice.
+   const observer=new MutationObserver(update);
+   observer.observe(scene,{attributes:true,attributeFilter:['class']});
+   v.addEventListener('canplay',update);
+   window.addEventListener('pageshow',update);
+   requestAnimationFrame(update);
+   setTimeout(update,250);
+   setTimeout(update,900);
   }
   const grid=document.querySelector('#ns-home-collection .ns-products');
   if(grid&&!grid.querySelector('.ns-hat-card')){
