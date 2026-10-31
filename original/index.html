@@ -1038,6 +1038,39 @@
 @keyframes rightLogoSpin{0%,100%{transform:translate3d(0,0,0) rotate(0deg) scale(1.42)}25%{transform:translate3d(0,-4px,0) rotate(90deg) scale(1.42)}50%{transform:translate3d(0,-8px,0) rotate(180deg) scale(1.42)}75%{transform:translate3d(0,-4px,0) rotate(270deg) scale(1.42)}}
 </style>
 <style id="ns85-remove-legacy">.sound-player,.sound-player *{display:none!important;visibility:hidden!important;pointer-events:none!important}</style>
+
+<style id="ns-jewel-axis-v1">
+/* Originals entrance: replace the traveling orb only. Keep original line and page structure. */
+.center-axis::after { content:none !important; animation:none !important; }
+.center-axis { isolation:isolate; }
+.ns-jewel-center { position:absolute; left:50%; top:50%; width:clamp(58px,7vw,105px); aspect-ratio:1; z-index:4; pointer-events:none; transform:translate(-50%,-50%); perspective:650px; }
+.ns-jewel-center img { display:block; width:100%; height:100%; object-fit:contain; filter:drop-shadow(0 0 9px rgba(255,198,88,.55)) drop-shadow(0 0 22px rgba(255,218,145,.22)); animation:nsJewelTurn 16s ease-in-out infinite; }
+.ns-helix { position:absolute; left:50%; top:50%; width:clamp(26px,3.4vw,49px); aspect-ratio:1; pointer-events:none; transform-origin:center; }
+.ns-helix img { display:block; width:100%; height:100%; object-fit:contain; filter:drop-shadow(0 0 8px rgba(227,187,106,.65)); }
+.ns-helix--front { z-index:6; animation:nsHelixFront 9s linear infinite; }
+.ns-helix--back { z-index:2; animation:nsHelixBack 9s linear infinite; }
+@keyframes nsJewelTurn { 0%,100% {transform:rotateY(-12deg) rotateZ(-3deg)} 50% {transform:rotateY(12deg) rotateZ(3deg)} }
+@keyframes nsHelixFront {
+  0% {transform:translate(calc(-50% - 8px),calc(-50% - 145px)) scale(.7);opacity:.55}
+  25% {transform:translate(calc(-50% + 45px),calc(-50% - 72px)) scale(1.2);opacity:1}
+  50% {transform:translate(calc(-50% + 8px),calc(-50% + 0px)) scale(.72);opacity:.48}
+  75% {transform:translate(calc(-50% - 45px),calc(-50% + 72px)) scale(1.2);opacity:1}
+  100% {transform:translate(calc(-50% - 8px),calc(-50% - 145px)) scale(.7);opacity:.55}
+}
+@keyframes nsHelixBack {
+  0% {transform:translate(calc(-50% + 8px),calc(-50% + 145px)) scale(.7);opacity:.34}
+  25% {transform:translate(calc(-50% - 45px),calc(-50% + 72px)) scale(.5);opacity:.25}
+  50% {transform:translate(calc(-50% - 8px),calc(-50% + 0px)) scale(.7);opacity:.35}
+  75% {transform:translate(calc(-50% + 45px),calc(-50% - 72px)) scale(.5);opacity:.25}
+  100% {transform:translate(calc(-50% + 8px),calc(-50% + 145px)) scale(.7);opacity:.34}
+}
+@media(max-width:680px) {
+ .ns-jewel-center {width:clamp(45px,12vw,66px)}
+ .ns-helix {width:clamp(22px,6vw,34px)}
+ .ns-helix--front,.ns-helix--back {animation-duration:9s;animation-range:normal}
+}
+@media(prefers-reduced-motion:reduce){.ns-jewel-center img,.ns-helix{animation:none!important}.ns-helix--front{transform:translate(-50%,-125px)}.ns-helix--back{display:none}}
+</style>
 </head>
 <body>
   <!-- Legacy audio-engine hooks only. No visible legacy player. -->
@@ -1067,6 +1100,9 @@
     </a>
 
     <div class="center-axis" aria-hidden="true">
+      <div class="ns-jewel-center"><img src="ns-jewel-medallion.png" alt="" /></div>
+      <div class="ns-helix ns-helix--front"><img src="../envy-cross.png" alt="" /></div>
+      <div class="ns-helix ns-helix--back"><img src="../envy-cross.png" alt="" /></div>
       <div class="center-kicker">pick your poison</div>
     </div>
 
