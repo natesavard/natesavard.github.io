@@ -145,11 +145,11 @@
 .ns-signature-link{display:inline-flex;align-items:center;gap:10px;flex:0 0 auto;text-decoration:none;color:#eee8dc;cursor:pointer}
 .ns-signature-wrap{display:block;position:relative;width:clamp(116px,13vw,190px);height:36px;flex:none}
 .ns-signature-wrap>.signature{width:100%;height:100%}
-.ns-signature-shimmer{position:absolute;inset:0;pointer-events:none;opacity:0;clip-path:inset(0 100% 0 0);filter:brightness(0) invert(1) drop-shadow(0 0 8px rgba(255,255,255,.85)) drop-shadow(0 0 18px rgba(255,255,255,.35))!important;animation:nsSignatureWriteOn 17.6s cubic-bezier(.2,.72,.18,1) 1.4s infinite}
+.ns-signature-shimmer{position:absolute;inset:0;pointer-events:none;opacity:0;clip-path:inset(0 100% 0 0);mix-blend-mode:screen;filter:grayscale(1) invert(1) brightness(1.38) contrast(1.06) drop-shadow(0 0 14px rgba(255,255,255,.22)) drop-shadow(0 0 28px rgba(255,255,255,.12))!important;animation:nsSignatureWriteOn 17.6s cubic-bezier(.2,.72,.18,1) 1.4s infinite}
 .ns-signature-arrow{display:inline-block;font:300 19px/1 Georgia,serif;color:rgba(245,239,230,.7);text-shadow:0 0 10px rgba(255,255,255,.24);animation:nsSignatureArrow 3.4s ease-in-out infinite}
 .ns-signature-link:hover .ns-signature-arrow,.ns-signature-link:focus-visible .ns-signature-arrow{color:#fff}
 .ns-signature-link:focus-visible{outline:1px solid rgba(255,255,255,.65);outline-offset:5px}
-@keyframes nsSignatureWriteOn{0%,5%{opacity:0;clip-path:inset(0 100% 0 0)}8%{opacity:.8}26%{opacity:.9;clip-path:inset(0 0 0 0)}34%,100%{opacity:0;clip-path:inset(0 0 0 0)}}
+@keyframes nsSignatureWriteOn{0%,46%{opacity:0;clip-path:inset(0 100% 0 0);transform:translateX(-2px) scale(1.01)}49%{opacity:0;clip-path:inset(0 100% 0 0);transform:translateX(-2px) scale(1.01)}54%{opacity:.84;clip-path:inset(0 74% 0 0);transform:translateX(-1px) scale(1.01)}61%{opacity:.96;clip-path:inset(0 34% 0 0);transform:translateX(0) scale(1.005)}68%{opacity:.9;clip-path:inset(0 0 0 0);transform:translateX(0) scale(1)}73%,100%{opacity:0;clip-path:inset(0 0 0 0);transform:translateX(0) scale(1)}}
 @keyframes nsSignatureArrow{0%,100%{transform:translateX(7px);opacity:.38}50%{transform:translateX(-3px);opacity:.9}}
 @media(prefers-reduced-motion:reduce){.ns-signature-shimmer,.ns-signature-arrow{animation:none}.ns-signature-shimmer{display:none}}
 </style>
@@ -171,7 +171,7 @@
       <a class="ns-signature-link" href="/original/" aria-label="Enter Nate Savard's world">
         <span class="ns-signature-wrap">
           <img class="signature" src="nate-savard-signature-corner.png" alt="Nate Savard" />
-          <img class="signature ns-signature-shimmer" src="nate-savard-signature-corner.png" alt="" aria-hidden="true" />
+          <img class="signature ns-signature-shimmer" src="nate-savard-signature-write-on.png" alt="" aria-hidden="true" />
         </span>
         <span class="ns-signature-arrow" aria-hidden="true">←</span>
       </a>
