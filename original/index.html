@@ -1645,5 +1645,53 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
 
 <div id="ns-shadow-atmosphere" aria-hidden="true"></div>
 
+
+<!-- NS ORIGINAL: background slideshow controls; no visible UI -->
+<style id="ns-background-crossfade-controls">
+/* Existing foreground, gold axis, jewel and music remain untouched. */
+html::before,html::after { opacity:0 !important; animation:none !important; }
+.entry-third-backdrop,.entry-fourth-backdrop { opacity:0 !important; animation:none !important; }
+.ns-background-crossfade { position:fixed; inset:0; z-index:0; pointer-events:none; overflow:hidden; }
+.ns-background-crossfade__image { position:absolute; inset:0; background-position:center; background-size:cover; background-repeat:no-repeat; opacity:0; transform:scale(1.045); transition:opacity 1.7s ease-in-out; will-change:opacity; }
+.ns-background-crossfade__image.is-visible { opacity:.62; }
+.ns-background-crossfade__image[data-slide="0"] { background-position:38% center; filter:saturate(.96) contrast(1.02) brightness(.98); }
+.ns-background-crossfade__image[data-slide="1"] { filter:saturate(.92) contrast(1.03) brightness(.82); }
+.ns-background-crossfade__image[data-slide="2"] { filter:saturate(.9) contrast(1.02) brightness(.84); }
+.ns-background-crossfade__image[data-slide="3"] { filter:saturate(.88) contrast(1.02) brightness(.86); }
+@media (prefers-reduced-motion:reduce) { .ns-background-crossfade__image { transition-duration:.25s; } }
+</style>
+<script id="ns-background-crossfade-script">
+(function(){
+  function init(){
+    if(document.querySelector('.ns-background-crossfade')) return;
+    const urls=['/IMG_6721.jpg','/nate-savard-warm-portrait-3000(1).png','/nate-savard-bg-3.png','/nate%20savard%20speedway%20(1).png'];
+    const holder=document.createElement('div');holder.className='ns-background-crossfade';holder.setAttribute('aria-hidden','true');
+    const layers=urls.map((url,i)=>{const el=document.createElement('div');el.className='ns-background-crossfade__image';el.dataset.slide=i;el.style.backgroundImage='url("'+url+'")';holder.appendChild(el);return el;});
+    document.body.insertAdjacentElement('afterbegin',holder);
+    let current=0,timer;
+    layers[0].classList.add('is-visible');
+    function show(next){
+      next=(next+layers.length)%layers.length;
+      if(next===current)return;
+      // Put incoming image above outgoing image for a smooth opacity crossfade.
+      const outgoing=layers[current],incoming=layers[next];
+      incoming.style.zIndex='2';outgoing.style.zIndex='1';
+      layers.forEach((el,i)=>{if(i!==current&&i!==next){el.classList.remove('is-visible');el.style.zIndex='0';}});
+      incoming.classList.add('is-visible');outgoing.classList.remove('is-visible');current=next;
+    }
+    function restart(){clearInterval(timer);timer=setInterval(()=>show(current+1),9000);}
+    document.addEventListener('keydown',e=>{
+      if(e.altKey||e.ctrlKey||e.metaKey||e.shiftKey||e.repeat)return;
+      if(!['ArrowRight','ArrowLeft'].includes(e.key))return;
+      const target=e.target;
+      if(target&&target.closest&&target.closest('input,textarea,select,[contenteditable="true"],[role="slider"]'))return;
+      e.preventDefault();show(current+(e.key==='ArrowRight'?1:-1));restart();
+    });
+    restart();
+  }
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init,{once:true});else init();
+})();
+</script>
+
 </body>
 </html>
