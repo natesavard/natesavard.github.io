@@ -140,6 +140,19 @@
   
 /* Exact Vault top-right character animation, scoped to preserve homepage layout. */
 </style>
+<style id="ns-signature-glide-v1">
+/* Header signature only: preserve existing logo dimensions and header layout. */
+.ns-signature-link{display:inline-flex;align-items:center;gap:10px;flex:0 0 auto;text-decoration:none;color:#eee8dc;cursor:pointer}
+.ns-signature-wrap{display:block;position:relative;width:clamp(116px,13vw,190px);height:36px;flex:none}
+.ns-signature-wrap>.signature{width:100%;height:100%}
+.ns-signature-shimmer{position:absolute;inset:0;pointer-events:none;opacity:0;clip-path:inset(0 100% 0 0);filter:brightness(0) invert(1) drop-shadow(0 0 8px rgba(255,255,255,.85)) drop-shadow(0 0 18px rgba(255,255,255,.35))!important;animation:nsSignatureWriteOn 17.6s cubic-bezier(.2,.72,.18,1) 1.4s infinite}
+.ns-signature-arrow{display:inline-block;font:300 19px/1 Georgia,serif;color:rgba(245,239,230,.7);text-shadow:0 0 10px rgba(255,255,255,.24);animation:nsSignatureArrow 3.4s ease-in-out infinite}
+.ns-signature-link:hover .ns-signature-arrow,.ns-signature-link:focus-visible .ns-signature-arrow{color:#fff}
+.ns-signature-link:focus-visible{outline:1px solid rgba(255,255,255,.65);outline-offset:5px}
+@keyframes nsSignatureWriteOn{0%,5%{opacity:0;clip-path:inset(0 100% 0 0)}8%{opacity:.8}26%{opacity:.9;clip-path:inset(0 0 0 0)}34%,100%{opacity:0;clip-path:inset(0 0 0 0)}}
+@keyframes nsSignatureArrow{0%,100%{transform:translateX(7px);opacity:.38}50%{transform:translateX(-3px);opacity:.9}}
+@media(prefers-reduced-motion:reduce){.ns-signature-shimmer,.ns-signature-arrow{animation:none}.ns-signature-shimmer{display:none}}
+</style>
 </head>
 <body>
   <div class="ns-transition" aria-hidden="true"><img class="ns-transition-mark" src="assets/ns-chrome-monogram.webp" alt="" /></div>
@@ -155,7 +168,13 @@
 <div class="scene scene--ghost" data-scene="ghost" aria-hidden="true"></div>
 
     <header class="header">
-      <a href="/original/" aria-label="Open the original Nate Savard site"><img class="signature" src="nate-savard-signature-corner.png" alt="Nate Savard" /></a>
+      <a class="ns-signature-link" href="/original/" aria-label="Enter Nate Savard's world">
+        <span class="ns-signature-wrap">
+          <img class="signature" src="nate-savard-signature-corner.png" alt="Nate Savard" />
+          <img class="signature ns-signature-shimmer" src="nate-savard-signature-corner.png" alt="" aria-hidden="true" />
+        </span>
+        <span class="ns-signature-arrow" aria-hidden="true">←</span>
+      </a>
       <nav class="nav" aria-label="Site navigation"><a href="#releases">Current releases</a><a href="#top">Insomnia world</a><a href="#vault">Vault</a><a href="https://www.youtube.com/@natesavard" target="_blank" rel="noopener noreferrer">YouTube ↗</a><a class="nav-booking" href="mailto:natesavard@outlook.com?subject=Nate%20Savard%20Booking">Bookings</a></nav>
     </header>
     <div class="hero-main">
