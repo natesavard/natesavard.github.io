@@ -52,8 +52,8 @@ const init=()=>{
  // Keep the existing homepage hero, music, cart and collection untouched.
  if(home)home.insertAdjacentElement('afterend',section);
  else {
-  const anchor=document.querySelector('.catalogue-stage,.product-scroll-row,.catalogue-rail,footer');
-  if(anchor)anchor.insertAdjacentElement('afterend',section);else document.body.append(section);
+  const anchor = document.querySelector('#releases');
+if (anchor) anchor.insertAdjacentElement('afterend', section);
  }
 };
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
