@@ -79,7 +79,6 @@ section {
   height:auto;
   overflow:visible;
   opacity:.87;
-  filter:drop-shadow(0 0 12px rgba(240,188,147,.38));
   animation:journal-logo-drift 10s ease-in-out infinite,
             journal-logo-breathe 7s ease-in-out infinite;
 }
@@ -92,7 +91,7 @@ section {
 @keyframes journal-logo-breathe{
   0%,100%{opacity:.84}
   38%{opacity:1}
-  74%{opacity:.57}
+  70%,78%{opacity:.20}
 }
 @keyframes journal-logo-sweep{
   0%,100%{transform:translate(-280px,30px);opacity:.28}
@@ -126,7 +125,7 @@ section {
             <feColorMatrix type="matrix" values="0 0 0 0 1
                                                  0 0 0 0 1
                                                  0 0 0 0 1
-                                                -1.13 0 0 0 1.035"/>
+                                                -1.30 0 0 0 1.08"/>
           </filter>
           <mask id="journal-logo-mask" maskUnits="userSpaceOnUse" x="0" y="0" width="1000" height="452" style="mask-type:alpha">
             <image href="/assets/journal-nate-logo.png" width="1000" height="452" filter="url(#journal-logo-ink)"/>
