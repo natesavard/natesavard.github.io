@@ -140,6 +140,19 @@
   
 /* Exact Vault top-right character animation, scoped to preserve homepage layout. */
 </style>
+<style id="ns-signature-glide-v1">
+/* Header signature only: preserve existing logo dimensions and header layout. */
+.ns-signature-link{display:inline-flex;align-items:center;gap:10px;flex:0 0 auto;text-decoration:none;color:#eee8dc;cursor:pointer}
+.ns-signature-wrap{display:block;position:relative;width:clamp(116px,13vw,190px);height:36px;flex:none}
+.ns-signature-wrap>.signature{width:100%;height:100%}
+.ns-signature-shimmer{position:absolute;inset:0;pointer-events:none;opacity:0;clip-path:inset(0 100% 0 0);mix-blend-mode:screen;filter:grayscale(1) invert(1) brightness(1.38) contrast(1.06) drop-shadow(0 0 14px rgba(255,255,255,.22)) drop-shadow(0 0 28px rgba(255,255,255,.12))!important;animation:nsSignatureWriteOn 17.6s cubic-bezier(.2,.72,.18,1) 1.4s infinite}
+.ns-signature-arrow{display:inline-flex;align-items:center;justify-content:center;width:22px;height:28px;flex:none;animation:nsSignatureArrow 3.4s ease-in-out infinite}.ns-signature-arrow img{display:block;width:100%;height:100%;object-fit:contain;filter:drop-shadow(0 0 5px rgba(255,255,255,.35));opacity:.72;transition:opacity .2s ease,filter .2s ease}
+.ns-signature-link:hover .ns-signature-arrow img,.ns-signature-link:focus-visible .ns-signature-arrow img{opacity:1;filter:drop-shadow(0 0 8px rgba(255,255,255,.7))}
+.ns-signature-link:focus-visible{outline:1px solid rgba(255,255,255,.65);outline-offset:5px}
+@keyframes nsSignatureWriteOn{0%,46%{opacity:0;clip-path:inset(0 100% 0 0);transform:translateX(-2px) scale(1.01)}49%{opacity:0;clip-path:inset(0 100% 0 0);transform:translateX(-2px) scale(1.01)}54%{opacity:.84;clip-path:inset(0 74% 0 0);transform:translateX(-1px) scale(1.01)}61%{opacity:.96;clip-path:inset(0 34% 0 0);transform:translateX(0) scale(1.005)}68%{opacity:.9;clip-path:inset(0 0 0 0);transform:translateX(0) scale(1)}73%,100%{opacity:0;clip-path:inset(0 0 0 0);transform:translateX(0) scale(1)}}
+@keyframes nsSignatureArrow{0%,100%{transform:translateX(7px);opacity:.38}50%{transform:translateX(-3px);opacity:.9}}
+@media(prefers-reduced-motion:reduce){.ns-signature-shimmer,.ns-signature-arrow{animation:none}.ns-signature-shimmer{display:none}}
+</style>
 </head>
 <body>
   <div class="ns-transition" aria-hidden="true"><img class="ns-transition-mark" src="assets/ns-chrome-monogram.webp" alt="" /></div>
@@ -155,8 +168,14 @@
 <div class="scene scene--ghost" data-scene="ghost" aria-hidden="true"></div>
 
     <header class="header">
-      <a href="/original/" aria-label="Open the original Nate Savard site"><img class="signature" src="nate-savard-signature-corner.png" alt="Nate Savard" /></a>
-      <nav class="nav" aria-label="Site navigation"><a href="#releases">Latest releases</a><a href="#top">Insomnia world</a><a href="#vault">Vault</a><a href="https://www.youtube.com/@natesavard" target="_blank" rel="noopener noreferrer">YouTube ↗</a><a class="nav-booking" href="mailto:natesavard@outlook.com?subject=Nate%20Savard%20Booking">Bookings</a></nav>
+      <a class="ns-signature-link" href="/original/" aria-label="Enter Nate Savard's world">
+        <span class="ns-signature-wrap">
+          <img class="signature" src="nate-savard-signature-corner.png" alt="Nate Savard" />
+          <img class="signature ns-signature-shimmer" src="nate-savard-signature-write-on.png" alt="" aria-hidden="true" />
+        </span>
+        <span class="ns-signature-arrow" aria-hidden="true"><img src="/envy-cross.png" alt="" /></span>
+      </a>
+      <nav class="nav" aria-label="Site navigation"><a href="#releases">Current releases</a><a href="#top">Insomnia world</a><a href="#vault">Vault</a><a href="https://www.youtube.com/@natesavard" target="_blank" rel="noopener noreferrer">YouTube ↗</a><a class="nav-booking" href="mailto:natesavard@outlook.com?subject=Nate%20Savard%20Booking">Bookings</a></nav>
     </header>
     <div class="hero-main">
       <div class="hero-copy">
@@ -179,16 +198,8 @@
 
   </section>
   <main class="content">
-    <section id="ns-home-audio" class="ns-home-audio" aria-label="Nate Savard audio player">
-  <div class="ns-audio-head"><button id="ns-audio-toggle" class="ns-audio-logo" type="button" aria-expanded="true" aria-label="Minimize or expand music player"><img src="ns logo small player.png" alt="NS"></button><div><small>NS AUDIO / STEREO 85</small><strong>THE LIVING ARCHIVE</strong></div><button id="ns-audio-min" type="button" aria-label="Minimize music player">−</button></div>
-  <div id="ns-audio-controls" class="ns-audio-controls"><audio id="ns-home-track" preload="metadata" src="Song%203%20FULLLL.mp3"></audio><button id="ns-audio-play" type="button">▶ PLAY</button><input id="ns-audio-seek" type="range" min="0" max="1000" value="0" aria-label="Seek audio"><span id="ns-audio-time">00:00 / 00:00</span><label>VOL <input id="ns-audio-volume" type="range" min="0" max="100" value="85"></label></div>
-</section>
-<section id="ns-featured-garments" aria-label="Featured Nate Savard garments"><p class="ns-featured-kicker">NATE SAVARD / ORIGINAL GARMENTS</p><h2>THE COLLECTION</h2><div class="ns-featured-pair">
-<article class="ns-floating-product"><a href="/originals.html"><img class="ns-cutout" src="ns-speedway-cutout.png" alt="Speedway racing jersey"></a><h3>SPEEDWAY JERSEY</h3><div class="ns-alt-views ns-alt-views--four"><img src="ns-envy-05.webp" alt="Speedway front" loading="lazy"><img src="natesavard speedway 85.png" alt="Speedway view two" loading="lazy"><img src="nate savard speedway (1).png" alt="Speedway view three" loading="lazy"><img src="natesavard speedway 85 berlin.png" alt="Speedway view four" loading="lazy"></div></article>
-<article class="ns-floating-product"><a href="/originals.html"><img class="ns-cutout" src="ns-red-tee-cutout.png" alt="Nate Savard red logo tee"></a><h3>RED LOGO TEE</h3><div class="ns-alt-views"><img src="ns-envy-03.webp" alt="Red logo tee alternate view" loading="lazy"></div></article>
-</div><a class="ns-shop-all" href="/originals.html">EXPLORE THE COLLECTION ↗</a></section>
-<section class="releases" id="releases" aria-labelledby="releases-title">
-      <div class="section-head"><div><p class="eyebrow">Latest releases // selected transmissions</p></div></div>
+    <section class="releases" id="releases" aria-labelledby="releases-title">
+      <div class="section-head"><div><p class="eyebrow">Current releases // selected transmissions</p></div></div>
       <div class="release-grid">
         <a class="release-card release-card--feature" href="https://www.youtube.com/watch?v=4JZx3E3M4vE" target="_blank" rel="noopener noreferrer"><p class="card-meta">Latest transmission // 2026 // 04:45</p><h3 class="card-title">Cowboys On The Run<br />Country Hits 2026</h3><p class="card-action">Watch transmission</p></a>
         <a class="release-card release-card--one" href="https://www.youtube.com/watch?v=p7O0pdSjdB8" target="_blank" rel="noopener noreferrer"><p class="card-meta">Sonic transmission // 02:24</p><h3 class="card-title">Back &amp; Forth<br />Strawberry Champagne<br />&amp; Cigarettes</h3><p class="card-action">Watch transmission</p></a>
@@ -337,6 +348,7 @@
   
 
 <script src="/ns-home-collection-vault.js?v=4" defer></script>
+  
 
 <script src="/ns-home-vault-exact.js" defer></script>
   
@@ -446,62 +458,9 @@
   
 <script src="/ns-home-insomnia-hats.js?v=1" defer></script>
 
-<style>
-/* NATE SAVARD — LUXURY CART MOTION */
 
-/* Smooth dark background fade */
-.nsv-overlay:has(.nsv-drawer) {
-  display: flex !important;
-  opacity: 0;
-  visibility: hidden;
-  pointer-events: none;
-  background: rgba(0,0,0,0) !important;
 
-  transition:
-    opacity 0.55s ease,
-    background 0.55s ease,
-    visibility 0s linear 0.65s !important;
-}
-
-.nsv-overlay.open:has(.nsv-drawer) {
-  opacity: 1;
-  visibility: visible;
-  pointer-events: auto;
-  background: rgba(0,0,0,0.65) !important;
-
-  transition:
-    opacity 0.55s ease,
-    background 0.55s ease,
-    visibility 0s !important;
-}
-
-/* Weighted, smooth drawer movement */
-.nsv-overlay .nsv-drawer {
-  transform: translate3d(105%, 0, 0) !important;
-  opacity: 0.92;
-
-  transition:
-    transform 0.75s cubic-bezier(0.22, 1, 0.36, 1),
-    opacity 0.55s ease !important;
-
-  will-change: transform;
-}
-
-.nsv-overlay.open .nsv-drawer {
-  transform: translate3d(0, 0, 0) !important;
-  opacity: 1;
-}
-
-/* Respect reduced-motion settings */
-@media (prefers-reduced-motion: reduce) {
-  .nsv-overlay:has(.nsv-drawer),
-  .nsv-overlay .nsv-drawer {
-    transition: none !important;
-  }
-}
-</style>
-
-<script src="/ns-unified-drop.js?v=1" defer></script>
+<script src="/ns-unified-drop.js?v=2" defer></script>
 
 
 <script>
@@ -517,7 +476,5 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 </script>
 
-<link rel="stylesheet" href="ns-site-update.css"><script src="ns-site-update.js" defer></script>
-<link rel="stylesheet" href="/ns-cart-master.css"><script src="/ns-cart-master.js" defer></script>
 </body>
 </html>
