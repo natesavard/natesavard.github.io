@@ -1,0 +1,5 @@
+name = "nate-release-studio-router"
+main = "worker.js"
+compatibility_date = "2026-11-20"
+workers_dev = false
+routes = [{ pattern = "natesavard.com/upload*", zone_name = "natesavard.com" }]

@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Release Studio | Nate Savard</title>
+<style>
+:root{color-scheme:dark;--ink:#eee8dc;--muted:#aaa497;--gold:#d6b16e;--line:#373128}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at top,#211910,#070706 48rem);color:var(--ink);font:1rem/1.55 Arial,sans-serif}
+main{max-width:68rem;margin:auto;padding:3rem 1.25rem}.artist,legend{font: .82rem monospace;letter-spacing:.15em;text-transform:uppercase;color:var(--gold)}
+h1,h2,h3{font-family:Georgia,serif;font-weight:400;margin:.2em 0 .5em}h1{font-size:clamp(2.9rem,8vw,5rem);line-height:1.1}h2{font-size:2rem}
+header{margin-bottom:2.4rem}.grid{display:grid;grid-template-columns:minmax(0,1.45fr) minmax(0,1fr);gap:1rem}
+section,aside,article{border:1px solid var(--line);background:#10100e;padding:1.3rem;border-radius:.45rem}
+#history{margin-top:2rem}article{margin-bottom:.75rem}p{margin:.5rem 0;color:var(--muted)}
+label{display:block;margin:.8rem 0 .25rem}input:not([type=checkbox]),select{width:100%;background:#090909;border:1px solid #5c5345;border-radius:.25rem;padding:.7rem;color:inherit;font:inherit}
+fieldset{border:1px solid var(--line);margin:1.2rem 0;padding:.6rem .9rem .9rem}fieldset label{margin:.3rem 0}input[type=checkbox]{accent-color:var(--gold)}
+.actions{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:1rem}button{cursor:pointer;border:1px solid var(--gold);border-radius:.25rem;background:var(--gold);color:#151009;padding:.65rem .9rem;font:600 .9rem Arial}
+button.secondary{background:transparent;color:var(--gold)}button:disabled{opacity:.5;cursor:default}a{color:var(--gold)}summary{cursor:pointer;color:var(--gold);margin-top:1rem}
+ul{padding-left:1.25rem}li{margin:.4rem 0}.error{color:#ffb196}.links{display:flex;flex-wrap:wrap;gap:.8rem}.targets{line-height:1.9}.targets button{margin-left:.6rem}
+@media(max-width:670px){main{padding-top:1.75rem}.grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<main>
+<header><div class="artist">Nate Savard</div><h1>Release Studio</h1><p>Upload a finished track and choose where to release it.</p></header>
+<div class="grid">
+<section><h2>New release</h2>
+<form id="release">
+<label for="title">Song title</label><input id="title" name="title" required maxlength="100">
+<label for="audio">Master audio</label><input id="audio" name="audio" type="file" accept=".mp3,.wav,.flac" required>
+<p>MP3, WAV or FLAC · up to 95 MiB</p>
+<fieldset><legend>Destinations</legend><div id="destinations"></div></fieldset>
+<label for="visibility">YouTube visibility</label><select name="visibility" id="visibility"><option>public</option><option>unlisted</option><option>private</option></select>
+<div class="actions"><button id="publish" name="mode" value="publish" disabled>Publish Everywhere</button><button class="secondary" name="mode" value="render">Render Only</button></div>
+<p id="release-message" role="status"></p>
+</form></section>
+<aside><h2>Studio setup</h2>
+<h3>Default visual</h3><p id="visual">Checking NLS visual…</p>
+<details><summary>Set or replace NLS visual</summary>
+<form id="visual-form"><label for="visual-file">Silent MP4 or original MOV</label><input id="visual-file" type="file" name="visual" accept=".mp4,.mov" required>
+<div class="actions"><button class="secondary">Save Visual</button></div><p id="visual-message" role="status"></p></form>
+</details>
+<h3 style="margin-top:1.25rem">Publishing accounts</h3>
+<p id="accounts">Checking accounts…</p>
+<a id="connect-youtube" href="/upload/connect/youtube" hidden>Connect or reconnect YouTube</a>
+<p>Instagram and Facebook use the studio’s Meta credentials. TikTok is available as a portrait download.</p>
+</aside>
+</div>
+<div id="history"><h2>Release history</h2><p id="history-message" role="status"></p><div id="jobs"></div></div>
+</main>
+<script>
+const labels = {youtube:"YouTube",instagram:"Instagram Reels",tiktok:"TikTok",facebook:"Facebook Reels",shorts:"YouTube Shorts"};
+const states = {queued:"Queued",rendering:"Rendering",rendered:"Export ready",submitting:"Submitting",processing:"Waiting for publisher",published:"Published",uploaded:"Uploaded",finalizing:"Finalizing",manual:"Export ready · manual post",failed:"Failed",restricted:"Length restriction",review:"Needs review"};
+const $ = id => document.getElementById(id);
+const api = "/upload/api";
+let ready = false;
+let sending = false;
+let previousJobs = "";
+let accountsLoaded = false;
+let hasConnectedAccount = false;
+
+function element(tag, value, parent) {
+  const node = document.createElement(tag);
+  node.textContent = value;
+  parent.append(node);
+  return node;
+}
+function publishButton() {
+  $("publish").disabled = sending || !ready || !hasConnectedAccount || !$("destinations").querySelector("input:checked");
+}
+for (const [key, name] of Object.entries(labels)) {
+  const label = element("label", "", $("destinations"));
+  const box = element("input", "", label);
+  box.type = "checkbox";
+  box.name = "destinations";
+  box.value = key;
+  box.disabled = true;
+  box.addEventListener("change", publishButton);
+  label.append(" " + name);
+}
+async function request(path, body) {
+  const options = body ? {method:"POST",body,headers:{"X-Release-Studio":"1"}} : {};
+  const response = await fetch(api + path, options);
+  const data = await response.json();
+  if (!response.ok) throw Error(typeof data.detail === "string" ? data.detail : "Request failed.");
+  return data;
+}
+async function refreshAccounts() {
+  try {
+    const data = await request("/accounts");
+    for (const box of $("destinations").querySelectorAll("input")) {
+      const enabled = data.connected.includes(box.value === "shorts" ? "youtube" : box.value) || box.value === "tiktok";
+      if (enabled && (!accountsLoaded || box.disabled)) box.checked = box.value !== "tiktok";
+      if (!enabled) box.checked = false;
+      box.disabled = !enabled;
+    }
+    accountsLoaded = true;
+    hasConnectedAccount = data.connected.length > 0;
+    $("connect-youtube").hidden = !data.youtube_setup;
+    $("accounts").textContent = data.message || (data.connected.length ? "Connected · " + data.connected.map(key => labels[key] || key).join(", ") : "No publishing accounts connected.");
+  } catch (error) {
+    $("accounts").textContent = error.message;
+  }
+  publishButton();
+}
+function link(parent, text, url) {
+  const anchor = element("a", text, parent);
+  anchor.href = url;
+}
+async function retry(job, target, clip, button) {
+  button.disabled = true;
+  try {
+    const body = new FormData();
+    body.set("clip", clip);
+    await request("/releases/" + job.id + "/" + target + "/retry", body);
+    await refresh();
+  } catch (error) {
+    $("history-message").textContent = error.message;
+    button.disabled = false;
+  }
+}
+function displayJobs(jobs) {
+  const snapshot = JSON.stringify(jobs);
+  if (snapshot === previousJobs) return;
+  previousJobs = snapshot;
+  $("jobs").replaceChildren();
+  if (!jobs.length) element("p", "No releases yet.", $("jobs"));
+  for (const job of jobs) {
+    const card = element("article", "", $("jobs"));
+    element("h3", job.title, card);
+    element("p", job.artist + " · " + job.duration.toFixed(1) + " s · " + new Date(job.created_at).toLocaleString(), card);
+    const list = element("ul", "", card);
+    list.className = "targets";
+    const files = new Set();
+    for (const [target, result] of Object.entries(job.targets)) {
+      const name = job.render_only ? (target === "youtube" ? "Landscape export" : "Portrait export") : labels[target];
+      const row = element("li", name + " · " + states[result.state], list);
+      if (result.message) element("div", result.message, row).className = "error";
+      if (result.url) link(row, " View release", result.url);
+      if (result.asset) files.add(result.asset);
+      if (result.full_asset) files.add(result.full_asset);
+      if (result.state === "failed" || (result.state === "restricted" && result.max_clip)) {
+        const clip = result.state === "restricted" ? result.max_clip : 0;
+        const button = element("button", clip ? "Use first " + clip + " seconds" : "Retry", row);
+        button.className = "secondary";
+        button.onclick = () => retry(job, target, clip, button);
+      }
+    }
+    const links = element("div", "", card);
+    links.className = "links";
+    for (const file of files) link(links, "Download " + file + " MP4", api + "/releases/" + job.id + "/" + file + "/download");
+  }
+}
+async function refresh() {
+  try {
+    const data = await request("/status");
+    ready = data.visual;
+    $("visual").textContent = data.visual ? "NLS visual saved · original audio removed" : "Upload the NLS visual to start rendering.";
+    $("history-message").textContent = "";
+    displayJobs(data.jobs);
+    publishButton();
+  } catch (error) {
+    $("history-message").textContent = error.message;
+  }
+}
+function bind(formId, path, messageId, waiting, complete) {
+  $(formId).addEventListener("submit", async event => {
+    event.preventDefault();
+    if (sending) return;
+    const body = new FormData(event.currentTarget, event.submitter);
+    const button = event.submitter;
+    sending = true;
+    button.disabled = true;
+    $(messageId).textContent = waiting;
+    try {
+      await request(path, body);
+      $(messageId).textContent = complete;
+      $(formId).querySelector("input[type=file]").value = "";
+      await refresh();
+    } catch (error) {
+      $(messageId).textContent = error.message;
+    } finally {
+      sending = false;
+      button.disabled = false;
+      publishButton();
+    }
+  });
+}
+bind("release", "/releases", "release-message", "Uploading master audio…", "Release queued. Follow progress in release history.");
+bind("visual-form", "/visual", "visual-message", "Preparing the silent visual…", "NLS visual saved.");
+refresh();
+refreshAccounts();
+setInterval(refresh, 3000);
+setInterval(refreshAccounts, 60000);
+</script>
+</body>
+</html>
