@@ -1,0 +1,36 @@
+name: Install LIFE FORCE ENERGY galleries
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'ns-life-force-everywhere.js'
+      - 'ns-unified-drop.js'
+      - '.github/workflows/install-life-force.yml'
+      - 'tools/install_life_force.py'
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  install:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - name: Patch the existing clothing pages
+        run: python3 tools/install_life_force.py
+      - name: Check page updates
+        run: |
+          git diff --check
+          git status --short
+      - name: Commit updated HTML pages
+        run: |
+          if [ -n "$(git status --porcelain -- '*.html' 'natesavard/*.html')" ]; then
+            git config user.name 'github-actions[bot]'
+            git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+            git add -- '*.html' 'natesavard/*.html'
+            git commit -m "Add LIFE FORCE ENERGY gallery to clothing pages"
+            git push
+          else
+            echo "All HTML pages are already current."
+          fi

@@ -1,6 +1,6 @@
 /* Nate Savard — Life Force Energy homepage drop.
- * Replaces only the homepage NEW OBJECTS & GARMENTS gallery.
- * The original first product is preserved; the separate Vault additions remain unchanged.
+ * Keeps homepage drop and expands existing Vault archive with LIFE FORCE ENERGY designs.
+ * Does not remove existing catalog items or prices.
  */
 (()=>{
 'use strict';
@@ -81,14 +81,14 @@ const init=()=>{
  // Preserve exactly the pre-existing Vault additions, rather than changing that page.
  if(grid){
    const existing=[...grid.querySelectorAll('[data-name]')].map(x=>x.dataset.name.toLowerCase());
-   vaultProducts.forEach(p=>{
+   [...vaultProducts, ...products.slice(1)].forEach(p=>{
     if(existing.some(n=>n===p.name.toLowerCase()||n.includes(p.name.toLowerCase())))return;
-    const card=document.createElement('article');card.className='card';card.dataset.category=p.category==='object'?'symbol':'garment';card.dataset.name=p.name;card.dataset.year='2026';
+    const card=document.createElement('article');card.className='card';card.dataset.category=p.category==='object'?'symbol':p.category==='artwork'?'experiment':'garment';card.dataset.name=p.name;card.dataset.year='2026';
     const wrap=document.createElement('div');wrap.className='card__image-wrap';
     const image=document.createElement('img');image.className='card__image';image.src='/'+p.file;image.alt=p.name;image.loading='lazy';wrap.append(image);
     const meta=document.createElement('div');meta.className='card__meta';
     const nameWrap=document.createElement('div');const name=document.createElement('h2');name.className='card__name';name.textContent=p.name;
-    const type=document.createElement('p');type.className='card__type';type.textContent=p.category==='object'?'Object / design archive':'Garment / design archive';nameWrap.append(name,type);
+    const type=document.createElement('p');type.className='card__type';type.textContent=p.category==='object'?'Object / design archive':p.category==='artwork'?'Artwork / visual study':'Garment / design archive';nameWrap.append(name,type);
     const year=document.createElement('div');year.className='card__year';year.textContent='2026';meta.append(nameWrap,year);
     const inquiry=document.createElement('a');inquiry.className='card__buy';inquiry.href='mailto:natesavard@outlook.com?subject='+encodeURIComponent(p.name+' inquiry');inquiry.textContent='Private inquiry';
     card.append(wrap,meta,inquiry);grid.append(card);
