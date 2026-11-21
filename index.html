@@ -4,12 +4,12 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="theme-color" content="#050505" />
-  <meta name="description" content="Nate Savard — Lost Dimensions: Insomnia 2026. Sonic transmissions from the vault." />
-  <title>Nate Savard — Lost Dimensions: Insomnia 2026</title>
+  <meta name="description" content="Nate Savard WORLD GRAND PRO TOUR 2027" />
+  <title>NATE SAVARD GRAND WORLD PRO TOUR 2027</title>
   <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
   <style>
-    @font-face { font-family:"NS Katakana"; src:url("../assets/katakana.ttf") format("truetype"); font-display:swap; }
-    @font-face { font-family:"Matrix Type Display"; src:url("../assets/matrix-type-display-bold.ttf") format("truetype"); font-style:normal; font-weight:700; font-display:swap; }
+    @font-face { font-family:"NS Katakana"; src:url("assets/katakana.ttf") format("truetype"); font-display:swap; }
+    @font-face { font-family:"Matrix Type Display"; src:url("assets/matrix-type-display-bold.ttf") format("truetype"); font-style:normal; font-weight:700; font-display:swap; }
     :root { --black:#070706; --ink:#eee8dc; --muted:rgba(238,232,220,.67); --line:rgba(238,232,220,.22); --gold:#d6b16e; --mono:"SFMono-Regular",Consolas,"Liberation Mono",monospace; }
     * { box-sizing:border-box; }
     html { background:var(--black); scroll-behavior:smooth; }
@@ -24,20 +24,20 @@
     .ns-transition.is-active .ns-transition-mark { animation:ns-passage .72s cubic-bezier(.22,.78,.25,1) both; }
     .floating-monogram { display:none; }
     .hero { position:relative; min-height:100svh; isolation:isolate; overflow:hidden; background:#0c0b0a; }
-    .hero-photo { position:absolute; inset:-14%; z-index:-4; background:51% 25%/cover no-repeat url("../smoke-portrait.jpg"); filter:grayscale(1) brightness(.54) contrast(1.24); transform-origin:51% 30%; will-change:transform; animation:portrait-breathe 22s cubic-bezier(.44,0,.32,1) infinite alternate; }
+    .hero-photo { position:absolute; inset:-14%; z-index:-4; background:51% 25%/cover no-repeat url("smoke-portrait.jpg"); filter:grayscale(1) brightness(.54) contrast(1.24); transform-origin:51% 30%; will-change:transform; animation:portrait-breathe 22s cubic-bezier(.44,0,.32,1) infinite alternate; }
     .hero-photo::after { position:absolute; inset:0; content:""; background:linear-gradient(90deg,rgba(0,0,0,.38),rgba(0,0,0,.04) 56%,rgba(0,0,0,.32)),radial-gradient(circle at 53% 25%,transparent 0 22%,rgba(0,0,0,.25) 71%,rgba(0,0,0,.52)); }
     .scene { position:absolute; inset:0; z-index:-3; background:center/cover no-repeat; opacity:0; transform:scale(1.08); transition:opacity 1.15s ease,transform 6s ease; }
     .scene::after { position:absolute; inset:0; content:""; background:linear-gradient(90deg,rgba(0,0,0,.74),rgba(0,0,0,.19) 52%,rgba(0,0,0,.55)),linear-gradient(0deg,rgba(0,0,0,.88),transparent 44%,rgba(0,0,0,.38)); }
     .scene.is-active { opacity:1; transform:scale(1); }
-    .scene--insomnia { background-image:url("../nate-insomnia.jpg"); background-position:61% 48%; }
+    .scene--insomnia { background-image:url("nate-insomnia.jpg"); background-position:61% 48%; }
     .scene--insomnia::after { background:linear-gradient(90deg,rgba(0,0,0,.67),rgba(0,0,0,.12) 55%,rgba(0,0,0,.48)),linear-gradient(0deg,rgba(0,0,0,.84),transparent 48%,rgba(0,0,0,.22)); }
-    .scene--forever { background-image:url("../nate-forever.jpg"); background-position:56% 46%; }
-    .scene--tour { background-image:url("../nate-grand-touring.jpg"); background-position:56% 47%; }
-    .scene--speedway { background-image:url("../nate-speedway-85.jpg"); background-position:58% 43%; }
-    .scene--ghost { background-image:url("../ghost-signal-family.jpg"); background-position:center; }
+    .scene--forever { background-image:url("nate-forever.jpg"); background-position:56% 46%; }
+    .scene--tour { background-image:url("nate-grand-touring.jpg"); background-position:56% 47%; }
+    .scene--speedway { background-image:url("nate-speedway-85.jpg"); background-position:58% 43%; }
+    .scene--ghost { background-image:url("ghost-signal-family.jpg"); background-position:center; }
     .hero::before { position:absolute; inset:0; z-index:-1; pointer-events:none; content:""; background:radial-gradient(circle at 52% 44%,rgba(210,180,117,.21),transparent 18rem),radial-gradient(circle at 75% 30%,rgba(111,77,205,.20),transparent 33rem); mix-blend-mode:screen; }
     .header { position:relative; display:flex; align-items:center; justify-content:space-between; gap:25px; width:min(1400px,calc(100% - 48px)); min-height:88px; margin:0 auto; border-bottom:1px solid rgba(255,255,255,.16); }
-    .signature { display:block; width:clamp(116px,13vw,190px); height:36px; object-fit:contain; object-position:left center; filter:drop-shadow(0 2px 8px rgba(0,0,0,.7)); }
+    .signature { display:block; width:clamp(116px,13vw,190px); height:36px; object-fit:contain; object-position:left center; filter:brightness(0) invert(1) drop-shadow(0 2px 8px rgba(0,0,0,.7)); }
     .nav { display:flex; align-items:center; gap:clamp(14px,3vw,42px); color:var(--muted); font:700 10px/1 var(--mono); letter-spacing:.16em; text-transform:uppercase; }
     .nav a { position:relative; text-decoration:none; transition:color .2s ease; } .nav a:hover,.nav a:focus-visible { color:var(--ink); }
     .nav-booking { color:#f1d9c3; }
@@ -62,6 +62,19 @@
     .flip-face--signal { color:#e72c33; font:900 .74em/1 var(--mono); letter-spacing:-.13em; opacity:0; text-align:center; text-shadow:0 0 4px #ff5054,0 0 16px rgba(231,44,51,.9); transform:translateY(.12em) scaleX(.86); }
     .flip-char.is-scrambling .flip-face--base { color:#fff1e8; animation:matrix-base .14s steps(2,end) infinite; text-shadow:-3px 0 0 rgba(185,0,13,.78),0 2px 18px rgba(0,0,0,.72); }
     .flip-char.is-scrambling .flip-face--signal { opacity:.96; animation:matrix-glyph .1s steps(2,end) infinite; }
+
+    /* Exact Vault flip engine, scoped only to the Japanese subtitle. */
+    .jp-vault-badge { display:inline-flex; align-items:center; gap:0; white-space:nowrap; perspective:1000px; }
+    .jp-vault-space { display:inline-block; width:.45em; }
+    .jp-vault-flip { position:relative; width:.95em; height:1.05em; display:inline-block; perspective:1000px; }
+    .jp-vault-flip__inner { position:absolute; inset:0; transform-style:preserve-3d; animation:charMatrixFlip 5.8s cubic-bezier(.66,.03,.24,1) infinite; }
+    .jp-vault-flip.delay-1 .jp-vault-flip__inner { animation-delay:.12s; }
+    .jp-vault-flip.delay-2 .jp-vault-flip__inner { animation-delay:.24s; }
+    .jp-vault-flip.delay-3 .jp-vault-flip__inner { animation-delay:.36s; }
+    .jp-vault-flip__face { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; backface-visibility:hidden; -webkit-backface-visibility:hidden; font-size:inherit; font-weight:inherit; line-height:1; letter-spacing:0; text-transform:uppercase; text-shadow:0 0 8px rgba(255,255,255,.05); }
+    .jp-vault-flip__face--front { color:rgba(245,245,241,.92); transform:rotateX(0deg) translateZ(.01px); font-family:"MS Gothic","Yu Gothic","Noto Sans JP",monospace; }
+    .jp-vault-flip__face--back { color:#ff3a3a; transform:rotateX(180deg); font-family:"MS Gothic","Yu Gothic","Noto Sans JP",monospace; text-shadow:0 0 7px rgba(255,48,48,.32),0 0 14px rgba(255,20,20,.18); }
+    @keyframes charMatrixFlip { 0%,66%,100% { transform:rotateX(0deg); } 72% { transform:rotateX(92deg); } 78%,88% { transform:rotateX(180deg); } 94% { transform:rotateX(272deg); } }
     .jp { margin:18px 0 0; color:#e8d3ac; font:400 clamp(16px,2vw,26px)/1.1 "NS Katakana",Arial,sans-serif; letter-spacing:.24em; text-shadow:0 2px 20px #000; }
     .release-copy { max-width:490px; margin:27px 0 0; color:var(--muted); font-size:clamp(15px,1.6vw,19px); line-height:1.5; }
     .hero-actions { display:flex; flex-wrap:wrap; gap:10px; margin-top:29px; }
@@ -75,8 +88,7 @@
     .emblem-box::before { border-left-color:transparent; border-right-color:transparent; animation:orbit 20s linear infinite; }
     .emblem-box::after { width:63%; border-top-color:transparent; border-bottom-color:transparent; opacity:.62; animation:orbit 28s linear infinite reverse; }
     .emblem { position:relative; z-index:1; width:94%; mix-blend-mode:screen; filter:drop-shadow(0 0 20px rgba(255,247,231,.38)) drop-shadow(0 0 52px rgba(194,150,89,.32)); animation:emblem-float 8.5s ease-in-out infinite,emblem-flash 5.6s steps(1,end) infinite; }
-    .emblem-caption { position:absolute; bottom:17px; left:50%; z-index:1; color:#e2cc9e; font:700 9px/1.3 var(--mono); letter-spacing:.24em; text-transform:uppercase; transform:translateX(-50%); white-space:nowrap; }
-    .scene-selector { position:absolute; right:max(24px,calc((100vw - 1400px) / 2)); bottom:28px; left:max(24px,calc((100vw - 1400px) / 2)); display:flex; align-items:end; justify-content:flex-start; gap:20px; }
+.scene-selector { position:absolute; right:max(24px,calc((100vw - 1400px) / 2)); bottom:28px; left:max(24px,calc((100vw - 1400px) / 2)); display:flex; align-items:end; justify-content:flex-start; gap:20px; }
     .scene-tabs { display:flex; flex-wrap:wrap; gap:7px; }
     .scene-tab { position:relative; padding:9px 3px; border:0; background:none; color:rgba(240,232,215,.65); font:700 8px/1 var(--mono); letter-spacing:.16em; cursor:pointer; text-transform:uppercase; transition:color .18s ease; }
     .scene-tab:hover,.scene-tab:focus-visible,.scene-tab.is-active { color:#f3dfb7; background:none; outline:0; }
@@ -91,19 +103,22 @@
     .release-card::before { position:absolute; inset:0; z-index:-1; content:""; background:linear-gradient(0deg,rgba(0,0,0,.93),rgba(0,0,0,.18) 70%),linear-gradient(90deg,rgba(0,0,0,.45),transparent); transition:background .25s ease; }
     .release-card:hover,.release-card:focus-visible { border-color:rgba(231,195,129,.9); outline:0; transform:translateY(-5px); }
     .release-card:hover::before,.release-card:focus-visible::before { background:linear-gradient(0deg,rgba(0,0,0,.93),rgba(0,0,0,.04) 76%),linear-gradient(90deg,rgba(106,73,29,.32),transparent); }
-    .release-card--feature { grid-column:span 7; min-height:495px; --card:url("../assets/release-cowboys-3000.png"); background-position:55% 28%; }
-    .release-card--one { grid-column:span 5; --card:url("../assets/release-back-and-forth.jpg"); background-position:center 42%; }
-    .release-card--two { grid-column:span 4; --card:url("../assets/release-why-u-treat-me-like-that.jpg"); background-position:center; }
-    .release-card--three { grid-column:span 4; --card:url("../nate savard grand race.png"); }
-    .release-card--four { grid-column:span 4; --card:url("../nate savard speedway (1).png"); }
-    .release-card--five { grid-column:span 6; --card:url("../assets/release-nice-to-know-you-family.jpg"); background-position:center 43%; }
-    .release-card--six { grid-column:span 6; --card:url("../assets/release-transonic-cross.jpeg"); background-position:center; }
+    .release-card--feature { grid-column:span 7; min-height:495px; --card:url("assets/release-cowboys-3000.png"); background-position:55% 28%; }
+    .release-card--one { grid-column:span 5; --card:url("assets/release-back-and-forth.jpg"); background-position:center 42%; }
+    .release-card--two { grid-column:span 4; --card:url("assets/release-why-u-treat-me-like-that.jpg"); background-position:center; }
+    .release-card--three { grid-column:span 4; --card:url("nate savard grand race.png"); }
+    .release-card--four { grid-column:span 4; --card:url("nate savard speedway (1).png"); }
+    .release-card--five { grid-column:span 6; --card:url("assets/release-nice-to-know-you-family.jpg"); background-position:center 43%; }
+    .release-card--six { grid-column:span 6; --card:url("assets/release-transonic-cross.jpeg"); background-position:center; }
     .card-title { max-width:680px; margin:9px 0 0; font-size:clamp(22px,3vw,45px); font-weight:700; letter-spacing:-.05em; line-height:.91; text-transform:uppercase; }
     .release-card:not(.release-card--feature) .card-title { font-size:clamp(19px,2vw,29px); }
     .card-action { margin:15px 0 0; color:#ead2a2; font:700 9px/1.3 var(--mono); letter-spacing:.17em; text-transform:uppercase; }
     .card-action::after { padding-left:8px; content:"↗"; }
+    .nostalgia-transmission { margin:clamp(68px,11vw,150px) 0 0; padding:clamp(38px,6vw,76px) 0; border-top:1px solid var(--line); border-bottom:1px solid var(--line); text-align:center; }
+    .nostalgia-transmission p { margin:0 auto; max-width:1020px; color:#f1e9da; font:700 clamp(30px,5.2vw,76px)/.93 "Matrix Type Display",Impact,"Arial Black",sans-serif; letter-spacing:-.055em; text-transform:uppercase; text-shadow:0 8px 30px rgba(0,0,0,.44); }
+    .nostalgia-transmission .micro { margin-bottom:17px; color:#dcbf87; }
     .archive { display:grid; grid-template-columns:minmax(0,1fr) minmax(310px,.78fr); gap:clamp(30px,8vw,150px); align-items:center; margin-top:clamp(90px,15vw,220px); padding:34px 0 50px; border-top:1px solid var(--line); border-bottom:1px solid var(--line); }
-    .archive-mark { position:relative; min-height:355px; background:linear-gradient(rgba(0,0,0,.23),rgba(0,0,0,.72)),url("../assets/universal-superbeing.png") center 36%/cover no-repeat #16130f; border:1px solid var(--line); overflow:hidden; }
+    .archive-mark { position:relative; min-height:355px; background:linear-gradient(rgba(0,0,0,.23),rgba(0,0,0,.72)),url("assets/universal-superbeing.png") center 36%/cover no-repeat #16130f; border:1px solid var(--line); overflow:hidden; }
     .archive-mark::after { position:absolute; inset:0; content:""; background:radial-gradient(circle at 58% 42%,rgba(232,191,114,.23),transparent 38%); }
     .flags { position:absolute; right:18px; bottom:18px; left:18px; width:calc(100% - 36px); max-height:80px; object-fit:contain; object-position:center; filter:drop-shadow(0 2px 15px #000); }
     .archive h2 { font-size:clamp(36px,5vw,72px); }
@@ -115,41 +130,72 @@
     @keyframes portrait-breathe { 0% { transform:scale(1.015) translate3d(-1.1%,-.55%,0); } 48% { transform:scale(1.11) translate3d(.1%,.28%,0); } 100% { transform:scale(1.2) translate3d(1.05%,.72%,0); } }
     @keyframes emblem-float { 0%,100% { transform:translate3d(0,4px,0) scale(.9); } 50% { transform:translate3d(0,-13px,0) scale(1.1); } }
     @keyframes emblem-flash { 0%,76%,100% { opacity:1; filter:drop-shadow(0 0 18px rgba(255,247,231,.29)) drop-shadow(0 0 42px rgba(194,150,89,.25)); } 77% { opacity:.18; filter:drop-shadow(0 0 6px rgba(255,255,255,.3)); } 79% { opacity:1; filter:drop-shadow(-7px 0 0 rgba(133,195,255,.62)) drop-shadow(7px 0 0 rgba(255,144,202,.48)); } 81% { opacity:.52; filter:drop-shadow(0 0 28px rgba(255,244,228,.85)); } 83% { opacity:1; } }
-        .signature { display:block; width:clamp(116px,13vw,190px); height:36px; object-fit:contain; object-position:left center; filter:brightness(0) invert(1) drop-shadow(0 2px 8px rgba(0,0,0,.7)); }
+    @keyframes wordmark-glitch { 0%,100% { clip-path:inset(0 0 0 0); filter:none; transform:translate3d(0,0,0); text-shadow:0 6px 50px rgba(0,0,0,.62); } 15% { clip-path:inset(10% 0 57% 0); filter:drop-shadow(-7px 0 0 rgba(219,30,39,.9)) drop-shadow(5px 0 0 rgba(110,0,8,.8)); transform:translate3d(-.045em,0,0) skewX(-8deg); } 35% { clip-path:inset(64% 0 8% 0); filter:drop-shadow(7px 0 0 rgba(235,54,61,.86)) drop-shadow(-5px 0 0 rgba(102,0,7,.76)); transform:translate3d(.035em,0,0) skewX(6deg); } 56% { clip-path:inset(29% 0 34% 0); filter:contrast(1.4) brightness(1.16) drop-shadow(4px 0 0 rgba(230,43,49,.78)); transform:translate3d(-.018em,0,0); } 76% { clip-path:inset(0 0 0 0); filter:none; transform:translate3d(.012em,0,0); } }
     @keyframes matrix-base { 0%,100% { transform:translate3d(0,0,0); } 50% { transform:translate3d(-.035em,.018em,0); } }
     @keyframes matrix-glyph { 0%,100% { transform:translateY(.12em) scaleX(.86); } 50% { transform:translateY(-.03em) scaleX(1.08); } }
     @keyframes matrix-scan { 0% { top:9%; transform:scaleX(.38); } 55% { top:72%; transform:scaleX(1); } 100% { top:34%; transform:scaleX(.62); } }
     @media (max-width:820px) { .header,.hero-main,.content{width:min(100% - 30px,1400px)} .header{min-height:66px} .signature{width:132px;height:30px} .nav{gap:13px;font-size:8px;letter-spacing:.1em} .nav a:nth-child(2){display:none} .hero-main{grid-template-columns:1fr;min-height:calc(100svh - 66px);padding:54px 0 130px} .hero-copy{max-width:560px} .emblem-box{position:absolute; top:13%; right:-18vw; width:min(58vw,370px); opacity:.65; pointer-events:none} .hero-photo{background-position:54% 20%} .scene-selector{align-items:start;flex-direction:row} .section-head{display:block} .section-copy{margin-top:20px} .release-card--feature{grid-column:span 12;min-height:430px} .release-card--one,.release-card--two,.release-card--three,.release-card--four,.release-card--five,.release-card--six{grid-column:span 6} .archive{grid-template-columns:1fr} .floating-monogram{position:fixed;right:max(13px,env(safe-area-inset-right));bottom:max(16px,env(safe-area-inset-bottom));z-index:35;display:grid;width:72px;height:72px;padding:0;border:0;border-radius:50%;background:radial-gradient(circle,rgba(9,9,8,.47),rgba(9,9,8,.05) 62%,transparent 73%);cursor:pointer;-webkit-tap-highlight-color:transparent;filter:drop-shadow(0 9px 18px rgba(0,0,0,.58));transition:transform .2s ease,filter .2s ease}.floating-monogram:hover,.floating-monogram:focus-visible{outline:0;transform:scale(1.1);filter:drop-shadow(0 0 14px rgba(236,219,188,.52)) drop-shadow(0 9px 18px rgba(0,0,0,.58))}.floating-monogram model-viewer{width:100%;height:100%;pointer-events:none} }
     @media (max-width:560px) { .nav a:nth-child(3),.nav a:nth-child(4){display:none} .hero-main{padding-top:52px} .hero-title{font-size:clamp(54px,17vw,88px)} .jp{font-size:15px} .release-copy{max-width:80%} .emblem-box{right:-28vw;width:73vw} .scene-tabs{gap:5px} .scene-tab{padding:8px 7px;font-size:7px;letter-spacing:.1em} .release-grid{gap:8px} .release-card--one,.release-card--two,.release-card--three,.release-card--four,.release-card--five,.release-card--six{grid-column:span 12;min-height:270px} .archive-mark{min-height:280px} }
     @media (prefers-reduced-motion:reduce) { html{scroll-behavior:auto} *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important} }
-  </style>
+  
+/* Exact Vault top-right character animation, scoped to preserve homepage layout. */
+</style>
+<style id="ns-signature-glide-v1">
+/* Header signature only: preserve existing logo dimensions and header layout. */
+.ns-signature-link{display:inline-flex;align-items:center;gap:10px;flex:0 0 auto;text-decoration:none;color:#eee8dc;cursor:pointer}
+.ns-signature-wrap{display:block;position:relative;width:clamp(116px,13vw,190px);height:36px;flex:none}
+.ns-signature-wrap>.signature{width:100%;height:100%}
+.ns-signature-shimmer{position:absolute;inset:0;pointer-events:none;opacity:0;clip-path:inset(0 100% 0 0);mix-blend-mode:screen;filter:grayscale(1) invert(1) brightness(1.38) contrast(1.06) drop-shadow(0 0 14px rgba(255,255,255,.22)) drop-shadow(0 0 28px rgba(255,255,255,.12))!important;animation:nsSignatureWriteOn 17.6s cubic-bezier(.2,.72,.18,1) 1.4s infinite}
+.ns-signature-arrow{display:inline-flex;align-items:center;justify-content:center;width:22px;height:28px;flex:none;animation:nsSignatureArrow 3.4s ease-in-out infinite}.ns-signature-arrow img{display:block;width:100%;height:100%;object-fit:contain;filter:drop-shadow(0 0 5px rgba(255,255,255,.35));opacity:.72;transition:opacity .2s ease,filter .2s ease}
+.ns-signature-link:hover .ns-signature-arrow img,.ns-signature-link:focus-visible .ns-signature-arrow img{opacity:1;filter:drop-shadow(0 0 8px rgba(255,255,255,.7))}
+.ns-signature-link:focus-visible{outline:1px solid rgba(255,255,255,.65);outline-offset:5px}
+@keyframes nsSignatureWriteOn{0%,46%{opacity:0;clip-path:inset(0 100% 0 0);transform:translateX(-2px) scale(1.01)}49%{opacity:0;clip-path:inset(0 100% 0 0);transform:translateX(-2px) scale(1.01)}54%{opacity:.84;clip-path:inset(0 74% 0 0);transform:translateX(-1px) scale(1.01)}61%{opacity:.96;clip-path:inset(0 34% 0 0);transform:translateX(0) scale(1.005)}68%{opacity:.9;clip-path:inset(0 0 0 0);transform:translateX(0) scale(1)}73%,100%{opacity:0;clip-path:inset(0 0 0 0);transform:translateX(0) scale(1)}}
+@keyframes nsSignatureArrow{0%,100%{transform:translateX(7px);opacity:.38}50%{transform:translateX(-3px);opacity:.9}}
+@media(prefers-reduced-motion:reduce){.ns-signature-shimmer,.ns-signature-arrow{animation:none}.ns-signature-shimmer{display:none}}
+</style>
 </head>
 <body>
-  <div class="ns-transition" aria-hidden="true"><img class="ns-transition-mark" src="../assets/ns-chrome-monogram.webp" alt="" /></div>
+  <div class="ns-transition" aria-hidden="true"><img class="ns-transition-mark" src="assets/ns-chrome-monogram.webp" alt="" /></div>
   <div class="grain" aria-hidden="true"></div>
-  <button class="floating-monogram" type="button" aria-label="Return to top"><model-viewer src="../assets/ns-monogram.glb" alt="" auto-rotate auto-rotate-delay="0" rotation-per-second="16deg" camera-controls disable-zoom interaction-prompt="none" environment-image="neutral" exposure="1.25" shadow-intensity="0" tone-mapping="aces"></model-viewer></button>
+  <button class="floating-monogram" type="button" aria-label="Return to top"><model-viewer src="assets/ns-monogram.glb" alt="" auto-rotate auto-rotate-delay="0" rotation-per-second="16deg" camera-controls disable-zoom interaction-prompt="none" environment-image="neutral" exposure="1.25" shadow-intensity="0" tone-mapping="aces"></model-viewer></button>
   <section class="hero" id="top" aria-labelledby="site-title">
     <div class="hero-photo" aria-hidden="true"></div>
-    <div class="scene scene--insomnia is-active" data-scene="insomnia" aria-hidden="true"></div>
-    <div class="scene scene--forever" data-scene="forever" aria-hidden="true"></div>
-    <div class="scene scene--tour" data-scene="tour" aria-hidden="true"></div>
-    <div class="scene scene--speedway" data-scene="speedway" aria-hidden="true"></div>
-    <div class="scene scene--ghost" data-scene="ghost" aria-hidden="true"></div>
+
+<div class="scene scene--speedway is-active" data-scene="speedway" aria-hidden="true"></div>
+<div class="scene scene--forever" data-scene="forever" aria-hidden="true"></div>
+<div class="scene scene--tour" data-scene="tour" aria-hidden="true"></div>
+<div class="scene scene--insomnia" data-scene="insomnia" aria-hidden="true"></div>
+<div class="scene scene--ghost" data-scene="ghost" aria-hidden="true"></div>
+
     <header class="header">
-      <a href="#top" aria-label="Nate Savard home"><img class="signature" src="../nate-savard-signature-corner.png" alt="Nate Savard" /></a>
+      <a class="ns-signature-link" href="/original/" aria-label="Enter Nate Savard's world">
+        <span class="ns-signature-wrap">
+          <img class="signature" src="nate-savard-signature-corner.png" alt="Nate Savard" />
+          <img class="signature ns-signature-shimmer" src="nate-savard-signature-write-on.png" alt="" aria-hidden="true" />
+        </span>
+        <span class="ns-signature-arrow" aria-hidden="true"><img src="/envy-cross.png" alt="" /></span>
+      </a>
       <nav class="nav" aria-label="Site navigation"><a href="#releases">Current releases</a><a href="#top">Insomnia world</a><a href="#vault">Vault</a><a href="https://www.youtube.com/@natesavard" target="_blank" rel="noopener noreferrer">YouTube ↗</a><a class="nav-booking" href="mailto:natesavard@outlook.com?subject=Nate%20Savard%20Booking">Bookings</a></nav>
     </header>
     <div class="hero-main">
       <div class="hero-copy">
         <p class="eyebrow">NS Audio // Stereo 85 // The living archive</p>
         <h1 id="site-title" class="hero-title" aria-label="Nate Savard"><span class="hero-title__text">NATE<br />SAVARD</span></h1>
-        <p class="jp" lang="ja">ロスト・ディメンションズ / インソムニア</p>
-        <p class="release-copy">Lost Dimensions: Insomnia 2026. Unearthing underground classics, raw new transmissions, and strange machinery from the Nate Savard vault. Built for the after hours. Heavy hardware and unreleased frequencies from the edge of the underground.</p>
+        <p class="jp jp--vault" lang="ja"><span class="jp-vault-badge" aria-label="Lost Dimensions / Insomnia"><span class="jp-vault-flip"><span class="jp-vault-flip__inner"><span class="jp-vault-flip__face jp-vault-flip__face--front">ロ</span><span class="jp-vault-flip__face jp-vault-flip__face--back" aria-hidden="true">ロ</span></span></span><span class="jp-vault-flip delay-1"><span class="jp-vault-flip__inner"><span class="jp-vault-flip__face jp-vault-flip__face--front">ス</span><span class="jp-vault-flip__face jp-vault-flip__face--back" aria-hidden="true">ス</span></span></span><span class="jp-vault-flip delay-2"><span class="jp-vault-flip__inner"><span class="jp-vault-flip__face jp-vault-flip__face--front">ト</span><span class="jp-vault-flip__face jp-vault-flip__face--back" aria-hidden="true">ト</span></span></span><span class="jp-vault-flip delay-3"><span class="jp-vault-flip__inner"><span class="jp-vault-flip__face jp-vault-flip__face--front">・</span><span class="jp-vault-flip__face jp-vault-flip__face--back" aria-hidden="true">・</span></span></span><span class="jp-vault-flip"><span class="jp-vault-flip__inner"><span class="jp-vault-flip__face jp-vault-flip__face--front">デ</span><span class="jp-vault-flip__face jp-vault-flip__face--back" aria-hidden="true">デ</span></span></span><span class="jp-vault-flip delay-1"><span class="jp-vault-flip__inner"><span class="jp-vault-flip__face jp-vault-flip__face--front">ィ</span><span class="jp-vault-flip__face jp-vault-flip__face--back" aria-hidden="true">ィ</span></span></span><span class="jp-vault-flip delay-2"><span class="jp-vault-flip__inner"><span class="jp-vault-flip__face jp-vault-flip__face--front">メ</span><span class="jp-vault-flip__face jp-vault-flip__face--back" aria-hidden="true">メ</span></span></span><span class="jp-vault-flip delay-3"><span class="jp-vault-flip__inner"><span class="jp-vault-flip__face jp-vault-flip__face--front">ン</span><span class="jp-vault-flip__face jp-vault-flip__face--back" aria-hidden="true">ン</span></span></span><span class="jp-vault-flip"><span class="jp-vault-flip__inner"><span class="jp-vault-flip__face jp-vault-flip__face--front">シ</span><span class="jp-vault-flip__face jp-vault-flip__face--back" aria-hidden="true">シ</span></span></span><span class="jp-vault-flip delay-1"><span class="jp-vault-flip__inner"><span class="jp-vault-flip__face jp-vault-flip__face--front">ョ</span><span class="jp-vault-flip__face jp-vault-flip__face--back" aria-hidden="true">ョ</span></span></span><span class="jp-vault-flip delay-2"><span class="jp-vault-flip__inner"><span class="jp-vault-flip__face jp-vault-flip__face--front">ン</span><span class="jp-vault-flip__face jp-vault-flip__face--back" aria-hidden="true">ン</span></span></span><span class="jp-vault-flip delay-3"><span class="jp-vault-flip__inner"><span class="jp-vault-flip__face jp-vault-flip__face--front">ズ</span><span class="jp-vault-flip__face jp-vault-flip__face--back" aria-hidden="true">ズ</span></span></span><span class="jp-vault-space" aria-hidden="true"></span><span class="jp-vault-flip delay-1"><span class="jp-vault-flip__inner"><span class="jp-vault-flip__face jp-vault-flip__face--front">/</span><span class="jp-vault-flip__face jp-vault-flip__face--back" aria-hidden="true">/</span></span></span><span class="jp-vault-space" aria-hidden="true"></span><span class="jp-vault-flip delay-3"><span class="jp-vault-flip__inner"><span class="jp-vault-flip__face jp-vault-flip__face--front">イ</span><span class="jp-vault-flip__face jp-vault-flip__face--back" aria-hidden="true">イ</span></span></span><span class="jp-vault-flip"><span class="jp-vault-flip__inner"><span class="jp-vault-flip__face jp-vault-flip__face--front">ン</span><span class="jp-vault-flip__face jp-vault-flip__face--back" aria-hidden="true">ン</span></span></span><span class="jp-vault-flip delay-1"><span class="jp-vault-flip__inner"><span class="jp-vault-flip__face jp-vault-flip__face--front">ソ</span><span class="jp-vault-flip__face jp-vault-flip__face--back" aria-hidden="true">ソ</span></span></span><span class="jp-vault-flip delay-2"><span class="jp-vault-flip__inner"><span class="jp-vault-flip__face jp-vault-flip__face--front">ム</span><span class="jp-vault-flip__face jp-vault-flip__face--back" aria-hidden="true">ム</span></span></span><span class="jp-vault-flip delay-3"><span class="jp-vault-flip__inner"><span class="jp-vault-flip__face jp-vault-flip__face--front">ニ</span><span class="jp-vault-flip__face jp-vault-flip__face--back" aria-hidden="true">ニ</span></span></span><span class="jp-vault-flip"><span class="jp-vault-flip__inner"><span class="jp-vault-flip__face jp-vault-flip__face--front">ア</span><span class="jp-vault-flip__face jp-vault-flip__face--back" aria-hidden="true">ア</span></span></span></span></p>
+        <p class="release-copy">Lost Dimensions: Insomnia 2026. Unearthing underground classics, raw new transmissions, and strange machinery from the Nate Savard vault. Heavy hardware and unreleased frequencies from the edge of the underground.</p>
         <div class="hero-actions"><a class="hero-button" href="#releases">Enter current releases</a><a class="hero-button hero-button--quiet" href="https://www.youtube.com/@natesavard/videos" target="_blank" rel="noopener noreferrer">Open full archive ↗</a></div>
       </div>
-      <div class="emblem-box" aria-label="NS monogram"><img class="emblem" src="../assets/ns-chrome-monogram.webp" alt="NS monogram" /><span class="emblem-caption">N L S M // 85</span></div>
+      <div class="emblem-box" aria-label="NS monogram"><img class="emblem" src="assets/ns-chrome-monogram.webp" alt="NS monogram" /></div>
     </div>
-    <div class="scene-selector"><div class="scene-tabs" aria-label="Choose a visual world"><button class="scene-tab is-active" type="button" data-target="insomnia">Insomnia</button><button class="scene-tab" type="button" data-target="forever">Forever</button><button class="scene-tab" type="button" data-target="tour">Grand touring</button><button class="scene-tab" type="button" data-target="speedway">Speedway '85</button><button class="scene-tab" type="button" data-target="ghost">Ghost signal</button></div></div>
+    <div class="scene-selector">
+<div class="scene-tabs" aria-label="Choose a visual world">
+  <button class="scene-tab is-active" type="button" data-target="speedway">Speedway '85</button>
+  <button class="scene-tab" type="button" data-target="forever">Forever</button>
+  <button class="scene-tab" type="button" data-target="tour">Grand touring</button>
+  <button class="scene-tab" type="button" data-target="insomnia">Insomnia</button>
+  <button class="scene-tab" type="button" data-target="ghost">Ghost signal</button>
+</div>
+
   </section>
   <main class="content">
     <section class="releases" id="releases" aria-labelledby="releases-title">
@@ -164,11 +210,12 @@
         <a class="release-card release-card--six" href="https://www.youtube.com/watch?v=8airXh0QOSE" target="_blank" rel="noopener noreferrer"><p class="card-meta">Archive remaster // 03:11</p><h3 class="card-title">Transonic</h3><p class="card-action">Watch transmission</p></a>
       </div>
     </section>
+  <div class="nostalgia-transmission" style="display:none"></div>
     <section class="archive" id="vault" aria-labelledby="vault-title">
       <div class="archive-mark" aria-hidden="true"></div>
-      <div><p class="archive-kicker">Revelations / vault / insomnia world</p><h2 id="vault-title">Universal<br />Superbeing</h2><p class="archive-copy">This is a real growing archive. House, techno, bass, experiments, old records, new records, strange lost pages. The visual language can be simple—chrome NS in the centre—but it should always live inside your own mythology.</p><div class="archive-links"><a class="hero-button" href="https://www.youtube.com/@natesavard/videos" target="_blank" rel="noopener noreferrer">All transmissions ↗</a><a class="hero-button hero-button--quiet" href="mailto:natesavard@outlook.com?subject=Nate%20Savard%20Music">Contact ↗</a></div></div>
+      <div><p class="archive-kicker">Revelations / vault / insomnia world</p><h2 id="vault-title">Universal<br />Superbeing</h2><p class="archive-copy"></p><div class="archive-links"><a class="hero-button" href="https://www.youtube.com/@natesavard/videos" target="_blank" rel="noopener noreferrer">All transmissions ↗</a><a class="hero-button hero-button--quiet" href="mailto:natesavard@outlook.com?subject=Nate%20Savard%20Music">Contact ↗</a></div></div>
     </section>
-    <footer class="footer"><span>Nate Savard // N L S M 85</span><span>Lost Dimensions : Nate Savard 2026</span><span>© 2026</span></footer>
+    <footer class="footer"><span>Nate Savard // N L S M 85</span><span>Lost Dimensions : Nate Savard 2027</span><span>© 2027</span></footer>
   </main>
   <script>
     (function () {
@@ -267,6 +314,167 @@
       });
     })();
   </script>
-<script src="/ns-life-force-everywhere.js?v=2" defer></script>
+
+  <style>
+/* INSOMNIA first slide — keep it zoomed in so side edges never show */
+.scene--insomnia{
+  inset:-10% !important;
+  background-size:cover !important;
+  background-repeat:no-repeat !important;
+  background-position:58% 48% !important;
+  animation: insomniaSafeZoom 22s ease-in-out infinite alternate !important;
+  transform-origin:center center !important;
+}
+
+@keyframes insomniaSafeZoom{
+  0%{
+    transform:scale(1.16) translate3d(0,0,0);
+  }
+  50%{
+    transform:scale(1.20) translate3d(-0.4%,0,0);
+  }
+  100%{
+    transform:scale(1.24) translate3d(0.5%,0.2%,0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce){
+  .scene--insomnia{
+    animation:none !important;
+    transform:scale(1.18) !important;
+  }
+}
+</style>
+  
+
+<script src="/ns-home-collection-vault.js?v=4" defer></script>
+  
+
+<script src="/ns-home-vault-exact.js" defer></script>
+  
+<style>
+/* Restore small floating NS monogram */
+.floating-monogram {
+  display: grid !important;
+  position: fixed !important;
+  right: 16px !important;
+  bottom: 18px !important;
+  top: auto !important;
+  left: auto !important;
+  width: 72px !important;
+  height: 72px !important;
+  z-index: 1200 !important;
+  place-items: center;
+  border: 0;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(9,9,8,.47),
+    rgba(9,9,8,.05) 62%,
+    transparent 73%
+  );
+  cursor: pointer;
+  filter: drop-shadow(0 9px 18px rgba(0,0,0,.58));
+}
+
+.floating-monogram model-viewer {
+  display: block !important;
+  width: 100% !important;
+  height: 100% !important;
+  pointer-events: none;
+}
+
+.floating-monogram:hover {
+  transform: scale(1.1);
+}
+</style>
+
+
+
+<style>
+/* NATE SAVARD — MOVING STORM SKY */
+
+#ns-home-vault-exact {
+  background: linear-gradient(
+    180deg,
+    #01030b 0%,
+    #071d43 48%,
+    #020612 100%
+  ) !important;
+}
+
+/* First moving cloud layer */
+#ns-home-vault-exact::after {
+  content: "";
+  position: absolute;
+  inset: -20% -70%;
+  z-index: 0;
+  pointer-events: none;
+
+  background:
+    radial-gradient(
+      ellipse 22% 20% at 15% 45%,
+      rgba(94, 145, 207, .65),
+      transparent 85%
+    ),
+    radial-gradient(
+      ellipse 28% 24% at 48% 65%,
+      rgba(44, 93, 166, .75),
+      transparent 85%
+    ),
+    radial-gradient(
+      ellipse 25% 20% at 82% 35%,
+      rgba(128, 165, 210, .45),
+      transparent 85%
+    );
+
+  filter: blur(25px);
+  animation: nsCloudTravel 16s linear infinite;
+}
+
+#ns-home-vault-exact .ns-vault-inner {
+  position: relative;
+  z-index: 2;
+}
+
+@keyframes nsCloudTravel {
+  from {
+    transform: translateX(-20%);
+  }
+  to {
+    transform: translateX(20%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #ns-home-vault-exact::after {
+    animation: none;
+  }
+}
+</style>
+
+
+<script src="/ns-blue-venus-add.js" defer></script>
+  
+<script src="/ns-home-insomnia-hats.js?v=1" defer></script>
+
+
+
+<script src="/ns-unified-drop.js?v=1" defer></script>
+
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  document.querySelectorAll('.scene').forEach(scene =>
+    scene.classList.toggle('is-active', scene.dataset.scene === 'insomnia')
+  );
+
+  document.querySelectorAll('.scene-tab').forEach(tab => {
+    tab.classList.toggle('is-active', tab.dataset.target === 'insomnia');
+    if (tab.dataset.target === 'insomnia') tab.textContent = 'NLS SAVARD';
+  });
+});
+</script>
+
 </body>
 </html>
