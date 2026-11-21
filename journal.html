@@ -63,8 +63,48 @@ section {
   height: auto;
 }
 
+
+/* The logo sits directly above the first entry's divider. */
+.site-header{justify-content:flex-end}
+.entry-logo{
+  display:block;
+  width:min(100%,650px);
+  margin:0 0 clamp(12px,2vw,26px);
+  border-radius:4px;
+}
+.entry-logo:focus-visible{outline:2px solid #f3f0ee;outline-offset:6px}
+.entry-logo svg{
+  display:block;
+  width:100%;
+  height:auto;
+  overflow:visible;
+  opacity:.87;
+  filter:drop-shadow(0 0 12px rgba(240,188,147,.38));
+  animation:journal-logo-drift 10s ease-in-out infinite,
+            journal-logo-breathe 7s ease-in-out infinite;
+}
+.journal-logo-light{animation:journal-logo-sweep 8s ease-in-out infinite}
+@keyframes journal-logo-drift{
+  0%,100%{transform:translate(0,0)}
+  30%{transform:translate(4px,-6px)}
+  68%{transform:translate(-4px,3px)}
+}
+@keyframes journal-logo-breathe{
+  0%,100%{opacity:.84}
+  38%{opacity:1}
+  74%{opacity:.57}
+}
+@keyframes journal-logo-sweep{
+  0%,100%{transform:translate(-280px,30px);opacity:.28}
+  35%{transform:translate(355px,-130px);opacity:1}
+  64%{transform:translate(180px,120px);opacity:.6}
+  83%{transform:translate(-95px,-48px);opacity:.88}
+}
+@media(prefers-reduced-motion:reduce){
+  .entry-logo svg,.journal-logo-light{animation:none}
+}
 </style></head><body>
-<header class="site-header"><a class="logo" href="https://natesavard.com">NATE SAVARD</a><nav><a href="https://natesavard.com">HOME</a><a href="#entry-01">JOURNAL</a><a href="#end">INDEX</a></nav></header>
+<header class="site-header"><nav><a href="https://natesavard.com">HOME</a><a href="#entry-01">JOURNAL</a><a href="#end">INDEX</a></nav></header>
 <main>
 <!-- QUICK EDITING GUIDE:
 1. Each <article class="entry ..."> is one edge-to-edge image with text ON TOP. Tall images create taller sections automatically.
@@ -79,6 +119,38 @@ section {
 <article class="entry left" style="--photo:url('images/frame-01.jpg');--image-ratio:0.72444" id="entry-01">
   <div class="shade"></div>
   <div class="entry-content">
+    <a class="entry-logo" href="https://natesavard.com" aria-label="Nate Savard home">
+      <svg viewBox="18 15 970 423" width="970" height="423" aria-hidden="true" focusable="false">
+        <defs>
+          <filter id="journal-logo-ink" color-interpolation-filters="sRGB">
+            <feColorMatrix type="matrix" values="0 0 0 0 1
+                                                 0 0 0 0 1
+                                                 0 0 0 0 1
+                                                -1.13 0 0 0 1.035"/>
+          </filter>
+          <mask id="journal-logo-mask" maskUnits="userSpaceOnUse" x="0" y="0" width="1000" height="452" style="mask-type:alpha">
+            <image href="/assets/journal-nate-logo.png" width="1000" height="452" filter="url(#journal-logo-ink)"/>
+          </mask>
+          <linearGradient id="journal-logo-metal" x2=".88" y2="1">
+            <stop stop-color="#fcf0df"/>
+            <stop offset=".44" stop-color="#baa998"/>
+            <stop offset=".73" stop-color="#fff7ec"/>
+            <stop offset="1" stop-color="#a6a6b7"/>
+          </linearGradient>
+          <radialGradient id="journal-logo-flare">
+            <stop stop-color="#fffdf8"/>
+            <stop offset=".27" stop-color="#ffe1aa" stop-opacity=".94"/>
+            <stop offset=".61" stop-color="#fa8e81" stop-opacity=".7"/>
+            <stop offset=".82" stop-color="#9cbcff" stop-opacity=".46"/>
+            <stop offset="1" stop-color="#9cbcff" stop-opacity="0"/>
+          </radialGradient>
+        </defs>
+        <g mask="url(#journal-logo-mask)">
+          <rect width="1000" height="452" fill="url(#journal-logo-metal)"/>
+          <ellipse class="journal-logo-light" cx="405" cy="210" rx="370" ry="240" fill="url(#journal-logo-flare)"/>
+        </g>
+      </svg>
+    </a>
     <div class="meta"><span>NS / JOURNAL</span><span>02 / 11 / 2026</span><span>01 / 10</span></div>
     <h2>THE KILLER IN ME IS THE KILLER IN YOU</h2>
     <div class="writing">
