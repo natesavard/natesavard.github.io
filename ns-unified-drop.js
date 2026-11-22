@@ -115,113 +115,163 @@ const init=()=>{
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
 })();
 
-/* ENVYNOMADIX REBIRTH — TOP PHOTOGRAPHIC COLLAGE ONLY
-   Preserves every existing page section and all LIFE FORCE ENERGY galleries.
-   Activated exclusively on /envynomadixrebirth.html. */
+/* ENVYNOMADIX REBIRTH — TOP COLLAGE v5
+   Overrides conflicting full-width rail styling only on the Rebirth hero.
+   Original catalogue, Vault and Life Force galleries remain unchanged. */
 (()=>{
-  'use strict';
-  if (!/\/envynomadixrebirth\.html$/i.test(window.location.pathname)) return;
-
-  const STYLE_ID = 'ns-rebirth-photo-swap-v3';
-  const injectStyles = () => {
-    if (document.getElementById(STYLE_ID)) return;
-    const style = document.createElement('style');
-    style.id = STYLE_ID;
-    style.textContent = `
-      .visual .rebirth-photo-main.ns-rebirth-updated {
-        width: min(36vw, 445px);
-        left: 9%;
-        top: 8%;
-        transform: rotate(-6deg);
-        z-index: 5;
-      }
-      .visual .rebirth-photo-third.ns-rebirth-updated {
-        width: min(34vw, 430px);
-        left: 23%;
-        bottom: -3%;
-        transform: rotate(-3deg);
-        z-index: 3;
-      }
-      .visual .rebirth-stack video.rebirth-photo-fourth.rebirth-photo-video {
-        position: absolute;
-        display: block;
-        width: min(18vw, 220px);
-        height: auto;
-        right: 8%;
-        bottom: -2%;
-        object-fit: cover;
-        border-radius: 28px;
-        background: #000;
-        transform: rotate(6deg);
-        z-index: 2;
-        filter:
-          saturate(0.94)
-          brightness(0.96)
-          drop-shadow(0 28px 46px rgba(0, 0, 0, 0.42))
-          drop-shadow(0 0 26px rgba(255, 235, 205, 0.08));
-        animation: rebirthCardFloatD 8.8s ease-in-out infinite alternate;
-        transition: transform 0.7s ease, filter 0.7s ease, opacity 0.7s ease;
-      }
-      .visual .rebirth-stack video.rebirth-photo-fourth.rebirth-photo-video::-webkit-media-controls {
-        display: none !important;
-      }
-    `;
-    document.head.appendChild(style);
-  };
-
-  const updateImage = (selector, src, alt) => {
-    const img = document.querySelector(selector);
-    if (!img) return null;
-    img.src = src;
-    img.removeAttribute('srcset');
-    img.decoding = 'async';
-    img.alt = alt;
-    img.classList.add('ns-rebirth-updated');
-    return img;
-  };
-
-  const removeSecondStill = () => {
-    const second = document.querySelector('.rebirth-stack .rebirth-photo-second');
-    if (second) second.remove();
-  };
-
-  const replaceFourthWithVideo = () => {
-    const oldEl = document.querySelector('.rebirth-stack .rebirth-photo-fourth');
-    if (!oldEl) return;
-    if (oldEl.tagName.toLowerCase() === 'video') {
-      oldEl.play?.().catch(()=>{});
-      return;
+'use strict';
+if (!/\/envynomadixrebirth\.html$/i.test(location.pathname)) return;
+const css = `
+  /* Pull the opening collage flush to the top without touching subsequent sections. */
+  .screen .shell { padding-top: 0 !important; justify-content: flex-start !important; }
+  .screen .shell .portal { margin-top: 0 !important; }
+  .screen .shell .visual {
+    overflow: visible !important;
+    min-height: min(78vh, 770px) !important;
+  }
+  .screen .shell .visual .rebirth-stack {
+    display: block !important;
+    position: relative !important;
+    width: min(100vw, 1240px) !important;
+    min-height: min(78vh, 770px) !important;
+    height: min(78vh, 770px) !important;
+    overflow: visible !important;
+    touch-action: auto !important;
+    cursor: default !important;
+  }
+  /* Reverse the page's full-viewport slider rules. Each image is a single
+     positioned art card, not a full-width slide. */
+  .screen .shell .rebirth-stack .rebirth-photo-main.ns-rebirth-v5,
+  .screen .shell .rebirth-stack .rebirth-photo-third.ns-rebirth-v5,
+  .screen .shell .rebirth-stack video.rebirth-photo-fourth.ns-rebirth-v5 {
+    position: absolute !important;
+    flex: none !important;
+    min-width: 0 !important;
+    max-width: none !important;
+    padding: 0 !important;
+    border-radius: 15px !important;
+    opacity: 1 !important;
+    box-sizing: border-box !important;
+    object-fit: contain !important;
+    filter: drop-shadow(0 14px 36px rgba(0,0,0,.6)) !important;
+    animation: none !important;
+  }
+  .screen .shell .rebirth-stack .rebirth-photo-main.ns-rebirth-v5 {
+    top: 0 !important;
+    left: 5% !important;
+    right: auto !important;
+    bottom: auto !important;
+    width: min(43vw, 510px) !important;
+    height: min(75vh, 740px) !important;
+    object-position: center top !important;
+    transform: rotate(-3deg) !important;
+    z-index: 5 !important;
+  }
+  .screen .shell .rebirth-stack video.rebirth-photo-fourth.ns-rebirth-v5 {
+    top: 15% !important;
+    left: 39% !important;
+    right: auto !important;
+    bottom: auto !important;
+    width: min(25vw, 325px) !important;
+    height: min(52vh, 490px) !important;
+    object-fit: cover !important;
+    object-position: center 58% !important;
+    transform: rotate(3deg) !important;
+    z-index: 6 !important;
+    background: #050505 !important;
+  }
+  .screen .shell .rebirth-stack .rebirth-photo-third.ns-rebirth-v5 {
+    top: 9% !important;
+    left: auto !important;
+    right: 3% !important;
+    bottom: auto !important;
+    width: min(28vw, 340px) !important;
+    height: min(61vh, 595px) !important;
+    object-fit: cover !important;
+    object-position: center 72% !important;
+    transform: rotate(-3deg) !important;
+    z-index: 4 !important;
+  }
+  @media(max-width:700px) {
+    .screen .shell .visual,
+    .screen .shell .visual .rebirth-stack {
+      min-height: min(96vh, 850px) !important;
+      height: min(96vh, 850px) !important;
     }
-    const video = document.createElement('video');
-    video.className = 'rebirth-photo-fourth rebirth-photo-video';
-    video.autoplay = true;
-    video.loop = true;
-    video.muted = true;
-    video.defaultMuted = true;
-    video.playsInline = true;
-    video.preload = 'metadata';
-    video.poster = '/rebirth-hero-04-video-poster.jpg';
-    video.setAttribute('aria-label', 'Envynomadix Rebirth campaign video');
-
-    const mp4 = document.createElement('source');
-    mp4.src = '/rebirth-hero-04-video.mp4';
-    mp4.type = 'video/mp4';
-    video.appendChild(mp4);
-
-    oldEl.replaceWith(video);
-    const tryPlay = () => video.play().catch(()=>{});
-    if (document.readyState === 'complete') tryPlay();
-    else window.addEventListener('load', tryPlay, { once: true });
-  };
-
-  const apply = () => {
-    injectStyles();
-    updateImage('.rebirth-stack .rebirth-photo-main', '/rebirth-hero-01-purple.webp', 'Nate Savard portrait in purple light');
-    removeSecondStill();
-    updateImage('.rebirth-stack .rebirth-photo-third', '/rebirth-hero-03-portrait.webp', 'Nate Savard black-and-white portrait');
-    replaceFourthWithVideo();
-  };
-
-  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', apply, { once: true });
-  else apply();
+    .screen .shell .rebirth-stack .rebirth-photo-main.ns-rebirth-v5 {
+      left: 1% !important;
+      top: 0 !important;
+      width: 66vw !important;
+      height: 64vh !important;
+      transform: rotate(-2deg) !important;
+    }
+    .screen .shell .rebirth-stack video.rebirth-photo-fourth.ns-rebirth-v5 {
+      left: auto !important;
+      right: 0 !important;
+      top: 24% !important;
+      width: 38vw !important;
+      height: 40vh !important;
+      transform: rotate(3deg) !important;
+    }
+    .screen .shell .rebirth-stack .rebirth-photo-third.ns-rebirth-v5 {
+      left: 12% !important;
+      right: auto !important;
+      top: 58% !important;
+      width: 54vw !important;
+      height: 36vh !important;
+      object-position: center 72% !important;
+      transform: rotate(-2deg) !important;
+    }
+  }
+`;
+function init(){
+  if(document.getElementById('ns-rebirth-collage-v5')) return;
+  const style=document.createElement('style');
+  style.id='ns-rebirth-collage-v5';
+  style.textContent=css;
+  document.head.appendChild(style);
+  const stack=document.querySelector('.rebirth-stack');
+  if(!stack) return;
+  const fuzzy=stack.querySelector('.rebirth-photo-second');
+  if(fuzzy) fuzzy.remove();
+  const first=stack.querySelector('.rebirth-photo-main');
+  if(first){
+    first.classList.add('ns-rebirth-v5');
+    first.src='/rebirth-hero-01-purple.webp';
+    first.removeAttribute('srcset');
+    first.alt='Nate Savard purple portrait';
+  }
+  const portrait=stack.querySelector('.rebirth-photo-third');
+  if(portrait){
+    portrait.classList.add('ns-rebirth-v5');
+    portrait.src='/rebirth-hero-03-portrait.webp';
+    portrait.removeAttribute('srcset');
+    portrait.alt='Nate Savard black-and-white portrait';
+  }
+  let video=stack.querySelector('.rebirth-photo-fourth');
+  if(video && video.tagName.toLowerCase()!=='video'){
+    const original=video;
+    video=document.createElement('video');
+    video.className='rebirth-photo-fourth';
+    video.poster='/rebirth-hero-04-video-poster.jpg';
+    video.setAttribute('aria-label','Madisonne beach video');
+    const source=document.createElement('source');
+    source.src='/rebirth-hero-04-video.mp4';
+    source.type='video/mp4';
+    video.appendChild(source);
+    original.replaceWith(video);
+  }
+  if(video){
+    video.classList.add('ns-rebirth-v5');
+    video.autoplay=true;
+    video.loop=true;
+    video.muted=true;
+    video.defaultMuted=true;
+    video.playsInline=true;
+    video.preload='auto';
+    video.play().catch(()=>{});
+  }
+}
+if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',init,{once:true});
+else init();
 })();
