@@ -76,3 +76,24 @@
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',updateEntranceLinks,{once:true});
   else updateEntranceLinks();
 })();
+
+
+/* Homepage main navigation: Journal is the link directly before Bookings. */
+(()=>{
+  'use strict';
+  const addJournal=()=>{
+    const nav=document.querySelector('.header .nav');
+    if(!nav)return;
+    const bookings=nav.querySelector('a.nav-booking');
+    if(!bookings)return;
+    let journal=nav.querySelector('a[href="/journal.html"],a[href="journal.html"]');
+    if(!journal){
+      journal=document.createElement('a');
+      journal.href='/journal.html';
+      journal.textContent='Journal';
+    }
+    bookings.before(journal);
+  };
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',addJournal,{once:true});
+  else addJournal();
+})();

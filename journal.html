@@ -50,6 +50,14 @@ h2{font-size:clamp(65px,10.8vw,175px);font-weight:900;letter-spacing:-.085em;lin
 .motion-control:hover,.motion-control:focus-visible{border-color:white}
 @media(max-width:650px){.site-header{gap:15px;align-items:flex-start}.site-header nav{gap:12px;font-size:9px}.entry{min-height:max(100svh,calc(100vw * var(--image-ratio,.7)));align-items:flex-end;padding:120px 22px 65px}.entry::before,.entry.right::before{background:linear-gradient(0deg,rgba(0,0,0,.91),rgba(0,0,0,.45) 56%,rgba(0,0,0,.12))}.entry.right{justify-content:flex-start}h2{font-size:clamp(58px,14vw,100px);margin:25px 0}.writing{font-size:16px}.edge-number{bottom:20px!important;right:22px!important;left:auto!important}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.entry-photo,.entry-logo svg,.journal-logo-light,.envy-to-top img{animation:none}}
+
+/* The Journal loops before its footer: keep archive links inside final entry too. */
+.ns-journal-archive-links{display:flex;flex-wrap:wrap;align-items:center;gap:12px 20px;margin:28px 0 0;padding:18px 0;border-top:1px solid rgba(255,255,255,.36);position:relative;z-index:4;font:800 11px/1.5 Arial,Helvetica,sans-serif;letter-spacing:.15em;text-transform:uppercase}
+.ns-journal-archive-links span{flex-basis:100%;font-size:9px;color:rgba(255,255,255,.64);letter-spacing:.2em}
+.ns-journal-archive-links a{color:#f3f0ee!important;text-decoration:none!important;border-bottom:1px solid rgba(255,255,255,.48);padding-bottom:3px;white-space:nowrap}
+.ns-journal-archive-links a:hover,.ns-journal-archive-links a:focus-visible{color:#ff211a!important;border-bottom-color:#ff211a}
+.end .ns-journal-archive-links{margin:0;flex-basis:100%;order:5}
+@media(max-width:650px){.ns-journal-archive-links{gap:10px 16px;font-size:10px}}
 </style>
 </head>
 <body>
@@ -93,9 +101,9 @@ NS / UNSCRIPTED.</p><p>Let Love and Fate find us all</p><!-- I have nothing but 
 <!-- ENTRY 09 -->
 <article class="entry left" style="--photo:url('images/frame-09.jpg');--image-ratio:0.62500" id="entry-09"><div class="shade"></div><div class="entry-content"><div class="meta"><span>NS / JOURNAL</span><span>VISUAL STUDY / 009</span><span>09 / 10</span></div><h2>CONTACT SHEET</h2><div class="writing"><p>i love you sony and love forever</p><p>daddy loves you forever</p><!-- i love you: <p>forever and ever.</p> --></div></div><span class="edge-number">09</span></article>
 <!-- ENTRY 10 -->
-<article class="entry right" style="--photo:url('images/frame-10.jpg');--image-ratio:0.69000" id="entry-10"><div class="shade"></div><div class="entry-content"><div class="meta"><span>NS / JOURNAL</span><span>ARCHIVE / 010</span><span>10 / 10</span></div><h2>NO FINAL VERSION</h2><div class="writing"><p>An archive that keeps changing.</p><p>Keep writing here.</p><!-- ADD MORE PARAGRAPHS HERE: <p>Your writing here.</p> --></div></div><span class="edge-number">10</span></article>
+<article class="entry right" style="--photo:url('images/frame-10.jpg');--image-ratio:0.69000" id="entry-10"><div class="shade"></div><div class="entry-content"><div class="meta"><span>NS / JOURNAL</span><span>ARCHIVE / 010</span><span>10 / 10</span></div><h2>NO FINAL VERSION</h2><div class="writing"><p>An archive that keeps changing.</p><p>Keep writing here.</p><!-- ADD MORE PARAGRAPHS HERE: <p>Your writing here.</p> --><nav class="ns-journal-archive-links" aria-label="Journal archive destinations"><span>EXPLORE THE ARCHIVE</span><a href="/main.html">PORTAL</a><a href="/gemstone-field-distortion-paradox.html">GEMSTONE</a><a href="/scrapbook.html">SCRAPBOOK</a></nav></div></div><span class="edge-number">10</span></article>
 </main>
-<footer class="end" id="end"><strong>NATE SAVARD / JOURNAL</strong><span>LIVE 2026 oct 11 / NO FINAL VERSION</span><a href="https://natesavard.com">RETURN TO MAIN SITE ↗</a></footer>
+<footer class="end" id="end"><nav class="ns-journal-archive-links" aria-label="Journal archive destinations"><span>EXPLORE THE ARCHIVE</span><a href="/main.html">PORTAL</a><a href="/gemstone-field-distortion-paradox.html">GEMSTONE</a><a href="/scrapbook.html">SCRAPBOOK</a></nav><strong>NATE SAVARD / JOURNAL</strong><span>LIVE 2026 oct 11 / NO FINAL VERSION</span><a href="https://natesavard.com">RETURN TO MAIN SITE ↗</a></footer>
 <button type="button" class="motion-control" id="motion-control" aria-pressed="false" aria-label="Pause automatic journal movement">PAUSE MOTION</button>
 <button type="button" class="envy-to-top" id="envy-to-top" aria-label="Return to top" title="Return to top"><img src="/envy-cross.png" alt=""></button>
 <script>

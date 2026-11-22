@@ -155,3 +155,131 @@
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',start,{once:true});
   else start();
 })();
+
+
+/* NATE SAVARD / 2026-11-22 / visual control corrections.
+ * Keep ONE working global cart, and keep the original Envy cross art.
+ * Only repositions the actual shared-cart button on the Envynomadix pages.
+ */
+(()=>{
+  'use strict';
+  const path=location.pathname.toLowerCase();
+  const isEnvy=/\/(envynomadixrebirth|envynomadix)\.html$/.test(path);
+  if(!isEnvy)return;
+
+  const css=document.createElement('style');
+  css.id='ns-envy-clean-control-layout-v33';
+  css.textContent=`
+    /* Exact Vault-style cross: image alone, no button circle or halo. */
+    body .top-ribbon,
+    body.is-entered .top-ribbon,
+    body .top-ribbon:hover {
+      width:clamp(64px,8vw,96px)!important;
+      height:auto!important;
+      aspect-ratio:1/1!important;
+      padding:0!important;
+      border:0!important;
+      border-radius:0!important;
+      outline:0!important;
+      background:transparent!important;
+      background-image:none!important;
+      box-shadow:none!important;
+      backdrop-filter:none!important;
+      -webkit-backdrop-filter:none!important;
+      filter:drop-shadow(0 16px 28px rgba(0,0,0,.42))!important;
+    }
+    body .top-ribbon::before,
+    body .top-ribbon::after {content:none!important;display:none!important;}
+    body .top-ribbon img {
+      position:relative!important;
+      inset:auto!important;
+      left:auto!important;
+      top:auto!important;
+      display:block!important;
+      width:100%!important;
+      min-width:0!important;
+      height:auto!important;
+      transform:none!important;
+      transform-origin:center!important;
+      animation:ns-vault-cross-spin 8.5s linear infinite!important;
+    }
+    body .top-ribbon:hover img {animation-duration:1.8s!important;}
+    @keyframes ns-vault-cross-spin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+
+    /* Align native SHOP and the real universal CART on one horizontal row. */
+    body .hero-quick-actions {
+      position:fixed!important;
+      top:13px!important;
+      right:24px!important;
+      left:auto!important;
+      bottom:auto!important;
+      display:inline-flex!important;
+      flex-direction:row!important;
+      flex-wrap:nowrap!important;
+      align-items:center!important;
+      justify-content:flex-end!important;
+      gap:22px!important;
+      width:auto!important;
+      height:auto!important;
+      min-height:0!important;
+      padding:0!important;
+      isolation:isolate!important;
+      z-index:18020!important;
+    }
+    body .hero-quick-actions::before,
+    body .hero-quick-actions::after {content:none!important;display:none!important;}
+    body .hero-quick-actions #heroShopButton,
+    body .hero-quick-actions #ns-site-cart-top {
+      position:relative!important;
+      inset:auto!important;
+      top:auto!important;
+      right:auto!important;
+      bottom:auto!important;
+      left:auto!important;
+      display:inline-flex!important;
+      align-items:center!important;
+      justify-content:center!important;
+      width:auto!important;
+      min-width:0!important;
+      height:auto!important;
+      min-height:0!important;
+      margin:0!important;
+      padding:8px 0!important;
+      border:0!important;
+      border-radius:0!important;
+      background:transparent!important;
+      box-shadow:none!important;
+      color:rgba(246,226,190,.96)!important;
+      font:11px/1.2 'Courier New',monospace!important;
+      letter-spacing:.14em!important;
+      text-transform:uppercase!important;
+      white-space:nowrap!important;
+      vertical-align:middle!important;
+      pointer-events:auto!important;
+      visibility:visible!important;
+    }
+    body .hero-quick-actions #heroCartButton{display:none!important;}
+    @media(max-width:600px){
+      body .hero-quick-actions{right:12px!important;gap:16px!important;}
+      body .top-ribbon{right:16px!important;bottom:16px!important;width:72px!important;}
+    }
+  `;
+  document.head.appendChild(css);
+
+  function alignSharedCart(){
+    const row=document.querySelector('.hero-quick-actions');
+    const shared=document.getElementById('ns-site-cart-top');
+    if(!row||!shared)return false;
+    if(shared.parentElement!==row)row.appendChild(shared);
+    return true;
+  }
+  function mount(){
+    if(alignSharedCart())return;
+    const observer=new MutationObserver(()=>{
+      if(alignSharedCart())observer.disconnect();
+    });
+    observer.observe(document.body,{childList:true,subtree:true});
+  }
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',mount,{once:true});
+  else mount();
+})();
