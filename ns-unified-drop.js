@@ -163,7 +163,28 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
     const extra = rail.querySelector('.rebirth-photo-fourth');
     if (extra) extra.remove();
 
-    // Video participates in the page's existing horizontal gallery as its second slide.
+
+    /* ORIGINAL horizontally scrolling gallery, with portraits fully visible instead of cropped. */
+    const fullFrame=document.createElement('style');
+    fullFrame.id='ns-original-rebirth-full-frame-v16';
+    fullFrame.textContent=`
+      .rebirth-page .visual .rebirth-stack > img.rebirth-photo-main,
+      .rebirth-page .visual .rebirth-stack > img.rebirth-photo-third,
+      body.is-entered .visual .rebirth-stack > img.rebirth-photo-main,
+      body.is-entered .visual .rebirth-stack > img.rebirth-photo-third {
+        object-fit:contain!important;
+        object-position:center center!important;
+        transform:none!important;
+        border-radius:0!important;
+      }
+      .rebirth-page .visual .rebirth-stack > video.rebirth-photo-second {
+        object-fit:contain!important;
+        object-position:center center!important;
+      }
+    `;
+    document.head.appendChild(fullFrame);
+
+        // Video participates in the page's existing horizontal gallery as its second slide.
     // No positions, rotations, dimensions or gallery scrolling behavior are overridden.
     const styles = document.createElement('style');
     styles.id = 'ns-rebirth-video-native-rail';
@@ -209,7 +230,7 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
   if(document.querySelector('script[data-ns-primary-loader]') ||
      document.querySelector('script[src*="ns-primary-navigation.js"]')) return;
   const tag=document.createElement('script');
-  tag.src='/ns-primary-navigation.js?v=9';
+  tag.src='/ns-primary-navigation.js?v=16';
   tag.defer=true;
   tag.dataset.nsPrimaryLoader='1';
   document.head.appendChild(tag);
