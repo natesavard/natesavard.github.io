@@ -415,52 +415,34 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
 })();
 
 
-/* REBIRTH: Vault-matching floating Envy cross and emblem-only minimized NS navigation.
- * Additive visual-only overrides; preserve scrolling, clicking, audio, media and cart. */
+/* REBIRTH — precise campaign-copy update only.
+ * Update the three marquee copies and the rotating hero line while preserving
+ * the page's existing rotation timer, animations, photography and product copy.
+ */
 (()=>{
   'use strict';
   if(!/\/envynomadixrebirth\.html$/i.test(location.pathname))return;
-  const add=()=>{
-    if(document.getElementById('ns-rebirth-clean-controls-v31'))return;
-    const style=document.createElement('style');
-    style.id='ns-rebirth-clean-controls-v31';
-    style.textContent=`
-      /* Match the naked rotating Envy cross on Vault: no round background or halo. */
-      html body .top-ribbon, html body .top-ribbon:hover {
-        border:0!important; border-radius:0!important;
-        outline:0!important; background:none!important;
-        box-shadow:none!important; backdrop-filter:none!important;
-        -webkit-backdrop-filter:none!important;
-        width:clamp(64px,8vw,96px)!important;
-        height:clamp(64px,8vw,96px)!important;
-        padding:0!important;
-        filter:drop-shadow(0 16px 28px rgba(0,0,0,.42)) drop-shadow(0 0 18px rgba(255,255,255,.10))!important;
+  const replacement='for the chosen ... armed with the power of G.O.D';
+  const previous='for the chosen few';
+  function updateCopy(){
+    const rotating=document.getElementById('rotatingLine');
+    if(rotating){
+      const apply=()=>{
+        if(rotating.textContent.trim().toLowerCase()===previous)
+          rotating.textContent=replacement;
+      };
+      apply();
+      if(!rotating.dataset.nsChosenCopyObserver){
+        rotating.dataset.nsChosenCopyObserver='1';
+        const observer=new MutationObserver(apply);
+        observer.observe(rotating,{childList:true,characterData:true,subtree:true});
       }
-      html body .top-ribbon::before, html body .top-ribbon::after {
-        content:none!important;display:none!important;
-        background:none!important; border:0!important;box-shadow:none!important;
-      }
-      html body .top-ribbon img {
-        width:100%!important; max-width:100%!important;
-        height:auto!important; min-width:0!important;
-      }
-      /* Minimized NS control: emblem alone, without the faint rectangular plate.
-         Keep the existing large transparent click target and exact opening behavior. */
-      html body.ns-originals-menu-skin .siteflow-shell.is-collapsed,
-      html body.ns-originals-menu-skin .siteflow-shell.is-collapsed .siteflow-bar,
-      html body.ns-originals-menu-skin .siteflow-shell.is-collapsed .siteflow-controls,
-      html body.ns-originals-menu-skin .siteflow-shell.is-collapsed #siteflowMinToggle {
-        background:transparent!important; background-image:none!important;
-        border:0!important; outline:0!important;
-        box-shadow:none!important; filter:none!important;
-        backdrop-filter:none!important; -webkit-backdrop-filter:none!important;
-      }
-      html body.ns-originals-menu-skin .siteflow-shell.is-collapsed #siteflowMinToggle::after {
-        content:none!important;display:none!important;
-      }
-    `;
-    document.head.appendChild(style);
-  };
-  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',add,{once:true});
-  else add();
+    }
+    document.querySelectorAll('.bottom-marquee-track > span').forEach(span=>{
+      if(span.textContent.toLowerCase().includes(previous))
+        span.textContent=span.textContent.replace(/for the chosen few/gi,replacement);
+    });
+  }
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',updateCopy,{once:true});
+  else updateCopy();
 })();
