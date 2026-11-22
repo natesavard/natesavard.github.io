@@ -46,3 +46,33 @@
  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',setup);else setup();
  window.addEventListener('load',setup,{once:true});
 })();
+
+/* Homepage entrance links — only requested two changes. No layout/media changes. */
+(()=>{
+  'use strict';
+  if(location.pathname!=='/' && location.pathname!=='/index.html')return;
+  const destination='/original/';
+  function updateEntranceLinks(){
+    const nav=document.querySelector('.header .nav');
+    if(nav){
+      const link=[...nav.querySelectorAll('a')].find(a=>a.textContent.trim().toLowerCase()==='insomnia world');
+      if(link){
+        link.textContent='Nates World';
+        link.setAttribute('href',destination);
+        link.setAttribute('aria-label','Enter Nates World');
+      }
+    }
+    const emblem=document.querySelector('.hero-main .emblem-box');
+    if(emblem && emblem.tagName.toLowerCase()==='div'){
+      const link=document.createElement('a');
+      link.className=emblem.className;
+      link.href=destination;
+      link.setAttribute('aria-label','Enter Nates World');
+      link.title='Enter Nates World';
+      link.innerHTML=emblem.innerHTML;
+      emblem.replaceWith(link);
+    }
+  }
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',updateEntranceLinks,{once:true});
+  else updateEntranceLinks();
+})();
