@@ -122,45 +122,38 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
   'use strict';
   if (!/\/envynomadixrebirth\.html$/i.test(window.location.pathname)) return;
 
-  const STYLE_ID = 'ns-rebirth-photo-swap-v2';
+  const STYLE_ID = 'ns-rebirth-photo-swap-v3';
   const injectStyles = () => {
     if (document.getElementById(STYLE_ID)) return;
     const style = document.createElement('style');
     style.id = STYLE_ID;
     style.textContent = `
       .visual .rebirth-photo-main.ns-rebirth-updated {
-        width: min(33vw, 410px);
-        left: 8%;
-        top: 9%;
+        width: min(36vw, 445px);
+        left: 9%;
+        top: 8%;
         transform: rotate(-6deg);
-        z-index: 4;
-      }
-      .visual .rebirth-photo-second.ns-rebirth-updated {
-        width: min(36vw, 460px);
-        right: 4%;
-        top: 3%;
-        transform: rotate(5deg);
-        z-index: 2;
+        z-index: 5;
       }
       .visual .rebirth-photo-third.ns-rebirth-updated {
-        width: min(32vw, 405px);
-        left: 21%;
-        bottom: 2%;
+        width: min(34vw, 430px);
+        left: 23%;
+        bottom: -3%;
         transform: rotate(-3deg);
         z-index: 3;
       }
       .visual .rebirth-stack video.rebirth-photo-fourth.rebirth-photo-video {
         position: absolute;
         display: block;
-        width: min(24vw, 290px);
+        width: min(18vw, 220px);
         height: auto;
-        right: 14%;
-        bottom: 1%;
+        right: 8%;
+        bottom: -2%;
         object-fit: cover;
         border-radius: 28px;
         background: #000;
         transform: rotate(6deg);
-        z-index: 5;
+        z-index: 2;
         filter:
           saturate(0.94)
           brightness(0.96)
@@ -187,10 +180,16 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
     return img;
   };
 
+  const removeSecondStill = () => {
+    const second = document.querySelector('.rebirth-stack .rebirth-photo-second');
+    if (second) second.remove();
+  };
+
   const replaceFourthWithVideo = () => {
     const oldEl = document.querySelector('.rebirth-stack .rebirth-photo-fourth');
-    if (!oldEl || oldEl.tagName.toLowerCase() === 'video') {
-      if (oldEl && oldEl.tagName.toLowerCase() === 'video') oldEl.play?.().catch(()=>{});
+    if (!oldEl) return;
+    if (oldEl.tagName.toLowerCase() === 'video') {
+      oldEl.play?.().catch(()=>{});
       return;
     }
     const video = document.createElement('video');
@@ -218,7 +217,7 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
   const apply = () => {
     injectStyles();
     updateImage('.rebirth-stack .rebirth-photo-main', '/rebirth-hero-01-purple.webp', 'Nate Savard portrait in purple light');
-    updateImage('.rebirth-stack .rebirth-photo-second', '/rebirth-hero-02-beach.jpg', 'Madisonne beach portrait');
+    removeSecondStill();
     updateImage('.rebirth-stack .rebirth-photo-third', '/rebirth-hero-03-portrait.webp', 'Nate Savard black-and-white portrait');
     replaceFourthWithVideo();
   };
