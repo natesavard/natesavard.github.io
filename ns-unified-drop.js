@@ -172,8 +172,8 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
       .rebirth-page .visual .rebirth-stack > img.rebirth-photo-third,
       body.is-entered .visual .rebirth-stack > img.rebirth-photo-main,
       body.is-entered .visual .rebirth-stack > img.rebirth-photo-third {
-        object-fit:contain!important;
-        object-position:center center!important;
+        object-fit:cover!important;
+        object-position:center 24%!important;
         transform:none!important;
         border-radius:0!important;
       }
