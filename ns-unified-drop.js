@@ -115,29 +115,114 @@ const init=()=>{
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
 })();
 
-
 /* ENVYNOMADIX REBIRTH — TOP PHOTOGRAPHIC COLLAGE ONLY
    Preserves every existing page section and all LIFE FORCE ENERGY galleries.
    Activated exclusively on /envynomadixrebirth.html. */
 (()=>{
   'use strict';
-  if (!/\/(?:envynomadixrebirth\.html)$/i.test(window.location.pathname)) return;
-  const photos = [
-    ['.rebirth-stack .rebirth-photo-main', '/rebirth-hero-01-beach.webp'],
-    ['.rebirth-stack .rebirth-photo-second', '/rebirth-hero-02-purple.webp'],
-    ['.rebirth-stack .rebirth-photo-third', '/rebirth-hero-03-portrait.webp'],
-    ['.rebirth-stack .rebirth-photo-fourth', '/rebirth-hero-04-video-still.webp']
-  ];
-  function replacePhotos(){
-    for(const [selector, path] of photos){
-      const img=document.querySelector(selector);
-      if(!img)continue;
-      img.src=path;
-      img.removeAttribute('srcset');
-      img.decoding='async';
-      img.alt='Envynomadix Rebirth campaign photograph';
+  if (!/\/envynomadixrebirth\.html$/i.test(window.location.pathname)) return;
+
+  const STYLE_ID = 'ns-rebirth-photo-swap-v2';
+  const injectStyles = () => {
+    if (document.getElementById(STYLE_ID)) return;
+    const style = document.createElement('style');
+    style.id = STYLE_ID;
+    style.textContent = `
+      .visual .rebirth-photo-main.ns-rebirth-updated {
+        width: min(33vw, 410px);
+        left: 8%;
+        top: 9%;
+        transform: rotate(-6deg);
+        z-index: 4;
+      }
+      .visual .rebirth-photo-second.ns-rebirth-updated {
+        width: min(36vw, 460px);
+        right: 4%;
+        top: 3%;
+        transform: rotate(5deg);
+        z-index: 2;
+      }
+      .visual .rebirth-photo-third.ns-rebirth-updated {
+        width: min(32vw, 405px);
+        left: 21%;
+        bottom: 2%;
+        transform: rotate(-3deg);
+        z-index: 3;
+      }
+      .visual .rebirth-stack video.rebirth-photo-fourth.rebirth-photo-video {
+        position: absolute;
+        display: block;
+        width: min(24vw, 290px);
+        height: auto;
+        right: 14%;
+        bottom: 1%;
+        object-fit: cover;
+        border-radius: 28px;
+        background: #000;
+        transform: rotate(6deg);
+        z-index: 5;
+        filter:
+          saturate(0.94)
+          brightness(0.96)
+          drop-shadow(0 28px 46px rgba(0, 0, 0, 0.42))
+          drop-shadow(0 0 26px rgba(255, 235, 205, 0.08));
+        animation: rebirthCardFloatD 8.8s ease-in-out infinite alternate;
+        transition: transform 0.7s ease, filter 0.7s ease, opacity 0.7s ease;
+      }
+      .visual .rebirth-stack video.rebirth-photo-fourth.rebirth-photo-video::-webkit-media-controls {
+        display: none !important;
+      }
+    `;
+    document.head.appendChild(style);
+  };
+
+  const updateImage = (selector, src, alt) => {
+    const img = document.querySelector(selector);
+    if (!img) return null;
+    img.src = src;
+    img.removeAttribute('srcset');
+    img.decoding = 'async';
+    img.alt = alt;
+    img.classList.add('ns-rebirth-updated');
+    return img;
+  };
+
+  const replaceFourthWithVideo = () => {
+    const oldEl = document.querySelector('.rebirth-stack .rebirth-photo-fourth');
+    if (!oldEl || oldEl.tagName.toLowerCase() === 'video') {
+      if (oldEl && oldEl.tagName.toLowerCase() === 'video') oldEl.play?.().catch(()=>{});
+      return;
     }
-  }
-  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',replacePhotos,{once:true});
-  else replacePhotos();
+    const video = document.createElement('video');
+    video.className = 'rebirth-photo-fourth rebirth-photo-video';
+    video.autoplay = true;
+    video.loop = true;
+    video.muted = true;
+    video.defaultMuted = true;
+    video.playsInline = true;
+    video.preload = 'metadata';
+    video.poster = '/rebirth-hero-04-video-poster.jpg';
+    video.setAttribute('aria-label', 'Envynomadix Rebirth campaign video');
+
+    const mp4 = document.createElement('source');
+    mp4.src = '/rebirth-hero-04-video.mp4';
+    mp4.type = 'video/mp4';
+    video.appendChild(mp4);
+
+    oldEl.replaceWith(video);
+    const tryPlay = () => video.play().catch(()=>{});
+    if (document.readyState === 'complete') tryPlay();
+    else window.addEventListener('load', tryPlay, { once: true });
+  };
+
+  const apply = () => {
+    injectStyles();
+    updateImage('.rebirth-stack .rebirth-photo-main', '/rebirth-hero-01-purple.webp', 'Nate Savard portrait in purple light');
+    updateImage('.rebirth-stack .rebirth-photo-second', '/rebirth-hero-02-beach.jpg', 'Madisonne beach portrait');
+    updateImage('.rebirth-stack .rebirth-photo-third', '/rebirth-hero-03-portrait.webp', 'Nate Savard black-and-white portrait');
+    replaceFourthWithVideo();
+  };
+
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', apply, { once: true });
+  else apply();
 })();
