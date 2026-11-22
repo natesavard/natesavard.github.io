@@ -17,6 +17,27 @@
     ['Journal','/journal.html']
   ];
   const css=`
+
+    /* Five links use the exact plain divider-row look of Originals, not pills. */
+    .siteflow-shell .ns-primary-five {display:contents!important}
+    .siteflow-shell .ns-primary-five a{
+      display:flex!important;align-items:center!important;justify-content:space-between!important;
+      min-height:40px!important;padding:10px 2px!important;
+      border:0!important;border-bottom:1px solid #ffffff1e!important;
+      border-radius:0!important;background:none!important;color:#ddd!important;
+      font:12px/1.4 Arial,sans-serif!important;
+      letter-spacing:.02em!important;text-transform:none!important;
+      text-align:left!important;box-shadow:none!important;
+      transform:none!important;text-shadow:none!important
+    }
+    .siteflow-shell .ns-primary-five a::after {
+      content:'›';color:#aaa;font-size:20px;line-height:1
+    }
+    .siteflow-shell .ns-primary-five a:hover,
+    .siteflow-shell .ns-primary-five a[aria-current="page"] {
+      color:#fff!important;background:#ffffff0b!important
+    }
+
     /* Compatibility: remove only the previously added, incorrect LEFT menu. */
     #ns-primary-menu-toggle,#ns-primary-menu-drawer,#ns-primary-menu-shade,
     #ns-custom-right-panel,#ns-primary-panel-toggle {display:none!important}
@@ -89,9 +110,9 @@
             <span class="siteflow-player-meta"><span data-ns-status>READY</span><time data-ns-time>00:00 / --:--</time></span>
           </div>
           <div class="siteflow-player-buttons" aria-label="Playback controls">
-            <button class="siteflow-player-button" data-ns-stop type="button" aria-label="Stop track">&#9198;</button>
-            <button class="siteflow-player-button is-play" data-ns-play type="button" aria-label="Play track" aria-pressed="false">&#9654;</button>
-            <button class="siteflow-player-button" data-ns-next type="button" aria-label="Restart track">&#9197;</button>
+            <button class="siteflow-player-button" id="siteflowPlayerPrevious" data-ns-stop type="button" aria-label="Stop track">&#9198;</button>
+            <button class="siteflow-player-button is-play" id="siteflowPlayerPlay" data-ns-play type="button" aria-label="Play track" aria-pressed="false">&#9654;</button>
+            <button class="siteflow-player-button" id="siteflowPlayerNext" data-ns-next type="button" aria-label="Restart track">&#9197;</button>
           </div>
           <input class="siteflow-player-range" data-ns-seek type="range" min="0" max="1000" value="0" aria-label="Track position">
           <label class="siteflow-player-volume">VOL <input class="siteflow-player-range" data-ns-volume type="range" min="0" max="100" value="90" aria-label="Volume"></label>
@@ -99,9 +120,9 @@
         <div class="siteflow-transmission">signal stable // private network online</div>
         <div class="siteflow-jump"></div>
         <div class="siteflow-controls">
-          <button class="siteflow-control" data-ns-vip type="button">vip mode off</button>
-          <button class="siteflow-control" data-ns-sound type="button">sound on</button>
-          <button class="siteflow-control siteflow-min-toggle" data-ns-toggle type="button"
+          <button class="siteflow-control" id="siteflowVipToggle" data-ns-vip type="button">vip mode off</button>
+          <button class="siteflow-control" id="siteflowSoundToggle" data-ns-sound type="button">sound on</button>
+          <button class="siteflow-control siteflow-min-toggle" id="siteflowMinToggle" data-ns-toggle type="button"
             aria-expanded="false" aria-label="Open X Y Z" title="Open X Y Z">X Y Z</button>
         </div>
       </div>`;
@@ -143,6 +164,37 @@
     shell.querySelector('[data-ns-vip]').addEventListener('click',e=>{const b=e.currentTarget;const on=b.textContent.includes('off');b.textContent=on?'vip mode on':'vip mode off';});
     shell.querySelector('[data-ns-sound]').addEventListener('click',e=>{const b=e.currentTarget;const on=b.textContent.includes('off');track.muted=on;b.textContent=on?'sound on':'sound off';});
   }
+
+  /*
+   * The exact right-side slide-out and NS-logo tab are not from site-flow.css.
+   * They are the separate, ORIGINAL ns-originals-gothic.css stylesheet.
+   * Reuse those rules verbatim, with only its body class scoped to this page.
+   * This changes no homepage/collection artwork or page-wide layout.
+   */
+  function applyExactOriginalsSkin(){
+    if(path==='/originals.html') return; // Originals already has the exact original CSS.
+    document.body.classList.add('ns-originals-menu-skin');
+    const id='ns-originals-gothic-exact-shared';
+    if(document.getElementById(id)) return;
+    fetch('/ns-originals-gothic.css',{cache:'no-store'})
+      .then(response=>{
+        if(!response.ok) throw new Error('Original Gothic stylesheet unavailable');
+        return response.text();
+      })
+      .then(source=>{
+        const style=document.createElement('style');
+        style.id=id;
+        style.textContent=source.replaceAll('body.originals-page','body.ns-originals-menu-skin');
+        document.head.append(style);
+      })
+      .catch(()=>{ // Keep panel functional if its original stylesheet fails to load.
+        const link=document.createElement('link');
+        link.rel='stylesheet';
+        link.href='/ns-originals-gothic.css';
+        document.head.append(link);
+      });
+  }
+
   function homepageCart(){
     if(path!=='/'&&path!=='/index.html')return;
     if(document.getElementById('ns-home-cart-corner'))return;
@@ -156,6 +208,7 @@
       const style=document.createElement('style');style.id='ns-primary-v12-style';style.textContent=css;document.head.append(style);
     }
     homepageCart();
+    applyExactOriginalsSkin();
     if(injectLinksIntoExisting())return;
     if(!document.querySelector('.siteflow-shell')){
       const stylesheetId='ns-primary-original-siteflow-css';
