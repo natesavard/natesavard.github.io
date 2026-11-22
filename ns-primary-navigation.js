@@ -1,194 +1,182 @@
-/* NATE SAVARD — shared right-side NS AUDIO / X Y Z navigation.
-   Reuses the genuine originals.html siteflow panel; no extra left MENU.
-   Only mounts the panel on pages that do not already have it.
-*/
+/* NATE SAVARD — original X Y Z right-side panel from originals.html.
+ * Add the five primary routes to an existing Site Flow panel or mount the
+ * same siteflow-shell/siteflow-bar UI, using its actual site-flow.css styles.
+ * Never modify page artwork, cart markup, galleries, or landing screens.
+ */
 (()=>{
   'use strict';
-  if(window.__nsUnifiedRightNavigation) return;
-  window.__nsUnifiedRightNavigation=true;
+  if (window.__nsPrimaryRightPanelV12) return;
+  window.__nsPrimaryRightPanelV12=true;
   const path=location.pathname.toLowerCase();
-  if(path==='/original.html'||path==='/original/'||path==='/original/index.html') return;
-  const links=[
+  if (/^\/original(?:\/|$)/.test(path) || /\/original\.html$/.test(path)) return;
+  const routes=[
     ['Home','/'],
     ['Rebirth','/envynomadixrebirth.html'],
     ['Jewelry','/originals.html'],
     ['Vault','/vault.html'],
     ['Journal','/journal.html']
   ];
-  const STYLE_ID='ns-unified-right-nav-styles-v1';
-  const SVG_NOT_USED='';
   const css=`
-   /* Only scope custom overrides to new panel and the primary links themselves. */
-   .ns-unified-primary-links{display:flex;flex-direction:column;gap:5px;
-      padding:0 0 10px;margin:0 0 8px;border-bottom:1px solid rgba(255,216,107,.17)}
-   .siteflow-jump .ns-unified-primary-links a{display:block;border:1px solid rgba(255,216,107,.12)!important;
-      background:rgba(255,216,107,.035)!important;padding:8px 9px!important;
-      font:10px/1.3 'Courier New',monospace!important;letter-spacing:.11em!important;
-      border-radius:999px!important;text-decoration:none!important;text-align:center!important;
-      color:#f1e7d8!important;text-transform:uppercase!important;white-space:nowrap}
-   .siteflow-jump .ns-unified-primary-links a:hover,
-   .siteflow-jump .ns-unified-primary-links a:focus-visible{background:rgba(255,216,107,.16)!important;color:#fff!important}
-   .siteflow-jump .ns-unified-primary-links a[aria-current=page]{background:rgba(255,216,107,.17)!important;border-color:rgba(255,216,107,.38)!important}
-   .ns-unified-right-panel .siteflow-bar{font-family:'Trebuchet MS','Segoe UI',sans-serif}
-   .ns-unified-right-panel .siteflow-min-toggle{cursor:pointer}
-   .ns-unified-right-panel .ns-right-nav-player-status{font-size:8px;opacity:.76}
-   .ns-unified-right-panel .siteflow-player{display:grid;gap:7px}
-   .ns-unified-right-panel.is-collapsed .siteflow-player{display:none}
-   .ns-unified-right-panel .siteflow-jump{display:flex;flex-direction:column}
-   .ns-unified-right-panel.is-collapsed .siteflow-jump{display:none}
-   @media(max-width:620px){
-     .ns-unified-right-panel.siteflow-shell,.ns-unified-right-panel.siteflow-shell.is-collapsed{
-       top:50%!important;right:8px!important;bottom:auto!important;transform:translateY(-50%)!important}
-     .ns-unified-right-panel .siteflow-jump .ns-unified-primary-links{display:flex;flex-direction:column}
-   }
-  `;
-  function buildLink(label,href){
-    const a=document.createElement('a');
-    a.textContent=label;a.href=href;a.className='siteflow-link';
-    if((path==='/'?'/':path)===href.toLowerCase())a.setAttribute('aria-current','page');
-    return a;
-  }
-  function style(){
-    if(document.getElementById(STYLE_ID))return;
-    const tag=document.createElement('style');tag.id=STYLE_ID;tag.textContent=css;document.head.appendChild(tag);
-  }
-  function addFiveToPanel(panel){
-    const jump=panel.querySelector('.siteflow-jump');
-    if(!jump || jump.querySelector('.ns-unified-primary-links'))return;
-    const group=document.createElement('div');group.className='ns-unified-primary-links';
-    links.forEach(([label,href])=>group.appendChild(buildLink(label,href)));
-    jump.prepend(group);
-  }
-  function addHomepageCart(){
-    if(path!=='/' && path!=='/index.html') return;
-    if(document.getElementById('ns-home-top-cart')) return;
-    const cssId='ns-home-top-cart-style';
-    if(!document.getElementById(cssId)){
-      const css=document.createElement('style');css.id=cssId;
-      css.textContent=`
-        #ns-home-top-cart{position:fixed;top:14px;right:18px;z-index:14950;
-          padding:9px 13px;color:#f6e4ca;background:rgba(5,5,5,.75);
-          border:1px solid rgba(213,176,123,.3);border-radius:2px;
-          font:10px/1.25 'Courier New',monospace;letter-spacing:.16em;
-          text-decoration:none;white-space:nowrap;backdrop-filter:blur(8px)}
-        #ns-home-top-cart:hover,#ns-home-top-cart:focus-visible{
-          color:#fff;border-color:rgba(237,216,185,.7)}
-        @media(max-width:760px){#ns-home-top-cart{top:9px;right:9px;font-size:9px;padding:8px 9px}}
-      `;
-      document.head.appendChild(css);
+    /* Compatibility: remove only the previously added, incorrect LEFT menu. */
+    #ns-primary-menu-toggle,#ns-primary-menu-drawer,#ns-primary-menu-shade,
+    #ns-custom-right-panel,#ns-primary-panel-toggle {display:none!important}
+    /* This is the ORIGINAL site-flow right panel styling, not a new drawer. */
+    .siteflow-shell.ns-originals-panel-copy {z-index:9997;}
+    .siteflow-shell .ns-primary-five {display:flex;flex-direction:column;gap:6px;margin:0 0 7px}
+    .siteflow-shell .ns-primary-five a {display:block;text-decoration:none;
+      font:10px/1.3 'Trebuchet MS','Segoe UI',sans-serif;letter-spacing:.06em;
+      text-transform:uppercase;color:var(--siteflow-muted,#b7bfd0)!important;
+      background:transparent;border:1px solid transparent;border-radius:999px;
+      padding:6px 2px;text-align:center;transition:color .2s,background .2s}
+    .siteflow-shell .ns-primary-five a:hover,
+    .siteflow-shell .ns-primary-five a:focus-visible,
+    .siteflow-shell .ns-primary-five a[aria-current="page"]{
+      color:var(--siteflow-text,#f5f0de)!important;text-shadow:0 0 12px rgba(255,216,107,.25)}
+    .siteflow-shell.is-collapsed .ns-primary-five{display:none!important}
+    .siteflow-shell.ns-originals-panel-copy .siteflow-player {display:grid}
+    .siteflow-shell.ns-originals-panel-copy .siteflow-bar {pointer-events:auto}
+    .siteflow-shell.ns-originals-panel-copy .siteflow-min-toggle{cursor:pointer}
+    .siteflow-shell.ns-originals-panel-copy .siteflow-player-button{cursor:pointer}
+    .siteflow-shell.ns-originals-panel-copy .siteflow-player-button:disabled{opacity:.5;cursor:default}
+    /* Existing Rebirth ribbon links remain untouched. */
+    @media(max-width:620px){
+      .siteflow-shell .ns-primary-five{gap:5px}
+      .siteflow-shell .ns-primary-five a{font-size:10px;padding:7px 10px}
     }
-    const cart=document.createElement('a');
-    cart.id='ns-home-top-cart';cart.href='/originals.html#cart';
-    cart.textContent='CART';cart.setAttribute('aria-label','Open Jewelry cart');
-    document.body.appendChild(cart);
+    /* Cart remains in homepage TOP RIGHT; no replacement cart UI in the panel. */
+    body:has(.hero-main) #ns-home-cart-corner{position:fixed;right:22px;top:18px;z-index:9998;
+      color:#eee1cf;text-decoration:none;text-transform:uppercase;font:10px 'Courier New',monospace;
+      letter-spacing:.16em;text-shadow:0 1px 8px #000}
+    @media(max-width:700px){body:has(.hero-main) #ns-home-cart-corner{right:12px;top:15px}}
+  `;
+  const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  function active(href){return href==='/'?path==='/'||path==='/index.html':path===href.toLowerCase();}
+  function navigation(){
+    const nav=document.createElement('nav');
+    nav.className='ns-primary-five';
+    nav.setAttribute('aria-label','Primary pages');
+    for(const [title,url] of routes){
+      const link=document.createElement('a');link.href=url;link.textContent=title;
+      if(active(url)) link.setAttribute('aria-current','page');
+      nav.append(link);
+    }
+    return nav;
   }
-  function openJewelryCartFromLink(){
-    if(path!=='/originals.html'||location.hash!=='#cart') return;
-    // Reuse the real Jewelry cart; do not invent a duplicate cart state.
-    const toggle=document.getElementById('originalsCartToggle');
-    if(!toggle) return;
-    const entrance=document.getElementById('enterButton');
-    if(entrance && !document.body.classList.contains('originals-entered')) entrance.click();
-    toggle.click();
-    history.replaceState(null,'',location.pathname+location.search);
+  function injectLinksIntoExisting(){
+    const shell=document.querySelector('.siteflow-shell:not(.ns-originals-panel-copy)');
+    if(!shell) return false;
+    if(shell.querySelector('.ns-primary-five')) return true;
+    const jump=shell.querySelector('.siteflow-jump');
+    if(jump){jump.prepend(navigation());return true;}
+    const bar=shell.querySelector('.siteflow-bar');
+    if(bar){bar.prepend(navigation());return true;}
+    return false;
   }
-  function addJournalTop(){
-    if(path!=='/'&&path!=='/index.html')return;
-    const nav=document.querySelector('.header .nav');
-    if(!nav||nav.querySelector('a[href="/journal.html"]'))return;
-    const a=buildLink('Journal','/journal.html');a.className='ns-top-journal-link';
-    nav.appendChild(a);
-  }
-  function ensureSiteflowCSS(){
-    if(document.querySelector('link[href*="site-flow.css"]'))return;
-    const link=document.createElement('link');link.rel='stylesheet';link.href='/site-flow.css';
-    link.dataset.nsRightPanelStyle='1';document.head.appendChild(link);
-  }
-  function createRightPanel(){
-    if(document.querySelector('.siteflow-shell'))return;
-    ensureSiteflowCSS();
+  function createPanel(){
+    if(document.querySelector('.siteflow-shell')) return;
     const shell=document.createElement('div');
-    shell.className='siteflow-shell ns-unified-right-panel is-collapsed';
-    shell.setAttribute('aria-label','Nate Savard NS AUDIO and navigation');
+    shell.className='siteflow-shell ns-originals-panel-copy is-collapsed';
+    shell.setAttribute('aria-label','Nate Savard X Y Z menu');
     shell.innerHTML=`
       <div class="siteflow-bar">
-        <section class="siteflow-player" aria-label="NS Audio player">
-          <div class="siteflow-player-head"><span class="siteflow-player-brand"><strong>NS AUDIO</strong><small>STEREO 85</small></span><span class="siteflow-player-track-number">01/01</span></div>
-          <div class="siteflow-player-screen"><span class="siteflow-player-title">NATE SAVARD — CHOSEN FEW / SONG 3</span><span class="siteflow-player-meta"><span class="ns-right-nav-player-status">READY</span><time class="ns-right-nav-player-time">00:00 / --:--</time></span></div>
-          <div class="siteflow-player-buttons">
-            <button class="siteflow-player-button" type="button" data-ns-stop aria-label="Stop track">■</button>
-            <button class="siteflow-player-button is-play" type="button" data-ns-play aria-label="Play track">▶</button>
-            <button class="siteflow-player-button" type="button" data-ns-restart aria-label="Restart track">↺</button>
+        <section class="siteflow-player" aria-label="Nate Savard music player">
+          <div class="siteflow-player-head">
+            <span class="siteflow-player-brand"><strong>NS AUDIO</strong><small>STEREO 85</small></span>
+            <span class="siteflow-player-track-number">01/01</span>
           </div>
-          <input class="siteflow-player-range" data-ns-seek type="range" min="0" max="1000" value="0" aria-label="Track position" />
-          <label class="siteflow-player-volume">VOL <input class="siteflow-player-range" data-ns-volume type="range" min="0" max="100" value="85" aria-label="Volume" /></label>
+          <div class="siteflow-player-screen" aria-live="polite">
+            <span class="siteflow-player-title">NATE SAVARD — CHOSEN FEW / SONG 3</span>
+            <span class="siteflow-player-meta"><span data-ns-status>READY</span><time data-ns-time>00:00 / --:--</time></span>
+          </div>
+          <div class="siteflow-player-buttons" aria-label="Playback controls">
+            <button class="siteflow-player-button" data-ns-stop type="button" aria-label="Stop track">&#9198;</button>
+            <button class="siteflow-player-button is-play" data-ns-play type="button" aria-label="Play track" aria-pressed="false">&#9654;</button>
+            <button class="siteflow-player-button" data-ns-next type="button" aria-label="Restart track">&#9197;</button>
+          </div>
+          <input class="siteflow-player-range" data-ns-seek type="range" min="0" max="1000" value="0" aria-label="Track position">
+          <label class="siteflow-player-volume">VOL <input class="siteflow-player-range" data-ns-volume type="range" min="0" max="100" value="90" aria-label="Volume"></label>
         </section>
-        <div class="siteflow-transmission">NATE SAVARD / WORLD ARCHIVE</div>
-        <nav class="siteflow-jump" aria-label="Main site destinations"></nav>
+        <div class="siteflow-transmission">signal stable // private network online</div>
+        <div class="siteflow-jump"></div>
         <div class="siteflow-controls">
-          <button class="siteflow-control" type="button" data-ns-vip>vip mode off</button>
-          <button class="siteflow-control" type="button" data-ns-sound>sound on</button>
-          <button class="siteflow-control siteflow-min-toggle" type="button" data-ns-collapse aria-expanded="false" aria-label="Open X Y Z" title="Open X Y Z">X Y Z</button>
+          <button class="siteflow-control" data-ns-vip type="button">vip mode off</button>
+          <button class="siteflow-control" data-ns-sound type="button">sound on</button>
+          <button class="siteflow-control siteflow-min-toggle" data-ns-toggle type="button"
+            aria-expanded="false" aria-label="Open X Y Z" title="Open X Y Z">X Y Z</button>
         </div>
       </div>`;
-    document.body.appendChild(shell);
-    addFiveToPanel(shell);
-    const collapse=shell.querySelector('[data-ns-collapse]');
-    const changeCollapsed=(value)=>{
-      shell.classList.toggle('is-collapsed',value);
-      collapse.setAttribute('aria-expanded',String(!value));
-      collapse.setAttribute('aria-label',value?'Open X Y Z':'Minimize X Y Z');
-      collapse.title=value?'Open X Y Z':'Minimize X Y Z';
-      collapse.textContent=value?'X Y Z':'min';
+    shell.querySelector('.siteflow-jump').append(navigation());
+    document.body.append(shell);
+    const toggle=shell.querySelector('[data-ns-toggle]');
+    const setCollapsed=collapsed=>{
+      shell.classList.toggle('is-collapsed',collapsed);
+      toggle.textContent=collapsed?'X Y Z':'min';
+      toggle.setAttribute('aria-expanded',String(!collapsed));
+      toggle.setAttribute('aria-label',collapsed?'Open X Y Z':'Minimize X Y Z');
+      toggle.title=collapsed?'Open X Y Z':'Minimize X Y Z';
+      try {sessionStorage.setItem('ns-main-xyz-collapsed',String(collapsed));}catch(_){}
     };
-    collapse.addEventListener('click',()=>changeCollapsed(!shell.classList.contains('is-collapsed')));
-    const audio=new Audio('/Song%203%20FULLLL.mp3');audio.preload='none';audio.loop=true;audio.volume=.85;
-    const play=shell.querySelector('[data-ns-play]'),status=shell.querySelector('.ns-right-nav-player-status');
-    const time=shell.querySelector('.ns-right-nav-player-time');
+    const stored=(()=>{try{return sessionStorage.getItem('ns-main-xyz-collapsed')}catch(_){return null}})();
+    setCollapsed(stored===null ? true : stored==='true');
+    toggle.addEventListener('click',()=>setCollapsed(!shell.classList.contains('is-collapsed')));
+
+    const track=new Audio('/Song%203%20FULLLL.mp3');track.preload='metadata';track.volume=.9;
+    const play=shell.querySelector('[data-ns-play]');
+    const status=shell.querySelector('[data-ns-status]');
+    const time=shell.querySelector('[data-ns-time]');
     const seek=shell.querySelector('[data-ns-seek]');
-    const format=t=>Number.isFinite(t)?`${Math.floor(t/60).toString().padStart(2,'0')}:${Math.floor(t%60).toString().padStart(2,'0')}`:'--:--';
-    const sync=()=>{
-      play.textContent=audio.paused?'▶':'Ⅱ';play.setAttribute('aria-label',audio.paused?'Play track':'Pause track');
-      status.textContent=audio.paused?'READY':'PLAYING';
-      time.textContent=`${format(audio.currentTime)} / ${format(audio.duration)}`;
-      if(Number.isFinite(audio.duration)&&audio.duration>0)seek.value=Math.round(1000*audio.currentTime/audio.duration);
+    const volume=shell.querySelector('[data-ns-volume]');
+    const fmt=n=>Number.isFinite(n)?Math.floor(n/60).toString().padStart(2,'0')+':'+Math.floor(n%60).toString().padStart(2,'0'):'--:--';
+    const update=()=>{
+      play.textContent=track.paused?'▶':'Ⅱ';
+      play.setAttribute('aria-pressed',String(!track.paused));
+      status.textContent=track.paused?'READY':'PLAYING';
+      time.textContent=fmt(track.currentTime)+' / '+fmt(track.duration);
+      if(Number.isFinite(track.duration)&&track.duration>0)seek.value=String(Math.round(track.currentTime/track.duration*1000));
     };
-    play.addEventListener('click',()=>{if(audio.paused)audio.play().catch(()=>{status.textContent='TAP TO PLAY';});else audio.pause();sync();});
-    shell.querySelector('[data-ns-stop]').addEventListener('click',()=>{audio.pause();audio.currentTime=0;sync();});
-    shell.querySelector('[data-ns-restart]').addEventListener('click',()=>{audio.currentTime=0;audio.play().catch(()=>{});sync();});
-    shell.querySelector('[data-ns-volume]').addEventListener('input',e=>audio.volume=Number(e.target.value)/100);
-    seek.addEventListener('input',e=>{if(Number.isFinite(audio.duration))audio.currentTime=audio.duration*Number(e.target.value)/1000;});
-    audio.addEventListener('timeupdate',sync);audio.addEventListener('play',sync);audio.addEventListener('pause',sync);
-    const vip=shell.querySelector('[data-ns-vip]');
-    vip.addEventListener('click',()=>{const on=document.body.classList.toggle('siteflow-vip-mode');vip.textContent=on?'vip mode on':'vip mode off';});
-    const sound=shell.querySelector('[data-ns-sound]');
-    sound.addEventListener('click',()=>{audio.muted=!audio.muted;sound.textContent=audio.muted?'sound off':'sound on';});
-    return shell;
+    play.addEventListener('click',()=>{if(track.paused)track.play().catch(()=>{status.textContent='UNAVAILABLE'});else track.pause();});
+    shell.querySelector('[data-ns-stop]').addEventListener('click',()=>{track.pause();track.currentTime=0;update()});
+    shell.querySelector('[data-ns-next]').addEventListener('click',()=>{track.currentTime=0;track.play().catch(()=>{});});
+    seek.addEventListener('input',()=>{if(Number.isFinite(track.duration)) track.currentTime=(Number(seek.value)/1000)*track.duration;});
+    volume.addEventListener('input',()=>{track.volume=Number(volume.value)/100;});
+    ['play','pause','timeupdate','loadedmetadata','ended'].forEach(ev=>track.addEventListener(ev,update));
+    shell.querySelector('[data-ns-vip]').addEventListener('click',e=>{const b=e.currentTarget;const on=b.textContent.includes('off');b.textContent=on?'vip mode on':'vip mode off';});
+    shell.querySelector('[data-ns-sound]').addEventListener('click',e=>{const b=e.currentTarget;const on=b.textContent.includes('off');track.muted=on;b.textContent=on?'sound on':'sound off';});
   }
-  function mount(){
-    style();addJournalTop();addHomepageCart();openJewelryCartFromLink();
-    const existing=document.querySelector('.siteflow-shell:not(.ns-unified-right-panel)');
-    if(existing){
-      const ours=document.querySelector('.ns-unified-right-panel');if(ours)ours.remove();
-      addFiveToPanel(existing);return;
+  function homepageCart(){
+    if(path!=='/'&&path!=='/index.html')return;
+    if(document.getElementById('ns-home-cart-corner'))return;
+    const el=document.createElement('a');el.id='ns-home-cart-corner';
+    el.href='/originals.html';el.textContent='CART';
+    el.title='Open Jewelry shopping page';
+    document.body.append(el);
+  }
+  function init(){
+    if(!document.getElementById('ns-primary-v12-style')){
+      const style=document.createElement('style');style.id='ns-primary-v12-style';style.textContent=css;document.head.append(style);
     }
-    if(!document.querySelector('.siteflow-shell'))createRightPanel();
-  }
-  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',mount,{once:true});
-  else mount();
-  // The genuine Jewelry siteflow panel is injected dynamically; add links once it appears.
-  const observe=()=>{
-    let queued=false;
-    const watcher=new MutationObserver(()=>{
-      if(queued)return;queued=true;
-      requestAnimationFrame(()=>{queued=false;
-        const real=document.querySelector('.siteflow-shell:not(.ns-unified-right-panel)');
-        if(real){const surrogate=document.querySelector('.ns-unified-right-panel');if(surrogate)surrogate.remove();addFiveToPanel(real);}
-        addJournalTop();addHomepageCart();
+    homepageCart();
+    if(injectLinksIntoExisting())return;
+    if(!document.querySelector('.siteflow-shell')){
+      const stylesheetId='ns-primary-original-siteflow-css';
+      if(!document.querySelector('link[href*="site-flow.css"]')){
+        const link=document.createElement('link');link.id=stylesheetId;link.rel='stylesheet';link.href='/site-flow.css';document.head.append(link);
+      }
+      createPanel();
+    }
+    // If site-flow.js mounts its original panel after us, replace our copy
+    // with the real siteflow panel so only one right-side menu exists.
+    let pending=false;
+    const observer=new MutationObserver(()=>{
+      if(pending)return;pending=true;
+      requestAnimationFrame(()=>{
+        pending=false;
+        const real=document.querySelector('.siteflow-shell:not(.ns-originals-panel-copy)');
+        if(real){const copy=document.querySelector('.siteflow-shell.ns-originals-panel-copy');if(copy)copy.remove();injectLinksIntoExisting();}
       });
     });
-    watcher.observe(document.body,{childList:true,subtree:true});
-  };
-  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',observe,{once:true});
-  else observe();
+    observer.observe(document.body,{childList:true,subtree:true});
+  }
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init,{once:true});
+  else init();
 })();
