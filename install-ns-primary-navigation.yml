@@ -1,0 +1,37 @@
+name: Install Nate Savard primary navigation
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'ns-primary-navigation.js'
+      - 'tools/install_primary_navigation.py'
+      - '.github/workflows/install-ns-primary-navigation.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  install:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the current main branch
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          persist-credentials: true
+      - name: Patch only script references in existing pages
+        run: python3 tools/install_primary_navigation.py
+      - name: Commit the minimal navigation update
+        shell: bash
+        run: |
+          if git diff --quiet; then
+            echo "All pages already have the primary navigation script."
+            exit 0
+          fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -- '*.html'
+          git commit -m 'Add primary navigation to Nate Savard pages (additive only)'
+          git push origin HEAD:main
