@@ -1,14 +1,21 @@
-NATE SAVARD / UNIVERSAL WEBSITE TOOLS
+NATE SAVARD — ENVYNOMADIX CLASSIC + SITEWIDE NAVIGATION
 
-Upload the FIVE files in this ZIP to your GitHub repository ROOT in one upload, replacing matching files. Commit once.
+Upload ALL FIVE files from this ZIP to the ROOT of your natesavard.github.io GitHub repository, replace existing files, and commit ONCE:
 
-- Universal top-right Cart across main website pages with Rebirth-inspired dark/gold slide-out style
-- All standard products share envy-house-cart; Jewelry customized items remain in originals-collector-cart and are displayed in the universal cart
-- Rebirth/Envynomadix native product configurators remain intact; product additions open the shared cart
-- Homepage shirts and Vault product cards open an actual image/product sheet, with size/quantity and Add To Cart, including generated cards
-- No listed price -> $129 USD. Existing listed prices remain unchanged
-- Original right-edge NS-logo menu remains unchanged
-- Homepage banner background scenes have forced extreme zoom removed; images and video sources are preserved
-- Journal script reference is updated to version 27 to avoid browser using cached old code
+ns-primary-navigation.js
+ns-unified-drop.js
+site-bottom-nav.js
+ns-life-force-everywhere.js
+journal.html
 
-NOT LIVE-BROWSER TESTED. A few older standalone HTML pages without a shared script still need to be connected. This package does not replace any Rebirth HTML/image or video assets.
+WHAT CHANGED:
+- Added Envynomadix Classic -> /envynomadix.html to the shared NS right-side menu, next to Rebirth and Jewelry, on all connected pages.
+- Avoids showing a second duplicate Envynomadix link on the Originals menu.
+- Rebirth's exact campaign phrase now also appears in the rotating line on /envynomadix.html:
+  for the chosen ... armed with the power of G.O.D
+- Adds that phrase to the scrolling bottom ticker on Classic, keeping the surrounding copy.
+- Script version links bumped from 27 to 28 so the site loads the current shared menu instead of cached older script.
+
+PRODUCTS, PHOTOS, VIDEOS, HERO SIZING, CART, CHECKOUT, MUSIC CONTROLS, ORIGINAL ENTRANCE PAGE: UNCHANGED.
+
+This update affects pages loading the shared scripts; rare standalone pages without those scripts need a separate connection.

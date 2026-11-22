@@ -408,7 +408,7 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
   if(document.querySelector('script[data-ns-primary-loader]') ||
      document.querySelector('script[src*="ns-primary-navigation.js"]')) return;
   const tag=document.createElement('script');
-  tag.src='/ns-primary-navigation.js?v=27';
+  tag.src='/ns-primary-navigation.js?v=28';
   tag.defer=true;
   tag.dataset.nsPrimaryLoader='1';
   document.head.appendChild(tag);
@@ -421,7 +421,7 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
  */
 (()=>{
   'use strict';
-  if(!/\/envynomadixrebirth\.html$/i.test(location.pathname))return;
+  if(!/\/(?:envynomadixrebirth|envynomadix)\.html$/i.test(location.pathname))return;
   const replacement='for the chosen ... armed with the power of G.O.D';
   const previous='for the chosen few';
   function updateCopy(){
@@ -439,8 +439,15 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
       }
     }
     document.querySelectorAll('.bottom-marquee-track > span').forEach(span=>{
-      if(span.textContent.toLowerCase().includes(previous))
+      if(span.textContent.toLowerCase().includes(previous)) {
         span.textContent=span.textContent.replace(/for the chosen few/gi,replacement);
+      } else if(/\/envynomadix\.html$/i.test(location.pathname) &&
+                !span.textContent.includes(replacement)) {
+        // Classic's marquee didn't contain 'chosen few'; add the same motto
+        // after 'Never replicated.' without removing its other wording.
+        span.textContent=span.textContent.replace(/Never replicated\./i,
+          'Never replicated. '+replacement+'.');
+      }
     });
   }
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',updateCopy,{once:true});

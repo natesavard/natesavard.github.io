@@ -40,11 +40,14 @@
   const routes=[
     ['Home','/'],
     ['Rebirth','/envynomadixrebirth.html'],
+    ['Envynomadix Classic','/envynomadix.html'],
     ['Jewelry','/originals.html'],
     ['Vault','/vault.html'],
     ['Journal','/journal.html']
   ];
   const css=`
+    body.originals-page .siteflow-shell .siteflow-jump > a[href="envynomadix.html"],
+    body.originals-page .siteflow-shell .siteflow-jump > a[href="/envynomadix.html"]{display:none!important}
 
     /* Five links use the exact plain divider-row look of Originals, not pills. */
     .siteflow-shell .ns-primary-five {display:contents!important}
