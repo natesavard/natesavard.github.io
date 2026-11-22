@@ -64,11 +64,43 @@
       .siteflow-shell .ns-primary-five{gap:5px}
       .siteflow-shell .ns-primary-five a{font-size:10px;padding:7px 10px}
     }
-    /* Cart remains in homepage TOP RIGHT; no replacement cart UI in the panel. */
-    body:has(.hero-main) #ns-home-cart-corner{position:fixed;right:22px;top:18px;z-index:9998;
-      color:#eee1cf;text-decoration:none;text-transform:uppercase;font:10px 'Courier New',monospace;
-      letter-spacing:.16em;text-shadow:0 1px 8px #000}
-    @media(max-width:700px){body:has(.hero-main) #ns-home-cart-corner{right:12px;top:15px}}
+    /* HOMEPAGE ONLY: reposition the REAL cart trigger. Its existing JS opens
+       the real shopping drawer and preserves product quantities/orders. */
+    body.ns-cart-top-right #ns-vault-cart-open {
+      position:fixed!important; top:17px!important; right:18px!important;
+      bottom:auto!important; left:auto!important;
+      display:inline-flex!important; align-items:center!important;justify-content:center!important;
+      box-sizing:border-box!important;
+      width:auto!important; min-width:92px!important; height:35px!important;
+      max-height:35px!important;
+      padding:8px 13px!important;
+      margin:0!important;
+      writing-mode:horizontal-tb!important;
+      text-orientation:mixed!important;
+      transform:none!important;
+      border:1px solid rgba(235,219,199,.56)!important;
+      border-radius:4px!important;
+      background:rgba(5,5,8,.83)!important;
+      color:#eee1cf!important;
+      font:600 10px/1.2 'Courier New',monospace!important;
+      letter-spacing:.13em!important;
+      white-space:nowrap!important;
+      box-shadow:0 4px 16px #0006!important;
+      cursor:pointer!important;
+      z-index:18000!important;
+    }
+    body.ns-cart-top-right #ns-vault-cart-open::before,
+    body.ns-cart-top-right #ns-vault-cart-open::after{display:none!important;content:none!important}
+    body.ns-cart-top-right #ns-vault-cart-open:hover,
+    body.ns-cart-top-right #ns-vault-cart-open:focus-visible{
+      width:auto!important;background:rgba(26,26,32,.98)!important;
+      border-color:#eee1cf!important;outline-offset:2px
+    }
+    #ns-home-cart-corner{display:none!important}
+    @media(max-width:640px){
+      body.ns-cart-top-right #ns-vault-cart-open{right:9px!important;top:12px!important;
+        min-width:80px!important;padding:8px 9px!important}
+    }
   `;
   const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
   function active(href){return href==='/'?path==='/'||path==='/index.html':path===href.toLowerCase();}
@@ -223,13 +255,13 @@
     document.head.append(style);
   }
 
+  // The homepage already owns a real functioning cart button and drawer.
+  // Never create a link to another page pretending it is the cart.
   function homepageCart(){
-    if(path!=='/'&&path!=='/index.html')return;
-    if(document.getElementById('ns-home-cart-corner'))return;
-    const el=document.createElement('a');el.id='ns-home-cart-corner';
-    el.href='/originals.html';el.textContent='CART';
-    el.title='Open Jewelry shopping page';
-    document.body.append(el);
+    if(path!=='/' && path!=='/index.html') return;
+    document.body.classList.add('ns-cart-top-right');
+    const obsolete=document.getElementById('ns-home-cart-corner');
+    if(obsolete) obsolete.remove();
   }
   function init(){
     if(!document.getElementById('ns-primary-v12-style')){
