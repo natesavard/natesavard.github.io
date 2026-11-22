@@ -69,7 +69,7 @@
     body.ns-cart-top-right #ns-vault-cart-open {
       position:fixed!important; top:17px!important; right:18px!important;
       bottom:auto!important; left:auto!important;
-      display:inline-flex!important; align-items:center!important;justify-content:center!important;
+      display:none!important; align-items:center!important;justify-content:center!important;
       box-sizing:border-box!important;
       width:auto!important; min-width:92px!important; height:35px!important;
       max-height:35px!important;
@@ -366,6 +366,19 @@ function migrate(){
 migrate();
 const stylesheet=document.createElement('style');stylesheet.id='ns-sitewide-commerce-css';
 stylesheet.textContent=`
+ /* Exactly ONE visible CART control, regardless of page-specific cart CSS.
+    Keep legacy buttons/handlers in the DOM; hide their triggers only. */
+ html body.ns-cart-top-right button#ns-vault-cart-open,
+ html body button#ns-vault-cart-open,
+ html body a#ns-home-cart-corner,
+ html body button#houseCartToggle,
+ html body button#heroCartButton,
+ html body button#originalsCartToggle,
+ html body button#ns-house-cart-corner {
+   display:none!important; visibility:hidden!important; pointer-events:none!important;
+ }
+ /* The shared Cart is always the only visible top-right trigger. */
+ html body button#ns-site-cart-top {display:block!important;visibility:visible!important;pointer-events:auto!important;}
  /* The old side cart is still in the DOM for legacy code, but never covers the NS-logo tab. */
  body #ns-vault-cart-open{display:none!important}
  body .nsv-overlay{display:none!important;pointer-events:none!important}
