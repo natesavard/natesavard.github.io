@@ -211,6 +211,18 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
       source.type = 'video/mp4';
       video.appendChild(source);
       currentSecond.replaceWith(video);
+      // The source video is portrait shaped. A full-viewport <video> with
+      // object-fit:contain paints black on either side of the moving picture.
+      // Keep Madi's video uncropped, and fill ONLY its unused side space with
+      // a soft version of the existing official video poster.
+      const slide = document.createElement('div');
+      slide.className = 'ns-madi-full-bleed-slide';
+      slide.setAttribute('aria-label', 'Madisonne beach video slide');
+      const fill = document.createElement('div');
+      fill.className = 'ns-madi-video-poster-fill';
+      fill.setAttribute('aria-hidden', 'true');
+      video.replaceWith(slide);
+      slide.append(fill, video);
       video.play().catch(() => {});
     }
 
@@ -279,6 +291,110 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
     `;
     document.head.appendChild(styles);
     installNatePortraitSizing();
+
+    // Authoritative fix for BOTH types of gaps. The video itself keeps its
+    // natural aspect ratio, resolution, playback, and full uncropped frame.
+    // Its slide's previously BLACK side regions now show the same beach poster
+    // softly enlarged behind the actual moving video.
+    if (!document.getElementById('ns-rebirth-continuous-gallery-v30')) {
+      const gapFix = document.createElement('style');
+      gapFix.id = 'ns-rebirth-continuous-gallery-v30';
+      gapFix.textContent = `
+        body .visual .rebirth-stack {
+          display:flex!important;
+          flex-direction:row!important;
+          flex-wrap:nowrap!important;
+          align-items:stretch!important;
+          justify-content:flex-start!important;
+          column-gap:0!important;row-gap:0!important;gap:0!important;
+          margin:0!important;padding:0!important;
+          width:100%!important;min-width:0!important;
+          overflow-x:auto!important;overflow-y:hidden!important;
+          background:#000!important;
+        }
+        body .visual .rebirth-stack > img.rebirth-photo-main,
+        body .visual .rebirth-stack > img.rebirth-photo-third,
+        body .visual .rebirth-stack > .ns-madi-full-bleed-slide {
+          display:block!important;
+          box-sizing:border-box!important;
+          flex:0 0 100vw!important;
+          width:100vw!important;
+          min-width:100vw!important;
+          max-width:100vw!important;
+          height:clamp(420px,68vh,620px)!important;
+          min-height:0!important;
+          margin:0!important;padding:0!important;
+          border:0!important;border-radius:0!important;
+          box-shadow:none!important;
+          transform:none!important;
+          background-color:#000;
+          overflow:hidden!important;
+        }
+        body .visual .rebirth-stack > img.rebirth-photo-main,
+        body .visual .rebirth-stack > img.rebirth-photo-third {
+          position:relative!important;
+          object-fit:cover!important;
+          opacity:1!important;
+          animation:none!important;
+        }
+        /* Keep Nate's face below the upper cropping boundary. */
+        body.rebirth-page .visual .rebirth-stack > img.rebirth-photo-main,
+        body.is-entered .visual .rebirth-stack > img.rebirth-photo-main {
+          object-position:center 37%!important;
+        }
+        body.rebirth-page .visual .rebirth-stack > img.rebirth-photo-third,
+        body.is-entered .visual .rebirth-stack > img.rebirth-photo-third {
+          object-position:center 29%!important;
+        }
+        body .visual .rebirth-stack > .ns-madi-full-bleed-slide {
+          position:relative!important;
+          isolation:isolate;
+        }
+        body .visual .rebirth-stack > .ns-madi-full-bleed-slide > .ns-madi-video-poster-fill {
+          position:absolute!important;
+          inset:-32px!important;
+          z-index:0!important;
+          background-image:url('/rebirth-hero-04-video-poster.jpg')!important;
+          background-position:center center!important;
+          background-size:cover!important;
+          background-repeat:no-repeat!important;
+          filter:blur(25px) brightness(.67) saturate(.82)!important;
+          pointer-events:none!important;
+        }
+        body .visual .rebirth-stack > .ns-madi-full-bleed-slide > video.rebirth-photo-second {
+          display:block!important;
+          position:absolute!important;
+          z-index:1!important;
+          top:0!important;
+          bottom:auto!important;
+          left:50%!important;
+          right:auto!important;
+          width:auto!important;
+          min-width:0!important;
+          max-width:none!important;
+          height:100%!important;
+          min-height:0!important;
+          max-height:none!important;
+          margin:0!important;padding:0!important;
+          border:0!important;border-radius:0!important;
+          transform:translateX(-50%)!important;
+          object-fit:contain!important;
+          object-position:center center!important;
+          opacity:1!important;
+          animation:none!important;
+          filter:none!important;
+          background:transparent!important;
+        }
+        @media(max-width:640px){
+          body .visual .rebirth-stack > img.rebirth-photo-main,
+          body .visual .rebirth-stack > img.rebirth-photo-third,
+          body .visual .rebirth-stack > .ns-madi-full-bleed-slide {
+            height:clamp(300px,56vh,420px)!important;
+          }
+        }
+      `;
+      document.head.appendChild(gapFix);
+    }
   }
 
   if (document.readyState === 'loading')
