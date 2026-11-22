@@ -1,11 +1,21 @@
-READ ME FIRST — ENVYNOMADIX REBIRTH TOP PHOTO FIX v2
+NATE SAVARD — ONE UPLOAD, NO GITHUB ACTIONS
 
-This package updates ONLY the four floating photos at the top of envynomadixrebirth.html.
+This package preserves your current home, Rebirth collage, clothing and Vault code and adds a shared navigation menu.
+Primary destinations in order: HOME · REBIRTH · JEWELRY · VAULT · JOURNAL.
 
-Changes in this version:
-1) The fuzzy Madisonne still photo is removed completely.
-2) The purple Nate image remains as the first/main image.
-3) The black-and-white Nate portrait is moved a little lower.
-4) The video is reduced and pushed farther down/right so it does not overlap the first image as much.
+HOW TO INSTALL (one upload, one commit):
+1. Extract this ZIP onto your computer.
+2. Open https://github.com/natesavard/natesavard.github.io
+3. Code → Add file → Upload files.
+4. Select ALL FIVE files from this extracted folder (not the ZIP).
+5. Commit changes ONCE. Existing files with matching names will be replaced.
 
-Upload ALL files in this ZIP to the root of your GitHub repository and replace the existing ns-unified-drop.js.
+No Actions, no workflow, no folders to create, no editing script references.
+These files go straight in the main directory at the same level as index.html.
+
+Files: ns-primary-navigation.js, ns-unified-drop.js,
+ns-life-force-everywhere.js, site-bottom-nav.js, journal.html.
+
+Important: This does NOT modify your existing homepage or Rebirth HTML.
+It adds a menu through the scripts already included by those pages. GitHub Pages
+and browser script caches may take time to refresh; use Ctrl+Shift+R.
