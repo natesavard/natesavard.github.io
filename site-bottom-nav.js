@@ -335,3 +335,112 @@ button.floating-top-cross:hover {
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',mount,{once:true});
   else mount();
 })();
+
+ 
+/* NATE SAVARD — Journal metallic logo as the product-hover fallback.
+   The actual alternate view takes priority; no photo or product link changes. */
+(()=>{
+ 'use strict';
+ if(window.__nsJournalHoverFallbackV1)return;
+ window.__nsJournalHoverFallbackV1=true;
+ const cssId='ns-journal-logo-product-hover-v1';
+ if(!document.getElementById(cssId)){
+   const style=document.createElement('style');
+   style.id=cssId;
+   style.textContent=`
+     /* Never hide a sole product photo without a replacement. */
+     body .card:not(.ns-journal-hover-ready):hover .card__image:not(.card__hover-image),
+     body .card:not(.ns-journal-hover-ready):focus-within .card__image:not(.card__hover-image){opacity:1!important}
+     /* Always protect genuine alternate-view images. */
+     body .card.ns-journal-hover-ready .card__hover-image,
+     body .catalogue-card.ns-journal-hover-ready .catalogue-card-hover-image{display:none!important}
+     body .card.ns-journal-hover-ready .card__image-wrap,
+     body .catalogue-card.ns-journal-hover-ready{position:relative!important;isolation:isolate}
+     body .ns-journal-hover-ready .ns-journal-logo-hover{
+       position:absolute;inset:0;z-index:2;display:flex;align-items:center;
+       justify-content:center;pointer-events:none;overflow:hidden;
+       opacity:0;visibility:hidden;
+       background:radial-gradient(ellipse at 50% 45%,rgba(172,155,179,.16),rgba(30,25,40,.1) 60%,transparent 82%);
+       transition:opacity .28s ease,visibility 0s linear .28s
+     }
+     body .ns-journal-hover-ready:hover .ns-journal-logo-hover,
+     body .ns-journal-hover-ready:focus-within .ns-journal-logo-hover{
+       opacity:1;visibility:visible;transition:opacity .28s ease,visibility 0s
+     }
+     body .ns-journal-hover-ready .ns-journal-logo-hover svg{
+       display:block;width:86%;height:auto;max-height:70%;overflow:visible;
+       filter:drop-shadow(0 0 14px rgba(242,230,207,.22));
+       animation:ns-journal-hover-drift 12s ease-in-out infinite,ns-journal-hover-breathe 9s ease-in-out infinite
+     }
+     body .ns-journal-logo-hover .journal-logo-light{animation:ns-journal-hover-sweep 9.5s ease-in-out infinite}
+     @keyframes ns-journal-hover-drift{0%,100%{transform:translate(0,0)}30%{transform:translate(4px,-6px)}68%{transform:translate(-4px,3px)}}
+     @keyframes ns-journal-hover-breathe{0%,100%{opacity:.86}38%{opacity:1}70%,78%{opacity:.17}}
+     @keyframes ns-journal-hover-sweep{0%,100%{transform:translate(-280px,30px);opacity:.28}35%{transform:translate(355px,-130px);opacity:1}64%{transform:translate(180px,120px);opacity:.6}83%{transform:translate(-95px,-48px);opacity:.88}}
+     /* The primary image only fades when the animated Journal logo is ready. */
+     body .card.ns-journal-hover-ready:hover .card__image:not(.card__hover-image),
+     body .card.ns-journal-hover-ready:focus-within .card__image:not(.card__hover-image),
+     body .catalogue-card.ns-journal-hover-ready:hover .catalogue-card-primary-image,
+     body .catalogue-card.ns-journal-hover-ready:focus-within .catalogue-card-primary-image{opacity:0!important}
+     @media(prefers-reduced-motion:reduce){
+       body .ns-journal-hover-ready .ns-journal-logo-hover svg,
+       body .ns-journal-logo-hover .journal-logo-light{animation:none!important}
+     }
+   `;
+   document.head.appendChild(style);
+ }
+ const svgSource="<svg viewBox=\"18 15 970 423\" width=\"970\" height=\"423\" aria-hidden=\"true\" focusable=\"false\">\n<defs>\n<filter id=\"journal-logo-ink\" color-interpolation-filters=\"sRGB\"><feColorMatrix type=\"matrix\" values=\"0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  -5 0 0 0 4\"/></filter>\n<mask id=\"journal-logo-mask\" maskUnits=\"userSpaceOnUse\" x=\"0\" y=\"0\" width=\"1000\" height=\"452\" style=\"mask-type:alpha\"><image href=\"/assets/journal-nate-logo.png\" width=\"1000\" height=\"452\" filter=\"url(#journal-logo-ink)\"/></mask>\n<linearGradient id=\"journal-logo-metal\" x2=\".88\" y2=\"1\"><stop stop-color=\"#fcf0df\"/><stop offset=\".44\" stop-color=\"#baa998\"/><stop offset=\".73\" stop-color=\"#fff7ec\"/><stop offset=\"1\" stop-color=\"#a6a6b7\"/></linearGradient>\n<radialGradient id=\"journal-logo-flare\"><stop stop-color=\"#fffdf8\"/><stop offset=\".27\" stop-color=\"#ffe1aa\" stop-opacity=\".94\"/><stop offset=\".61\" stop-color=\"#fa8e81\" stop-opacity=\".7\"/><stop offset=\".82\" stop-color=\"#9cbcff\" stop-opacity=\".46\"/><stop offset=\"1\" stop-color=\"#9cbcff\" stop-opacity=\"0\"/></radialGradient>\n</defs><g mask=\"url(#journal-logo-mask)\"><rect width=\"1000\" height=\"452\" fill=\"url(#journal-logo-metal)\"/><ellipse class=\"journal-logo-light\" cx=\"405\" cy=\"210\" rx=\"370\" ry=\"240\" fill=\"url(#journal-logo-flare)\"/></g></svg>";
+ let serial=0;
+ function makeLogo(){
+   const id='ns-journal-hover-'+(++serial)+'-';
+   let markup=svgSource;
+   for(const key of ['journal-logo-ink','journal-logo-mask','journal-logo-metal','journal-logo-flare']){
+     markup=markup.replaceAll(key,id+key);
+   }
+   const pane=document.createElement('div');
+   pane.className='ns-journal-logo-hover';
+   pane.setAttribute('aria-hidden','true');
+   pane.innerHTML=markup;
+   return pane;
+ }
+ function addFallback(card,container){
+   if(card.classList.contains('ns-journal-hover-ready'))return;
+   container.appendChild(makeLogo());
+   card.classList.add('ns-journal-hover-ready');
+ }
+ function setup(card,container,alternate){
+   if(card.dataset.nsJournalHoverChecked==='1')return;
+   card.dataset.nsJournalHoverChecked='1';
+   if(!alternate){addFallback(card,container);return}
+   function failed(){
+     if(!alternate.isConnected)return;
+     // On a missing file, don't show a broken image icon over the logo.
+     addFallback(card,container);
+   }
+   alternate.addEventListener('error',failed,{once:true});
+   if(alternate.complete && alternate.naturalWidth===0)failed();
+ }
+ function scan(){
+   // Vault's product cards: only switch to Journal logo when there is no real back photo.
+   document.querySelectorAll('.card__image-wrap').forEach(wrap=>{
+     const card=wrap.closest('.card');
+     if(!card||!wrap.querySelector('img.card__image:not(.card__hover-image)'))return;
+     setup(card,wrap,wrap.querySelector('img.card__hover-image'));
+   });
+   // Classic's similar front/back treatment. Ordinary product cards are untouched.
+   document.querySelectorAll('.catalogue-card .catalogue-card-primary-image').forEach(img=>{
+     const card=img.closest('.catalogue-card');
+     if(!card)return;
+     setup(card,card,card.querySelector('img.catalogue-card-hover-image'));
+   });
+ }
+ function start(){
+   scan();
+   let scheduled=false;
+   new MutationObserver(()=>{
+     if(scheduled)return;scheduled=true;
+     requestAnimationFrame(()=>{scheduled=false;scan()});
+   }).observe(document.body,{childList:true,subtree:true});
+ }
+ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',start,{once:true});
+ else start();
+})();
