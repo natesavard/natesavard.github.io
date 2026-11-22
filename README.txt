@@ -1,12 +1,17 @@
-NATE SAVARD — SHOP/CART ALIGNMENT + CLEAN ENVY CROSS + JOURNAL LINKS
+REMOVE THE CIRCLE BEHIND THE SPINNING ENVY CROSS
 
-Upload these THREE files to the ROOT of your GitHub repository,
-replacing the existing files:
-- site-bottom-nav.js       — lines up Shop / Cart; removes circular backing from the Envy cross on Rebirth and Envynomadix Classic
-- ns-home-insomnia-hats.js  — adds JOURNAL immediately before BOOKINGS in homepage top navigation
-- journal.html              — restores PORTAL, GEMSTONE and SCRAPBOOK links within the final journal entry AND at footer; keeps infinite journal movement
+Upload BOTH files to the repository ROOT, replacing the existing versions:
+  journal.html
+  site-bottom-nav.js
+Commit once.
 
-All source files are based on current main GitHub versions, verified by length + checksum before editing.
-No modifications to Rebirth images, Madi video, product data, cart items, side-menu destinations or Journal writing.
+Journal's own .envy-to-top stylesheet creates its circular border, translucent
+background and blur. Those have been removed in journal.html.
+The shared site-bottom-nav.js now also strips background circles, borders,
+halos and ::before/::after discs from Envy cross scroll-to-top buttons across
+connected pages (including Rebirth and Classic).
 
-Commit all three together. Hard refresh once if existing scripts are cached.
+The cross image still rotates and scrolls to top. Existing Journal entries,
+Portal/Gemstone/Scrapbook links, cart, menu and gallery are preserved.
+
+This is a source-validated fix. Visual result on the live site not verified.

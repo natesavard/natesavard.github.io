@@ -41,8 +41,8 @@ h2{font-size:clamp(65px,10.8vw,175px);font-weight:900;letter-spacing:-.085em;lin
 .ns-transition.is-active .ns-transition-mark{animation:ns-passage .72s cubic-bezier(.22,.78,.25,1) both}
 @keyframes ns-passage{0%{opacity:0;transform:scale(.7)}30%{opacity:1;transform:scale(1)}58%{opacity:1;transform:scale(1.1)}100%{opacity:0;transform:scale(1.32)}}
 /* Envy cross: spinning return-to-top button */
-.envy-to-top{position:fixed;right:clamp(14px,2.4vw,34px);bottom:clamp(16px,2.4vw,34px);z-index:90;width:clamp(54px,7vw,84px);height:clamp(54px,7vw,84px);background:rgba(6,6,6,.38);border:1px solid rgba(255,255,255,.14);border-radius:50%;display:grid;place-items:center;cursor:pointer;backdrop-filter:blur(7px);transition:background .25s,border-color .25s,transform .25s}
-.envy-to-top:hover{background:rgba(17,17,17,.75);border-color:rgba(255,255,255,.44);transform:scale(1.08)}.envy-to-top:focus-visible{outline:2px solid var(--white);outline-offset:4px}
+.envy-to-top{position:fixed;right:clamp(14px,2.4vw,34px);bottom:clamp(16px,2.4vw,34px);z-index:90;width:clamp(54px,7vw,84px);height:clamp(54px,7vw,84px);background:transparent;border:0;border-radius:0;display:grid;place-items:center;cursor:pointer;backdrop-filter:none;box-shadow:none;filter:none;transition:transform .25s}
+.envy-to-top:hover{background:transparent;border-color:transparent;box-shadow:none;transform:scale(1.08)}.envy-to-top:focus-visible{outline:2px solid var(--white);outline-offset:4px}
 .envy-to-top img{display:block;width:83%;height:83%;object-fit:contain;animation:envy-spin 17s linear infinite;filter:drop-shadow(0 0 9px rgba(255,255,255,.28))}
 @keyframes envy-spin{to{transform:rotate(360deg)}}
 /* small accessible motion control */

@@ -1,3 +1,55 @@
+/* Remove Envy cross BUTTON discs across all pages using the shared site script. */
+(()=>{
+  if(document.getElementById('ns-clean-envy-cross-sitewide-v1'))return;
+  const style=document.createElement('style');
+  style.id='ns-clean-envy-cross-sitewide-v1';
+  style.textContent=`
+/* Sitewide standalone spinning Envy cross — same clean transparency as Vault.
+   Does not touch the NS audio/menu tab, Cart, product cards, or other buttons. */
+button.top-ribbon,
+button.floating-envy-star,
+button.envy-to-top,
+button#floatingTopCross,
+button.floating-top-cross {
+  background:transparent!important;
+  background-image:none!important;
+  border:0!important;
+  border-radius:0!important;
+  box-shadow:none!important;
+  -webkit-backdrop-filter:none!important;
+  backdrop-filter:none!important;
+  outline-offset:4px;
+}
+button.top-ribbon::before,
+button.top-ribbon::after,
+button.floating-envy-star::before,
+button.floating-envy-star::after,
+button.envy-to-top::before,
+button.envy-to-top::after,
+button#floatingTopCross::before,
+button#floatingTopCross::after {
+  background:none!important;
+  background-image:none!important;
+  border:0!important;
+  box-shadow:none!important;
+  -webkit-backdrop-filter:none!important;
+  backdrop-filter:none!important;
+  content:none!important;
+  display:none!important;
+}
+button.top-ribbon:hover,
+button.floating-envy-star:hover,
+button.envy-to-top:hover,
+button#floatingTopCross:hover,
+button.floating-top-cross:hover {
+  background:transparent!important;
+  border:0!important;
+  box-shadow:none!important;
+}
+`;
+  (document.head||document.documentElement).appendChild(style);
+})();
+
 (() => {
   const mount = () => {
     if (document.querySelector('.ns-bottom-nav')) return;
