@@ -294,3 +294,170 @@
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init,{once:true});
   else init();
 })();
+/* NATE SAVARD / shared shop bridge v1
+ * The Rebirth / Envynomadix house cart is the canonical cart.
+ * Non-house pages get the same product-sheet pattern and a compatible cart.
+ * Does not change existing page artwork, gallery images, or Rebirth video.
+ */
+(()=>{
+  'use strict';
+  if(window.__nsSharedHouseShop) return;
+  window.__nsSharedHouseShop=true;
+  const path=location.pathname.toLowerCase();
+  if(/^\/original(?:\/|$)/.test(path)||path.endsWith('/original.html'))return;
+  const publishedPrices=new Map([
+    ['nls star ’85 f/s',225],['lost dimensions: insomnia 2026',225],['envy crystal v-neck',275],
+    ['chrome star distressed tee',285],['envy legacy tee',245],['fuck up tee',295],
+    ['venus flytrap / i',295],['distressed streetwear',285],['red logo tee',195],
+    ['muscle tee',245],['speedway jersey',395],['star ashtray',185],
+    ['venus flytrap / ii',295],['fw25 technical',325],['alien graphic',275]
+  ]);
+  const HOUSE_KEY='envy-house-cart';
+  const LEGACY_KEY='ns-vault-boutique-cart-v1';
+  const DEFAULT_PRICE=129;
+  const isHouse=path.includes('envynomadixrebirth.html')||path.endsWith('/envynomadix.html')||path.endsWith('/envynomadix-signature-collection.html');
+  const isJewelry=path.endsWith('/originals.html');
+  const money=n=>'$'+Number(n).toFixed(2);
+  const numPrice=v=>{let n=Number(String(v??'').replace(/[^\d.]/g,''));return Number.isFinite(n)&&n>0?n:DEFAULT_PRICE;};
+  const load=()=>{try{let x=JSON.parse(localStorage.getItem(HOUSE_KEY)||'[]');return Array.isArray(x)?x:[]}catch{return []}};
+  const save=items=>{try{localStorage.setItem(HOUSE_KEY,JSON.stringify(items));}catch{} document.dispatchEvent(new Event('ns-house-cart-updated'));};
+  const safe=(s)=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+
+  // Rebirth and Envynomadix keep their OWN native product sheets and drawer.
+  // Only replace missing / private-inquiry price attributes with the requested $129.
+  function priceNative(){
+    document.querySelectorAll('[data-house-product]').forEach(card=>{
+      const raw=card.getAttribute('data-house-price')||'';
+      if(!/\d/.test(raw)||Number(String(raw).replace(/[^\d.]/g,''))<=0)card.setAttribute('data-house-price',money(DEFAULT_PRICE));
+    });
+  }
+  priceNative();
+  if(isHouse){
+    const watch=new MutationObserver(priceNative);
+    watch.observe(document.documentElement,{childList:true,subtree:true});
+    document.addEventListener('DOMContentLoaded',priceNative,{once:true});
+    return;
+  }
+  // Collector Jewelry uses its own item-customization cart; leave it alone rather
+  // than accidentally stripping out engraving / collector-specific fields.
+  if(isJewelry)return;
+
+  // Bring any historical homepage/Vault selections into the house cart ONCE.
+  // Preserve IDs and quantities, avoid double-counting across reloads.
+  try{
+    const flag='ns-house-cart-import-v1';
+    if(!localStorage.getItem(flag)){
+      const old=JSON.parse(localStorage.getItem(LEGACY_KEY)||'[]');
+      if(Array.isArray(old)&&old.length){
+        const items=load();
+        for(const x of old){
+          const name=String(x.name||'').trim();if(!name)continue;
+          const size=String(x.size||'ONE SIZE').toLowerCase();
+          const id=name.toLowerCase().replace(/[^a-z0-9]+/g,'-')+'-'+size;
+          if(items.some(i=>i.id===id))continue;
+          items.push({id,name,size,price:money(numPrice(x.price)),description:'Nate Savard / collector edition',image:x.src||'',optionLabel:size==='one size'?'Finish':'Select size',options:[size],quantity:Math.max(1,Number(x.qty)||1)});
+        }
+        save(items);
+      }
+      localStorage.setItem(flag,'1');
+    }
+  }catch{}
+
+  const css=document.createElement('style');css.id='ns-unified-house-shop-style';
+  css.textContent=`
+    /* Retire only the old duplicate CART button, never the product section. */
+    body.ns-cart-top-right #ns-vault-cart-open,body #ns-vault-cart-open,body #ns-home-cart-corner{display:none!important}
+    #ns-house-cart-corner{position:fixed!important;top:13px!important;right:18px!important;left:auto!important;bottom:auto!important;z-index:17020!important;border:1px solid #d6b16e55!important;border-radius:2px!important;padding:10px 14px!important;background:#070706e8!important;color:#f4e5d1!important;cursor:pointer!important;font:11px/1.2 'Courier New',monospace!important;letter-spacing:.13em!important;text-transform:uppercase!important;writing-mode:horizontal-tb!important;box-shadow:0 5px 20px #0006!important;min-width:80px!important;width:auto!important;height:auto!important}
+    #ns-house-cart-corner:hover{border-color:#d6b16e!important}
+    #ns-house-shop-backdrop{position:fixed;inset:0;z-index:18000;background:#000b;backdrop-filter:blur(5px);display:none;align-items:stretch;justify-content:flex-end}
+    #ns-house-shop-backdrop.is-open{display:flex}
+    #ns-house-shop-backdrop *{box-sizing:border-box}
+    #ns-house-shop-backdrop button{cursor:pointer}
+    #ns-house-shop-backdrop .nsh-drawer{position:relative;width:min(480px,95vw);height:100dvh;overflow-y:auto;padding:27px 25px 35px;background:linear-gradient(180deg,#0d0908f7,#030303);border-left:1px solid #d6b16e44;color:#ede1d0;box-shadow:-18px 0 55px #0008;font-family:Arial,sans-serif}
+    #ns-house-shop-backdrop .nsh-top{display:flex;gap:20px;justify-content:space-between;align-items:center;border-bottom:1px solid #d6b16e44;padding-bottom:18px;margin-bottom:21px}
+    #ns-house-shop-backdrop .nsh-eyebrow{font:10px/1.7 'Courier New',monospace;letter-spacing:.2em;color:#bb9969;text-transform:uppercase}
+    #ns-house-shop-backdrop h2{margin:3px 0 0;font:400 clamp(22px,3vw,34px)/1.2 Georgia,serif;letter-spacing:.07em;color:#f2e5d5}
+    #ns-house-shop-backdrop .nsh-close{padding:6px 12px;font-size:25px;color:#fff;background:none;border:1px solid #d6b16e55}
+    #ns-house-shop-backdrop .nsh-item{display:grid;grid-template-columns:78px 1fr;gap:14px;border-bottom:1px solid #d6b16e33;padding:15px 0}
+    #ns-house-shop-backdrop .nsh-item img{width:78px;height:96px;object-fit:contain;background:#171311}
+    #ns-house-shop-backdrop .nsh-item h3{font:13px/1.4 Georgia,serif;margin:0 0 5px;color:#fff}
+    #ns-house-shop-backdrop .nsh-meta{font:10px/1.65 'Courier New',monospace;color:#c9ac84}
+    #ns-house-shop-backdrop .nsh-actions{display:flex;gap:10px;margin-top:8px}
+    #ns-house-shop-backdrop .nsh-actions button{border:1px solid #d6b16e44;background:transparent;color:#eee;padding:5px 8px}
+    #ns-house-shop-backdrop .nsh-total{display:flex;justify-content:space-between;border-top:1px solid #d6b16e66;margin:18px 0;padding-top:14px;font:12px 'Courier New',monospace}
+    #ns-house-shop-backdrop .nsh-form{display:grid;gap:10px;margin-top:20px}
+    #ns-house-shop-backdrop .nsh-form label{font:10px 'Courier New',monospace;color:#c9ac84;text-transform:uppercase;letter-spacing:.1em}
+    #ns-house-shop-backdrop .nsh-form input,#ns-house-shop-backdrop .nsh-form textarea{display:block;width:100%;margin-top:5px;padding:12px;border:1px solid #d6b16e44;background:#100d0d;color:#fff;font:13px Arial,sans-serif}
+    #ns-house-shop-backdrop .nsh-primary{padding:13px 16px;background:#e6d1ae;color:#19120d;border:0;font:11px 'Courier New',monospace;letter-spacing:.14em;text-transform:uppercase}
+    #ns-house-shop-backdrop .nsh-primary:disabled{opacity:.45;cursor:default}
+    #ns-house-shop-backdrop .nsh-product-photo{width:100%;height:min(42vh,420px);object-fit:contain;background:#141010;margin-bottom:18px}
+    #ns-house-shop-backdrop .nsh-choice{display:flex;flex-wrap:wrap;gap:7px;padding:13px 0}
+    #ns-house-shop-backdrop .nsh-choice button{padding:9px 12px;border:1px solid #d6b16e55;color:#ddd;background:transparent;text-transform:uppercase}
+    #ns-house-shop-backdrop .nsh-choice button[aria-pressed=true]{background:#d6b16e;color:#16100a}
+    #ns-house-shop-backdrop .nsh-note{font:11px/1.7 'Courier New',monospace;color:#bda98c}
+    #ns-unified-drop .nsd-card,#archiveGrid .card__image-wrap,#ns-home-collection .ns-product{cursor:pointer}
+    @media(max-width:650px){#ns-house-cart-corner{right:9px!important;top:11px!important;padding:9px 10px!important}#ns-house-shop-backdrop .nsh-drawer{padding:18px 17px 30px}}
+  `;document.head.append(css);
+
+  const button=document.createElement('button');button.type='button';button.id='ns-house-cart-corner';button.textContent='CART / 0';button.setAttribute('aria-label','Open shared shopping cart');document.body.append(button);
+  const backdrop=document.createElement('div');backdrop.id='ns-house-shop-backdrop';backdrop.setAttribute('aria-hidden','true');
+  const drawer=document.createElement('section');drawer.className='nsh-drawer';drawer.setAttribute('role','dialog');drawer.setAttribute('aria-modal','true');drawer.setAttribute('aria-label','Nate Savard shopping');backdrop.append(drawer);document.body.append(backdrop);
+  let active=null,chosen='m',qty=1,mode='cart';
+  function count(){let n=load().reduce((a,x)=>a+Math.max(0,Number(x.quantity)||0),0);button.textContent='CART / '+n;}
+  function open(){backdrop.classList.add('is-open');backdrop.setAttribute('aria-hidden','false');document.body.style.overflow='hidden';drawer.querySelector('.nsh-close')?.focus();}
+  function close(){backdrop.classList.remove('is-open');backdrop.setAttribute('aria-hidden','true');document.body.style.overflow='';active=null;}
+  function head(label){return `<div class="nsh-top"><div><div class="nsh-eyebrow">NATE SAVARD / WORLDWIDE</div><h2>${label}</h2></div><button type="button" class="nsh-close" aria-label="Close">×</button></div>`}
+  function cart(){mode='cart';const items=load();const total=items.reduce((sum,x)=>sum+numPrice(x.price)*Math.max(1,Number(x.quantity)||1),0);
+    drawer.innerHTML=head('YOUR CART')+(items.length?items.map((x,i)=>`<div class="nsh-item"><img src="${safe(x.image)}" alt=""><div><h3>${safe(x.name)}</h3><div class="nsh-meta">${safe(x.optionLabel||'Size')}: ${safe(x.size)} / ${money(numPrice(x.price))} / qty ${Number(x.quantity)||1}</div><div class="nsh-actions"><button data-i="${i}" data-action="minus" aria-label="Reduce quantity">−</button><button data-i="${i}" data-action="plus" aria-label="Increase quantity">+</button><button data-i="${i}" data-action="remove">REMOVE</button></div></div></div>`).join(''):'<p class="nsh-note">Your cart is empty.</p>')+`<div class="nsh-total"><span>SUBTOTAL USD</span><strong>${money(total)}</strong></div><p class="nsh-note">Order request only. No payment is collected here. Shipping and availability are confirmed by email.</p><form class="nsh-form"><label>Your name<input name="name" required autocomplete="name"></label><label>Email<input name="email" type="email" required autocomplete="email"></label><label>Shipping country / location<input name="location" required></label><label>Notes<textarea name="notes" rows="2"></textarea></label><button class="nsh-primary" type="submit" ${items.length?'':'disabled'}>SEND ORDER REQUEST</button></form>`;
+    count();open();
+  }
+  // Match prices on existing products where available; otherwise exactly $129 USD.
+  const productFrom=(card)=>{
+    const name=(card.dataset.houseProduct||card.dataset.name||card.querySelector('.nsd-name,.ns-name,.card__name,.ns-product-name,h2,h3')?.textContent||'Nate Savard piece').trim();
+    const image=card.dataset.houseImage||card.querySelector('img')?.getAttribute('src')||'';
+    const priceText=card.dataset.housePrice||card.dataset.price||card.querySelector('[data-price],.ns-price,.card__price,.nsd-price')?.textContent||'';
+    const price=/\d/.test(String(priceText)) ? numPrice(priceText) : (publishedPrices.get(name.toLowerCase())||DEFAULT_PRICE);
+    const description=card.dataset.houseDescription||card.querySelector('.card__type,.nsd-sub,.ns-label')?.textContent||'Nate Savard / collector collection';
+    const category=String(card.dataset.category||card.querySelector('.card__type')?.textContent||'').toLowerCase();
+    const garment=!/object|artwork|experiment|symbol|hat|cap|accessory|jewelry/.test(category+' '+name.toLowerCase());
+    return {name,image,price,description,garment,options:garment?['xs','s','m','l','xl','xxl']:['one size']};
+  };
+  function product(card){active=productFrom(card);mode='product';chosen=active.options.includes('m')?'m':active.options[0];qty=1;
+    drawer.innerHTML=head('PRODUCT SHEET')+`<img class="nsh-product-photo" src="${safe(active.image)}" alt="${safe(active.name)}"><div class="nsh-eyebrow">ENVYNOMADIX / PRODUCT SHEET</div><h2>${safe(active.name)}</h2><p class="nsh-note">${safe(active.description)}</p><h2>${money(active.price)} USD</h2><div class="nsh-eyebrow">${active.garment?'Select size':'Option'}</div><div class="nsh-choice">${active.options.map(o=>`<button type="button" data-size="${safe(o)}" aria-pressed="${o===chosen}">${safe(o)}</button>`).join('')}</div><div class="nsh-eyebrow">Quantity: <span class="nsh-qty">1</span></div><div class="nsh-choice"><button data-qty="-1" type="button">−</button><button data-qty="1" type="button">+</button></div><button type="button" class="nsh-primary" data-add>Add to cart</button><p><button type="button" class="nsh-primary" data-view>View cart</button></p>`;
+    open();
+  }
+  function add(){if(!active)return;const items=load(),id=active.name.toLowerCase().replace(/[^a-z0-9]+/g,'-')+'-'+chosen;let same=items.find(x=>x.id===id);
+    if(same)same.quantity+=qty;else items.push({id,name:active.name,price:money(active.price),description:active.description,image:active.image,optionLabel:active.garment?'Select size':'Option',options:active.options,size:chosen,quantity:qty});
+    save(items);cart();
+  }
+  button.addEventListener('click',cart);
+  backdrop.addEventListener('click',e=>{if(e.target===backdrop||e.target.closest('.nsh-close')){close();return;}
+    const size=e.target.closest('[data-size]');if(size){chosen=size.dataset.size;drawer.querySelectorAll('[data-size]').forEach(b=>b.setAttribute('aria-pressed',String(b===size)));return;}
+    const adjust=e.target.closest('[data-qty]');if(adjust){qty=Math.min(99,Math.max(1,qty+Number(adjust.dataset.qty)));drawer.querySelector('.nsh-qty').textContent=qty;return;}
+    if(e.target.closest('[data-add]')){add();return;}
+    if(e.target.closest('[data-view]')){cart();return;}
+    const action=e.target.closest('[data-action]');if(action){const list=load(),i=Number(action.dataset.i),item=list[i];if(!item)return;
+      if(action.dataset.action==='remove')list.splice(i,1);
+      else item.quantity=Math.max(0,(Number(item.quantity)||1)+(action.dataset.action==='plus'?1:-1));
+      if(item.quantity===0)list.splice(i,1);save(list);cart();
+    }
+  });
+  backdrop.addEventListener('submit',e=>{if(!e.target.matches('.nsh-form'))return;e.preventDefault();const items=load();if(!items.length)return;const d=new FormData(e.target);const total=items.reduce((n,x)=>n+numPrice(x.price)*(Number(x.quantity)||1),0);const lines=['NATE SAVARD / ORDER REQUEST','',`Name: ${d.get('name')}`,`Email: ${d.get('email')}`,`Location: ${d.get('location')}`,'','Items:',...items.map(x=>`${x.name} | ${x.size} | Qty ${x.quantity} | ${money(numPrice(x.price)*(Number(x.quantity)||1))}`),'',`Subtotal USD: ${money(total)}`,'Shipping/taxes not included. No payment collected.','',`Notes: ${d.get('notes')||''}`];location.href='mailto:natesavard@outlook.com?subject='+encodeURIComponent('Nate Savard order request')+'&body='+encodeURIComponent(lines.join('\n'));});
+  document.addEventListener('keydown',e=>{if(e.key==='Escape'&&backdrop.classList.contains('is-open'))close();});
+  document.addEventListener('ns-house-cart-updated',count);
+  window.addEventListener('storage',e=>{if(e.key===HOUSE_KEY)count();});
+  // Capture clicks BEFORE the older Vault/homepage handlers so only one viewer opens.
+  document.addEventListener('click',e=>{
+    const card=e.target.closest('#ns-unified-drop .nsd-card, #archiveGrid .card, #ns-home-collection .ns-product');
+    if(!card||e.target.closest('#ns-house-shop-backdrop'))return;
+    if(e.target.closest('.nsd-inquiry,.card__buy,a[href^="mailto:"]'))return;
+    e.preventDefault();e.stopImmediatePropagation();product(card);
+  },true);
+  document.addEventListener('keydown',e=>{
+    if(e.key!=='Enter'&&e.key!==' ')return;
+    const card=e.target.closest('#ns-unified-drop .nsd-card, #archiveGrid .card, #ns-home-collection .ns-product');
+    if(!card||e.target.matches('a,button,input'))return;
+    e.preventDefault();e.stopImmediatePropagation();product(card);
+  },true);
+  count();
+})();
