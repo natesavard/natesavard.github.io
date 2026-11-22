@@ -1,3 +1,31 @@
+/* ORIGINALS-only menu cleanup: move these three archive routes to Journal. */
+(()=>{
+  'use strict';
+  if(!/\/originals\.html$/i.test(location.pathname))return;
+  const removed=new Set(['main.html','gemstone-field-distortion-paradox.html','scrapbook.html']);
+  const css=document.createElement('style');
+  css.textContent=`body.originals-page .siteflow-shell a[href="main.html"],body.originals-page .siteflow-shell a[href="/main.html"],body.originals-page .siteflow-shell a[href="gemstone-field-distortion-paradox.html"],body.originals-page .siteflow-shell a[href="/gemstone-field-distortion-paradox.html"],body.originals-page .siteflow-shell a[href="scrapbook.html"],body.originals-page .siteflow-shell a[href="/scrapbook.html"]{display:none!important}`;
+  document.head.append(css);
+  const clean=()=>{
+    document.querySelectorAll('body.originals-page .siteflow-shell .siteflow-jump a[href],body.originals-page .siteflow-shell .siteflow-directory a[href]').forEach(a=>{
+      try{if(removed.has(new URL(a.href,location.href).pathname.split('/').pop().toLowerCase()))a.remove()}catch{}
+    });
+  };
+  const ready=()=>{
+    clean();
+    const root=document.querySelector('.siteflow-shell');
+    if(root){new MutationObserver(clean).observe(root,{subtree:true,childList:true});return}
+    const observer=new MutationObserver(()=>{
+      const shell=document.querySelector('.siteflow-shell');
+      if(!shell)return;
+      observer.disconnect();clean();
+      new MutationObserver(clean).observe(shell,{subtree:true,childList:true});
+    });
+    observer.observe(document.body,{subtree:true,childList:true});
+  };
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',ready,{once:true});else ready();
+})();
+
 /* NATE SAVARD — original X Y Z right-side panel from originals.html.
  * Add the five primary routes to an existing Site Flow panel or mount the
  * same siteflow-shell/siteflow-bar UI, using its actual site-flow.css styles.

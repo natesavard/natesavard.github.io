@@ -95,6 +95,28 @@ NS / UNSCRIPTED.</p><p>Let Love and Fate find us all</p><!-- I have nothing but 
 <!-- ENTRY 10 -->
 <article class="entry right" style="--photo:url('images/frame-10.jpg');--image-ratio:0.69000" id="entry-10"><div class="shade"></div><div class="entry-content"><div class="meta"><span>NS / JOURNAL</span><span>ARCHIVE / 010</span><span>10 / 10</span></div><h2>NO FINAL VERSION</h2><div class="writing"><p>An archive that keeps changing.</p><p>Keep writing here.</p><!-- ADD MORE PARAGRAPHS HERE: <p>Your writing here.</p> --></div></div><span class="edge-number">10</span></article>
 </main>
+<!-- Archive doors relocated from the Originals sidebar; positioned after journal entries. -->
+<style>
+  #journal-archive-doors{position:relative;z-index:2;box-sizing:border-box;width:100%;background:#050505;color:#e9e2d7;border-top:1px solid rgba(255,255,255,.18);padding:clamp(36px,6vw,76px) clamp(20px,6vw,96px) clamp(40px,7vw,84px);font-family:'Courier New',monospace}
+  #journal-archive-doors .archive-doors-kicker{font-size:10px;letter-spacing:.28em;color:#aaa;text-transform:uppercase;margin:0 0 12px}
+  #journal-archive-doors h2{font-family:inherit;font-weight:400;font-size:clamp(23px,4vw,42px);letter-spacing:.1em;text-transform:uppercase;margin:0 0 30px}
+  #journal-archive-doors nav{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;background:#34312e;border:1px solid #34312e}
+  #journal-archive-doors nav a{min-width:0;display:flex;flex-direction:column;justify-content:space-between;gap:26px;padding:clamp(20px,3vw,36px);min-height:145px;text-decoration:none;color:#e9e2d7;background:#0c0b0b;transition:background .2s,color .2s}
+  #journal-archive-doors nav a:hover,#journal-archive-doors nav a:focus-visible{color:white;background:#1a1715}
+  #journal-archive-doors nav a strong{font-size:clamp(15px,2.1vw,23px);font-weight:400;letter-spacing:.12em;text-transform:uppercase}
+  #journal-archive-doors nav a span{color:#b5a99d;font-size:10px;letter-spacing:.12em;text-transform:uppercase}
+  @media(max-width:650px){#journal-archive-doors nav{grid-template-columns:1fr}#journal-archive-doors nav a{min-height:95px;gap:12px}}
+</style>
+<section id="journal-archive-doors" aria-labelledby="journal-archive-doors-title">
+  <p class="archive-doors-kicker">Journal / Archive Routes</p>
+  <h2 id="journal-archive-doors-title">Beyond the Journal</h2>
+  <nav aria-label="Related archive pages">
+    <a href="/main.html"><strong>Portal</strong><span>Enter the portal ↗</span></a>
+    <a href="/gemstone-field-distortion-paradox.html"><strong>Gemstone</strong><span>Gemstone paradox ↗</span></a>
+    <a href="/scrapbook.html"><strong>Scrapbook</strong><span>Visual archive ↗</span></a>
+  </nav>
+</section>
+
 <footer class="end" id="end"><strong>NATE SAVARD / JOURNAL</strong><span>LIVE 2026 oct 11 / NO FINAL VERSION</span><a href="https://natesavard.com">RETURN TO MAIN SITE ↗</a></footer>
 <button type="button" class="motion-control" id="motion-control" aria-pressed="false" aria-label="Pause automatic journal movement">PAUSE MOTION</button>
 <button type="button" class="envy-to-top" id="envy-to-top" aria-label="Return to top" title="Return to top"><img src="/envy-cross.png" alt=""></button>
