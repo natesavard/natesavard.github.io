@@ -1,0 +1,27 @@
+NATE SAVARD / ENVYNOMADIX REBIRTH HERO PHOTOS
+
+This is a 5-file patch specifically for your EXISTING GitHub Pages site:
+https://github.com/natesavard/natesavard.github.io
+
+1. Extract the ZIP on your computer.
+2. Open your existing GitHub repository (Code tab).
+3. Choose Add file -> Upload files.
+4. Upload the five files in this ZIP (four .webp photos and ns-unified-drop.js).
+5. Commit changes, replacing the existing ns-unified-drop.js.
+6. View https://natesavard.com/envynomadixrebirth.html and hard-refresh Ctrl+Shift+R if cached.
+
+No HTML edits. All existing HTML and all other pages remain as-is. The script checks
+the URL and changes ONLY the four photos in the TOP floating hero collage.
+
+Source order:
+1. Beach portrait by the palm tree.
+2. Purple Nate Savard portrait.
+3. Black-and-white close-up portrait.
+4. Still frame from your uploaded Video.mov (the complete video is not embedded).
+
+IMPORTANT: GitHub Pages and browsers may cache the existing script because the
+HTML still uses ?v=1. Force-refresh or allow cache expiry before checking.
+
+This package includes the exact previously deployed LIFE FORCE ENERGY
+ns-unified-drop.js with one isolated Rebirth-only block appended. No old
+sections, product cards, prices, or navigation have been removed.

@@ -114,3 +114,30 @@ const init=()=>{
 };
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
 })();
+
+
+/* ENVYNOMADIX REBIRTH — TOP PHOTOGRAPHIC COLLAGE ONLY
+   Preserves every existing page section and all LIFE FORCE ENERGY galleries.
+   Activated exclusively on /envynomadixrebirth.html. */
+(()=>{
+  'use strict';
+  if (!/\/(?:envynomadixrebirth\.html)$/i.test(window.location.pathname)) return;
+  const photos = [
+    ['.rebirth-stack .rebirth-photo-main', '/rebirth-hero-01-beach.webp'],
+    ['.rebirth-stack .rebirth-photo-second', '/rebirth-hero-02-purple.webp'],
+    ['.rebirth-stack .rebirth-photo-third', '/rebirth-hero-03-portrait.webp'],
+    ['.rebirth-stack .rebirth-photo-fourth', '/rebirth-hero-04-video-still.webp']
+  ];
+  function replacePhotos(){
+    for(const [selector, path] of photos){
+      const img=document.querySelector(selector);
+      if(!img)continue;
+      img.src=path;
+      img.removeAttribute('srcset');
+      img.decoding='async';
+      img.alt='Envynomadix Rebirth campaign photograph';
+    }
+  }
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',replacePhotos,{once:true});
+  else replacePhotos();
+})();
