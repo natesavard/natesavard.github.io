@@ -115,113 +115,179 @@ const init=()=>{
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
 })();
 
-/* ENVYNOMADIX REBIRTH — TOP PHOTOGRAPHIC COLLAGE ONLY
-   Preserves every existing page section and all LIFE FORCE ENERGY galleries.
-   Activated exclusively on /envynomadixrebirth.html. */
+
+/* ENVYNOMADIX REBIRTH — restore original collage feel and place the Madisonne video between the two portraits. */
 (()=>{
   'use strict';
-  if (!/\/envynomadixrebirth\.html$/i.test(window.location.pathname)) return;
+  if (!/\/envynomadixrebirth\.html(?:\?|$)/i.test(location.pathname + location.search)) return;
 
-  const STYLE_ID = 'ns-rebirth-photo-swap-v3';
-  const injectStyles = () => {
-    if (document.getElementById(STYLE_ID)) return;
+  const STYLE_ID = 'ns-rebirth-collage-v7';
+  function injectStyles(){
+    if(document.getElementById(STYLE_ID)) return;
     const style = document.createElement('style');
     style.id = STYLE_ID;
     style.textContent = `
-      .visual .rebirth-photo-main.ns-rebirth-updated {
-        width: min(36vw, 445px);
-        left: 9%;
-        top: 8%;
-        transform: rotate(-6deg);
-        z-index: 5;
+      .screen .shell { padding-top: 0 !important; justify-content: flex-start !important; }
+      .screen .shell .portal { margin-top: 0 !important; }
+      .screen .shell .visual {
+        overflow: visible !important;
+        min-height: min(76vh, 760px) !important;
       }
-      .visual .rebirth-photo-third.ns-rebirth-updated {
-        width: min(34vw, 430px);
-        left: 23%;
-        bottom: -3%;
-        transform: rotate(-3deg);
-        z-index: 3;
+      .screen .shell .visual .rebirth-stack {
+        position: relative !important;
+        display: block !important;
+        width: min(100vw, 1220px) !important;
+        height: min(76vh, 760px) !important;
+        min-height: min(76vh, 760px) !important;
+        overflow: visible !important;
+        background: transparent !important;
+        touch-action: auto !important;
+        cursor: default !important;
       }
-      .visual .rebirth-stack video.rebirth-photo-fourth.rebirth-photo-video {
-        position: absolute;
-        display: block;
-        width: min(18vw, 220px);
-        height: auto;
-        right: 8%;
-        bottom: -2%;
-        object-fit: cover;
-        border-radius: 28px;
-        background: #000;
-        transform: rotate(6deg);
-        z-index: 2;
-        filter:
-          saturate(0.94)
-          brightness(0.96)
-          drop-shadow(0 28px 46px rgba(0, 0, 0, 0.42))
-          drop-shadow(0 0 26px rgba(255, 235, 205, 0.08));
-        animation: rebirthCardFloatD 8.8s ease-in-out infinite alternate;
-        transition: transform 0.7s ease, filter 0.7s ease, opacity 0.7s ease;
+      .screen .shell .rebirth-stack .rebirth-photo-main.ns-rebirth-v7,
+      .screen .shell .rebirth-stack .rebirth-photo-second.ns-rebirth-v7,
+      .screen .shell .rebirth-stack .rebirth-photo-third.ns-rebirth-v7,
+      .screen .shell .rebirth-stack video.rebirth-photo-second.ns-rebirth-v7 {
+        position: absolute !important;
+        flex: none !important;
+        min-width: 0 !important;
+        max-width: none !important;
+        width: auto;
+        padding: 0 !important;
+        border-radius: 18px !important;
+        opacity: 1 !important;
+        box-sizing: border-box !important;
+        animation: none !important;
+        filter: drop-shadow(0 16px 38px rgba(0,0,0,.58)) !important;
       }
-      .visual .rebirth-stack video.rebirth-photo-fourth.rebirth-photo-video::-webkit-media-controls {
+      .screen .shell .rebirth-stack .rebirth-photo-main.ns-rebirth-v7 {
+        left: 5% !important;
+        top: 0 !important;
+        right: auto !important;
+        bottom: auto !important;
+        width: min(38vw, 470px) !important;
+        height: min(75vh, 735px) !important;
+        object-fit: cover !important;
+        object-position: center 10% !important;
+        transform: rotate(-4deg) !important;
+        z-index: 4 !important;
+      }
+      .screen .shell .rebirth-stack .rebirth-photo-second.ns-rebirth-v7,
+      .screen .shell .rebirth-stack video.rebirth-photo-second.ns-rebirth-v7 {
+        left: 35% !important;
+        top: 18% !important;
+        right: auto !important;
+        bottom: auto !important;
+        width: min(24vw, 295px) !important;
+        height: min(46vh, 360px) !important;
+        object-fit: cover !important;
+        object-position: center center !important;
+        transform: rotate(4deg) !important;
+        z-index: 6 !important;
+        background: #050505 !important;
+      }
+      .screen .shell .rebirth-stack .rebirth-photo-third.ns-rebirth-v7 {
+        right: 3% !important;
+        top: 6% !important;
+        left: auto !important;
+        bottom: auto !important;
+        width: min(27vw, 330px) !important;
+        height: min(63vh, 610px) !important;
+        object-fit: cover !important;
+        object-position: center 79% !important;
+        transform: rotate(-3deg) !important;
+        z-index: 3 !important;
+      }
+      .screen .shell .rebirth-stack .rebirth-photo-fourth {
         display: none !important;
+      }
+      .screen .shell .rebirth-stack video.rebirth-photo-second.ns-rebirth-v7::-webkit-media-controls {
+        display: none !important;
+      }
+      @media (max-width: 700px) {
+        .screen .shell .visual,
+        .screen .shell .visual .rebirth-stack {
+          min-height: min(88vh, 840px) !important;
+          height: min(88vh, 840px) !important;
+        }
+        .screen .shell .rebirth-stack .rebirth-photo-main.ns-rebirth-v7 {
+          left: 1% !important;
+          top: 0 !important;
+          width: 63vw !important;
+          height: 62vh !important;
+          object-position: center 12% !important;
+          transform: rotate(-3deg) !important;
+        }
+        .screen .shell .rebirth-stack .rebirth-photo-second.ns-rebirth-v7,
+        .screen .shell .rebirth-stack video.rebirth-photo-second.ns-rebirth-v7 {
+          left: 48% !important;
+          top: 19% !important;
+          width: 34vw !important;
+          height: 28vh !important;
+          transform: rotate(4deg) !important;
+        }
+        .screen .shell .rebirth-stack .rebirth-photo-third.ns-rebirth-v7 {
+          right: 1% !important;
+          top: 49% !important;
+          width: 42vw !important;
+          height: 34vh !important;
+          object-position: center 82% !important;
+          transform: rotate(-3deg) !important;
+        }
       }
     `;
     document.head.appendChild(style);
-  };
+  }
 
-  const updateImage = (selector, src, alt) => {
-    const img = document.querySelector(selector);
-    if (!img) return null;
-    img.src = src;
-    img.removeAttribute('srcset');
-    img.decoding = 'async';
-    img.alt = alt;
-    img.classList.add('ns-rebirth-updated');
-    return img;
-  };
-
-  const removeSecondStill = () => {
-    const second = document.querySelector('.rebirth-stack .rebirth-photo-second');
-    if (second) second.remove();
-  };
-
-  const replaceFourthWithVideo = () => {
-    const oldEl = document.querySelector('.rebirth-stack .rebirth-photo-fourth');
-    if (!oldEl) return;
-    if (oldEl.tagName.toLowerCase() === 'video') {
-      oldEl.play?.().catch(()=>{});
-      return;
-    }
+  function replaceWithVideo(el){
+    if(!el) return null;
+    if(el.tagName.toLowerCase() === 'video') return el;
     const video = document.createElement('video');
-    video.className = 'rebirth-photo-fourth rebirth-photo-video';
-    video.autoplay = true;
-    video.loop = true;
-    video.muted = true;
-    video.defaultMuted = true;
-    video.playsInline = true;
-    video.preload = 'metadata';
+    video.className = el.className;
     video.poster = '/rebirth-hero-04-video-poster.jpg';
-    video.setAttribute('aria-label', 'Envynomadix Rebirth campaign video');
+    video.setAttribute('aria-label','Madisonne beach video');
+    const source = document.createElement('source');
+    source.src = '/rebirth-hero-04-video.mp4';
+    source.type = 'video/mp4';
+    video.appendChild(source);
+    el.replaceWith(video);
+    return video;
+  }
 
-    const mp4 = document.createElement('source');
-    mp4.src = '/rebirth-hero-04-video.mp4';
-    mp4.type = 'video/mp4';
-    video.appendChild(mp4);
-
-    oldEl.replaceWith(video);
-    const tryPlay = () => video.play().catch(()=>{});
-    if (document.readyState === 'complete') tryPlay();
-    else window.addEventListener('load', tryPlay, { once: true });
-  };
-
-  const apply = () => {
+  function init(){
     injectStyles();
-    updateImage('.rebirth-stack .rebirth-photo-main', '/rebirth-hero-01-purple.webp', 'Nate Savard portrait in purple light');
-    removeSecondStill();
-    updateImage('.rebirth-stack .rebirth-photo-third', '/rebirth-hero-03-portrait.webp', 'Nate Savard black-and-white portrait');
-    replaceFourthWithVideo();
-  };
+    const stack = document.querySelector('.rebirth-stack');
+    if(!stack) return;
+    const first = stack.querySelector('.rebirth-photo-main');
+    if(first){
+      first.classList.add('ns-rebirth-v7');
+      first.src = '/rebirth-hero-01-purple.webp';
+      first.removeAttribute('srcset');
+      first.alt = 'Nate Savard purple portrait';
+    }
+    let second = stack.querySelector('.rebirth-photo-second');
+    second = replaceWithVideo(second);
+    if(second){
+      second.classList.add('ns-rebirth-v7');
+      second.autoplay = true;
+      second.loop = true;
+      second.muted = true;
+      second.defaultMuted = true;
+      second.playsInline = true;
+      second.preload = 'metadata';
+      second.play().catch(()=>{});
+    }
+    const third = stack.querySelector('.rebirth-photo-third');
+    if(third){
+      third.classList.add('ns-rebirth-v7');
+      third.src = '/rebirth-hero-03-portrait.webp';
+      third.removeAttribute('srcset');
+      third.alt = 'Nate Savard black-and-white portrait';
+    }
+    const fourth = stack.querySelector('.rebirth-photo-fourth');
+    if(fourth) fourth.style.display = 'none';
+  }
 
-  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', apply, { once: true });
-  else apply();
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init, {once:true});
+  else init();
 })();
