@@ -121,6 +121,67 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
   'use strict';
   if (!/\/envynomadixrebirth\.html$/i.test(location.pathname)) return;
 
+  /* Rebirth 2026-11-22: eliminate portrait-only black gutter and show Nate's faces.
+   * No changes to the Madi video; preserve the native horizontal moving rail.
+   * The original CSS has multiple competing .rebirth-photo-xxx width/height declarations.
+   */
+  function installNatePortraitSizing() {
+    if (document.getElementById('ns-nate-portrait-fill-faces-v29')) return;
+    const fix = document.createElement('style');
+    fix.id = 'ns-nate-portrait-fill-faces-v29';
+    fix.textContent = `
+      /* Keep the moving gallery one continuous edge-to-edge strip. */
+      body .visual .rebirth-stack {
+        display: flex !important;
+        flex-wrap: nowrap !important;
+        gap: 0 !important;
+        column-gap: 0 !important;
+        row-gap: 0 !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        width: 100% !important;
+        max-width: none !important;
+        background: #000;
+      }
+      body .visual .rebirth-stack > img.rebirth-photo-main,
+      body .visual .rebirth-stack > img.rebirth-photo-third {
+        position: relative !important;
+        display: block !important;
+        box-sizing: border-box !important;
+        flex: 0 0 100vw !important;
+        width: 100vw !important;
+        min-width: 100vw !important;
+        max-width: none !important;
+        height: clamp(420px,68vh,620px) !important;
+        min-height: 0 !important;
+        max-height: none !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        border: 0 !important;
+        border-radius: 0 !important;
+        object-fit: cover !important;
+        opacity: 1 !important;
+        transform: none !important;
+        animation: none !important;
+      }
+      /* Original image is tall: a lower framing reveals Nate below the bright top. */
+      body .visual .rebirth-stack > img.rebirth-photo-main {
+        object-position: center 37% !important;
+      }
+      /* A slightly lower framing than before, but avoid cropping the B&W face. */
+      body .visual .rebirth-stack > img.rebirth-photo-third {
+        object-position: center 29% !important;
+      }
+      @media (max-width: 640px) {
+        body .visual .rebirth-stack > img.rebirth-photo-main,
+        body .visual .rebirth-stack > img.rebirth-photo-third {
+          height: clamp(300px,56vh,420px) !important;
+        }
+      }
+    `;
+    document.head.appendChild(fix);
+  }
+
   function init() {
     const rail = document.querySelector('.rebirth-stack');
     if (!rail || rail.dataset.nsOriginalGalleryMedia === '1') return;
@@ -217,6 +278,7 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
       }
     `;
     document.head.appendChild(styles);
+    installNatePortraitSizing();
   }
 
   if (document.readyState === 'loading')
