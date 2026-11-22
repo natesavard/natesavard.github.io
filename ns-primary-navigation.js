@@ -294,170 +294,294 @@
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init,{once:true});
   else init();
 })();
-/* NATE SAVARD / shared shop bridge v1
- * The Rebirth / Envynomadix house cart is the canonical cart.
- * Non-house pages get the same product-sheet pattern and a compatible cart.
- * Does not change existing page artwork, gallery images, or Rebirth video.
- */
+
+/* Nate Savard commerce bridge: preserve native House viewer on Envynomadix and Rebirth.
+   On Homepage and Vault use the same envy-house-cart data shape and a matching viewer/drawer.
+   Does not modify page artwork, gallery motion, or product assets. */
 (()=>{
-  'use strict';
-  if(window.__nsSharedHouseShop) return;
-  window.__nsSharedHouseShop=true;
-  const path=location.pathname.toLowerCase();
-  if(/^\/original(?:\/|$)/.test(path)||path.endsWith('/original.html'))return;
-  const publishedPrices=new Map([
-    ['nls star ’85 f/s',225],['lost dimensions: insomnia 2026',225],['envy crystal v-neck',275],
-    ['chrome star distressed tee',285],['envy legacy tee',245],['fuck up tee',295],
-    ['venus flytrap / i',295],['distressed streetwear',285],['red logo tee',195],
-    ['muscle tee',245],['speedway jersey',395],['star ashtray',185],
-    ['venus flytrap / ii',295],['fw25 technical',325],['alien graphic',275]
-  ]);
-  const HOUSE_KEY='envy-house-cart';
-  const LEGACY_KEY='ns-vault-boutique-cart-v1';
-  const DEFAULT_PRICE=129;
-  const isHouse=path.includes('envynomadixrebirth.html')||path.endsWith('/envynomadix.html')||path.endsWith('/envynomadix-signature-collection.html');
-  const isJewelry=path.endsWith('/originals.html');
-  const money=n=>'$'+Number(n).toFixed(2);
-  const numPrice=v=>{let n=Number(String(v??'').replace(/[^\d.]/g,''));return Number.isFinite(n)&&n>0?n:DEFAULT_PRICE;};
-  const load=()=>{try{let x=JSON.parse(localStorage.getItem(HOUSE_KEY)||'[]');return Array.isArray(x)?x:[]}catch{return []}};
-  const save=items=>{try{localStorage.setItem(HOUSE_KEY,JSON.stringify(items));}catch{} document.dispatchEvent(new Event('ns-house-cart-updated'));};
-  const safe=(s)=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-
-  // Rebirth and Envynomadix keep their OWN native product sheets and drawer.
-  // Only replace missing / private-inquiry price attributes with the requested $129.
-  function priceNative(){
-    document.querySelectorAll('[data-house-product]').forEach(card=>{
-      const raw=card.getAttribute('data-house-price')||'';
-      if(!/\d/.test(raw)||Number(String(raw).replace(/[^\d.]/g,''))<=0)card.setAttribute('data-house-price',money(DEFAULT_PRICE));
-    });
+'use strict';
+if(window.__nsSitewideCommerceV1)return;
+window.__nsSitewideCommerceV1=true;
+const path=location.pathname.toLowerCase();
+if(/^\/original(?:\/|$)/.test(path)||path.endsWith('/original.html'))return;
+const KEY='envy-house-cart', LEGACY='ns-vault-boutique-cart-v1', ORIGINALS='originals-collector-cart';
+const DEFAULT_PRICE=129;
+const nativeHouse=()=>!!(document.getElementById('houseViewer')&&document.getElementById('houseCartShell'));
+const home=path==='/'||path==='/index.html';
+const vault=path==='/vault.html';
+const house=/\/envynomadix(?:rebirth)?\.html$/.test(path);
+const originals=path==='/originals.html';
+// The native House viewer and cart are already the preferred experience.
+// Add prices where none are published, but do not replace their functioning UI.
+function assignPrices(){
+ document.querySelectorAll('[data-house-product]').forEach(card=>{
+   const val=card.getAttribute('data-house-price')||'';
+   if(!/\d/.test(val)||!Number(String(val).replace(/[^0-9.]/g,'')))card.setAttribute('data-house-price','$129.00');
+ });
+}
+if(house){
+ assignPrices();
+ const watcher=new MutationObserver(assignPrices);
+ const go=()=>watcher.observe(document.body,{childList:true,subtree:true});
+ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',go,{once:true});else go();
+}
+const money=n=>'$'+n.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});
+const cost=s=>{const n=Number(String(s??'').replace(/[^\d.]/g,''));return Number.isFinite(n)&&n>0?n:DEFAULT_PRICE};
+const esc=s=>String(s??'').replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;','\'':'&#39;'}[ch]));
+const norm=s=>String(s??'').toLowerCase().replace(/[^a-z0-9]+/g,' ').trim();
+const imageKey=s=>String(s??'').split(/[?#]/)[0].split('/').pop().toLowerCase();
+const getHouseCart=()=>{try{const a=JSON.parse(localStorage.getItem(KEY)||'[]');return Array.isArray(a)?a:[]}catch{return []}};
+const getOriginals=()=>{try{const a=JSON.parse(localStorage.getItem(ORIGINALS)||'[]');return Array.isArray(a)?a:[]}catch{return []}};
+const getCart=()=>[...getHouseCart(),...getOriginals().map((a,i)=>({...a,id:'originals::'+i,origin:'originals',size:[a.sizeValue,a.stoneValue].filter(Boolean).join(' / ')||'custom',optionLabel:'Original collection',options:[a.sizeValue||'custom'],price:a.price||money(DEFAULT_PRICE),image:a.image||'',quantity:a.quantity||1}))];
+let cart=getCart();
+function save(){
+ try{
+  localStorage.setItem(KEY,JSON.stringify(cart.filter(x=>x.origin!=='originals')));
+  const originalsItems=getOriginals();
+  const fromDisplay=cart.filter(x=>x.origin==='originals');
+  const keep=fromDisplay.map(x=>({...originalsItems[Number(String(x.id).split('::')[1])]||x,quantity:x.quantity}));
+  // Only save Originals when its items were edited; otherwise don't overwrite its native cart.
+  if(window.__nsOriginalCartEdited){localStorage.setItem(ORIGINALS,JSON.stringify(keep));window.__nsOriginalCartEdited=false;}
+ }catch{};
+ drawCart();badge();
+}
+// Bring an existing homepage/Vault boutique cart over once, without deleting it.
+function migrate(){
+ const marker='ns-house-cart-migrated-boutique-v1';
+ const legacyHouseItems=getHouseCart();
+ if(localStorage.getItem(marker))return;
+ try{
+   const old=JSON.parse(localStorage.getItem(LEGACY)||'[]');
+   if(Array.isArray(old))for(const p of old){
+     if(!p||!p.name||!cost(p.price))continue;
+     const size=String(p.size||'one size').toLowerCase(),id=norm(p.name).replace(/ /g,'-')+'-'+size.replace(/\s/g,'-');
+     const qty=Math.max(1,Number(p.qty)||1);const hit=legacyHouseItems.find(x=>x.id===id);
+     if(hit)continue;
+     legacyHouseItems.push({id,name:String(p.name),price:money(cost(p.price)),description:'Nate Savard collection',image:p.src||'',optionLabel:size==='one size'?'Select option':'Select size',options:size==='one size'?['one size']:['xs','s','m','l','xl','xxl'],size,quantity:qty});
+   }
+   localStorage.setItem(KEY,JSON.stringify(legacyHouseItems));
+   localStorage.setItem(marker,'yes');
+ }catch{}
+}
+migrate();
+const stylesheet=document.createElement('style');stylesheet.id='ns-sitewide-commerce-css';
+stylesheet.textContent=`
+ /* The old side cart is still in the DOM for legacy code, but never covers the NS-logo tab. */
+ body #ns-vault-cart-open{display:none!important}
+ body .nsv-overlay{display:none!important;pointer-events:none!important}
+ body #ns-home-cart-corner{display:none!important}
+ body.originals-page #originalsCartToggle{display:none!important}
+ body.ns-unified-house-active #heroCartButton,body.ns-unified-house-active #houseCartToggle{display:none!important}
+ body.ns-unified-house-active #houseCartShell{visibility:hidden!important;pointer-events:none!important}
+ #ns-site-cart-top{position:fixed!important;top:13px!important;right:24px!important;bottom:auto!important;left:auto!important;z-index:18000!important;display:block!important;writing-mode:horizontal-tb!important;width:auto!important;height:auto!important;min-width:0!important;margin:0!important;padding:8px 2px!important;border:0!important;border-radius:0!important;background:transparent!important;color:rgba(246,226,190,.96)!important;font:11px/1.2 Arial,sans-serif!important;letter-spacing:.12em!important;cursor:pointer!important;backdrop-filter:none!important;text-transform:uppercase!important}
+ #ns-site-cart-top:hover{color:#fff4df!important;background:transparent!important}
+ #ns-site-commerce-mask{position:fixed;inset:0;z-index:19000;background:rgba(0,0,0,.73);backdrop-filter:blur(6px);display:none;align-items:center;justify-content:center;padding:12px;box-sizing:border-box;color:#ece9e1;font-family:Arial,sans-serif}
+ #ns-site-commerce-mask.open{display:flex}
+ #ns-site-commerce-mask *{box-sizing:border-box}
+ #ns-site-commerce-mask button{cursor:pointer;font-family:inherit}
+ #ns-site-commerce-mask .nsc-sheet{position:relative;display:grid;grid-template-columns:minmax(0,1.1fr) minmax(310px,.9fr);width:min(1160px,96vw);max-height:94dvh;overflow:auto;border:1px solid rgba(220,188,139,.23);background:#080807;box-shadow:0 24px 80px #000}
+ #ns-site-commerce-mask .nsc-photo{display:grid;place-items:center;min-height:65vh;padding:30px;background:radial-gradient(ellipse,rgba(70,57,44,.27),transparent 67%),#050505;overflow:hidden}
+ #ns-site-commerce-mask .nsc-photo img{width:100%;height:auto;max-height:74vh;object-fit:contain;cursor:zoom-in}
+ #ns-site-commerce-mask.zoomed .nsc-photo img{max-height:none;width:auto;max-width:none;transform:scale(1.5);cursor:zoom-out}
+ #ns-site-commerce-mask .nsc-detail{padding:58px clamp(24px,4vw,55px) 38px;overflow:auto}
+ #ns-site-commerce-mask .nsc-eyebrow{font:10px/1.6 Arial,sans-serif;letter-spacing:.3em;text-transform:uppercase;color:#b69b75}
+ #ns-site-commerce-mask h2{font:400 clamp(28px,3vw,48px)/1.12 Georgia,serif;letter-spacing:.015em;color:#f4e9d6;margin:19px 0}
+ #ns-site-commerce-mask .nsc-price{font-size:20px;color:#e2c7a4;margin:14px 0}
+ #ns-site-commerce-mask .nsc-description{font-size:13px;line-height:1.8;color:#a9a5a0}
+ #ns-site-commerce-mask .nsc-options{display:flex;flex-wrap:wrap;gap:8px;margin:20px 0}
+ #ns-site-commerce-mask .nsc-options button,#ns-site-commerce-mask .nsc-actions button,#ns-site-commerce-mask .nsc-qty button,#ns-site-commerce-mask .nsc-arrows button{border:1px solid #71685a;background:transparent;color:#e8e2d5;padding:11px 14px;font-size:11px;letter-spacing:.07em}
+ #ns-site-commerce-mask .nsc-options button.selected,#ns-site-commerce-mask .nsc-actions button.primary{color:#18130d;background:#e8d8bb;border-color:#e8d8bb}
+ #ns-site-commerce-mask .nsc-qty{display:flex;align-items:center;gap:18px;margin:15px 0 24px}
+ #ns-site-commerce-mask .nsc-actions{display:flex;flex-wrap:wrap;gap:10px}
+ #ns-site-commerce-mask .nsc-actions button{min-height:44px}
+ #ns-site-commerce-mask .nsc-close{position:absolute;top:12px;right:15px;border:0;background:#111b;color:#eee;font-size:28px;z-index:3}
+ #ns-site-commerce-mask .nsc-arrows{position:absolute;left:22px;bottom:20px;display:flex;gap:9px;z-index:2}
+ #ns-site-commerce-mask .nsc-micro{font:10px/1.7 Arial,sans-serif;letter-spacing:.06em;color:#9a938a;margin-top:17px}
+ #ns-site-cart-mask{position:fixed;inset:0;z-index:19000;display:none;background:rgba(0,0,0,.6);color:#e9e4da;font-family:Arial,sans-serif}
+ #ns-site-cart-mask.open{display:block}
+ #ns-site-cart-mask .nsc-backdrop{position:absolute;inset:0}
+ #ns-site-cart-mask .nsc-drawer{position:absolute;right:0;top:0;bottom:0;overflow:auto;width:min(455px,94vw);background:linear-gradient(180deg,rgba(10,6,4,.96),rgba(0,0,0,.98));border-left:1px solid rgba(221,176,109,.14);box-shadow:-20px 0 50px rgba(0,0,0,.42);padding:22px 20px 30px}
+ #ns-site-cart-mask header{display:flex;justify-content:space-between;align-items:start;border-bottom:1px solid #5e5248;padding-bottom:23px;margin-bottom:20px}
+ #ns-site-cart-mask h2{font:400 17px/1.5 "Courier New",monospace;letter-spacing:.26em;text-transform:uppercase;margin:10px 0;color:#f6e8d0}
+ #ns-site-cart-mask .nsc-label{font-size:10px;letter-spacing:.21em;color:#ad9677}
+ #ns-site-cart-mask button{background:transparent;color:#e9e4da;border:1px solid #675b4e;padding:7px 10px;cursor:pointer}
+ #ns-site-cart-mask .nsc-cart-close{border:none;font-size:26px}
+ #ns-site-cart-mask .nsc-item{display:grid;grid-template-columns:88px minmax(0,1fr);gap:16px;padding:14px 0;border-bottom:1px solid #413931}
+ #ns-site-cart-mask .nsc-item img{width:86px;height:102px;object-fit:contain}
+ #ns-site-cart-mask .nsc-item-name{font:12px/1.6 "Courier New",monospace;letter-spacing:.12em;text-transform:uppercase}
+ #ns-site-cart-mask .nsc-item-meta{font-size:11px;color:#bea88b;margin:8px 0}
+ #ns-site-cart-mask .nsc-item-actions{display:flex;gap:8px;flex-wrap:wrap}
+ #ns-site-cart-mask .nsc-total{display:flex;justify-content:space-between;padding:20px 0;font-size:14px;border-bottom:1px solid #52453b}
+ #ns-site-cart-mask .nsc-form{display:grid;gap:12px;margin-top:20px}
+ #ns-site-cart-mask label{display:grid;gap:6px;font-size:10px;color:#c9b392;letter-spacing:.11em;text-transform:uppercase}
+ #ns-site-cart-mask input,#ns-site-cart-mask textarea{width:100%;border:1px solid #5e5347;background:#080808;padding:12px;color:#fff;font:13px Arial,sans-serif}
+ #ns-site-cart-mask .nsc-submit{background:#dfcdb2;color:#18130b;border-color:#dfcdb2;padding:13px}
+ #ns-site-cart-mask .nsc-empty{font-size:13px;color:#c4b9a9;margin:36px 0}
+ @media(max-width:720px){#ns-site-cart-top{right:12px!important;top:10px!important}#ns-site-commerce-mask .nsc-sheet{grid-template-columns:1fr;max-height:94dvh}#ns-site-commerce-mask .nsc-photo{min-height:250px;padding:15px}#ns-site-commerce-mask .nsc-photo img{max-height:37vh}#ns-site-commerce-mask .nsc-detail{padding:30px 22px}#ns-site-commerce-mask .nsc-arrows{position:static;display:flex;padding:0 18px 16px}}
+`;
+document.head.append(stylesheet);
+const el=(name,cls)=>{const n=document.createElement(name);if(cls)n.className=cls;return n};
+const cartButton=el('button');cartButton.id='ns-site-cart-top';cartButton.type='button';cartButton.setAttribute('aria-label','Open your shopping cart');document.body.append(cartButton);
+let current=null,chosen='m',qty=1,products=[],viewer=null,cartModal=null,imgs=new Map(),names=new Map(),metadataLoaded=false;
+function badge(){cart=getCart();cartButton.textContent='cart ('+cart.reduce((t,x)=>t+(Number(x.quantity)||0),0)+')'}
+function writeImage(s){try{return new URL(s,location.href).href}catch{return s}}
+function createViewer(){
+ viewer=el('div');viewer.id='ns-site-commerce-mask';viewer.setAttribute('role','dialog');viewer.setAttribute('aria-modal','true');viewer.setAttribute('aria-label','Product details');
+ viewer.innerHTML=`<div class="nsc-sheet"><button class="nsc-close" type="button" aria-label="Close product">×</button><div class="nsc-photo"><img alt="Product image" title="Click to enlarge"></div><div class="nsc-detail"><div class="nsc-eyebrow">envynomadix / product sheet</div><h2></h2><div class="nsc-price"></div><p class="nsc-description"></p><div class="nsc-eyebrow">SELECT OPTION</div><div class="nsc-options"></div><div class="nsc-qty"><button type="button" data-qty="-1">−</button><strong>1</strong><button type="button" data-qty="1">+</button></div><div class="nsc-actions"><button class="primary nsc-add" type="button">ADD TO CART</button><button class="nsc-view-cart" type="button">VIEW CART</button></div><p class="nsc-micro">Availability and shipping confirmed before payment. No payment is collected here.</p></div><div class="nsc-arrows"><button data-direction="-1" type="button">← PREVIOUS</button><button data-direction="1" type="button">NEXT →</button></div></div>`;
+ document.body.append(viewer);
+ viewer.querySelector('.nsc-close').onclick=closeViewer;
+ viewer.addEventListener('click',e=>{if(e.target===viewer)closeViewer()});
+ viewer.querySelector('.nsc-photo img').onclick=()=>viewer.classList.toggle('zoomed');
+ viewer.querySelectorAll('[data-qty]').forEach(b=>b.onclick=()=>{qty=Math.max(1,Math.min(99,qty+Number(b.dataset.qty)));viewer.querySelector('.nsc-qty strong').textContent=qty});
+ viewer.querySelector('.nsc-view-cart').onclick=()=>{closeViewer();openCart()};
+ viewer.querySelector('.nsc-add').onclick=add;
+ viewer.querySelectorAll('[data-direction]').forEach(b=>b.onclick=()=>{
+  const i=products.findIndex(x=>x.name===current?.name);
+  if(!products.length)return;
+  openViewer(products[(i+Number(b.dataset.direction)+products.length)%products.length]);
+ });
+}
+function createCart(){
+ cartModal=el('div');cartModal.id='ns-site-cart-mask';cartModal.setAttribute('role','dialog');cartModal.setAttribute('aria-modal','true');cartModal.setAttribute('aria-label','Your cart');
+ cartModal.innerHTML=`<div class="nsc-backdrop"></div><div class="nsc-drawer"><header><div><div class="nsc-label">NATE SAVARD / WORLDWIDE</div><h2>YOUR CART</h2></div><button type="button" class="nsc-cart-close" aria-label="Close cart">×</button></header><div class="nsc-items"></div><div class="nsc-total"><span>SUBTOTAL USD</span><strong></strong></div><p style="font-size:11px;color:#b9ad9e;line-height:1.6">Order request only. Shipping, availability and final price are confirmed by email.</p><form class="nsc-form"><label>Your name<input name="name" required autocomplete="name"></label><label>Email<input name="email" type="email" required autocomplete="email"></label><label>Shipping country / location<input name="location" required></label><label>Notes<textarea name="notes" rows="2"></textarea></label><button class="nsc-submit" type="submit">SEND ORDER REQUEST</button></form></div>`;
+ document.body.append(cartModal);
+ cartModal.querySelector('.nsc-backdrop').onclick=closeCart;
+ cartModal.querySelector('.nsc-cart-close').onclick=closeCart;
+ cartModal.querySelector('.nsc-items').onclick=e=>{
+  const button=e.target.closest('button[data-action]');if(!button)return;
+  const id=button.dataset.id,action=button.dataset.action;
+  if(String(id).startsWith('originals::'))window.__nsOriginalCartEdited=true;
+  if(action==='preview'){
+    const item=cart.find(x=>x.id===id);if(item){closeCart();if(viewer)openViewer({...item,options:item.options||['one size'],price:item.price,image:item.image,description:item.description});else if(item.origin==='originals')document.getElementById('originalsCartToggle')?.click();}return;
   }
-  priceNative();
-  if(isHouse){
-    const watch=new MutationObserver(priceNative);
-    watch.observe(document.documentElement,{childList:true,subtree:true});
-    document.addEventListener('DOMContentLoaded',priceNative,{once:true});
-    return;
-  }
-  // Collector Jewelry uses its own item-customization cart; leave it alone rather
-  // than accidentally stripping out engraving / collector-specific fields.
-  if(isJewelry)return;
-
-  // Bring any historical homepage/Vault selections into the house cart ONCE.
-  // Preserve IDs and quantities, avoid double-counting across reloads.
-  try{
-    const flag='ns-house-cart-import-v1';
-    if(!localStorage.getItem(flag)){
-      const old=JSON.parse(localStorage.getItem(LEGACY_KEY)||'[]');
-      if(Array.isArray(old)&&old.length){
-        const items=load();
-        for(const x of old){
-          const name=String(x.name||'').trim();if(!name)continue;
-          const size=String(x.size||'ONE SIZE').toLowerCase();
-          const id=name.toLowerCase().replace(/[^a-z0-9]+/g,'-')+'-'+size;
-          if(items.some(i=>i.id===id))continue;
-          items.push({id,name,size,price:money(numPrice(x.price)),description:'Nate Savard / collector edition',image:x.src||'',optionLabel:size==='one size'?'Finish':'Select size',options:[size],quantity:Math.max(1,Number(x.qty)||1)});
-        }
-        save(items);
-      }
-      localStorage.setItem(flag,'1');
-    }
+  cart=cart.reduce((out,item)=>{if(item.id!==id){out.push(item);return out}
+   if(action==='remove')return out;
+   item.quantity=Math.max(0,(Number(item.quantity)||1)+(action==='increase'?1:-1));if(item.quantity)out.push(item);return out;
+  },[]);save();
+ };
+ cartModal.querySelector('form').onsubmit=e=>{
+  e.preventDefault();cart=getCart();if(!cart.length)return;
+  const data=new FormData(e.currentTarget);
+  const lines=['NATE SAVARD — ORDER REQUEST','','Name: '+data.get('name'),'Email: '+data.get('email'),'Location: '+data.get('location'),'','Items:',...cart.map(x=>x.name+' | '+x.size+' | Qty '+x.quantity+' | '+x.price),'','Subtotal USD: '+money(cart.reduce((t,x)=>t+cost(x.price)*(Number(x.quantity)||1),0)),'Shipping/taxes not included. No payment collected.','', 'Notes: '+(data.get('notes')||'')];
+  location.href='mailto:natesavard@outlook.com?subject='+encodeURIComponent('Nate Savard order request')+'&body='+encodeURIComponent(lines.join('\n'));
+ };
+}
+function drawCart(){if(!cartModal)return;cart=getCart();
+ const items=cartModal.querySelector('.nsc-items');items.replaceChildren();
+ for(const it of cart){const div=el('div','nsc-item');div.innerHTML=`<img src="${esc(it.image)}" alt=""><div><div class="nsc-item-name">${esc(it.name)}</div><div class="nsc-item-meta">${esc(it.optionLabel||'Select size')}: ${esc(it.size)} / QTY ${Number(it.quantity)||1} / ${esc(it.price)}</div><div class="nsc-item-actions"><button data-action="preview" data-id="${esc(it.id)}">VIEW</button><button data-action="decrease" data-id="${esc(it.id)}">−</button><button data-action="increase" data-id="${esc(it.id)}">+</button><button data-action="remove" data-id="${esc(it.id)}">REMOVE</button></div></div>`;items.append(div)}
+ if(!cart.length){const d=el('p','nsc-empty');d.textContent='Your cart is empty.';items.append(d)}
+ cartModal.querySelector('.nsc-total strong').textContent=money(cart.reduce((t,x)=>t+cost(x.price)*(Number(x.quantity)||1),0));
+ cartModal.querySelector('.nsc-submit').disabled=!cart.length;
+}
+function openCart(){closeViewer();drawCart();cartModal.classList.add('open');cartModal.setAttribute('aria-hidden','false');}
+function closeCart(){cartModal.classList.remove('open');cartModal.setAttribute('aria-hidden','true')}
+function closeViewer(){if(viewer)viewer.classList.remove('open')}
+function readCard(card){
+ const name=card.dataset.houseProduct||card.dataset.name||card.querySelector('.nsd-name,.ns-name,.card__name,.product-name,h2,h3')?.textContent?.trim()||'Nate Savard collectible';
+ const src=card.dataset.houseImage||card.querySelector('img')?.getAttribute('src')||'';
+ const localPrice=card.dataset.housePrice||card.dataset.price||null;
+ const description=card.dataset.houseDescription||card.querySelector('.nsd-description,.card__type,.ns-label')?.textContent?.trim()||'Nate Savard / collector edition';
+ const published=new Map([['nls star ’85 f/s',225],['lost dimensions: insomnia 2026',225],['envy crystal v-neck',275],['chrome star distressed tee',285],['envy legacy tee',245],['fuck up tee',295],['venus flytrap / i',295],['distressed streetwear',285],['red logo tee',195],['muscle tee',245],['speedway jersey',395],['star ashtray',185],['venus flytrap / ii',295],['fw25 technical',325],['alien graphic',275]]);
+ let o={name,image:writeImage(src),price:localPrice||money(published.get(norm(name))||DEFAULT_PRICE),description,optionLabel:'Select size',options:['xs','s','m','l','xl']};
+ const match=names.get(norm(name))||imgs.get(imageKey(src));
+ if(match)o={...o,...match,name:match.name||name,image:match.image||o.image};
+ if(!/\d/.test(String(o.price||'')))o.price=money(published.get(norm(o.name))||DEFAULT_PRICE);
+ return o;
+}
+function allCards(){return [...document.querySelectorAll('#ns-home-collection .ns-product,#archiveGrid .card,.nsd-card,#ns-home-collection .ns-hat-card')].filter(x=>!x.closest('#ns-site-commerce-mask,#ns-site-cart-mask'))}
+function optionList(p){let options=p.options&&p.options.length?p.options:['one size'];return options.map(x=>String(x).toLowerCase())}
+function openViewer(p){current=p;qty=1;chosen=optionList(p)[0];
+ viewer.querySelector('h2').textContent=p.name;
+ viewer.querySelector('.nsc-price').textContent=money(cost(p.price))+' USD';
+ viewer.querySelector('.nsc-description').textContent=p.description||'Nate Savard / collector edition';
+ viewer.querySelector('.nsc-photo img').src=p.image||'';
+ viewer.querySelector('.nsc-photo img').alt=p.name;
+ viewer.querySelector('.nsc-qty strong').textContent='1';
+ const opts=viewer.querySelector('.nsc-options');opts.replaceChildren();
+ for(const option of optionList(p)){const b=el('button');b.type='button';b.textContent=option.toUpperCase();b.className=option===chosen?'selected':'';b.onclick=()=>{chosen=option;opts.querySelectorAll('button').forEach(x=>x.classList.toggle('selected',x===b))};opts.append(b)}
+ const addBtn=viewer.querySelector('.nsc-add');addBtn.textContent='ADD TO CART';
+ viewer.classList.add('open');viewer.setAttribute('aria-hidden','false');
+}
+function add(){if(!current)return;
+ cart=getHouseCart();const id=norm(current.name).replace(/ /g,'-')+'-'+chosen.replace(/\s/g,'-');
+ const existing=cart.find(x=>x.id===id||(x.name===current.name&&x.size===chosen));
+ if(existing)existing.quantity=(Number(existing.quantity)||0)+qty;
+ else cart.push({id,name:current.name,price:money(cost(current.price)),description:current.description||'',image:current.image||'',optionLabel:current.optionLabel||'Select size',options:optionList(current),size:chosen,quantity:qty});
+ save();closeViewer();openCart();
+}
+async function loadMetadata(){if(metadataLoaded)return;metadataLoaded=true;
+ for(const url of ['/envynomadixrebirth.html','/envynomadix.html']){
+  try{const res=await fetch(url);if(!res.ok)continue;const html=await res.text();const doc=new DOMParser().parseFromString(html,'text/html');
+   for(const node of doc.querySelectorAll('[data-house-product]')){
+    const name=node.getAttribute('data-house-product');if(!name)continue;
+    const src=node.getAttribute('data-house-image')||node.querySelector('img')?.getAttribute('src')||'';
+    const opts=(node.getAttribute('data-house-options')||'').split(',').map(x=>x.trim().toLowerCase()).filter(Boolean);
+    const p={name,image:writeImage(src),price:node.getAttribute('data-house-price'),description:node.getAttribute('data-house-description')||'',optionLabel:node.getAttribute('data-house-option-label')||'Select size',options:opts.length?opts:['xs','s','m','l','xl']};
+    if(!names.has(norm(name)))names.set(norm(name),p);
+    if(src&&!imgs.has(imageKey(src)))imgs.set(imageKey(src),p);
+   }
   }catch{}
-
-  const css=document.createElement('style');css.id='ns-unified-house-shop-style';
-  css.textContent=`
-    /* Retire only the old duplicate CART button, never the product section. */
-    body.ns-cart-top-right #ns-vault-cart-open,body #ns-vault-cart-open,body #ns-home-cart-corner{display:none!important}
-    #ns-house-cart-corner{position:fixed!important;top:13px!important;right:18px!important;left:auto!important;bottom:auto!important;z-index:17020!important;border:1px solid #d6b16e55!important;border-radius:2px!important;padding:10px 14px!important;background:#070706e8!important;color:#f4e5d1!important;cursor:pointer!important;font:11px/1.2 'Courier New',monospace!important;letter-spacing:.13em!important;text-transform:uppercase!important;writing-mode:horizontal-tb!important;box-shadow:0 5px 20px #0006!important;min-width:80px!important;width:auto!important;height:auto!important}
-    #ns-house-cart-corner:hover{border-color:#d6b16e!important}
-    #ns-house-shop-backdrop{position:fixed;inset:0;z-index:18000;background:#000b;backdrop-filter:blur(5px);display:none;align-items:stretch;justify-content:flex-end}
-    #ns-house-shop-backdrop.is-open{display:flex}
-    #ns-house-shop-backdrop *{box-sizing:border-box}
-    #ns-house-shop-backdrop button{cursor:pointer}
-    #ns-house-shop-backdrop .nsh-drawer{position:relative;width:min(480px,95vw);height:100dvh;overflow-y:auto;padding:27px 25px 35px;background:linear-gradient(180deg,#0d0908f7,#030303);border-left:1px solid #d6b16e44;color:#ede1d0;box-shadow:-18px 0 55px #0008;font-family:Arial,sans-serif}
-    #ns-house-shop-backdrop .nsh-top{display:flex;gap:20px;justify-content:space-between;align-items:center;border-bottom:1px solid #d6b16e44;padding-bottom:18px;margin-bottom:21px}
-    #ns-house-shop-backdrop .nsh-eyebrow{font:10px/1.7 'Courier New',monospace;letter-spacing:.2em;color:#bb9969;text-transform:uppercase}
-    #ns-house-shop-backdrop h2{margin:3px 0 0;font:400 clamp(22px,3vw,34px)/1.2 Georgia,serif;letter-spacing:.07em;color:#f2e5d5}
-    #ns-house-shop-backdrop .nsh-close{padding:6px 12px;font-size:25px;color:#fff;background:none;border:1px solid #d6b16e55}
-    #ns-house-shop-backdrop .nsh-item{display:grid;grid-template-columns:78px 1fr;gap:14px;border-bottom:1px solid #d6b16e33;padding:15px 0}
-    #ns-house-shop-backdrop .nsh-item img{width:78px;height:96px;object-fit:contain;background:#171311}
-    #ns-house-shop-backdrop .nsh-item h3{font:13px/1.4 Georgia,serif;margin:0 0 5px;color:#fff}
-    #ns-house-shop-backdrop .nsh-meta{font:10px/1.65 'Courier New',monospace;color:#c9ac84}
-    #ns-house-shop-backdrop .nsh-actions{display:flex;gap:10px;margin-top:8px}
-    #ns-house-shop-backdrop .nsh-actions button{border:1px solid #d6b16e44;background:transparent;color:#eee;padding:5px 8px}
-    #ns-house-shop-backdrop .nsh-total{display:flex;justify-content:space-between;border-top:1px solid #d6b16e66;margin:18px 0;padding-top:14px;font:12px 'Courier New',monospace}
-    #ns-house-shop-backdrop .nsh-form{display:grid;gap:10px;margin-top:20px}
-    #ns-house-shop-backdrop .nsh-form label{font:10px 'Courier New',monospace;color:#c9ac84;text-transform:uppercase;letter-spacing:.1em}
-    #ns-house-shop-backdrop .nsh-form input,#ns-house-shop-backdrop .nsh-form textarea{display:block;width:100%;margin-top:5px;padding:12px;border:1px solid #d6b16e44;background:#100d0d;color:#fff;font:13px Arial,sans-serif}
-    #ns-house-shop-backdrop .nsh-primary{padding:13px 16px;background:#e6d1ae;color:#19120d;border:0;font:11px 'Courier New',monospace;letter-spacing:.14em;text-transform:uppercase}
-    #ns-house-shop-backdrop .nsh-primary:disabled{opacity:.45;cursor:default}
-    #ns-house-shop-backdrop .nsh-product-photo{width:100%;height:min(42vh,420px);object-fit:contain;background:#141010;margin-bottom:18px}
-    #ns-house-shop-backdrop .nsh-choice{display:flex;flex-wrap:wrap;gap:7px;padding:13px 0}
-    #ns-house-shop-backdrop .nsh-choice button{padding:9px 12px;border:1px solid #d6b16e55;color:#ddd;background:transparent;text-transform:uppercase}
-    #ns-house-shop-backdrop .nsh-choice button[aria-pressed=true]{background:#d6b16e;color:#16100a}
-    #ns-house-shop-backdrop .nsh-note{font:11px/1.7 'Courier New',monospace;color:#bda98c}
-    #ns-unified-drop .nsd-card,#archiveGrid .card__image-wrap,#ns-home-collection .ns-product{cursor:pointer}
-    @media(max-width:650px){#ns-house-cart-corner{right:9px!important;top:11px!important;padding:9px 10px!important}#ns-house-shop-backdrop .nsh-drawer{padding:18px 17px 30px}}
-  `;document.head.append(css);
-
-  const button=document.createElement('button');button.type='button';button.id='ns-house-cart-corner';button.textContent='CART / 0';button.setAttribute('aria-label','Open shared shopping cart');document.body.append(button);
-  const backdrop=document.createElement('div');backdrop.id='ns-house-shop-backdrop';backdrop.setAttribute('aria-hidden','true');
-  const drawer=document.createElement('section');drawer.className='nsh-drawer';drawer.setAttribute('role','dialog');drawer.setAttribute('aria-modal','true');drawer.setAttribute('aria-label','Nate Savard shopping');backdrop.append(drawer);document.body.append(backdrop);
-  let active=null,chosen='m',qty=1,mode='cart';
-  function count(){let n=load().reduce((a,x)=>a+Math.max(0,Number(x.quantity)||0),0);button.textContent='CART / '+n;}
-  function open(){backdrop.classList.add('is-open');backdrop.setAttribute('aria-hidden','false');document.body.style.overflow='hidden';drawer.querySelector('.nsh-close')?.focus();}
-  function close(){backdrop.classList.remove('is-open');backdrop.setAttribute('aria-hidden','true');document.body.style.overflow='';active=null;}
-  function head(label){return `<div class="nsh-top"><div><div class="nsh-eyebrow">NATE SAVARD / WORLDWIDE</div><h2>${label}</h2></div><button type="button" class="nsh-close" aria-label="Close">×</button></div>`}
-  function cart(){mode='cart';const items=load();const total=items.reduce((sum,x)=>sum+numPrice(x.price)*Math.max(1,Number(x.quantity)||1),0);
-    drawer.innerHTML=head('YOUR CART')+(items.length?items.map((x,i)=>`<div class="nsh-item"><img src="${safe(x.image)}" alt=""><div><h3>${safe(x.name)}</h3><div class="nsh-meta">${safe(x.optionLabel||'Size')}: ${safe(x.size)} / ${money(numPrice(x.price))} / qty ${Number(x.quantity)||1}</div><div class="nsh-actions"><button data-i="${i}" data-action="minus" aria-label="Reduce quantity">−</button><button data-i="${i}" data-action="plus" aria-label="Increase quantity">+</button><button data-i="${i}" data-action="remove">REMOVE</button></div></div></div>`).join(''):'<p class="nsh-note">Your cart is empty.</p>')+`<div class="nsh-total"><span>SUBTOTAL USD</span><strong>${money(total)}</strong></div><p class="nsh-note">Order request only. No payment is collected here. Shipping and availability are confirmed by email.</p><form class="nsh-form"><label>Your name<input name="name" required autocomplete="name"></label><label>Email<input name="email" type="email" required autocomplete="email"></label><label>Shipping country / location<input name="location" required></label><label>Notes<textarea name="notes" rows="2"></textarea></label><button class="nsh-primary" type="submit" ${items.length?'':'disabled'}>SEND ORDER REQUEST</button></form>`;
-    count();open();
-  }
-  // Match prices on existing products where available; otherwise exactly $129 USD.
-  const productFrom=(card)=>{
-    const name=(card.dataset.houseProduct||card.dataset.name||card.querySelector('.nsd-name,.ns-name,.card__name,.ns-product-name,h2,h3')?.textContent||'Nate Savard piece').trim();
-    const image=card.dataset.houseImage||card.querySelector('img')?.getAttribute('src')||'';
-    const priceText=card.dataset.housePrice||card.dataset.price||card.querySelector('[data-price],.ns-price,.card__price,.nsd-price')?.textContent||'';
-    const price=/\d/.test(String(priceText)) ? numPrice(priceText) : (publishedPrices.get(name.toLowerCase())||DEFAULT_PRICE);
-    const description=card.dataset.houseDescription||card.querySelector('.card__type,.nsd-sub,.ns-label')?.textContent||'Nate Savard / collector collection';
-    const category=String(card.dataset.category||card.querySelector('.card__type')?.textContent||'').toLowerCase();
-    const garment=!/object|artwork|experiment|symbol|hat|cap|accessory|jewelry/.test(category+' '+name.toLowerCase());
-    return {name,image,price,description,garment,options:garment?['xs','s','m','l','xl','xxl']:['one size']};
-  };
-  function product(card){active=productFrom(card);mode='product';chosen=active.options.includes('m')?'m':active.options[0];qty=1;
-    drawer.innerHTML=head('PRODUCT SHEET')+`<img class="nsh-product-photo" src="${safe(active.image)}" alt="${safe(active.name)}"><div class="nsh-eyebrow">ENVYNOMADIX / PRODUCT SHEET</div><h2>${safe(active.name)}</h2><p class="nsh-note">${safe(active.description)}</p><h2>${money(active.price)} USD</h2><div class="nsh-eyebrow">${active.garment?'Select size':'Option'}</div><div class="nsh-choice">${active.options.map(o=>`<button type="button" data-size="${safe(o)}" aria-pressed="${o===chosen}">${safe(o)}</button>`).join('')}</div><div class="nsh-eyebrow">Quantity: <span class="nsh-qty">1</span></div><div class="nsh-choice"><button data-qty="-1" type="button">−</button><button data-qty="1" type="button">+</button></div><button type="button" class="nsh-primary" data-add>Add to cart</button><p><button type="button" class="nsh-primary" data-view>View cart</button></p>`;
-    open();
-  }
-  function add(){if(!active)return;const items=load(),id=active.name.toLowerCase().replace(/[^a-z0-9]+/g,'-')+'-'+chosen;let same=items.find(x=>x.id===id);
-    if(same)same.quantity+=qty;else items.push({id,name:active.name,price:money(active.price),description:active.description,image:active.image,optionLabel:active.garment?'Select size':'Option',options:active.options,size:chosen,quantity:qty});
-    save(items);cart();
-  }
-  button.addEventListener('click',cart);
-  backdrop.addEventListener('click',e=>{if(e.target===backdrop||e.target.closest('.nsh-close')){close();return;}
-    const size=e.target.closest('[data-size]');if(size){chosen=size.dataset.size;drawer.querySelectorAll('[data-size]').forEach(b=>b.setAttribute('aria-pressed',String(b===size)));return;}
-    const adjust=e.target.closest('[data-qty]');if(adjust){qty=Math.min(99,Math.max(1,qty+Number(adjust.dataset.qty)));drawer.querySelector('.nsh-qty').textContent=qty;return;}
-    if(e.target.closest('[data-add]')){add();return;}
-    if(e.target.closest('[data-view]')){cart();return;}
-    const action=e.target.closest('[data-action]');if(action){const list=load(),i=Number(action.dataset.i),item=list[i];if(!item)return;
-      if(action.dataset.action==='remove')list.splice(i,1);
-      else item.quantity=Math.max(0,(Number(item.quantity)||1)+(action.dataset.action==='plus'?1:-1));
-      if(item.quantity===0)list.splice(i,1);save(list);cart();
-    }
+ }
+}
+function makeClickable(){
+  allCards().forEach(card=>{
+   if(card.tagName!=='A' && !card.hasAttribute('tabindex'))card.tabIndex=0;
+   if(card.tagName!=='A')card.setAttribute('role','button');
+   card.setAttribute('aria-label','View '+(card.dataset.name||card.querySelector('.nsd-name,.card__name,.ns-name')?.textContent?.trim()||'product'));
   });
-  backdrop.addEventListener('submit',e=>{if(!e.target.matches('.nsh-form'))return;e.preventDefault();const items=load();if(!items.length)return;const d=new FormData(e.target);const total=items.reduce((n,x)=>n+numPrice(x.price)*(Number(x.quantity)||1),0);const lines=['NATE SAVARD / ORDER REQUEST','',`Name: ${d.get('name')}`,`Email: ${d.get('email')}`,`Location: ${d.get('location')}`,'','Items:',...items.map(x=>`${x.name} | ${x.size} | Qty ${x.quantity} | ${money(numPrice(x.price)*(Number(x.quantity)||1))}`),'',`Subtotal USD: ${money(total)}`,'Shipping/taxes not included. No payment collected.','',`Notes: ${d.get('notes')||''}`];location.href='mailto:natesavard@outlook.com?subject='+encodeURIComponent('Nate Savard order request')+'&body='+encodeURIComponent(lines.join('\n'));});
-  document.addEventListener('keydown',e=>{if(e.key==='Escape'&&backdrop.classList.contains('is-open'))close();});
-  document.addEventListener('ns-house-cart-updated',count);
-  window.addEventListener('storage',e=>{if(e.key===HOUSE_KEY)count();});
-  // Capture clicks BEFORE the older Vault/homepage handlers so only one viewer opens.
-  document.addEventListener('click',e=>{
-    const card=e.target.closest('#ns-unified-drop .nsd-card, #archiveGrid .card, #ns-home-collection .ns-product');
-    if(!card||e.target.closest('#ns-house-shop-backdrop'))return;
-    if(e.target.closest('.nsd-inquiry,.card__buy,a[href^="mailto:"]'))return;
-    e.preventDefault();e.stopImmediatePropagation();product(card);
-  },true);
-  document.addEventListener('keydown',e=>{
-    if(e.key!=='Enter'&&e.key!==' ')return;
-    const card=e.target.closest('#ns-unified-drop .nsd-card, #archiveGrid .card, #ns-home-collection .ns-product');
-    if(!card||e.target.matches('a,button,input'))return;
-    e.preventDefault();e.stopImmediatePropagation();product(card);
-  },true);
-  count();
+ }
+function init(){
+ if(nativeHouse())document.body.classList.add('ns-unified-house-active');
+ if(!nativeHouse())createViewer();createCart();badge();cartButton.onclick=openCart;
+ products=allCards().map(readCard);
+ const watchNativeCart=(selector,closeSelector)=>{
+   const native=document.querySelector(selector);if(!native)return;
+   new MutationObserver(()=>{
+     if(!native.classList.contains('is-open'))return;
+     const close=document.querySelector(closeSelector);
+     if(close)close.click();else native.classList.remove('is-open');
+     openCart();
+   }).observe(native,{attributes:true,attributeFilter:['class']});
+ };
+ if(nativeHouse())watchNativeCart('#houseCartShell','#houseCartClose');
+ if(originals)watchNativeCart('#originalsCartShell','#originalsCartClose');
+ makeClickable();
+ new MutationObserver(()=>makeClickable()).observe(document.body,{childList:true,subtree:true});
+ document.addEventListener('click',e=>{
+  const target=e.target.closest('#ns-vault-cart-open,#ns-home-cart-corner,#ns-site-cart-top');
+  if(target&&target.id!=='ns-site-cart-top'){e.preventDefault();e.stopImmediatePropagation();openCart();return}
+  if(nativeHouse())return;
+  const card=e.target.closest('#ns-home-collection .ns-product,#archiveGrid .card,.nsd-card,#ns-home-collection .ns-hat-card');
+  if(!card||e.target.closest('#ns-site-commerce-mask,#ns-site-cart-mask'))return;
+  // Preserve explicit external navigation and contact links not belonging to the product card.
+  const anchor=e.target.closest('a');if(anchor&&!anchor.closest('.nsd-card,.ns-hat-card,#archiveGrid .card,.ns-product'))return;
+  e.preventDefault();e.stopImmediatePropagation();
+  products=allCards().map(readCard);openViewer(readCard(card));
+ },true);
+ document.addEventListener('keydown',e=>{
+  if(e.key==='Escape'){closeViewer();closeCart()}
+  if((e.key==='Enter'||e.key===' ')&&e.target.matches('#ns-home-collection .ns-product,#archiveGrid .card,.nsd-card,#ns-home-collection .ns-hat-card')){e.preventDefault();e.stopImmediatePropagation();products=allCards().map(readCard);openViewer(readCard(e.target))}
+ },true);
+ window.addEventListener('storage',e=>{if(e.key===KEY){cart=getCart();badge();drawCart()}});
+ loadMetadata().then(()=>{products=allCards().map(readCard)});
+}
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init,{once:true});else init();
+})();
+
+
+/* HOMEPAGE BANNER — restore clean edge-to-edge coverage without overzoom cropping.
+   Preserve the original image URLs, the Insomnia video, and slide buttons. */
+(()=>{
+ const p=location.pathname.toLowerCase();if(p!=='/'&&p!=='/index.html')return;
+ const st=document.createElement('style');st.id='ns-home-banner-no-excess-zoom';
+ st.textContent=`
+ .hero .scene{background-size:cover!important;background-repeat:no-repeat!important;inset:0!important}
+ .hero .scene--insomnia{inset:0!important;animation:none!important;transform:scale(1)!important;background-position:61% 48%!important}
+ .hero .scene.is-active{opacity:1!important}
+ .hero .scene--forever{background-position:56% 46%!important}
+ .hero .scene--tour{background-position:56% 47%!important}
+ .hero .scene--speedway{background-position:58% 43%!important}
+ .hero .scene--ghost{background-position:center!important}
+ `;
+ document.head.append(st);
 })();

@@ -38,7 +38,7 @@
 (()=>{
   if(document.querySelector('script[data-ns-primary-loader]') || document.querySelector('script[src*="ns-primary-navigation.js"]')) return;
   const tag=document.createElement('script');
-  tag.src='/ns-primary-navigation.js?v=16';
+  tag.src='/ns-primary-navigation.js?v=27';
   tag.defer=true;
   tag.dataset.nsPrimaryLoader='1';
   document.head.appendChild(tag);
