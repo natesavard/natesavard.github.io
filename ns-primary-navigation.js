@@ -1,5 +1,5 @@
 /* NATE SAVARD — shared right-side NS AUDIO / X Y Z navigation.
-   Matches the existing originals.html siteflow panel; no extra left MENU.
+   Reuses the genuine originals.html siteflow panel; no extra left MENU.
    Only mounts the panel on pages that do not already have it.
 */
 (()=>{
@@ -58,6 +58,39 @@
     const group=document.createElement('div');group.className='ns-unified-primary-links';
     links.forEach(([label,href])=>group.appendChild(buildLink(label,href)));
     jump.prepend(group);
+  }
+  function addHomepageCart(){
+    if(path!=='/' && path!=='/index.html') return;
+    if(document.getElementById('ns-home-top-cart')) return;
+    const cssId='ns-home-top-cart-style';
+    if(!document.getElementById(cssId)){
+      const css=document.createElement('style');css.id=cssId;
+      css.textContent=`
+        #ns-home-top-cart{position:fixed;top:14px;right:18px;z-index:14950;
+          padding:9px 13px;color:#f6e4ca;background:rgba(5,5,5,.75);
+          border:1px solid rgba(213,176,123,.3);border-radius:2px;
+          font:10px/1.25 'Courier New',monospace;letter-spacing:.16em;
+          text-decoration:none;white-space:nowrap;backdrop-filter:blur(8px)}
+        #ns-home-top-cart:hover,#ns-home-top-cart:focus-visible{
+          color:#fff;border-color:rgba(237,216,185,.7)}
+        @media(max-width:760px){#ns-home-top-cart{top:9px;right:9px;font-size:9px;padding:8px 9px}}
+      `;
+      document.head.appendChild(css);
+    }
+    const cart=document.createElement('a');
+    cart.id='ns-home-top-cart';cart.href='/originals.html#cart';
+    cart.textContent='CART';cart.setAttribute('aria-label','Open Jewelry cart');
+    document.body.appendChild(cart);
+  }
+  function openJewelryCartFromLink(){
+    if(path!=='/originals.html'||location.hash!=='#cart') return;
+    // Reuse the real Jewelry cart; do not invent a duplicate cart state.
+    const toggle=document.getElementById('originalsCartToggle');
+    if(!toggle) return;
+    const entrance=document.getElementById('enterButton');
+    if(entrance && !document.body.classList.contains('originals-entered')) entrance.click();
+    toggle.click();
+    history.replaceState(null,'',location.pathname+location.search);
   }
   function addJournalTop(){
     if(path!=='/'&&path!=='/index.html')return;
@@ -133,7 +166,7 @@
     return shell;
   }
   function mount(){
-    style();addJournalTop();
+    style();addJournalTop();addHomepageCart();openJewelryCartFromLink();
     const existing=document.querySelector('.siteflow-shell:not(.ns-unified-right-panel)');
     if(existing){
       const ours=document.querySelector('.ns-unified-right-panel');if(ours)ours.remove();
@@ -151,7 +184,7 @@
       requestAnimationFrame(()=>{queued=false;
         const real=document.querySelector('.siteflow-shell:not(.ns-unified-right-panel)');
         if(real){const surrogate=document.querySelector('.ns-unified-right-panel');if(surrogate)surrogate.remove();addFiveToPanel(real);}
-        addJournalTop();
+        addJournalTop();addHomepageCart();
       });
     });
     watcher.observe(document.body,{childList:true,subtree:true});
