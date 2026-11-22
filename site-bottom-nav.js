@@ -444,3 +444,20 @@ button.floating-top-cross:hover {
  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',start,{once:true});
  else start();
 })();
+
+
+/* Rebirth navigation label update — exact two labels only. */
+(()=>{
+  'use strict';
+  if (!/\/envynomadixrebirth\.html?$/i.test(location.pathname)) return;
+  function changeLabels(){
+    const nav=document.querySelector('.lux-reveal .lux-nav');
+    if(!nav)return;
+    const jewelry=nav.querySelector('a[href="#jewelryPhase"]');
+    const originals=nav.querySelector('a[href="originals.html"]');
+    if(jewelry)jewelry.textContent='COLLLECTIONS';
+    if(originals)originals.textContent='Hardware Gold & Gemstones by NLS';
+  }
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',changeLabels,{once:true});
+  else changeLabels();
+})();
