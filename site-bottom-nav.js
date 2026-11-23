@@ -1,3 +1,25 @@
+/* Rebirth: eliminate old gallery asset flash before deferred gallery upgrades.
+ * Scoped to the Rebirth page. No product, cart, audio, or navigation changes.
+ * This script is loaded synchronously at the bottom of Rebirth's HTML, so
+ * the obsolete images are replaced before the later deferred gallery script. */
+(()=>{
+  'use strict';
+  if (!/\/envynomadixrebirth\.html$/i.test(location.pathname)) return;
+  const rail=document.querySelector('.rebirth-stack');
+  if(!rail)return;
+  const main=rail.querySelector('img.rebirth-photo-main');
+  const second=rail.querySelector('img.rebirth-photo-second');
+  const third=rail.querySelector('img.rebirth-photo-third');
+  // Use precisely the approved media already used by ns-unified-drop.js.
+  if(main){main.setAttribute('src','/rebirth-hero-01-purple.webp');main.removeAttribute('srcset');}
+  if(second){second.setAttribute('src','/rebirth-hero-04-video-poster.jpg');second.removeAttribute('srcset');}
+  if(third){third.setAttribute('src','/rebirth-hero-03-portrait.webp');third.removeAttribute('srcset');}
+  const obsolete=rail.querySelector('.rebirth-photo-fourth');
+  if(obsolete)obsolete.remove();
+  // Original decorative stamps were also part of the superseded gallery.
+  rail.querySelectorAll('.rebirth-stamp').forEach(el=>el.remove());
+})();
+
 /* Remove Envy cross BUTTON discs across all pages using the shared site script. */
 (()=>{
   if(document.getElementById('ns-clean-envy-cross-sitewide-v1'))return;
