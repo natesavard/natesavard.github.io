@@ -59,10 +59,19 @@ h2{font-size:clamp(65px,10.8vw,175px);font-weight:900;letter-spacing:-.085em;lin
 .end .ns-journal-archive-links{margin:0;flex-basis:100%;order:5}
 @media(max-width:650px){.ns-journal-archive-links{gap:10px 16px;font-size:10px}}
 </style>
+
+<style id="ns-journal-live-posts-style">
+.ns-live-journal-entry .writing{max-width:760px;white-space:pre-line}
+.ns-live-journal-entry .writing a{color:#ff5c51;text-decoration:underline;text-underline-offset:4px}
+.ns-journal-post-media{width:min(100%,760px);margin:22px 0 0;aspect-ratio:16/9;background:#090909;border:1px solid rgba(255,255,255,.16)}
+.ns-journal-post-media iframe,.ns-journal-post-media video{display:block;width:100%;height:100%;border:0;object-fit:contain}
+.ns-live-journal-entry:not([style*="url("]) .entry-photo{background-image:none!important;background:radial-gradient(ellipse at 70% 30%,rgba(100,20,24,.30),transparent 60%)!important}
+@media(max-width:650px){.ns-journal-post-media{margin-top:16px}}
+</style>
 </head>
 <body>
 <div class="ns-transition" aria-hidden="true"><img class="ns-transition-mark" src="/assets/ns-chrome-monogram.webp" alt=""></div>
-<header class="site-header"><nav><a href="https://natesavard.com">HOME</a><a href="#entry-01">JOURNAL</a><a href="#end">INDEX</a></nav></header>
+<header class="site-header"><nav><a href="https://natesavard.com">HOME</a><a href="#entry-01">JOURNAL</a><a href="#end">INDEX</a><a href="/cmd/" title="Private journal editor — GitHub sign-in">WRITE / LOGIN</a></nav></header>
 <main id="journal-track">
 <!-- Editing guide: edit headings and paragraphs in the ten original articles below. The looped copies are generated automatically and never edited by hand. Add new images inside images/ and change --photo on new articles. -->
 <!-- ENTRY 01 -->
@@ -106,9 +115,11 @@ NS / UNSCRIPTED.</p><p>Let Love and Fate find us all</p><!-- I have nothing but 
 <footer class="end" id="end"><nav class="ns-journal-archive-links" aria-label="Journal archive destinations"><span>EXPLORE THE ARCHIVE</span><a href="/main.html">PORTAL</a><a href="/gemstone-field-distortion-paradox.html">GEMSTONE</a><a href="/scrapbook.html">SCRAPBOOK</a></nav><strong>NATE SAVARD / JOURNAL</strong><span>LIVE 2026 oct 11 / NO FINAL VERSION</span><a href="https://natesavard.com">RETURN TO MAIN SITE ↗</a></footer>
 <button type="button" class="motion-control" id="motion-control" aria-pressed="false" aria-label="Pause automatic journal movement">PAUSE MOTION</button>
 <button type="button" class="envy-to-top" id="envy-to-top" aria-label="Return to top" title="Return to top"><img src="/envy-cross.png" alt=""></button>
+<script src="/journal-posts-loader.js"></script>
 <script>
-(()=>{
+(async()=>{
 'use strict';
+await window.nsJournalPostsReady;
 const reduced=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 const main=document.getElementById('journal-track');
 const originals=Array.from(main.querySelectorAll(':scope > article.entry'));

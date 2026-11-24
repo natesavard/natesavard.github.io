@@ -1,0 +1,56 @@
+# Secure editor: log in at https://app.pagescms.org/ with your GitHub account.
+# Page edits save directly to journal-feed.json, read by journal.html.
+media:
+  - name: journal_images
+    label: Journal photos
+    input: journal-media/images
+    output: /journal-media/images
+    rename: safe
+    categories: [image]
+  - name: journal_videos
+    label: Journal videos
+    input: journal-media/videos
+    output: /journal-media/videos
+    rename: safe
+    categories: [video]
+content:
+  - name: journal_posts
+    label: Journal — write and publish
+    type: file
+    path: journal-feed.json
+    format: json
+    list: true
+    fields:
+      - name: title
+        label: Title
+        type: string
+        required: true
+      - name: date
+        label: Date
+        type: date
+        required: true
+        options:
+          format: yyyy-MM-dd
+      - name: body
+        label: Your writing
+        type: rich-text
+        options:
+          format: markdown
+          media: journal_images
+      - name: image
+        label: Feature photo (optional)
+        type: image
+        options:
+          media: journal_images
+      - name: video
+        label: Uploaded video (optional)
+        type: file
+        options:
+          media: journal_videos
+      - name: youtube
+        label: YouTube link (optional)
+        type: string
+      - name: published
+        label: Published
+        type: boolean
+        default: true
