@@ -34,14 +34,17 @@
   }
 
   function sync(scope, photos) {
+    const matched = new Set();
     for (const [selector, nameField, viewerField] of rules) {
       const cards = [...scope.querySelectorAll(selector)];
       if (scope.matches?.(selector)) cards.unshift(scope);
       for (const card of cards) {
         const label = nameField ? card.dataset[nameField] : card.querySelector('.nsd-name')?.textContent;
-        const image = photos.get(key(label));
+        const name = key(label);
+        const image = photos.get(name);
         const thumbnail = card.querySelector('img');
         if (!image || !thumbnail) continue;
+        matched.add(name);
         if (thumbnail.getAttribute('src') !== image) {
           thumbnail.removeAttribute('srcset');
           thumbnail.src = image;
@@ -49,6 +52,20 @@
         if (viewerField && card.dataset[viewerField] !== image) card.dataset[viewerField] = image;
       }
     }
+    return matched;
+  }
+
+  function refresh(photos) {
+    const matched = sync(document, photos);
+    const gallery = document.getElementById('ns-atelier-public');
+    if (!gallery) return;
+    const cards = [...gallery.querySelectorAll('.at-piece')];
+    for (const card of cards) {
+      const name = card.querySelector('img.front')?.alt;
+      const duplicate = matched.has(key(name));
+      card.style.display = duplicate ? 'none' : '';
+    }
+    gallery.style.display = cards.length && cards.every(card => card.style.display === 'none') ? 'none' : '';
   }
 
   fetch('/atelier-catalog.json', {cache:'no-store'})
@@ -60,17 +77,17 @@
       if (!Array.isArray(list)) return;
       const photos = collect(list);
       if (!photos.size) return;
-      sync(document, photos);
-      const selector = rules.map(([value]) => value).join(',');
+      refresh(photos);
+      const selector = [...rules.map(([value]) => value), '#ns-atelier-public', '#ns-atelier-public .at-piece'].join(',');
       let scheduled = false;
       new MutationObserver(records => {
-        if (scheduled || !records.some(record => Array.from(record.addedNodes).some(node =>
+        if (scheduled || !records.some(record => [...record.addedNodes, ...record.removedNodes].some(node =>
           node.nodeType === 1 && (node.matches(selector) || node.querySelector(selector) ||
             (node.matches('img') && node.closest(selector)))))) return;
         scheduled = true;
         requestAnimationFrame(() => {
           scheduled = false;
-          sync(document, photos);
+          refresh(photos);
         });
       }).observe(document.body, {childList:true,subtree:true});
     })
