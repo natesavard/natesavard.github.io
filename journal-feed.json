@@ -23,7 +23,13 @@
     "image": "/journal-media/images/1795550087555-IMG_0164.JPG",
     "video": "",
     "youtube": "",
-    "published": true
+    "published": true,
+    "overlay": {
+      "type": "journal",
+      "position": "bottom-right",
+      "size": "small",
+      "opacity": 1
+    }
   },
   {
     "id": "061c6f41-cf51-41d8-a1c8-e9cb4d239d08",
