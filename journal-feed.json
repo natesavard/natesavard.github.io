@@ -1,5 +1,21 @@
 [
   {
+    "id": "0b16f4ee-996e-4538-84f1-9b1761dd5a83",
+    "date": "2026-11-24",
+    "title": "behind the scenes",
+    "body": "whatever happened to that guy",
+    "image": "/journal-media/images/1795583633763-7d44e65d-99a9-4744-87d8-6a390ae24c60.jpg",
+    "video": "",
+    "youtube": "",
+    "overlay": {
+      "type": "journal",
+      "position": "bottom-right",
+      "size": "small",
+      "opacity": 1
+    },
+    "published": true
+  },
+  {
     "id": "009bf4c7-be1f-4d75-ae9a-fd3f8ceaf9c1",
     "date": "2026-11-24",
     "title": "Welcome to the Club of Hearts",
