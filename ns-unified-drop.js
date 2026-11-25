@@ -453,3 +453,14 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',updateCopy,{once:true});
   else updateCopy();
 })();
+
+
+/* L'ATELIER — additive product catalog loader: no changes to existing store logic. */
+(()=>{
+  if(document.querySelector('script[data-ns-atelier-loader]'))return;
+  const s=document.createElement('script');
+  s.src='/atelier-public.js?v=1';
+  s.defer=true;
+  s.dataset.nsAtelierLoader='1';
+  document.head.appendChild(s);
+})();
