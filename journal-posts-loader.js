@@ -84,6 +84,75 @@
     content.append(frame);
   }
 
+  // The original first Journal entry is the source of truth for the animated
+  // multicolour logo. Clone its SVG, including gradients and motion classes,
+  // rather than approximate the design or introduce a new artwork asset.
+  const overlayTypes = new Set(['journal', 'monogram']);
+  const overlayPositions = new Set(['top-left', 'center', 'bottom-right']);
+  const overlaySizes = new Set(['small', 'medium', 'large']);
+  function overlaySettings(post) {
+    const o = post.overlay;
+    if (!o || typeof o !== 'object' || !overlayTypes.has(o.type)) return null;
+    const opacity = Number(o.opacity);
+    return {
+      type: o.type,
+      position: overlayPositions.has(o.position) ? o.position : 'top-left',
+      size: overlaySizes.has(o.size) ? o.size : 'medium',
+      opacity: Number.isFinite(opacity) ? Math.max(.2, Math.min(1, opacity)) : 1
+    };
+  }
+  function cloneExactJournalLogo(uniqueIndex) {
+    const original = document.querySelector('#entry-01 .entry-logo');
+    if (!original) return null;
+    const wrapper = document.createElement('div');
+    wrapper.className = 'entry-logo ns-post-logo-art';
+    const svg = original.querySelector('svg');
+    if (!svg) return null;
+    const copy = svg.cloneNode(true);
+    const renamed = new Map();
+    copy.querySelectorAll('[id]').forEach(el => {
+      const prior = el.id;
+      const next = 'ns-post-' + uniqueIndex + '-' + prior;
+      renamed.set(prior, next);
+      el.id = next;
+    });
+    copy.querySelectorAll('*').forEach(el => {
+      for (const attribute of ['mask', 'filter', 'fill', 'stroke', 'href', 'xlink:href']) {
+        const value = el.getAttribute(attribute);
+        if (!value) continue;
+        let updated = value;
+        renamed.forEach((next, prior) => {
+          updated = updated.replaceAll('url(#' + prior + ')', 'url(#' + next + ')');
+          if (updated === '#' + prior) updated = '#' + next;
+        });
+        if (updated !== value) el.setAttribute(attribute, updated);
+      }
+    });
+    wrapper.append(copy);
+    return wrapper;
+  }
+  function addOverlay(entry, post, index) {
+    const setting = overlaySettings(post);
+    if (!setting) return;
+    const host = document.createElement('div');
+    host.className = 'ns-post-overlay ns-post-overlay--' + setting.type + ' ns-post-overlay--' + setting.position + ' ns-post-overlay--' + setting.size;
+    host.style.opacity = String(setting.opacity);
+    host.setAttribute('aria-hidden', 'true');
+    if (setting.type === 'journal') {
+      const logo = cloneExactJournalLogo(index + 1);
+      if (!logo) return;
+      host.append(logo);
+    } else {
+      const image = document.createElement('img');
+      image.src = '/assets/ns-chrome-monogram.webp';
+      image.alt = '';
+      image.loading = 'lazy';
+      image.decoding = 'async';
+      host.append(image);
+    }
+    entry.append(host);
+  }
+
   function makeEntry(post, index, count) {
     const entry = document.createElement('article');
     // The original journal's first static entry is left. Keep the entire
@@ -107,6 +176,7 @@
     const shade = document.createElement('div');
     shade.className = 'shade';
     entry.append(shade);
+    addOverlay(entry, post, index);
 
     const content = document.createElement('div');
     content.className = 'entry-content';
@@ -140,6 +210,24 @@
     const style = document.createElement('style');
     style.id = 'ns-journal-live-media-style';
     style.textContent = '.ns-journal-post-media{width:min(100%,760px);margin:30px 0 0;position:relative;z-index:2}.ns-journal-post-media iframe,.ns-journal-post-media video{display:block;width:100%;border:1px solid rgba(255,255,255,.2);background:#000;aspect-ratio:16/9;object-fit:contain}.ns-live-journal-entry .writing{overflow-wrap:anywhere}';
+    style.textContent += `
+.ns-live-journal-entry .ns-post-overlay{position:absolute;z-index:0;pointer-events:none;display:flex;align-items:center;justify-content:center;max-width:calc(100% - 32px);transform:translate(-50%,-50%);isolation:isolate}
+.ns-live-journal-entry .ns-post-overlay--top-left{left:28%;top:22%}
+.ns-live-journal-entry .ns-post-overlay--center{left:50%;top:46%}
+.ns-live-journal-entry .ns-post-overlay--bottom-right{left:75%;top:76%}
+.ns-live-journal-entry .ns-post-overlay--journal.ns-post-overlay--small{width:min(33vw,420px)}
+.ns-live-journal-entry .ns-post-overlay--journal.ns-post-overlay--medium{width:min(53vw,660px)}
+.ns-live-journal-entry .ns-post-overlay--journal.ns-post-overlay--large{width:min(73vw,900px)}
+.ns-live-journal-entry .ns-post-overlay--monogram.ns-post-overlay--small{width:min(18vw,230px)}
+.ns-live-journal-entry .ns-post-overlay--monogram.ns-post-overlay--medium{width:min(29vw,390px)}
+.ns-live-journal-entry .ns-post-overlay--monogram.ns-post-overlay--large{width:min(44vw,610px)}
+.ns-live-journal-entry .ns-post-overlay .entry-logo{width:100%;margin:0;max-width:none}
+.ns-live-journal-entry .ns-post-overlay .entry-logo svg{display:block;width:100%;height:auto}
+.ns-live-journal-entry .ns-post-overlay--monogram img{display:block;width:100%;height:auto;object-fit:contain;animation:ns-journal-monogram-spin 13s linear infinite;filter:drop-shadow(0 0 20px rgba(240,225,210,.32))}
+@keyframes ns-journal-monogram-spin{from{transform:rotateY(0deg)}to{transform:rotateY(360deg)}}
+@media(max-width:650px){.ns-live-journal-entry .ns-post-overlay--top-left{left:38%;top:25%}.ns-live-journal-entry .ns-post-overlay--center{left:50%;top:43%}.ns-live-journal-entry .ns-post-overlay--bottom-right{left:65%;top:72%}.ns-live-journal-entry .ns-post-overlay--journal.ns-post-overlay--small{width:48vw}.ns-live-journal-entry .ns-post-overlay--journal.ns-post-overlay--medium{width:72vw}.ns-live-journal-entry .ns-post-overlay--journal.ns-post-overlay--large{width:92vw}.ns-live-journal-entry .ns-post-overlay--monogram.ns-post-overlay--small{width:28vw}.ns-live-journal-entry .ns-post-overlay--monogram.ns-post-overlay--medium{width:44vw}.ns-live-journal-entry .ns-post-overlay--monogram.ns-post-overlay--large{width:67vw}}
+@media(prefers-reduced-motion:reduce){.ns-live-journal-entry .ns-post-overlay--monogram img{animation:none}}
+`;
     document.head.append(style);
   }
 
