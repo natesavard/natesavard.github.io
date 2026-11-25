@@ -5,7 +5,7 @@
 (()=>{'use strict';
 const path=location.pathname.toLowerCase();
 const home=path==='/'||path==='/index.html';
-const signature=path.endsWith('/envynomadix-signature-collection.html');
+const signature=path==='/envynomadix-signature-collection.html'||path==='/envynomadix-signature-collection';
 const vault=path.endsWith('/vault.html');
 if(!home&&!signature&&!vault)return;
 const target=home?'home':signature?'signature':'vault';
@@ -27,5 +27,16 @@ products.forEach(p=>{let card=document.createElement('button');card.type='button
 // Append curated section near the end, before existing footer. Never modify original product cards.
 let destination=document.querySelector('footer')||document.querySelector('.ns-bottom-nav');if(destination&&destination.parentNode)destination.parentNode.insertBefore(section,destination);else document.body.append(section);
 }
-fetch('/atelier-catalog.json',{cache:'no-store'}).then(r=>{if(!r.ok)throw Error('Catalog unavailable');return r.json()}).then(list=>{if(!Array.isArray(list))return;const active=list.filter(p=>p&&p.visible!==false&&p.placements&&p.placements[target]&&valid(p.image));if(active.length)build(active)}).catch(e=>console.warn('Atelier catalog skipped; original collection unaffected.',e));
+function updateSignatureImages(products) {
+  const images = new Map(products.map(piece => [piece.name, valid(piece.image)]));
+  document.querySelectorAll('.product-card[data-product][data-shirt-viewer]').forEach(card => {
+    const image = images.get(card.dataset.product);
+    const thumbnail = card.querySelector('img');
+    if (!image || !thumbnail) return;
+    thumbnail.removeAttribute('srcset');
+    thumbnail.src = image;
+    card.dataset.shirtViewer = image;
+  });
+}
+fetch('/atelier-catalog.json',{cache:'no-store'}).then(r=>{if(!r.ok)throw Error('Catalog unavailable');return r.json()}).then(list=>{if(!Array.isArray(list))return;const active=list.filter(p=>p&&p.visible!==false&&p.placements&&p.placements[target]&&valid(p.image));if(signature)updateSignatureImages(active);if(active.length)build(active)}).catch(e=>console.warn('Atelier catalog skipped; original collection unaffected.',e));
 })();
