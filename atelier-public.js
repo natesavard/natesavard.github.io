@@ -7,8 +7,7 @@ const path=location.pathname.toLowerCase();
 const home=path==='/'||path==='/index.html';
 const signature=path==='/envynomadix-signature-collection.html'||path==='/envynomadix-signature-collection';
 const vault=path.endsWith('/vault.html');
-const rebirth=path==='/envynomadixrebirth.html'||path==='/envynomadixrebirth';
-if(!home&&!signature&&!vault&&!rebirth)return;
+if(!home&&!signature&&!vault)return;
 const target=home?'home':signature?'signature':'vault';
 const valid=v=>typeof v==='string'&&/^\/(?!\/)[^<>"']+$/.test(v)?v:'';
 function css(){if(document.getElementById('ns-atelier-public-css'))return;let s=document.createElement('style');s.id='ns-atelier-public-css';s.textContent=`
@@ -39,15 +38,5 @@ function updateSignatureImages(products) {
     card.dataset.shirtViewer = image;
   });
 }
-function updateRebirthShoe(products) {
-  const piece=products.find(product=>product?.visible!==false &&
-    product?.name==='Nate Savard SZ 66 — Custom Skate Low' && valid(product.image));
-  const card=document.querySelector('[data-house-product="NS SZ 66 — Custom Skate Low"]');
-  const thumbnail=card?.querySelector('img');
-  if(!piece||!thumbnail)return;
-  thumbnail.removeAttribute('srcset');
-  thumbnail.src=piece.image;
-  card.dataset.houseImage=piece.image;
-}
-fetch('/atelier-catalog.json',{cache:'no-store'}).then(r=>{if(!r.ok)throw Error('Catalog unavailable');return r.json()}).then(list=>{if(!Array.isArray(list))return;const active=list.filter(p=>p&&p.visible!==false&&p.placements&&p.placements[target]&&valid(p.image));if(rebirth){updateRebirthShoe(list);return}if(signature)updateSignatureImages(active);if(active.length)build(active)}).catch(e=>console.warn('Atelier catalog skipped; original collection unaffected.',e));
+fetch('/atelier-catalog.json',{cache:'no-store'}).then(r=>{if(!r.ok)throw Error('Catalog unavailable');return r.json()}).then(list=>{if(!Array.isArray(list))return;const active=list.filter(p=>p&&p.visible!==false&&p.placements&&p.placements[target]&&valid(p.image));if(signature)updateSignatureImages(active);if(active.length)build(active)}).catch(e=>console.warn('Atelier catalog skipped; original collection unaffected.',e));
 })();
